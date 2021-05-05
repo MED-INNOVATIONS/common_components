@@ -496,7 +496,7 @@
 }
 
 .e-schedule .e-new-event {
-  background-color: #3f51b5;
+  background-color: #007bff;
   border: 1px solid #fff;
   border-radius: 5px;
   height: 100%;
@@ -777,7 +777,7 @@
 }
 
 .e-schedule .e-vertical-view.e-timescale-disable .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -1074,7 +1074,7 @@
 }
 
 .e-schedule .e-vertical-view .e-all-day-appointment-wrapper .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -1133,7 +1133,7 @@
 }
 
 .e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -1425,7 +1425,7 @@
 }
 
 .e-schedule .e-month-view .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -1557,7 +1557,7 @@
 
 .e-schedule .e-year-view .e-calendar-wrapper .e-month-calendar.e-calendar .e-appointment,
 .e-schedule .e-year-view .e-calendar-wrapper .e-month-calendar.e-calendar .e-appointment-indicator {
-  background-color: #3f51b5;
+  background-color: #007bff;
   border-radius: 50%;
   height: 5px;
   margin-left: 13px;
@@ -1863,7 +1863,7 @@
 }
 
 .e-schedule .e-timeline-year-view .e-event-table .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -2137,7 +2137,7 @@
 
 .e-schedule .e-timeline-view .e-appointment,
 .e-schedule .e-timeline-month-view .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border: 1px solid #e8eaf6;
   border-radius: 2px;
   color: #fff;
@@ -2455,7 +2455,7 @@
 }
 
 .e-schedule .e-month-agenda-view .e-appointment {
-  border-left: 3px solid #3f51b5;
+  border-left: 3px solid #007bff;
   border-right: 0;
   cursor: default;
   padding: 0 8px;
@@ -2525,7 +2525,7 @@
 }
 
 .e-schedule .e-month-agenda-view .e-appointment-indicator {
-  background: #3f51b5;
+  background: #007bff;
   border-radius: 50%;
   height: 6px;
   left: 0;
@@ -2545,7 +2545,7 @@
 
 .e-schedule.e-rtl .e-month-agenda-view .e-appointment {
   border-left: 0;
-  border-right: 3px solid #3f51b5;
+  border-right: 3px solid #007bff;
 }
 
 .e-schedule.e-rtl .e-month-agenda-view .e-resource-column {
@@ -2587,7 +2587,7 @@
 }
 
 .e-schedule .e-agenda-view .e-month-header {
-  background: #3f51b5;
+  background: #007bff;
   height: 100px;
   padding-top: 12px;
   vertical-align: top;
@@ -2714,7 +2714,7 @@
 }
 
 .e-schedule .e-agenda-view .e-appointment {
-  border-left: 3px solid #3f51b5;
+  border-left: 3px solid #007bff;
   border-right: 0;
   cursor: default;
   padding: 0 8px;
@@ -2767,7 +2767,7 @@
 
 .e-schedule.e-rtl .e-agenda-view .e-appointment {
   border-left: 0;
-  border-right: 3px solid #3f51b5;
+  border-right: 3px solid #007bff;
 }
 
 .e-schedule.e-rtl .e-agenda-view .e-resource-column {
@@ -3526,7 +3526,7 @@
 }
 
 .e-quick-popup-wrapper .e-event-popup .e-popup-header {
-  background-color: #3f51b5;
+  background-color: #007bff;
 }
 
 .e-quick-popup-wrapper .e-event-popup .e-popup-header .e-header-icon-wrapper {
@@ -3824,7 +3824,7 @@
 }
 
 .e-appointment.e-schedule-event-clone {
-  background: #3f51b5;
+  background: #007bff;
   border-radius: 2px;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
   color: #fff;
@@ -4002,7 +4002,7 @@
 }
 
 .e-more-popup-wrapper .e-appointment {
-  background: #3f51b5;
+  background: #007bff;
   border-radius: 2px;
   color: #fff;
   display: -ms-flexbox;

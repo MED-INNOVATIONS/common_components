@@ -19,18 +19,19 @@ export class ReservationScheduler extends Component {
     super(...arguments);
     this.state = {
       closedDates: this.props.closedDates ? this.props.closedDates : [],
-      dataSource: { dataSource: this.props.events || [] }
+      dataSource: { dataSource: this.props.events || [] },
     }
     this.scheduleObj = null;
+    this.currentView = this.props.currentView || "Month";
     this.selectedDate = moment().format(date_format);
 
     this.checkSelectedDate = this.checkSelectedDate.bind(this);
     this.checkClosedDate = this.checkClosedDate.bind(this);
-
+    this.changeAgendaRange = this.changeAgendaRange.bind(this);
   }
 
   componentDidMount() {
-
+    this.currentView = this.props.currentView || "Month";
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +47,8 @@ export class ReservationScheduler extends Component {
       }
 
       if (currentView != null) {
-        this.scheduleObj.changeCurrentView(currentView)
+        this.scheduleObj.changeCurrentView(currentView);
+        this.currentView = currentView;
       }
 
       var new_events = events || [];
@@ -109,6 +111,21 @@ export class ReservationScheduler extends Component {
     }
   }
 
+  /*************************************************************************/
+  /************************** RENDER ***************************************/
+  /*************************************************************************/
+  changeAgendaRange() {
+    if (this.currentView == "Agenda") {
+      setTimeout(() => {
+        if (this.props.onChangeAgendaRange) {
+          var first = _.first(this.scheduleObj.activeView.renderDates);
+          var last = _.last(this.scheduleObj.activeView.renderDates);
+
+          this.props.onChangeAgendaRange(first, last);
+        }
+      }, 100)
+    }
+  }
 
   /*************************************************************************/
   /************************** RENDER ***************************************/
@@ -157,18 +174,18 @@ export class ReservationScheduler extends Component {
     }
 
     function navigating(props) {
+      var { previousDate, currentDate, action, currentView } = props;
+
       var today = moment().format(date_format);
-      var previousDate = props.previousDate
-        ? moment(props.previousDate).format(date_format)
-        : null;
-      var currentDate = props.currentDate
-        ? moment(props.action.currentDate).format(date_format)
-        : null;
+      previousDate = previousDate ? moment(previousDate).format(date_format) : null;
+      currentDate = currentDate ? moment(currentDate).format(date_format) : null;
+
       if (
-        props.action == "date" &&
+        action == "date" &&
         currentDate &&
         currentDate == today &&
-        previousDate != today
+        previousDate != today &&
+        currentView == "Month"
       ) {
         self.scheduleObj.selectedDate = new Date();
         self.selectedDate = moment().format(date_format);
@@ -178,10 +195,12 @@ export class ReservationScheduler extends Component {
         }
       }
 
-      if (props.action == "view" && self.props.onChangeView) {
-        var currentView = props.currentView;
+      if (action == "view" && self.props.onChangeView) {
+        self.currentView = currentView;
         self.props.onChangeView(currentView);
       }
+
+      self.changeAgendaRange();
     }
 
     return (
