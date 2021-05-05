@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { OverlayTrigger, Tooltip, Row, Col } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Month } from '@syncfusion/ej2-react-schedule';
+import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
 
 function _extends() {
@@ -154,16 +154,18 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
 var _ = require("lodash");
 
 var date_format = "DD/MM/YYYY";
-
 var ReservationScheduler = /*#__PURE__*/function (_Component) {
   _inheritsLoose(ReservationScheduler, _Component);
 
-  function ReservationScheduler(props) {
+  function ReservationScheduler() {
     var _this;
 
-    _this = _Component.call(this, props) || this;
+    _this = _Component.apply(this, arguments) || this;
     _this.state = {
-      closedDates: _this.props.closedDates ? _this.props.closedDates : []
+      closedDates: _this.props.closedDates ? _this.props.closedDates : [],
+      dataSource: {
+        dataSource: _this.props.events || []
+      }
     };
     _this.scheduleObj = null;
     _this.selectedDate = moment().format(date_format);
@@ -174,33 +176,35 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
 
   var _proto = ReservationScheduler.prototype;
 
+  _proto.componentDidMount = function componentDidMount() {};
+
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
 
-    if (nextProps.closedDates && nextProps.closedDates.toString() !== this.state.closedDates.toString()) {
+    var closedDates = nextProps.closedDates,
+        currentView = nextProps.currentView,
+        events = nextProps.events;
+
+    if (this.scheduleObj != null) {
+      if (closedDates && closedDates.toString() !== this.state.closedDates.toString()) {
+        this.setState({
+          closedDates: closedDates
+        }, function () {
+          _this2.scheduleObj.refresh();
+        });
+      }
+
+      if (currentView != null) {
+        this.scheduleObj.changeCurrentView(currentView);
+      }
+
+      var new_events = events || [];
+      var dataSource = {
+        dataSource: new_events
+      };
       this.setState({
-        closedDates: nextProps.closedDates
-      }, function () {
-        _this2.scheduleObj.refresh();
+        dataSource: dataSource
       });
-    }
-  };
-
-  _proto.parseClosedDates = function parseClosedDates(closedDates) {
-    var closed_day = closedDates.length ? _.map(this.state.closedDates, function (el) {
-      var se = new Date(el);
-      var s = new Date(se.getFullYear(), se.getMonth(), se.getDate()).getTime();
-      return s;
-    }) : [];
-    return closed_day;
-  };
-
-  _proto.checkClosedDate = function checkClosedDate(args) {
-    var closed_day = this.parseClosedDates(this.state.closedDates);
-    var date = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate()).getTime();
-
-    if (args.elementType == "monthCells" && closed_day.indexOf(date) > -1) {
-      args.element.classList.add("e-current-date");
     }
   };
 
@@ -223,6 +227,27 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
         args.element.classList.add("e-current-day");
       } else {
         args.element.classList.remove("e-current-day");
+      }
+    }
+  };
+
+  _proto.parseClosedDates = function parseClosedDates(closedDates) {
+    var closed_day = closedDates.length ? _.map(this.state.closedDates, function (el) {
+      var se = new Date(el);
+      var s = new Date(se.getFullYear(), se.getMonth(), se.getDate()).getTime();
+      return s;
+    }) : [];
+    return closed_day;
+  };
+
+  _proto.checkClosedDate = function checkClosedDate(args) {
+    var closed_day = this.parseClosedDates(this.state.closedDates);
+
+    if (args.date) {
+      var date = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate()).getTime();
+
+      if (args.elementType == "monthCells" && closed_day.indexOf(date) > -1) {
+        args.element.classList.add("e-current-date");
       }
     }
   };
@@ -291,23 +316,40 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
           self.props.onChangeDate(moment());
         }
       }
+
+      if (props.action == "view" && self.props.onChangeView) {
+        var currentView = props.currentView;
+        self.props.onChangeView(currentView);
+      }
     }
 
-    return /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ScheduleComponent, {
-      height: "450px",
+    return /*#__PURE__*/React.createElement(ScheduleComponent, {
       ref: function ref(schedule) {
         return _this3.scheduleObj = schedule;
       },
+      height: this.props.height,
+      editorTemplate: function editorTemplate() {
+        return /*#__PURE__*/React.createElement("div", null);
+      },
+      eventSettings: this.state.dataSource,
       renderCell: renderCell,
       cellClick: cellClick,
       popupOpen: popupOpen,
       actionComplete: actionComplete,
       navigating: navigating
-    }, /*#__PURE__*/React.createElement(ViewsDirective, null, /*#__PURE__*/React.createElement(ViewDirective, {
+    }, /*#__PURE__*/React.createElement(ViewsDirective, null, this.props.dayView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+      option: "Day"
+    }), this.props.weekView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+      option: "Week"
+    }), this.props.workWeekView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+      option: "WorkWeek"
+    }), this.props.monthView == true && /*#__PURE__*/React.createElement(ViewDirective, {
       option: "Month"
+    }), this.props.agendaView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+      option: "Agenda"
     })), /*#__PURE__*/React.createElement(Inject, {
-      services: [Month]
-    }))));
+      services: [Day, Week, WorkWeek, Month, Agenda]
+    }));
   };
 
   return ReservationScheduler;
