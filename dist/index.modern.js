@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import LoadingOverlay from 'react-loading-overlay';
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -35,39 +36,6 @@ function _assertThisInitialized(self) {
 
   return self;
 }
-
-var CustomTooltip = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CustomTooltip, _Component);
-
-  function CustomTooltip(props) {
-    var _this;
-
-    _this = _Component.call(this, props) || this;
-    _this.state = {};
-    return _this;
-  }
-
-  var _proto = CustomTooltip.prototype;
-
-  _proto.render = function render() {
-    var placement = this.props.placement || "top";
-    var delay = this.props.delay || {
-      show: 250,
-      hide: 400
-    };
-    var tooltip = this.props.tooltip || "";
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    return /*#__PURE__*/React.createElement(OverlayTrigger, {
-      placement: placement,
-      delay: {
-        delay: delay
-      },
-      overlay: /*#__PURE__*/React.createElement(Tooltip, null, tooltip)
-    }, children);
-  };
-
-  return CustomTooltip;
-}(Component);
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
@@ -168,15 +136,19 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       }
     };
     _this.scheduleObj = null;
+    _this.currentView = _this.props.currentView || "Month";
     _this.selectedDate = moment().format(date_format);
     _this.checkSelectedDate = _this.checkSelectedDate.bind(_assertThisInitialized(_this));
     _this.checkClosedDate = _this.checkClosedDate.bind(_assertThisInitialized(_this));
+    _this.changeAgendaRange = _this.changeAgendaRange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   var _proto = ReservationScheduler.prototype;
 
-  _proto.componentDidMount = function componentDidMount() {};
+  _proto.componentDidMount = function componentDidMount() {
+    this.currentView = this.props.currentView || "Month";
+  };
 
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
@@ -196,6 +168,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
 
       if (currentView != null) {
         this.scheduleObj.changeCurrentView(currentView);
+        this.currentView = currentView;
       }
 
       var new_events = events || [];
@@ -252,8 +225,24 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     }
   };
 
-  _proto.render = function render() {
+  _proto.changeAgendaRange = function changeAgendaRange() {
     var _this3 = this;
+
+    if (this.currentView == "Agenda") {
+      setTimeout(function () {
+        if (_this3.props.onChangeAgendaRange) {
+          var first = _.first(_this3.scheduleObj.activeView.renderDates);
+
+          var last = _.last(_this3.scheduleObj.activeView.renderDates);
+
+          _this3.props.onChangeAgendaRange(first, last);
+        }
+      }, 100);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this4 = this;
 
     var self = this;
 
@@ -303,11 +292,15 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     }
 
     function navigating(props) {
+      var previousDate = props.previousDate,
+          currentDate = props.currentDate,
+          action = props.action,
+          currentView = props.currentView;
       var today = moment().format(date_format);
-      var previousDate = props.previousDate ? moment(props.previousDate).format(date_format) : null;
-      var currentDate = props.currentDate ? moment(props.action.currentDate).format(date_format) : null;
+      previousDate = previousDate ? moment(previousDate).format(date_format) : null;
+      currentDate = currentDate ? moment(currentDate).format(date_format) : null;
 
-      if (props.action == "date" && currentDate && currentDate == today && previousDate != today) {
+      if (action == "date" && currentDate && currentDate == today && previousDate != today && currentView == "Month") {
         self.scheduleObj.selectedDate = new Date();
         self.selectedDate = moment().format(date_format);
         self.scheduleObj.refresh();
@@ -317,15 +310,17 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
         }
       }
 
-      if (props.action == "view" && self.props.onChangeView) {
-        var currentView = props.currentView;
+      if (action == "view" && self.props.onChangeView) {
+        self.currentView = currentView;
         self.props.onChangeView(currentView);
       }
+
+      self.changeAgendaRange();
     }
 
     return /*#__PURE__*/React.createElement(ScheduleComponent, {
       ref: function ref(schedule) {
-        return _this3.scheduleObj = schedule;
+        return _this4.scheduleObj = schedule;
       },
       height: this.props.height,
       editorTemplate: function editorTemplate() {
@@ -391,5 +386,55 @@ var TimePicker = /*#__PURE__*/function (_Component) {
   return TimePicker;
 }(Component);
 
-export { DatePicker, DatePicker$1 as DateTimePicker, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip };
+var CustomTooltip = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(CustomTooltip, _Component);
+
+  function CustomTooltip(props) {
+    var _this;
+
+    _this = _Component.call(this, props) || this;
+    _this.state = {};
+    return _this;
+  }
+
+  var _proto = CustomTooltip.prototype;
+
+  _proto.render = function render() {
+    var placement = this.props.placement || "top";
+    var delay = this.props.delay || {
+      show: 250,
+      hide: 400
+    };
+    var tooltip = this.props.tooltip || "";
+    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
+    return /*#__PURE__*/React.createElement(OverlayTrigger, {
+      placement: placement,
+      delay: {
+        delay: delay
+      },
+      overlay: /*#__PURE__*/React.createElement(Tooltip, null, tooltip)
+    }, children);
+  };
+
+  return CustomTooltip;
+}(Component);
+
+var CustomLoadingOverlay = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(CustomLoadingOverlay, _Component);
+
+  function CustomLoadingOverlay(props) {
+    return _Component.call(this, props) || this;
+  }
+
+  var _proto = CustomLoadingOverlay.prototype;
+
+  _proto.render = function render() {
+    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
+    return /*#__PURE__*/React.createElement(LoadingOverlay, this.props, children);
+  };
+
+  return CustomLoadingOverlay;
+}(Component);
+
+export { DatePicker, DatePicker$1 as DateTimePicker, CustomLoadingOverlay as LoadingOverlay, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip };
 //# sourceMappingURL=index.modern.js.map
