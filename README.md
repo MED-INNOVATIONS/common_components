@@ -1,22 +1,22 @@
-# test_diego_2
+# orbital_common_components
 
 > Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/test_diego_2.svg)](https://www.npmjs.com/package/test_diego_2) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/orbital_common_components.svg)](https://www.npmjs.com/package/orbital_common_components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
-```bash
-npm install --save test_diego_2
+``` bash
+npm install --save orbital_common_components
 ```
 
 ## Usage
 
-```jsx
+``` jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'test_diego_2'
-import 'test_diego_2/dist/index.css'
+import { MyComponent } from 'orbital_common_components'
+import 'orbital_common_components/dist/index.css'
 
 class Example extends Component {
   render() {

@@ -1,6 +1,6 @@
 {
   "name": "orbital_common_components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Orbital common components",
   "author": "MED-INNOVATIONS",
   "license": "MIT",
@@ -48,7 +48,7 @@
     "react-scripts": "^3.4.1"
   },
   "files": [
-    "dist"
+    "dist/*.css"
   ],
   "dependencies": {
     "react": "^16.12.0",
