@@ -8,7 +8,7 @@ import {
 import moment from "moment";
 
 import "./css/buttons/material_custom.css";
-import "./css/calendar/calendar/material_custom.css";
+import "./css/calendar/material_custom.css";
 import "./css/schedule/material_custom.css";
 
 const _ = require("lodash");

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import "./css/buttons/material_custom.css";
-import "./css/calendar/calendar/material_custom.css";
+import "./css/calendar/material_custom.css";
 import "./css/schedule/material_custom.css";
 import "./css/datepicker/material_custom.css";
 import "./css/input_group/material_custom.css";

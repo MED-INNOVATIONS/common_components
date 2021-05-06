@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
 
 import "./css/buttons/material_custom.css";
-import "./css/calendar/calendar/material_custom.css";
+import "./css/calendar/material_custom.css";
 import "./css/schedule/material_custom.css";
 import "./css/datepicker/material_custom.css";
 import "./css/timepicker/material_custom.css";
