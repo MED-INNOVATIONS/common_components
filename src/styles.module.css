@@ -1,4 +1,14 @@
 /* add css module styles here (optional) */
+@import './components/LoadingOverlay/loadingOverlay.css';
+@import './components/DateComponents/css/general.css';
+@import './components/DateComponents/css/buttons/material_custom.css';
+@import './components/DateComponents/css/calendar/calendar/material_custom.css';
+@import './components/DateComponents/css/datepicker/material_custom.css';
+@import './components/DateComponents/css/datetimepicker/material_custom.css';
+@import './components/DateComponents/css/dropdown/material_custom.css';
+@import './components/DateComponents/css/input_group/material_custom.css';
+@import './components/DateComponents/css/schedule/material_custom.css';
+@import './components/DateComponents/css/timepicker/material_custom.css';
 
 .test {
   margin: 2em;
