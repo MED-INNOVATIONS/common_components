@@ -1,3 +1,23 @@
+/* add css module styles here (optional) */
+@import './components/LoadingOverlay/loadingOverlay.css';
+@import './components/DateComponents/css/general.css';
+@import './components/DateComponents/css/buttons/material_custom.css';
+@import './components/DateComponents/css/calendar/calendar/material_custom.css';
+@import './components/DateComponents/css/datepicker/material_custom.css';
+@import './components/DateComponents/css/datetimepicker/material_custom.css';
+@import './components/DateComponents/css/dropdown/material_custom.css';
+@import './components/DateComponents/css/input_group/material_custom.css';
+@import './components/DateComponents/css/schedule/material_custom.css';
+@import './components/DateComponents/css/timepicker/material_custom.css';
+
+._3ybTi {
+  margin: 2em;
+  padding: 0.5em;
+  border: 2px solid #000;
+  font-size: 2em;
+  text-align: center;
+}
+
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
 /*! button layout */
 ._282Vm,

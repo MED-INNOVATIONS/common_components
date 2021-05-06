@@ -1,3 +1,4 @@
+import './styles.module.css';
 import DatePicker from './components/DateComponents/DatePicker';
 import DateTimePicker from './components/DateComponents/DateTimePicker';
 import RecurrenceEditor from './components/DateComponents/RecurrenceEditor';
