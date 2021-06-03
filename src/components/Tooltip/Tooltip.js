@@ -17,6 +17,8 @@ class CustomTooltip extends Component {
 
         return (
             <OverlayTrigger
+                style={this.props.style}
+                className={this.props.className}
                 placement={placement}
                 delay={{ delay }}
                 overlay={<Tooltip>
