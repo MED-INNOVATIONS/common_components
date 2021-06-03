@@ -408,6 +408,8 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
     var tooltip = this.props.tooltip || "";
     var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
     return /*#__PURE__*/React.createElement(OverlayTrigger, {
+      style: this.props.style,
+      className: this.props.className,
       placement: placement,
       delay: {
         delay: delay
