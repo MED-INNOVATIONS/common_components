@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useTable, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from 'react-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -112,7 +112,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
     }
 
     var setSortIcon = (column) => {
-        return <>
+        return <span>
             {column.disableSortBy != true && column.isSorted == false &&
                 <span>
                     {' '}<FontAwesomeIcon icon={faSort} style={{ cursor: "pointer" }} onClick={() => { column.toggleSortBy() }} />
@@ -125,15 +125,15 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
                         : <span>{' '}<FontAwesomeIcon icon={faSortUp} style={{ cursor: "pointer" }} onClick={() => { column.toggleSortBy() }} /></span>
                     : ''}
             </span>
-        </>
+        </span>
     }
 
     var setResize = (column) => {
-        return <>
+        return <span>
             {column.canResize &&
                 <div {...column.getResizerProps()} className={`resizer ${column.isResizing ? "isResizing" : ""}`} />
             }
-        </>
+        </span>
     }
 
     var setEmptyRows = () => {
@@ -202,9 +202,9 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
                             </div>
                         ))}
                         {data.length == 0 &&
-                            <>
+                            <span>
                                 {setEmptyHeaders()}
-                            </>
+                            </span>
                         }
                     </div>
                     <div {...getTableBodyProps()}>
@@ -223,9 +223,9 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
                             )
                         })}
                         {data.length > 0 &&
-                            <>
+                            <span>
                                 {setEmptyRows()}
-                            </>
+                            </span>
                         }
                     </div>
                     {data.length == 0 &&
@@ -236,7 +236,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
 
             <Row className="pagination">
                 <Col sm={8}>
-                    <>
+                    <span>
                         <Button variant="outline-secondary" size={"sm"} onClick={() => gotoPage(0)} disabled={!canPreviousPage}> {'<<'}</Button>
                         {' '}
                         <Button variant="outline-secondary" size={"sm"} onClick={() => previousPage()} disabled={!canPreviousPage}> {'<'}</Button>
@@ -256,7 +256,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
                                 | {localization.go_to_page}:{' '}
                             </span>
                         </span>
-                    </>
+                    </span>
                 </Col>
                 <Col sm={2}>
                     <Form.Control
