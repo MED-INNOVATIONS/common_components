@@ -6,8 +6,6 @@ import { faSort, faSortUp, faSortDown, faInfoCircle } from '@fortawesome/free-so
 import styled from 'styled-components';
 import _ from "lodash";
 
-import localization from "../services/localization";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Styles = styled.div`
@@ -62,7 +60,7 @@ const Styles = styled.div`
 `
 
 
-function ReactTable({ columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage }) {
+function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage }) {
     const {
         getTableProps,
         getTableBodyProps,
