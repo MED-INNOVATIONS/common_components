@@ -90,4 +90,91 @@ export default class APISb {
                 })
         })
     }
+
+    /*************************************************************************/
+    /******************************* WITHOUT TOKEN ***************************/
+    /*************************************************************************/
+
+    static get_plain(endpoint, params, contentType) {
+        var url = API_SB_BASE_URL + endpoint;
+        contentType = contentType || "application/json"
+
+        const configHeaders = {
+            "content-type": contentType,
+            "Accept": "application/json"
+        };
+
+        var config = {
+            method: "get",
+            url: url,
+            params: params || {},
+            headers: configHeaders
+        }
+
+        return new Promise(function (resolve, reject) {
+            axios(config)
+                .then((result) => {
+                    resolve(result);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
+
+    static post_plain(endpoint, params, data, contentType) {
+        var url = API_SB_BASE_URL + endpoint;
+        contentType = contentType || "application/json"
+
+        const configHeaders = {
+            "content-type": contentType,
+            "Accept": "application/json"
+        };
+
+        var config = {
+            method: "post",
+            url: url,
+            params: params || {},
+            data: data,
+            headers: configHeaders
+        }
+
+        return new Promise(function (resolve, reject) {
+            axios(config)
+                .then((result) => {
+                    resolve(result);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
+
+    static put_plain(endpoint, params, data, contentType) {
+        var url = API_SB_BASE_URL + endpoint;
+        contentType = contentType || "application/json"
+
+        const configHeaders = {
+            "content-type": contentType,
+            "Accept": "application/json"
+        };
+
+        var config = {
+            method: "put",
+            url: url,
+            params: params || {},
+            data: data,
+            headers: configHeaders
+        }
+
+        return new Promise(function (resolve, reject) {
+            axios(config)
+                .then((result) => {
+                    resolve(result);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
 }
