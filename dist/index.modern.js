@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React__default, { Component, createElement } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
@@ -229,7 +229,7 @@ var DatePicker = /*#__PURE__*/function (_Component) {
 
   _proto.render = function render() {
     var format = this.props.format;
-    return /*#__PURE__*/React.createElement(DatePickerComponent, _extends({}, this.props, {
+    return /*#__PURE__*/React__default.createElement(DatePickerComponent, _extends({}, this.props, {
       value: this.state.value,
       format: format || "dd/MM/yyyy"
     }));
@@ -253,7 +253,7 @@ var DatePicker$1 = /*#__PURE__*/function (_Component) {
 
   _proto.render = function render() {
     var format = this.props.format;
-    return /*#__PURE__*/React.createElement(DateTimePickerComponent, _extends({}, this.props, {
+    return /*#__PURE__*/React__default.createElement(DateTimePickerComponent, _extends({}, this.props, {
       format: format || "dd/MM/yyyy HH:mm"
     }));
   };
@@ -276,7 +276,7 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
 
   _proto.render = function render() {
     var dateFormat = this.props.dateFormat;
-    return /*#__PURE__*/React.createElement(RecurrenceEditorComponent, _extends({
+    return /*#__PURE__*/React__default.createElement(RecurrenceEditorComponent, _extends({
       dateFormat: dateFormat || "dd/MM/yyyy"
     }, this.props));
   };
@@ -483,13 +483,13 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       self.changeAgendaRange();
     }
 
-    return /*#__PURE__*/React.createElement(ScheduleComponent, {
+    return /*#__PURE__*/React__default.createElement(ScheduleComponent, {
       ref: function ref(schedule) {
         return _this4.scheduleObj = schedule;
       },
       height: this.props.height,
       editorTemplate: function editorTemplate() {
-        return /*#__PURE__*/React.createElement("div", null);
+        return /*#__PURE__*/React__default.createElement("div", null);
       },
       eventSettings: this.state.dataSource,
       renderCell: renderCell,
@@ -497,17 +497,17 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       popupOpen: popupOpen,
       actionComplete: actionComplete,
       navigating: navigating
-    }, /*#__PURE__*/React.createElement(ViewsDirective, null, this.props.dayView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+    }, /*#__PURE__*/React__default.createElement(ViewsDirective, null, this.props.dayView == true && /*#__PURE__*/React__default.createElement(ViewDirective, {
       option: "Day"
-    }), this.props.weekView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+    }), this.props.weekView == true && /*#__PURE__*/React__default.createElement(ViewDirective, {
       option: "Week"
-    }), this.props.workWeekView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+    }), this.props.workWeekView == true && /*#__PURE__*/React__default.createElement(ViewDirective, {
       option: "WorkWeek"
-    }), this.props.monthView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+    }), this.props.monthView == true && /*#__PURE__*/React__default.createElement(ViewDirective, {
       option: "Month"
-    }), this.props.agendaView == true && /*#__PURE__*/React.createElement(ViewDirective, {
+    }), this.props.agendaView == true && /*#__PURE__*/React__default.createElement(ViewDirective, {
       option: "Agenda"
-    })), /*#__PURE__*/React.createElement(Inject, {
+    })), /*#__PURE__*/React__default.createElement(Inject, {
       services: [Day, Week, WorkWeek, Month, Agenda]
     }));
   };
@@ -542,7 +542,7 @@ var TimePicker = /*#__PURE__*/function (_Component) {
 
   _proto.render = function render() {
     var format = this.props.format;
-    return /*#__PURE__*/React.createElement(TimePickerComponent, _extends({}, this.props, {
+    return /*#__PURE__*/React__default.createElement(TimePickerComponent, _extends({}, this.props, {
       value: this.state.value,
       format: format || "HH:mm"
     }));
@@ -571,15 +571,15 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
       hide: 400
     };
     var tooltip = this.props.tooltip || "";
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    return /*#__PURE__*/React.createElement(OverlayTrigger, {
+    var children = this.props.children || /*#__PURE__*/React__default.createElement("div", null, "Error children");
+    return /*#__PURE__*/React__default.createElement(OverlayTrigger, {
       style: this.props.style,
       className: this.props.className,
       placement: placement,
       delay: {
         delay: delay
       },
-      overlay: /*#__PURE__*/React.createElement(Tooltip, null, tooltip)
+      overlay: /*#__PURE__*/React__default.createElement(Tooltip, null, tooltip)
     }, children);
   };
 
@@ -644,7 +644,7 @@ function ReactTable(_ref) {
     }
 
     var options = _$1.map(base_values, function (value, index) {
-      return /*#__PURE__*/React.createElement("option", {
+      return /*#__PURE__*/createElement("option", {
         key: index,
         value: value
       }, value);
@@ -654,7 +654,7 @@ function ReactTable(_ref) {
   };
 
   var setSortIcon = function setSortIcon(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    return /*#__PURE__*/createElement(Fragment, null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/createElement("span", null, ' ', /*#__PURE__*/createElement(FontAwesomeIcon, {
       icon: faSort,
       style: {
         cursor: "pointer"
@@ -662,7 +662,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    })), /*#__PURE__*/createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/createElement("span", null, ' ', /*#__PURE__*/createElement(FontAwesomeIcon, {
       icon: faSortDown,
       style: {
         cursor: "pointer"
@@ -670,7 +670,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })) : /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    })) : /*#__PURE__*/createElement("span", null, ' ', /*#__PURE__*/createElement(FontAwesomeIcon, {
       icon: faSortUp,
       style: {
         cursor: "pointer"
@@ -682,7 +682,7 @@ function ReactTable(_ref) {
   };
 
   var setResize = function setResize(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
+    return /*#__PURE__*/createElement(Fragment, null, column.canResize && /*#__PURE__*/createElement("div", _extends({}, column.getResizerProps(), {
       className: "resizer " + (column.isResizing ? "isResizing" : "")
     })));
   };
@@ -702,12 +702,12 @@ function ReactTable(_ref) {
         var new_id = data.length + i;
         row.id = new_id;
         prepareRow(row);
-        return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+        return /*#__PURE__*/createElement("div", _extends({}, row.getRowProps(), {
           className: "tr"
         }), row.cells.map(function (cell) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+          return /*#__PURE__*/createElement("div", _extends({}, cell.getCellProps(), {
             className: "td"
-          }), /*#__PURE__*/React.createElement("div", {
+          }), /*#__PURE__*/createElement("div", {
             style: {
               color: "#66000000"
             }
@@ -724,12 +724,12 @@ function ReactTable(_ref) {
 
     var rows = _$1.map(new_filling_rows, function () {
       return headerGroups.map(function (headerGroup) {
-        return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+        return /*#__PURE__*/createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
           className: "tr"
         }), headerGroup.headers.map(function (column) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+          return /*#__PURE__*/createElement("div", _extends({}, column.getHeaderProps(), {
             className: "th"
-          }), /*#__PURE__*/React.createElement("div", {
+          }), /*#__PURE__*/createElement("div", {
             style: {
               color: "#66000000"
             }
@@ -741,68 +741,68 @@ function ReactTable(_ref) {
     return rows;
   };
 
-  return /*#__PURE__*/React.createElement(Styles, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", _extends({}, getTableProps(), {
+  return /*#__PURE__*/createElement(Styles, null, /*#__PURE__*/createElement("div", null, /*#__PURE__*/createElement("div", _extends({}, getTableProps(), {
     className: "table"
-  }), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
-    return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+  }), /*#__PURE__*/createElement("div", null, headerGroups.map(function (headerGroup) {
+    return /*#__PURE__*/createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
       className: "tr"
     }), headerGroup.headers.map(function (column) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+      return /*#__PURE__*/createElement("div", _extends({}, column.getHeaderProps(), {
         className: "th"
       }), column.render('Header'), setSortIcon(column), setResize(column));
     }));
-  }), data.length == 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
+  }), data.length == 0 && /*#__PURE__*/createElement(Fragment, null, setEmptyHeaders())), /*#__PURE__*/createElement("div", getTableBodyProps(), page.map(function (row, i) {
     prepareRow(row);
-    return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+    return /*#__PURE__*/createElement("div", _extends({}, row.getRowProps(), {
       className: "tr"
     }), row.cells.map(function (cell) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+      return /*#__PURE__*/createElement("div", _extends({}, cell.getCellProps(), {
         className: "td"
       }), cell.render('Cell'));
     }));
-  }), data.length > 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
+  }), data.length > 0 && /*#__PURE__*/createElement(Fragment, null, setEmptyRows())), data.length == 0 && /*#__PURE__*/createElement("div", {
     className: "noData"
-  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/createElement(FontAwesomeIcon, {
     icon: faInfoCircle
-  }), " ", _noDataMessage || "No data"))), /*#__PURE__*/React.createElement(Row, {
+  }), " ", _noDataMessage || "No data"))), /*#__PURE__*/createElement(Row, {
     className: "pagination"
-  }, /*#__PURE__*/React.createElement(Col, {
+  }, /*#__PURE__*/createElement(Col, {
     sm: 8
-  }, /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(Button, {
+  }, /*#__PURE__*/createElement(Fragment, null, /*#__PURE__*/createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return gotoPage(0);
     },
     disabled: !canPreviousPage
-  }, " ", '<<'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", '<<'), ' ', /*#__PURE__*/createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return previousPage();
     },
     disabled: !canPreviousPage
-  }, " ", '<'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", '<'), ' ', /*#__PURE__*/createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return nextPage();
     },
     disabled: !canNextPage
-  }, " ", '>'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", '>'), ' ', /*#__PURE__*/createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return gotoPage(pageCount - 1);
     },
     disabled: !canNextPage
-  }, " ", '>>'), ' ', /*#__PURE__*/React.createElement("span", {
+  }, " ", '>>'), ' ', /*#__PURE__*/createElement("span", {
     style: {
       "float": "right"
     }
-  }, /*#__PURE__*/React.createElement("span", null, localization.page || "Page", ' ', /*#__PURE__*/React.createElement("strong", null, pageIndex + 1, "  ", localization.of || "of", " ", pageOptions.length), ' '), /*#__PURE__*/React.createElement("span", null, "| ", localization.go_to_page, ":", ' ')))), /*#__PURE__*/React.createElement(Col, {
+  }, /*#__PURE__*/createElement("span", null, localization.page || "Page", ' ', /*#__PURE__*/createElement("strong", null, pageIndex + 1, "  ", localization.of || "of", " ", pageOptions.length), ' '), /*#__PURE__*/createElement("span", null, "| ", localization.go_to_page, ":", ' ')))), /*#__PURE__*/createElement(Col, {
     sm: 2
-  }, /*#__PURE__*/React.createElement(Form.Control, {
+  }, /*#__PURE__*/createElement(Form.Control, {
     disabled: data.length == 0,
     size: "sm",
     type: "number",
@@ -816,9 +816,9 @@ function ReactTable(_ref) {
     style: {
       width: '100%'
     }
-  })), /*#__PURE__*/React.createElement(Col, {
+  })), /*#__PURE__*/createElement(Col, {
     sm: 2
-  }, /*#__PURE__*/React.createElement(Form.Control, {
+  }, /*#__PURE__*/createElement(Form.Control, {
     as: "select",
     size: "sm",
     value: pageSize,
@@ -839,8 +839,8 @@ var CustomLoadingOverlay = /*#__PURE__*/function (_Component) {
   var _proto = CustomLoadingOverlay.prototype;
 
   _proto.render = function render() {
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    return /*#__PURE__*/React.createElement(LoadingOverlay, this.props, children);
+    var children = this.props.children || /*#__PURE__*/React__default.createElement("div", null, "Error children");
+    return /*#__PURE__*/React__default.createElement(LoadingOverlay, this.props, children);
   };
 
   return CustomLoadingOverlay;
