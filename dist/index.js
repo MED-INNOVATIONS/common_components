@@ -647,7 +647,7 @@ function ReactTable(_ref) {
     }
 
     var options = _$1.map(base_values, function (value, index) {
-      return /*#__PURE__*/React.createElement("option", {
+      return /*#__PURE__*/React__default.createElement("option", {
         key: index,
         value: value
       }, value);
@@ -657,7 +657,7 @@ function ReactTable(_ref) {
   };
 
   var setSortIcon = function setSortIcon(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(reactFontawesome.FontAwesomeIcon, {
+    return /*#__PURE__*/React__default.createElement("span", null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React__default.createElement("span", null, ' ', /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faSort,
       style: {
         cursor: "pointer"
@@ -665,7 +665,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(reactFontawesome.FontAwesomeIcon, {
+    })), /*#__PURE__*/React__default.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React__default.createElement("span", null, ' ', /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faSortDown,
       style: {
         cursor: "pointer"
@@ -673,7 +673,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })) : /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(reactFontawesome.FontAwesomeIcon, {
+    })) : /*#__PURE__*/React__default.createElement("span", null, ' ', /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faSortUp,
       style: {
         cursor: "pointer"
@@ -685,7 +685,7 @@ function ReactTable(_ref) {
   };
 
   var setResize = function setResize(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
+    return /*#__PURE__*/React__default.createElement("span", null, column.canResize && /*#__PURE__*/React__default.createElement("div", _extends({}, column.getResizerProps(), {
       className: "resizer " + (column.isResizing ? "isResizing" : "")
     })));
   };
@@ -705,12 +705,12 @@ function ReactTable(_ref) {
         var new_id = data.length + i;
         row.id = new_id;
         prepareRow(row);
-        return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+        return /*#__PURE__*/React__default.createElement("div", _extends({}, row.getRowProps(), {
           className: "tr"
         }), row.cells.map(function (cell) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+          return /*#__PURE__*/React__default.createElement("div", _extends({}, cell.getCellProps(), {
             className: "td"
-          }), /*#__PURE__*/React.createElement("div", {
+          }), /*#__PURE__*/React__default.createElement("div", {
             style: {
               color: "#66000000"
             }
@@ -727,12 +727,12 @@ function ReactTable(_ref) {
 
     var rows = _$1.map(new_filling_rows, function () {
       return headerGroups.map(function (headerGroup) {
-        return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+        return /*#__PURE__*/React__default.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
           className: "tr"
         }), headerGroup.headers.map(function (column) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+          return /*#__PURE__*/React__default.createElement("div", _extends({}, column.getHeaderProps(), {
             className: "th"
-          }), /*#__PURE__*/React.createElement("div", {
+          }), /*#__PURE__*/React__default.createElement("div", {
             style: {
               color: "#66000000"
             }
@@ -744,68 +744,68 @@ function ReactTable(_ref) {
     return rows;
   };
 
-  return /*#__PURE__*/React.createElement(Styles, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", _extends({}, getTableProps(), {
+  return /*#__PURE__*/React__default.createElement(Styles, null, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", _extends({}, getTableProps(), {
     className: "table"
-  }), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
-    return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+  }), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
+    return /*#__PURE__*/React__default.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
       className: "tr"
     }), headerGroup.headers.map(function (column) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+      return /*#__PURE__*/React__default.createElement("div", _extends({}, column.getHeaderProps(), {
         className: "th"
       }), column.render('Header'), setSortIcon(column), setResize(column));
     }));
-  }), data.length == 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
+  }), data.length == 0 && /*#__PURE__*/React__default.createElement("span", null, setEmptyHeaders())), /*#__PURE__*/React__default.createElement("div", getTableBodyProps(), page.map(function (row, i) {
     prepareRow(row);
-    return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+    return /*#__PURE__*/React__default.createElement("div", _extends({}, row.getRowProps(), {
       className: "tr"
     }), row.cells.map(function (cell) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+      return /*#__PURE__*/React__default.createElement("div", _extends({}, cell.getCellProps(), {
         className: "td"
       }), cell.render('Cell'));
     }));
-  }), data.length > 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
+  }), data.length > 0 && /*#__PURE__*/React__default.createElement("span", null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React__default.createElement("div", {
     className: "noData"
-  }, /*#__PURE__*/React.createElement(reactFontawesome.FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
     icon: freeSolidSvgIcons.faInfoCircle
-  }), " ", _noDataMessage || "No data"))), /*#__PURE__*/React.createElement(reactBootstrap.Row, {
+  }), " ", _noDataMessage || "No data"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
     className: "pagination"
-  }, /*#__PURE__*/React.createElement(reactBootstrap.Col, {
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
     sm: 8
-  }, /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(reactBootstrap.Button, {
+  }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return gotoPage(0);
     },
     disabled: !canPreviousPage
-  }, " ", '<<'), ' ', /*#__PURE__*/React.createElement(reactBootstrap.Button, {
+  }, " ", '<<'), ' ', /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return previousPage();
     },
     disabled: !canPreviousPage
-  }, " ", '<'), ' ', /*#__PURE__*/React.createElement(reactBootstrap.Button, {
+  }, " ", '<'), ' ', /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return nextPage();
     },
     disabled: !canNextPage
-  }, " ", '>'), ' ', /*#__PURE__*/React.createElement(reactBootstrap.Button, {
+  }, " ", '>'), ' ', /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return gotoPage(pageCount - 1);
     },
     disabled: !canNextPage
-  }, " ", '>>'), ' ', /*#__PURE__*/React.createElement("span", {
+  }, " ", '>>'), ' ', /*#__PURE__*/React__default.createElement("span", {
     style: {
       "float": "right"
     }
-  }, /*#__PURE__*/React.createElement("span", null, localization.page || "Page", ' ', /*#__PURE__*/React.createElement("strong", null, pageIndex + 1, "  ", localization.of || "of", " ", pageOptions.length), ' '), /*#__PURE__*/React.createElement("span", null, "| ", localization.go_to_page, ":", ' ')))), /*#__PURE__*/React.createElement(reactBootstrap.Col, {
+  }, /*#__PURE__*/React__default.createElement("span", null, localization.page || "Page", ' ', /*#__PURE__*/React__default.createElement("strong", null, pageIndex + 1, "  ", localization.of || "of", " ", pageOptions.length), ' '), /*#__PURE__*/React__default.createElement("span", null, "| ", localization.go_to_page, ":", ' ')))), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
     sm: 2
-  }, /*#__PURE__*/React.createElement(reactBootstrap.Form.Control, {
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, {
     disabled: data.length == 0,
     size: "sm",
     type: "number",
@@ -819,9 +819,9 @@ function ReactTable(_ref) {
     style: {
       width: '100%'
     }
-  })), /*#__PURE__*/React.createElement(reactBootstrap.Col, {
+  })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
     sm: 2
-  }, /*#__PURE__*/React.createElement(reactBootstrap.Form.Control, {
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, {
     as: "select",
     size: "sm",
     value: pageSize,
