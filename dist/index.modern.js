@@ -654,7 +654,7 @@ function ReactTable(_ref) {
   };
 
   var setSortIcon = function setSortIcon(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    return /*#__PURE__*/React.createElement("span", null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faSort,
       style: {
         cursor: "pointer"
@@ -682,7 +682,7 @@ function ReactTable(_ref) {
   };
 
   var setResize = function setResize(column) {
-    return /*#__PURE__*/React.createElement(Fragment, null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
+    return /*#__PURE__*/React.createElement("span", null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
       className: "resizer " + (column.isResizing ? "isResizing" : "")
     })));
   };
@@ -751,7 +751,7 @@ function ReactTable(_ref) {
         className: "th"
       }), column.render('Header'), setSortIcon(column), setResize(column));
     }));
-  }), data.length == 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
+  }), data.length == 0 && /*#__PURE__*/React.createElement("span", null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
     prepareRow(row);
     return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
       className: "tr"
@@ -760,7 +760,7 @@ function ReactTable(_ref) {
         className: "td"
       }), cell.render('Cell'));
     }));
-  }), data.length > 0 && /*#__PURE__*/React.createElement(Fragment, null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
+  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
     className: "noData"
   }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faInfoCircle
@@ -768,7 +768,7 @@ function ReactTable(_ref) {
     className: "pagination"
   }, /*#__PURE__*/React.createElement(Col, {
     sm: 8
-  }, /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
