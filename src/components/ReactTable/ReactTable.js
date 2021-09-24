@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from 'react'
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useTable, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from 'react-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
