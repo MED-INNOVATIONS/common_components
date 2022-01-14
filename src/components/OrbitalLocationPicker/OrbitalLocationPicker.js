@@ -5,8 +5,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-au
 import { toast } from "react-toastify";
 import _ from "lodash";
 
-
-
 const google = window.google;
 const addressComponentType = "administrative_area_level_3";
 const defaultCircleOptions = {
