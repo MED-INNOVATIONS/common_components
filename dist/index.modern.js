@@ -587,7 +587,7 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
 }(Component);
 
 function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n  .table {\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n\n    .tr {\n      :last-child {\n        .td {\n          border-bottom: 0;\n        }\n      }\n      .td{\n        overflow-x: hidden;\n      }\n    }\n\n    .th,\n    .td {\n      margin: 0;\n      padding: 0.5rem;\n      border-bottom: 1px solid #dee2e6;\n      border-right: 1px solid #dee2e6;\n\n      ", "\n      position: relative;\n\n      :last-child {\n        border-right: 0;\n      }\n\n      .resizer {\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        ", "\n        touch-action :none;\n\n        &.isResizing {\n          background: black;\n        }\n      }\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n  .table {\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n\n    .tr {\n      :last-child {\n        .td {\n          border-bottom: 0;\n        }\n      }\n      .td {\n        overflow-x: hidden;\n      }\n    }\n\n    .th,\n    .td {\n      margin: 0;\n      padding: 0.5rem;\n      border-bottom: 1px solid #dee2e6;\n      border-right: 1px solid #dee2e6;\n\n      ", "\n      position: relative;\n\n      :last-child {\n        border-right: 0;\n      }\n\n      .resizer {\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        ", "\n        touch-action :none;\n\n        &.isResizing {\n          background: black;\n        }\n      }\n    }\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -595,7 +595,7 @@ function _templateObject() {
 
   return data;
 }
-var Styles = styled.div(_templateObject(), '', '');
+var Styles = styled.div(_templateObject(), "", "");
 
 function ReactTable(_ref) {
   var localization = _ref.localization,
@@ -603,13 +603,14 @@ function ReactTable(_ref) {
       data = _ref.data,
       _defaultPageSize = _ref._defaultPageSize,
       _fixedPageSize = _ref._fixedPageSize,
-      _noDataMessage = _ref._noDataMessage;
+      _noDataMessage = _ref._noDataMessage,
+      skipPageReset = _ref.skipPageReset;
 
   var _useTable = useTable({
     columns: columns,
     data: data,
+    autoResetPage: !skipPageReset,
     initialState: {
-      pageIndex: 0,
       pageSize: _fixedPageSize || _defaultPageSize || 10
     }
   }, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
@@ -643,6 +644,9 @@ function ReactTable(_ref) {
       base_values = _$1.sortBy(base_values);
     }
 
+    base_values = _$1.uniq(base_values);
+    base_values = _$1.compact(base_values);
+
     var options = _$1.map(base_values, function (value, index) {
       return /*#__PURE__*/React.createElement("option", {
         key: index,
@@ -654,7 +658,7 @@ function ReactTable(_ref) {
   };
 
   var setSortIcon = function setSortIcon(column) {
-    return /*#__PURE__*/React.createElement("span", null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    return /*#__PURE__*/React.createElement("span", null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faSort,
       style: {
         cursor: "pointer"
@@ -662,7 +666,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faSortDown,
       style: {
         cursor: "pointer"
@@ -670,7 +674,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })) : /*#__PURE__*/React.createElement("span", null, ' ', /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    })) : /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faSortUp,
       style: {
         cursor: "pointer"
@@ -678,7 +682,7 @@ function ReactTable(_ref) {
       onClick: function onClick() {
         column.toggleSortBy();
       }
-    })) : ''));
+    })) : ""));
   };
 
   var setResize = function setResize(column) {
@@ -749,7 +753,7 @@ function ReactTable(_ref) {
     }), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
         className: "th"
-      }), column.render('Header'), setSortIcon(column), setResize(column));
+      }), column.render("Header"), setSortIcon(column), setResize(column));
     }));
   }), data.length == 0 && /*#__PURE__*/React.createElement("span", null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
     prepareRow(row);
@@ -758,7 +762,7 @@ function ReactTable(_ref) {
     }), row.cells.map(function (cell) {
       return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
         className: "td"
-      }), cell.render('Cell'));
+      }), cell.render("Cell"));
     }));
   }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
     className: "noData"
@@ -775,32 +779,32 @@ function ReactTable(_ref) {
       return gotoPage(0);
     },
     disabled: !canPreviousPage
-  }, " ", '<<'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", "<<"), " ", /*#__PURE__*/React.createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return previousPage();
     },
     disabled: !canPreviousPage
-  }, " ", '<'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", "<"), " ", /*#__PURE__*/React.createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return nextPage();
     },
     disabled: !canNextPage
-  }, " ", '>'), ' ', /*#__PURE__*/React.createElement(Button, {
+  }, " ", ">"), " ", /*#__PURE__*/React.createElement(Button, {
     variant: "outline-secondary",
     size: "sm",
     onClick: function onClick() {
       return gotoPage(pageCount - 1);
     },
     disabled: !canNextPage
-  }, " ", '>>'), ' ', /*#__PURE__*/React.createElement("span", {
+  }, " ", ">>"), " ", /*#__PURE__*/React.createElement("span", {
     style: {
       "float": "right"
     }
-  }, /*#__PURE__*/React.createElement("span", null, localization.page || "Page", ' ', /*#__PURE__*/React.createElement("strong", null, pageIndex + 1, "  ", localization.of || "of", " ", pageOptions.length), ' '), /*#__PURE__*/React.createElement("span", null, "| ", localization.go_to_page, ":", ' ')))), /*#__PURE__*/React.createElement(Col, {
+  }, /*#__PURE__*/React.createElement("span", null, localization.page || "Page", " ", /*#__PURE__*/React.createElement("strong", null, pageIndex + 1, " ", localization.of || "of", " ", pageOptions.length), " "), /*#__PURE__*/React.createElement("span", null, "| ", localization.go_to_page, ": ")))), /*#__PURE__*/React.createElement(Col, {
     sm: 2
   }, /*#__PURE__*/React.createElement(Form.Control, {
     disabled: data.length == 0,
@@ -808,13 +812,13 @@ function ReactTable(_ref) {
     type: "number",
     min: 1,
     max: pageOptions.length,
-    defaultValue: pageIndex + 1,
+    value: pageIndex + 1,
     onChange: function onChange(e) {
       var page = e.target.value ? Number(e.target.value) - 1 : 0;
       gotoPage(page);
     },
     style: {
-      width: '100%'
+      width: "100%"
     }
   })), /*#__PURE__*/React.createElement(Col, {
     sm: 2
