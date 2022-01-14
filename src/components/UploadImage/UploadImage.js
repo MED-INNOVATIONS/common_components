@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Modal, Card, Image as ReactBootstrapImage } from 'react-bootstrap';
-import { Tooltip } from "orbital_common_components";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { faUpload, faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 
+import { Tooltip } from "../Tooltip/Tooltip";
 import CropImage from "./CropImage";
 
 import "./uploadImage.css";
