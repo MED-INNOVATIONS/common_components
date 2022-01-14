@@ -6,7 +6,7 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { faUpload, faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 
-import { Tooltip } from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip/Tooltip";
 import CropImage from "./CropImage";
 
 import "./uploadImage.css";

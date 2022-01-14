@@ -30787,6 +30787,9 @@ ejs-listbox {
 ._38v1Q{
     font-weight: normal;
 }
+._3LvyE{
+    background: rgba(24, 144, 255, 0.2) !important;
+}
 /*!
  * Cropper.js v1.5.9
  * https://fengyuanchen.github.io/cropperjs
@@ -31180,7 +31183,4 @@ ejs-listbox {
     cursor: pointer;
     font-size: 1.5rem;
     color: grey
-}
-._3LvyE{
-    background: rgba(24, 144, 255, 0.2) !important;
 }

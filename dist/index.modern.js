@@ -7,7 +7,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { LoadingOverlay, Tooltip as Tooltip$1 } from 'orbital_common_components';
+import LoadingOverlay from 'react-loading-overlay';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { OverlayTrigger, Tooltip, Card, Row, Col, Image as Image$1, Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { faDownload, faTrashAlt, faEye, faUpload, faSort, faSortDown, faSortUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
+import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
 import LocationPicker from 'react-location-picker';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
@@ -22,7 +23,6 @@ import _$1 from 'lodash';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoadingOverlay$1 from 'react-loading-overlay';
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -639,6 +639,23 @@ var NormalFieldLabel = /*#__PURE__*/function (_Component) {
   return NormalFieldLabel;
 }(Component);
 
+var CustomLoadingOverlay = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(CustomLoadingOverlay, _Component);
+
+  function CustomLoadingOverlay(props) {
+    return _Component.call(this, props) || this;
+  }
+
+  var _proto = CustomLoadingOverlay.prototype;
+
+  _proto.render = function render() {
+    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
+    return /*#__PURE__*/React.createElement(LoadingOverlay, this.props, children);
+  };
+
+  return CustomLoadingOverlay;
+}(Component);
+
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HTMLTextEditor, _Component);
 
@@ -726,7 +743,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
         editorState = _this$state.editorState,
         loading = _this$state.loading;
     var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
-    return /*#__PURE__*/React.createElement(LoadingOverlay, {
+    return /*#__PURE__*/React.createElement(CustomLoadingOverlay, {
       active: loading,
       spinner: true,
       text: (localization.loading || "Loading") + "..."
@@ -774,101 +791,6 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
 
   return HTMLTextEditor;
 }(Component);
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var rngBrowser = createCommonjsModule(function (module) {
-// Unique ID creation requires a high quality random # generator.  In the
-// browser this is a little complicated due to unknown quality of Math.random()
-// and inconsistent support for the `crypto` API.  We do the best we can via
-// feature-detection
-
-// getRandomValues needs to be invoked in a context where "this" is a Crypto
-// implementation. Also, find the complete implementation of crypto on IE11.
-var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
-                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
-
-if (getRandomValues) {
-  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
-  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
-
-  module.exports = function whatwgRNG() {
-    getRandomValues(rnds8);
-    return rnds8;
-  };
-} else {
-  // Math.random()-based (RNG)
-  //
-  // If all else fails, use Math.random().  It's fast, but is of unspecified
-  // quality.
-  var rnds = new Array(16);
-
-  module.exports = function mathRNG() {
-    for (var i = 0, r; i < 16; i++) {
-      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
-    }
-
-    return rnds;
-  };
-}
-});
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-var byteToHex = [];
-for (var i = 0; i < 256; ++i) {
-  byteToHex[i] = (i + 0x100).toString(16).substr(1);
-}
-
-function bytesToUuid(buf, offset) {
-  var i = offset || 0;
-  var bth = byteToHex;
-  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
-  return ([
-    bth[buf[i++]], bth[buf[i++]],
-    bth[buf[i++]], bth[buf[i++]], '-',
-    bth[buf[i++]], bth[buf[i++]], '-',
-    bth[buf[i++]], bth[buf[i++]], '-',
-    bth[buf[i++]], bth[buf[i++]], '-',
-    bth[buf[i++]], bth[buf[i++]],
-    bth[buf[i++]], bth[buf[i++]],
-    bth[buf[i++]], bth[buf[i++]]
-  ]).join('');
-}
-
-var bytesToUuid_1 = bytesToUuid;
-
-function v4(options, buf, offset) {
-  var i = buf && offset || 0;
-
-  if (typeof(options) == 'string') {
-    buf = options === 'binary' ? new Array(16) : null;
-    options = null;
-  }
-  options = options || {};
-
-  var rnds = options.random || (options.rng || rngBrowser)();
-
-  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-  rnds[6] = (rnds[6] & 0x0f) | 0x40;
-  rnds[8] = (rnds[8] & 0x3f) | 0x80;
-
-  // Copy bytes to buffer, if provided
-  if (buf) {
-    for (var ii = 0; ii < 16; ++ii) {
-      buf[i + ii] = rnds[ii];
-    }
-  }
-
-  return buf || bytesToUuid_1(rnds);
-}
-
-var v4_1 = v4;
 
 var CustomTooltip = /*#__PURE__*/function (_Component) {
   _inheritsLoose(CustomTooltip, _Component);
@@ -1136,12 +1058,12 @@ var CropImage = /*#__PURE__*/function (_Component) {
           type: "image/png"
         });
       }).then(function (newFile) {
-        newFile.uid = v4_1();
+        newFile.uid = uuidV4();
         newFile.url = croppedImageUrl;
         return ImageService.batchCompress(newFile);
       }).then(function (response) {
         var files = response.map(function (f) {
-          f.uid = v4_1();
+          f.uid = uuidV4();
           return f;
         });
         self.props.onSave(croppedImageUrl, files);
@@ -1523,7 +1445,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       style: {
         "float": "right"
       }
-    }, /*#__PURE__*/React.createElement(Tooltip$1, {
+    }, /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
     }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       className: "edit_header_icon_close",
@@ -2026,23 +1948,6 @@ function ReactTable(_ref) {
     }
   }, setPageSizeOptions()))));
 }
-
-var CustomLoadingOverlay = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CustomLoadingOverlay, _Component);
-
-  function CustomLoadingOverlay(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = CustomLoadingOverlay.prototype;
-
-  _proto.render = function render() {
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    return /*#__PURE__*/React.createElement(LoadingOverlay$1, this.props, children);
-  };
-
-  return CustomLoadingOverlay;
-}(Component);
 
 export { APISb, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalLocationPicker, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map
