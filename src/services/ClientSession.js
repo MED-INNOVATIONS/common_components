@@ -2,7 +2,7 @@ import * as session from "browser-store";
 import sessionStorage from "browser-session-store";
 import _ from "lodash";
 
-import constants from "../constants.js";
+import * as constants from "../constants";
 
 sessionStorage.setItem = function (key) {
   var setLocalizationEvent = new Event("setLocalizationEvent");
@@ -10,7 +10,7 @@ sessionStorage.setItem = function (key) {
   window.dispatchEvent(setLocalizationEvent);
 };
 
-class ClientSessionV2 {
+class ClientSession {
   static SBDashboardAuthkey = constants.SBDashboardAuthkey;
   static SBUserAuthkey = constants.SBUserAuthkey;
   static orbitalAuthkey = constants.orbitalAuthkey;
@@ -232,4 +232,4 @@ class ClientSessionV2 {
     })
   }
 }
-export default ClientSessionV2;
+export default ClientSession;

@@ -1,6 +1,9 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var axios = _interopDefault(require('axios'));
+var session = require('browser-store');
+var sessionStorage = _interopDefault(require('browser-session-store'));
+var _$1 = _interopDefault(require('lodash'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
@@ -23,7 +26,6 @@ var Cropper = _interopDefault(require('cropperjs'));
 var LocationPicker = _interopDefault(require('react-location-picker'));
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
-var _$1 = _interopDefault(require('lodash'));
 var reactTable = require('react-table');
 var styled = _interopDefault(require('styled-components'));
 require('bootstrap/dist/css/bootstrap.min.css');
@@ -250,6 +252,215 @@ var APISb = /*#__PURE__*/function () {
 }();
 
 APISb.API_SB_BASE_URL = API_SB_BASE_URL;
+
+var SBDashboardAuthkey = "SBDashboardAuth";
+var SBUserAuthkey = "SBUserAuth";
+var orbitalAuthkey = "orbitalAuth";
+var authkey = "auth";
+
+sessionStorage.setItem = function (key) {
+  var setLocalizationEvent = new Event("setLocalizationEvent");
+  setLocalizationEvent.key = key;
+  window.dispatchEvent(setLocalizationEvent);
+};
+
+var ClientSession = /*#__PURE__*/function () {
+  function ClientSession() {}
+
+  ClientSession.getAuth = function getAuth() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.get(self.authkey, function (error, value) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value);
+        }
+      });
+    });
+  };
+
+  ClientSession.setAuth = function setAuth(value) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.put(self.authkey, value, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          sessionStorage.setItem(self.authkey);
+          resolve(value);
+        }
+      });
+    });
+  };
+
+  ClientSession.removeAuth = function removeAuth() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.remove(self.authkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          sessionStorage.setItem(self.authkey);
+          resolve();
+        }
+      });
+    });
+  };
+
+  ClientSession.getOrbitalAuthkey = function getOrbitalAuthkey() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      session.get(self.orbitalAuthkey, function (error, value) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value);
+        }
+      });
+    });
+  };
+
+  ClientSession.setOrbitalAuthkey = function setOrbitalAuthkey(authData) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      session.put(self.orbitalAuthkey, authData, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(authData.user);
+        }
+      });
+    });
+  };
+
+  ClientSession.removeOrbitalAuthKey = function removeOrbitalAuthKey() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      session.remove(self.orbitalAuthkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  ClientSession.setSBDashboardAuthkey = function setSBDashboardAuthkey(value) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.put(self.SBDashboardAuthkey, value, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value);
+        }
+      });
+    });
+  };
+
+  ClientSession.removeSBDashboardAuthkey = function removeSBDashboardAuthkey() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.remove(self.SBDashboardAuthkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  ClientSession.setSBUserAuthkey = function setSBUserAuthkey(value) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.put(self.SBUserAuthkey, value, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value);
+        }
+      });
+    });
+  };
+
+  ClientSession.removeSBUserAuthkey = function removeSBUserAuthkey() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      sessionStorage.remove(self.SBUserAuthkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  ClientSession.isLoggedInToOrbital = function isLoggedInToOrbital() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.getOrbitalAuthkey().then(function (data) {
+        if (_$1.isEmpty(data) == true) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  ClientSession.isLoggedIn = function isLoggedIn() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.getAuth().then(function (data) {
+        if (_$1.isEmpty(data) == true) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  ClientSession.getAccessToken = function getAccessToken(callback) {
+    this.getAuth().then(function (value) {
+      callback(true, value);
+    })["catch"](function (error) {
+      console.error(error);
+      callback(false, error);
+    });
+  };
+
+  ClientSession.getPermission = function getPermission(callback) {};
+
+  ClientSession.checkPermission = function checkPermission(plugin_key) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.getAuth().then(function (auth) {
+        var permission = auth.permission || {};
+        permission = permission.permission || {};
+        var permission_value = permission[plugin_key];
+        resolve(permission_value);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  return ClientSession;
+}();
+
+ClientSession.SBDashboardAuthkey = SBDashboardAuthkey;
+ClientSession.SBUserAuthkey = SBUserAuthkey;
+ClientSession.orbitalAuthkey = orbitalAuthkey;
+ClientSession.authkey = authkey;
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
@@ -1954,6 +2165,7 @@ function ReactTable(_ref) {
 }
 
 exports.APISb = APISb;
+exports.ClientSession = ClientSession;
 exports.DatePicker = DatePicker;
 exports.DateTimePicker = DatePicker$1;
 exports.HTMLTextEditor = HTMLTextEditor;
