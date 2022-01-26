@@ -450,6 +450,21 @@ var ClientSession = /*#__PURE__*/function () {
     });
   };
 
+  ClientSession.checkLogin = function checkLogin() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.isLoggedIn().then(function (logged) {
+        if (logged == true) {
+          resolve();
+        } else {
+          reject("The user isn't logged in");
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
   return ClientSession;
 }();
 
@@ -460,6 +475,18 @@ ClientSession.authkey = authkey;
 
 var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
+
+  AuthStore.setAuthStore = function setAuthStore() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      ClientSession.getAuth().then(function (data) {
+        self.setAuth(data);
+        resolve();
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
 
   AuthStore.setAuth = function setAuth(auth) {
     this.auth = auth;

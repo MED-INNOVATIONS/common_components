@@ -1,7 +1,23 @@
+import ClientSession from "../services/ClientSession";
+
 export default class AuthStore {
     static defaultLang = "En";
 
     static auth = {};
+
+    static setAuthStore() {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            ClientSession.getAuth()
+                .then((data) => {
+                    self.setAuth(data);
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
 
     static setAuth(auth) {
         this.auth = auth;

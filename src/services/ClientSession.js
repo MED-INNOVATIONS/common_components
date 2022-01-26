@@ -231,5 +231,22 @@ class ClientSession {
         })
     })
   }
+
+  static checkLogin() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.isLoggedIn()
+        .then((logged) => {
+          if (logged == true) {
+            resolve();
+          } else {
+            reject("The user isn't logged in");
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        })
+    })
+  }
 }
 export default ClientSession;
