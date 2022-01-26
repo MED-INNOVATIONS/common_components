@@ -2,7 +2,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var axios = _interopDefault(require('axios'));
 var session = require('browser-store');
-var sessionStorage = _interopDefault(require('browser-session-store'));
+var sessionStorage$1 = _interopDefault(require('browser-session-store'));
 var _$1 = _interopDefault(require('lodash'));
 var React = require('react');
 var React__default = _interopDefault(React);
@@ -258,7 +258,7 @@ var SBUserAuthkey = "SBUserAuth";
 var orbitalAuthkey = "orbitalAuth";
 var authkey = "auth";
 
-sessionStorage.setItem = function (key) {
+sessionStorage$1.setItem = function (key) {
   var setLocalizationEvent = new Event("setLocalizationEvent");
   setLocalizationEvent.key = key;
   window.dispatchEvent(setLocalizationEvent);
@@ -270,7 +270,7 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.getAuth = function getAuth() {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.get(self.authkey, function (error, value) {
+      sessionStorage$1.get(self.authkey, function (error, value) {
         if (error) {
           reject(error);
         } else {
@@ -283,11 +283,11 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.setAuth = function setAuth(value) {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.put(self.authkey, value, function (error) {
+      sessionStorage$1.put(self.authkey, value, function (error) {
         if (error) {
           reject(error);
         } else {
-          sessionStorage.setItem(self.authkey);
+          sessionStorage$1.setItem(self.authkey);
           resolve(value);
         }
       });
@@ -297,11 +297,11 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.removeAuth = function removeAuth() {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.remove(self.authkey, function (error) {
+      sessionStorage$1.remove(self.authkey, function (error) {
         if (error) {
           reject(error);
         } else {
-          sessionStorage.setItem(self.authkey);
+          sessionStorage$1.setItem(self.authkey);
           resolve();
         }
       });
@@ -350,7 +350,7 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.setSBDashboardAuthkey = function setSBDashboardAuthkey(value) {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.put(self.SBDashboardAuthkey, value, function (error) {
+      sessionStorage$1.put(self.SBDashboardAuthkey, value, function (error) {
         if (error) {
           reject(error);
         } else {
@@ -363,7 +363,7 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.removeSBDashboardAuthkey = function removeSBDashboardAuthkey() {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.remove(self.SBDashboardAuthkey, function (error) {
+      sessionStorage$1.remove(self.SBDashboardAuthkey, function (error) {
         if (error) {
           reject(error);
         } else {
@@ -376,7 +376,7 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.setSBUserAuthkey = function setSBUserAuthkey(value) {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.put(self.SBUserAuthkey, value, function (error) {
+      sessionStorage$1.put(self.SBUserAuthkey, value, function (error) {
         if (error) {
           reject(error);
         } else {
@@ -389,7 +389,7 @@ var ClientSession = /*#__PURE__*/function () {
   ClientSession.removeSBUserAuthkey = function removeSBUserAuthkey() {
     var self = this;
     return new Promise(function (resolve, reject) {
-      sessionStorage.remove(self.SBUserAuthkey, function (error) {
+      sessionStorage$1.remove(self.SBUserAuthkey, function (error) {
         if (error) {
           reject(error);
         } else {
@@ -461,6 +461,110 @@ ClientSession.SBDashboardAuthkey = SBDashboardAuthkey;
 ClientSession.SBUserAuthkey = SBUserAuthkey;
 ClientSession.orbitalAuthkey = orbitalAuthkey;
 ClientSession.authkey = authkey;
+
+var AuthStore = /*#__PURE__*/function () {
+  function AuthStore() {}
+
+  AuthStore.setAuth = function setAuth(auth) {
+    this.auth = auth;
+  };
+
+  AuthStore.getAuth = function getAuth() {
+    return this.auth;
+  };
+
+  AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
+    var permitted = null;
+    var permission = this.auth.permission || [];
+    permission = permission[0];
+    permission = permission != null ? permission.permission : {};
+    permitted = permission[permission_key] || permitted;
+    return permitted;
+  };
+
+  AuthStore.getBrandId = function getBrandId() {
+    var brandId = this.auth && this.auth.user && this.auth.user.brandId ? this.auth.user.brandId : null;
+    return brandId;
+  };
+
+  AuthStore.getReferrerId = function getReferrerId() {
+    var referrerId = this.auth && this.auth.user && this.auth.user.referrerId ? this.auth.user.referrerId : null;
+    return referrerId;
+  };
+
+  AuthStore.getOwnerId = function getOwnerId() {
+    var user = this.auth && this.auth.user ? this.auth.user : null;
+
+    if (user.role == "Owner" && user.subRole == "Sub Owner") {
+      return user.referrerId;
+    } else if (user.role == "Owner") {
+      return user.id;
+    }
+  };
+
+  AuthStore.getUser = function getUser() {
+    var user = this.auth && this.auth.user ? this.auth.user : null;
+    return user;
+  };
+
+  AuthStore.getUserId = function getUserId() {
+    var userId = this.auth && this.auth.user && this.auth.user.id ? this.auth.user.id : null;
+    return userId;
+  };
+
+  AuthStore.isChildOwner = function isChildOwner() {
+    var isChild = this.auth && this.auth.user && this.auth.user.referrerId != null ? true : false;
+    return isChild;
+  };
+
+  AuthStore.getOwnerAllowedActivities = function getOwnerAllowedActivities() {
+    return this.getUserAllowedActivities();
+  };
+
+  AuthStore.getUserAllowedActivities = function getUserAllowedActivities() {
+    var allowedActivities = this.auth && this.auth.user && this.auth.user.allowedActivities ? this.auth.user.allowedActivities : [];
+    return allowedActivities;
+  };
+
+  AuthStore.getUserRole = function getUserRole() {
+    var role = this.auth && this.auth.user && this.auth.user.role ? this.auth.user.role : null;
+    return role;
+  };
+
+  AuthStore.getDefautlLang = function getDefautlLang() {
+    var config = this.auth.config;
+    var defaultLang = config != null ? config.defaultLang : this.defaultLang;
+    return defaultLang;
+  };
+
+  AuthStore.getCurrentLang = function getCurrentLang() {
+    var lang = null;
+    var auth = sessionStorage.getItem("auth");
+
+    if (auth) {
+      auth = JSON.parse(auth);
+      lang = auth.config.userLang;
+    }
+
+    return lang;
+  };
+
+  AuthStore.getPreferedLanguages = function getPreferedLanguages() {
+    var config = this.auth.config;
+    var preferedlang = config != null ? config.preferedlang : null;
+    return preferedlang;
+  };
+
+  AuthStore.getUserLang = function getUserLang() {
+    var lang = this.auth && this.auth.user && this.auth.user.lang ? this.auth.user.lang : null;
+    return lang;
+  };
+
+  return AuthStore;
+}();
+
+AuthStore.defaultLang = "En";
+AuthStore.auth = {};
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
@@ -2165,6 +2269,7 @@ function ReactTable(_ref) {
 }
 
 exports.APISb = APISb;
+exports.AuthStore = AuthStore;
 exports.ClientSession = ClientSession;
 exports.DatePicker = DatePicker;
 exports.DateTimePicker = DatePicker$1;
