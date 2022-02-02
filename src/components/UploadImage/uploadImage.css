@@ -1,0 +1,57 @@
+.upload_image_crud_buttons {
+    width: 104px;
+}
+
+.delete_image_icon {
+    float: right;
+    color: #dc3545;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.view_image_icon {
+    float: right;
+    color: #007bff;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+.upload_image_box {
+    width: 104px;
+    height: 104px;
+}
+
+.upload_image_button_error {
+    width: 104px;
+    height: 104px;
+    border: 1px dashed #dc3545;
+    background-color: #fafafa;
+    text-align: center;
+    border-radius: 4px;
+    vertical-align: top;
+}
+
+.upload_image_button {
+    width: 104px;
+    height: 104px;
+    border: 1px dashed #d9d9d9;
+    background-color: #fafafa;
+    text-align: center;
+    border-radius: 4px;
+    vertical-align: top;
+}
+
+.upload_image_error_message {
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.edit_header_icon_close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: grey
+}
