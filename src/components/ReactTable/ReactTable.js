@@ -6,6 +6,7 @@ import { faSort, faSortUp, faSortDown, faInfoCircle } from "@fortawesome/free-so
 import styled from "styled-components";
 import _ from "lodash";
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Styles = styled.div`
