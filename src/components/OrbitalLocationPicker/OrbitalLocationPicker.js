@@ -152,7 +152,7 @@ class OrbitalLocationPicker extends Component {
                                         <FormControl
                                             isInvalid={error}
                                             {...getInputProps({
-                                                placeholder: "Search Places ...",
+                                                placeholder: localization.searchPlaces || "Search places",
                                                 style: { marginBottom: 10 }
                                             })}
                                             value={autoCompleteAddress || ""}>
