@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# common_components
+#
+=======
 # orbital_common_components
 
 > Made with create-react-library
@@ -28,3 +32,4 @@ class Example extends Component {
 ## License
 
 MIT © [diegocervellini](https://github.com/diegocervellini)
+>>>>>>> 1b86347525b490dcd5085e4202808d2faef01b68
