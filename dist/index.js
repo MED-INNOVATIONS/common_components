@@ -1991,7 +1991,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, _extends({
         isInvalid: error
       }, getInputProps({
-        placeholder: "Search Places ...",
+        placeholder: localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
         }
@@ -2075,7 +2075,7 @@ function ReactTable(_ref) {
     initialState: {
       pageSize: _fixedPageSize || _defaultPageSize || 10
     }
-  }, reactTable.useSortBy, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect),
+  }, reactTable.useSortBy, reactTable.useExpanded, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
       headerGroups = _useTable.headerGroups,
@@ -2105,9 +2105,6 @@ function ReactTable(_ref) {
       base_values.push(_fixedPageSize);
       base_values = _$1.sortBy(base_values);
     }
-
-    base_values = _$1.uniq(base_values);
-    base_values = _$1.compact(base_values);
 
     var options = _$1.map(base_values, function (value, index) {
       return /*#__PURE__*/React__default.createElement("option", {
@@ -2274,6 +2271,7 @@ function ReactTable(_ref) {
     type: "number",
     min: 1,
     max: pageOptions.length,
+    defaultValue: pageIndex + 1,
     value: pageIndex + 1,
     onChange: function onChange(e) {
       var page = e.target.value ? Number(e.target.value) - 1 : 0;
