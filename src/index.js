@@ -14,6 +14,7 @@ import MandatoryFieldLabel from './components/MandatoryFieldLabel/MandatoryField
 import NormalFieldLabel from './components/NormalFieldLabel/NormalFieldLabel'
 import HTMLTextEditor from './components/HTMLTextEditor/HTMLTextEditor'
 import UploadImage from './components/UploadImage/UploadImage'
+import OrbitalAddressComponentsPicker from './components/OrbitalAddressComponentsPicker/OrbitalAddressComponentsPicker'
 import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLocationPicker'
 import Tooltip from './components/Tooltip/Tooltip';
 import ReactTable from './components/ReactTable/ReactTable';
@@ -37,6 +38,7 @@ export {
     MandatoryFieldLabel,
     NormalFieldLabel,
     HTMLTextEditor,
+    OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage
 }

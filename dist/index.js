@@ -23,9 +23,9 @@ var freeSolidSvgIcons = require('@fortawesome/free-solid-svg-icons');
 var Resizer = _interopDefault(require('react-image-file-resizer'));
 var uuidV4 = _interopDefault(require('uuid/v4'));
 var Cropper = _interopDefault(require('cropperjs'));
-var LocationPicker = _interopDefault(require('react-location-picker'));
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
+var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
 var styled = _interopDefault(require('styled-components'));
 require('bootstrap/dist/css/bootstrap.min.css');
@@ -1828,6 +1828,131 @@ var UploadImage = /*#__PURE__*/function (_Component) {
   return UploadImage;
 }(React.Component);
 
+var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(OrbitalAddressComponentsPicker, _Component);
+
+  function OrbitalAddressComponentsPicker(props) {
+    var _this;
+
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      autoCompleteLocation: _this.props.location,
+      location: _this.props.location
+    };
+    _this.placeAutocomplete = React__default.createRef();
+    _this.onSelectCity = _this.onSelectCity.bind(_assertThisInitialized(_this));
+    _this.changeCity = _this.changeCity.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  var _proto = OrbitalAddressComponentsPicker.prototype;
+
+  _proto.componentDidUpdate = function componentDidUpdate(nextProps) {
+    if (nextProps.location != this.state.location) {
+      this.setState({
+        location: nextProps.location,
+        autoCompleteLocation: nextProps.location
+      });
+    }
+  };
+
+  _proto.onSelectCity = function onSelectCity(location, placeId) {
+    var self = this;
+    var localization = this.props.localization;
+    PlacesAutocomplete.geocodeByPlaceId(placeId).then(function (results) {
+      var data = results[0];
+
+      if (data) {
+        var address_components = data.address_components;
+        self.setState({
+          autoCompleteLocation: location
+        }, function () {
+          self.props.onChange(address_components);
+        });
+      } else {
+        console.error("No data");
+        reactToastify.toast.error(localization.error || "Error");
+      }
+    })["catch"](function (error) {
+      console.error(error);
+      reactToastify.toast.error(localization.error || "Error");
+    });
+  };
+
+  _proto.changeCity = function changeCity(autoCompleteLocation) {
+    var _this2 = this;
+
+    this.setState({
+      autoCompleteLocation: autoCompleteLocation
+    }, function () {
+      if (_$1.isEmpty(autoCompleteLocation) == true) {
+        _this2.props.onChange([]);
+      }
+    });
+  };
+
+  _proto.getAutoCompleteClassname = function getAutoCompleteClassname(suggestion) {
+    var className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
+    return className;
+  };
+
+  _proto.getAutoCompleteStyle = function getAutoCompleteStyle(suggestion) {
+    var backgroundColor = suggestion.active ? "#fafafa" : "#ffffff";
+    var style = {
+      "backgroundColor": backgroundColor,
+      "cursor": "pointer"
+    };
+    return style;
+  };
+
+  _proto.render = function render() {
+    var self = this;
+    var autoCompleteLocation = this.state.autoCompleteLocation;
+    var _this$props = this.props,
+        localization = _this$props.localization,
+        error = _this$props.error;
+    return /*#__PURE__*/React__default.createElement(PlacesAutocomplete__default, {
+      ref: this.placeAutocomplete,
+      value: autoCompleteLocation || "",
+      onChange: this.changeCity,
+      onSelect: this.onSelectCity
+    }, function (_ref) {
+      var getInputProps = _ref.getInputProps,
+          suggestions = _ref.suggestions,
+          getSuggestionItemProps = _ref.getSuggestionItemProps;
+      return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactBootstrap.FormGroup, {
+        style: {
+          width: "100%"
+        }
+      }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, _extends({
+        isInvalid: error
+      }, getInputProps({
+        placeholder: localization.searchPlaces || "Search places",
+        style: {
+          marginBottom: 10
+        }
+      }), {
+        value: autoCompleteLocation || ""
+      })), /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control.Feedback, {
+        type: "invalid"
+      }, localization.completeField || "Please complete the field")), /*#__PURE__*/React__default.createElement("div", {
+        className: "autocomplete-dropdown-container"
+      }, suggestions.map(function (suggestion, index) {
+        var className = self.getAutoCompleteClassname(suggestion);
+        var style = self.getAutoCompleteStyle(suggestion);
+        return /*#__PURE__*/React__default.createElement("div", _extends({
+          key: index
+        }, getSuggestionItemProps(suggestion, {
+          className: className,
+          style: style
+        })), /*#__PURE__*/React__default.createElement("span", null, suggestion.description));
+      })));
+    });
+  };
+
+  return OrbitalAddressComponentsPicker;
+}(React.Component);
+
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -2302,6 +2427,7 @@ exports.HTMLTextEditor = HTMLTextEditor;
 exports.LoadingOverlay = CustomLoadingOverlay;
 exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
+exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
