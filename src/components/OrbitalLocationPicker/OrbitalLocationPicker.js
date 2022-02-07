@@ -137,6 +137,7 @@ class OrbitalLocationPicker extends Component {
         var { position, autoCompleteAddress, city } = this.state;
         var { localization, error } = this.props;
 
+        
         return (
             <div>
                 <Row>
