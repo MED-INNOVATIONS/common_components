@@ -22,7 +22,7 @@ import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
 import LocationPicker from 'react-location-picker';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
+import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -1987,7 +1987,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React.createElement(FormControl, _extends({
         isInvalid: error
       }, getInputProps({
-        placeholder: "Search Places ...",
+        placeholder: localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
         }
@@ -2071,7 +2071,7 @@ function ReactTable(_ref) {
     initialState: {
       pageSize: _fixedPageSize || _defaultPageSize || 10
     }
-  }, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
+  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
       headerGroups = _useTable.headerGroups,
@@ -2101,9 +2101,6 @@ function ReactTable(_ref) {
       base_values.push(_fixedPageSize);
       base_values = _$1.sortBy(base_values);
     }
-
-    base_values = _$1.uniq(base_values);
-    base_values = _$1.compact(base_values);
 
     var options = _$1.map(base_values, function (value, index) {
       return /*#__PURE__*/React.createElement("option", {
@@ -2270,6 +2267,7 @@ function ReactTable(_ref) {
     type: "number",
     min: 1,
     max: pageOptions.length,
+    defaultValue: pageIndex + 1,
     value: pageIndex + 1,
     onChange: function onChange(e) {
       var page = e.target.value ? Number(e.target.value) - 1 : 0;
