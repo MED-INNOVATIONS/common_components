@@ -2,7 +2,7 @@ import './styles.module.css';
 
 import APISb from './services/Apisb';
 import ClientSession from './services/ClientSession';
-import * as PluginUtils from "./services/PluginUtils"
+import * as Utils from "./services/PluginUtils"
 
 import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
