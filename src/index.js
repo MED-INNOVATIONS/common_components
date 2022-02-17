@@ -2,7 +2,7 @@ import './styles.module.css';
 
 import APISb from './services/Apisb';
 import ClientSession from './services/ClientSession';
-import * as Utils from "./services/PluginUtils"
+import * as CommonUtils from "./services/PluginUtils"
 
 import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
@@ -30,7 +30,7 @@ import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
 export {
     APISb,
     ClientSession,
-    PluginUtils,
+    CommonUtils,
     AuthStore,
     OrbitalStore,
     BrandStore,
