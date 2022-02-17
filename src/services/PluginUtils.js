@@ -110,7 +110,7 @@ export function checkPermission(AuthStore, pluginKey) {
     })
 }
 
-export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, OrbitalStore, AuthStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
+export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
     var self = this;
     return new Promise(function (resolve, reject) {
         ClientSession.checkLogin()
