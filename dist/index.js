@@ -473,6 +473,289 @@ ClientSession.SBUserAuthkey = SBUserAuthkey;
 ClientSession.orbitalAuthkey = orbitalAuthkey;
 ClientSession.authkey = authkey;
 
+var SpecificAPI = /*#__PURE__*/function () {
+  function SpecificAPI() {}
+
+  SpecificAPI.getAvailablePlugin = function getAvailablePlugin(authKey, apiUrl, pluginKey) {
+    return new Promise(function (resolve, reject) {
+      var url = "/PluginAvailableListMo/search/findByPluginKey";
+      var params = {
+        "pluginKey": pluginKey
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        resolve(data);
+      })["catch"](function (error) {
+        resolve(error);
+      });
+    });
+  };
+
+  SpecificAPI.getPluginActivation = function getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId, buyForAll) {
+    return new Promise(function (resolve, reject) {
+      var url = "/PluginActivationMo/search/findByBrandIdAndIdRelAndPluginKey";
+      var params = {
+        "pluginEnable": true,
+        "pluginActive": true,
+        "brandId": brandId,
+        "idRel": userId,
+        "pluginKey": pluginKey
+      };
+
+      if (buyForAll != null) {
+        params.buyForAll = buyForAll;
+      }
+
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        resolve(data);
+      })["catch"](function (error) {
+        resolve(error);
+      });
+    });
+  };
+
+  SpecificAPI.getPluginConfiguration = function getPluginConfiguration(authKey, apiUrl, pluginId) {
+    return new Promise(function (resolve, reject) {
+      var url = "/BrandPluginConfigMo/search/findByPluginId";
+      var params = {
+        "pluginId": pluginId
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        data = data[0] || data;
+        var config = data && data.configData ? data.configData : {};
+        resolve(config);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getBrandById = function getBrandById(authKey, apiUrl, brandId) {
+    return new Promise(function (resolve, reject) {
+      var url = "/BrandsMo/" + brandId;
+      APISb.get(authKey, apiUrl, url, null).then(function (result) {
+        var data = result.data;
+        resolve(data);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getBrandConfig = function getBrandConfig(authKey, apiUrl, brandId) {
+    return new Promise(function (resolve, reject) {
+      var url = "/BrandConfigurationMo/search/findByBrandId";
+      var params = {
+        "brandId": brandId
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        data = data[0] || data;
+        resolve(data);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getOrbitalConfig = function getOrbitalConfig(authKey, apiUrl, key) {
+    return new Promise(function (resolve, reject) {
+      var url = "/ConfigMo/search/findByKey";
+      key = key || "D001";
+      var params = {
+        "key": key
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        resolve(data);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getGeneralPluginLocalization = function getGeneralPluginLocalization(authKey, apiUrl, pluginKey) {
+    return new Promise(function (resolve, reject) {
+      var url = "/LocalizationAvailablePluginsMo/search/findByPluginKey";
+      var params = {
+        "pluginKey": pluginKey
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data || {};
+        var dashboard = data.dashboard || {};
+        resolve(dashboard);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getActivePluginLocalization = function getActivePluginLocalization(authKey, apiUrl, pluginActivationId) {
+    return new Promise(function (resolve, reject) {
+      var url = "/LocalizationActivePluginsMo/search/findByPluginActivationId";
+      var params = {
+        "pluginActivationId": pluginActivationId
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data || {};
+        var dashboard = data.dashboard || {};
+        resolve(dashboard);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  };
+
+  return SpecificAPI;
+}();
+
+function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
+  return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
+}
+function getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId) {
+  return new Promise(function (resolve, reject) {
+    var p0 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId, true);
+    var p1 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, ownerId);
+    Promise.all([p0, p1]).then(function (results) {
+      var buyForAllActivation = results[0];
+      var singleOwnerActivation = results[1];
+      var pluginActivation = _$1.isEmpty(buyForAllActivation) == false ? buyForAllActivation : singleOwnerActivation;
+      resolve(pluginActivation);
+    })["catch"](function (error) {
+      reject(error);
+    });
+  });
+}
+function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, ownerId, PluginStore) {
+  var self = this;
+  return new Promise(function (resolve, reject) {
+    SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey).then(function (availablePlugin) {
+      PluginStore.setAvailablePlugin(availablePlugin);
+
+      if (pluginTarget == "brand") {
+        return self.getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId);
+      } else if (pluginTarget == "owner") {
+        return self.getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId);
+      }
+    }).then(function (pluginActivation) {
+      if (_$1.isEmpty(pluginActivation) == true) {
+        reject("Plugin '" + pluginKey + "' is not active");
+      } else {
+        resolve(pluginActivation);
+      }
+    })["catch"](function (error) {
+      console.error(error);
+    });
+  });
+}
+function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
+  return new Promise(function (resolve, reject) {
+    var p0 = SpecificAPI.getGeneralPluginLocalization(authKey, apiUrl, pluginKey);
+    var p1 = SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId);
+    Promise.all([p0, p1]).then(function (results) {
+      var generalPluginLocalization = results[0];
+      var activePluginLocalization = results[1];
+
+      var localization = _extends({}, generalPluginLocalization, activePluginLocalization);
+
+      resolve(localization);
+    })["catch"](function (error) {
+      reject("Error getting localization");
+    });
+  });
+}
+function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
+  var newLocalizationObject = {};
+
+  _$1.each(localizationObj, function (obj, key) {
+    var languages = Object.keys(obj);
+
+    _$1.each(languages, function (language) {
+      if (newLocalizationObject[language] == null) {
+        newLocalizationObject[language] = {};
+      }
+
+      newLocalizationObject[language][key] = obj[language];
+    });
+  });
+
+  newLocalizationObject.En = newLocalizationObject.En || {};
+  newLocalizationObject.It = newLocalizationObject.It || {};
+  newLocalizationObject.En = _extends({}, callbackLocalization.En, newLocalizationObject.En);
+  newLocalizationObject.It = _extends({}, callbackLocalization.It, newLocalizationObject.It);
+  localizationInstance.setContent(newLocalizationObject);
+}
+function setUserLocalizationLanguage(AuthStore, localizationInstance) {
+  var userDefaultLang = AuthStore.getUserLang() || "En";
+  localizationInstance.setLanguage(userDefaultLang);
+}
+function checkPermission(AuthStore, pluginKey) {
+  return new Promise(function (resolve, reject) {
+    var userPluginPermission = AuthStore.getUserPluginPermission();
+    var pluginPermission = userPluginPermission[pluginKey];
+
+    if (pluginPermission === null || pluginPermission === "D") {
+      reject("The user is not allowed to access the '" + pluginKey + "' plugin");
+    } else {
+      resolve();
+    }
+  });
+}
+function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, OrbitalStore, AuthStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
+  var self = this;
+  return new Promise(function (resolve, reject) {
+    ClientSession.checkLogin().then(function () {
+      return AuthStore.setAuthStore();
+    }).then(function () {
+      self.checkPermission(AuthStore, pluginKey);
+    }).then(function () {
+      var brandId = AuthStore.getBrandId();
+      var ownerId = AuthStore.getOwnerId();
+      return self.getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, ownerId, PluginStore);
+    }).then(function (pluginActivation) {
+      var pluginActivationId = pluginActivation.id;
+      var brandId = AuthStore.getBrandId();
+      PluginStore.setPluginActivation(pluginActivation);
+      var p0 = SpecificAPI.getPluginConfiguration(authKey, apiUrl, pluginActivationId);
+      var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+      var p2 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
+      var p3 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
+      var p4 = self.getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId);
+      return Promise.all([p0, p1, p2, p3, p4]);
+    }).then(function (results) {
+      var pluginConfiguration = results[0];
+      PluginStore.setPluginConfiguration(pluginConfiguration);
+      var orbitalConfig = results[1];
+      OrbitalStore.setOrbitalConfig(orbitalConfig);
+      var brand = results[2];
+      BrandStore.setBrand(brand);
+      var brandConfig = results[3];
+      BrandStore.setBrandConfiguration(brandConfig);
+      var localizationObj = results[4];
+      self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
+      self.setUserLocalizationLanguage(AuthStore, localizationInstance);
+      resolve();
+    })["catch"](function (error) {
+      console.error("Error during plugin initalization pipeline");
+      reject(error);
+    });
+  });
+}
+
+var PluginUtils = {
+  __proto__: null,
+  getBrandPluginActivationInstance: getBrandPluginActivationInstance,
+  getOwnerPluginActivationInstance: getOwnerPluginActivationInstance,
+  getPluginActivation: getPluginActivation,
+  getPluginLocalization: getPluginLocalization,
+  setLocalization: setLocalization,
+  setUserLocalizationLanguage: setUserLocalizationLanguage,
+  checkPermission: checkPermission,
+  initializePluginPipeline: initializePluginPipeline
+};
+
 var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
 
@@ -494,6 +777,13 @@ var AuthStore = /*#__PURE__*/function () {
 
   AuthStore.getAuth = function getAuth() {
     return this.auth;
+  };
+
+  AuthStore.getUserPluginPermission = function getUserPluginPermission() {
+    var permission = this.auth.permission || [];
+    permission = permission[0];
+    permission = permission != null ? permission.permission : {};
+    return permission;
   };
 
   AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
@@ -588,6 +878,106 @@ var AuthStore = /*#__PURE__*/function () {
 
 AuthStore.defaultLang = "En";
 AuthStore.auth = {};
+
+var OrbitalStore = /*#__PURE__*/function () {
+  function OrbitalStore() {}
+
+  OrbitalStore.setOrbitalConfig = function setOrbitalConfig(orbitalConfig) {
+    this.orbitalConfig = orbitalConfig || {};
+  };
+
+  OrbitalStore.getOrbitalConfig = function getOrbitalConfig() {
+    return this.brand;
+  };
+
+  return OrbitalStore;
+}();
+
+OrbitalStore.orbitalConfig = {};
+
+var BrandStore = /*#__PURE__*/function () {
+  function BrandStore() {}
+
+  BrandStore.setBrand = function setBrand(brand) {
+    this.brand = brand || {};
+  };
+
+  BrandStore.getBrand = function getBrand() {
+    return this.brand;
+  };
+
+  BrandStore.setBrandConfiguration = function setBrandConfiguration(brandConfiguration) {
+    this.brandConfiguration = brandConfiguration || {};
+  };
+
+  BrandStore.getBrandConfiguration = function getBrandConfiguration() {
+    return this.brandConfiguration;
+  };
+
+  BrandStore.getBrandId = function getBrandId() {
+    var brandId = this.brand.id;
+    return brandId;
+  };
+
+  BrandStore.getPreferedLanguages = function getPreferedLanguages() {
+    var preferedLang = this.brandConfiguration.preferedLang;
+    return preferedLang;
+  };
+
+  BrandStore.getDefaultLang = function getDefaultLang() {
+    var defaultLang = this.brandConfiguration.defaultLang;
+    return defaultLang;
+  };
+
+  BrandStore.getCurrency = function getCurrency() {
+    var currency = this.brandConfiguration.currency;
+    return currency;
+  };
+
+  BrandStore.getCustomerIsolation = function getCustomerIsolation() {
+    var customerIsolation = this.brandConfiguration.customerIsolation;
+    return customerIsolation;
+  };
+
+  return BrandStore;
+}();
+
+BrandStore.brand = {};
+BrandStore.brandConfiguration = {};
+
+var PluginStore = /*#__PURE__*/function () {
+  function PluginStore() {}
+
+  PluginStore.setAvailablePlugin = function setAvailablePlugin(availablePlugin) {
+    this.availablePlugin = availablePlugin;
+  };
+
+  PluginStore.getAvailablePlugin = function getAvailablePlugin() {
+    return this.availablePlugin;
+  };
+
+  PluginStore.setPluginActivation = function setPluginActivation(pluginActivation) {
+    this.pluginActivation = pluginActivation;
+  };
+
+  PluginStore.getPluginActivation = function getPluginActivation() {
+    return this.pluginActivation;
+  };
+
+  PluginStore.setPluginConfiguration = function setPluginConfiguration(pluginConfiguration) {
+    this.pluginConfiguration = pluginConfiguration;
+  };
+
+  PluginStore.getPluginConfiguration = function getPluginConfiguration() {
+    return this.pluginConfiguration;
+  };
+
+  return PluginStore;
+}();
+
+PluginStore.availablePlugin = {};
+PluginStore.pluginActivation = {};
+PluginStore.pluginConfiguration = {};
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
@@ -2416,7 +2806,9 @@ function ReactTable(_ref) {
 
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
+exports.BrandStore = BrandStore;
 exports.ClientSession = ClientSession;
+exports.CommonUtils = PluginUtils;
 exports.DatePicker = DatePicker;
 exports.DateTimePicker = DatePicker$1;
 exports.HTMLTextEditor = HTMLTextEditor;
@@ -2425,6 +2817,8 @@ exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
+exports.OrbitalStore = OrbitalStore;
+exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
 exports.Scheduler = ReservationScheduler;

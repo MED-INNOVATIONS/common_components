@@ -27,6 +27,13 @@ export default class AuthStore {
         return this.auth;
     }
 
+    static getUserPluginPermission(){
+        var permission = this.auth.permission || [];
+        permission = permission[0];
+        permission = permission != null ? permission.permission : {};
+        return permission;
+    }
+
     static checkPermissionKey(permission_key) {
         var permitted = null;
         var permission = this.auth.permission || [];
