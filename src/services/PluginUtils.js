@@ -1,4 +1,4 @@
-import { ClientSession, AuthStore, APISb } from "orbital_common_components";
+import ClientSession from "./ClientSession";
 import SpecificAPI from "./SpecificAPI";
 import _ from "lodash";
 
