@@ -97,12 +97,28 @@ export function setUserLocalizationLanguage(AuthStore, localizationInstance) {
     localizationInstance.setLanguage(userDefaultLang);
 }
 
+export function checkPermission(AuthStore, pluginKey) {
+    return new Promise(function (resolve, reject) {
+        var userPluginPermission = AuthStore.getUserPluginPermission();
+
+        var pluginPermission = userPluginPermission[pluginKey];
+        if (pluginPermission === null || pluginPermission === "D") {
+            reject("The user is not allowed to access the '" + pluginKey + "' plugin");
+        } else {
+            resolve();
+        }
+    })
+}
+
 export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, OrbitalStore, AuthStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
     var self = this;
     return new Promise(function (resolve, reject) {
         ClientSession.checkLogin()
             .then(() => {
                 return AuthStore.setAuthStore();
+            })
+            .then(() => {
+                self.checkPermission(AuthStore, pluginKey);
             })
             .then(() => {
                 var brandId = AuthStore.getBrandId();

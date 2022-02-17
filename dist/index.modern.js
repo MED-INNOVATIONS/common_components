@@ -760,6 +760,13 @@ var AuthStore = /*#__PURE__*/function () {
     return this.auth;
   };
 
+  AuthStore.getUserPluginPermission = function getUserPluginPermission() {
+    var permission = this.auth.permission || [];
+    permission = permission[0];
+    permission = permission != null ? permission.permission : {};
+    return permission;
+  };
+
   AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
     var permitted = null;
     var permission = this.auth.permission || [];
@@ -2778,5 +2785,5 @@ function ReactTable(_ref) {
   }, setPageSizeOptions()))));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, PluginUtils, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map

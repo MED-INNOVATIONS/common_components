@@ -764,6 +764,13 @@ var AuthStore = /*#__PURE__*/function () {
     return this.auth;
   };
 
+  AuthStore.getUserPluginPermission = function getUserPluginPermission() {
+    var permission = this.auth.permission || [];
+    permission = permission[0];
+    permission = permission != null ? permission.permission : {};
+    return permission;
+  };
+
   AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
     var permitted = null;
     var permission = this.auth.permission || [];
@@ -2786,6 +2793,7 @@ exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
 exports.ClientSession = ClientSession;
+exports.CommonUtils = PluginUtils;
 exports.DatePicker = DatePicker;
 exports.DateTimePicker = DatePicker$1;
 exports.HTMLTextEditor = HTMLTextEditor;
@@ -2796,7 +2804,6 @@ exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalStore = OrbitalStore;
 exports.PluginStore = PluginStore;
-exports.PluginUtils = PluginUtils;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
 exports.Scheduler = ReservationScheduler;
