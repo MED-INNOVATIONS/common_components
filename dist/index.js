@@ -691,11 +691,25 @@ function setUserLocalizationLanguage(AuthStore, localizationInstance) {
   var userDefaultLang = AuthStore.getUserLang() || "En";
   localizationInstance.setLanguage(userDefaultLang);
 }
+function checkPermission(AuthStore, pluginKey) {
+  return new Promise(function (resolve, reject) {
+    var userPluginPermission = AuthStore.getUserPluginPermission();
+    var pluginPermission = userPluginPermission[pluginKey];
+
+    if (pluginPermission === null || pluginPermission === "D") {
+      reject("The user is not allowed to access the '" + pluginKey + "' plugin");
+    } else {
+      resolve();
+    }
+  });
+}
 function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, OrbitalStore, AuthStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
       return AuthStore.setAuthStore();
+    }).then(function () {
+      self.checkPermission(AuthStore, pluginKey);
     }).then(function () {
       var brandId = AuthStore.getBrandId();
       var ownerId = AuthStore.getOwnerId();
@@ -738,6 +752,7 @@ var PluginUtils = {
   getPluginLocalization: getPluginLocalization,
   setLocalization: setLocalization,
   setUserLocalizationLanguage: setUserLocalizationLanguage,
+  checkPermission: checkPermission,
   initializePluginPipeline: initializePluginPipeline
 };
 
