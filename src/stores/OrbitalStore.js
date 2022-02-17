@@ -9,7 +9,7 @@ export default class OrbitalStore {
     }
 
     static getOrbitalConfig() {
-        return this.brand;
+        return this.orbitalConfig;
     }
 
     /*************************************************************************/

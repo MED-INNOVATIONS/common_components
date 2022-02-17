@@ -699,7 +699,17 @@ function checkPermission(AuthStore, pluginKey) {
     }
   });
 }
-function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
+function initializePluginPipeline(initializationObject) {
+  var authKey = initializationObject.authKey,
+      apiUrl = initializationObject.apiUrl,
+      pluginTarget = initializationObject.pluginTarget,
+      pluginKey = initializationObject.pluginKey,
+      AuthStore = initializationObject.AuthStore,
+      OrbitalStore = initializationObject.OrbitalStore,
+      BrandStore = initializationObject.BrandStore,
+      PluginStore = initializationObject.PluginStore,
+      localizationInstance = initializationObject.localizationInstance,
+      callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
@@ -883,7 +893,7 @@ var OrbitalStore = /*#__PURE__*/function () {
   };
 
   OrbitalStore.getOrbitalConfig = function getOrbitalConfig() {
-    return this.brand;
+    return this.orbitalConfig;
   };
 
   return OrbitalStore;
