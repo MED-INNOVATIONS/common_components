@@ -699,7 +699,7 @@ function checkPermission(AuthStore, pluginKey) {
     }
   });
 }
-function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, OrbitalStore, AuthStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
+function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
