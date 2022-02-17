@@ -1,18 +1,14 @@
 import axios from "axios";
 
-var API_SB_BASE_URL = "https://sbapi.orbital.cloud";
-
 export default class APISb {
-    static API_SB_BASE_URL = API_SB_BASE_URL;
-
     static cleanToken(token) {
         token = `Bearer ${token}`;
         token = token.replaceAll('"', "");
         return token;
     }
 
-    static get(token, endpoint, params, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static get(token, baseUrl, endpoint, params, customHeaders) {
+        var url = baseUrl + endpoint;
 
         token = this.cleanToken(token);
         var defaultHeaders = {
@@ -40,8 +36,8 @@ export default class APISb {
         })
     }
 
-    static post(token, endpoint, params, data, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static post(token, baseUrl, endpoint, params, data, customHeaders) {
+        var url = baseUrl + endpoint;
 
         token = this.cleanToken(token);
         var defaultHeaders = {
@@ -70,8 +66,8 @@ export default class APISb {
         })
     }
 
-    static put(token, endpoint, params, data, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static put(token, baseUrl, endpoint, params, data, customHeaders) {
+        var url = baseUrl + endpoint;
 
         token = this.cleanToken(token);
         var defaultHeaders = {
@@ -100,8 +96,8 @@ export default class APISb {
         })
     }
 
-    static delete(token, endpoint, params, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static delete(token, baseUrl, endpoint, params, customHeaders) {
+        var url = baseUrl + endpoint;
 
         token = this.cleanToken(token);
         var defaultHeaders = {
@@ -133,8 +129,8 @@ export default class APISb {
     /******************************* WITHOUT TOKEN ***************************/
     /*************************************************************************/
 
-    static get_plain(endpoint, params, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static get_plain(baseUrl, endpoint, params, customHeaders) {
+        var url = baseUrl + endpoint;
 
         var defaultHeaders = {
             "content-type": "application/json",
@@ -160,8 +156,8 @@ export default class APISb {
         })
     }
 
-    static post_plain(endpoint, params, data, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static post_plain(baseUrl, endpoint, params, data, customHeaders) {
+        var url = baseUrl + endpoint;
 
         var defaultHeaders = {
             "content-type": "application/json",
@@ -188,8 +184,8 @@ export default class APISb {
         })
     }
 
-    static put_plain(endpoint, params, data, customHeaders) {
-        var url = API_SB_BASE_URL + endpoint;
+    static put_plain(baseUrl, endpoint, params, data, customHeaders) {
+        var url = baseUrl + endpoint;
 
         var defaultHeaders = {
             "content-type": "application/json",
@@ -215,5 +211,4 @@ export default class APISb {
                 })
         })
     }
-
 }

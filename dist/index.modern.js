@@ -67,8 +67,6 @@ function _taggedTemplateLiteralLoose(strings, raw) {
   return strings;
 }
 
-var API_SB_BASE_URL = "https://sbapi.orbital.cloud";
-
 var APISb = /*#__PURE__*/function () {
   function APISb() {}
 
@@ -78,8 +76,8 @@ var APISb = /*#__PURE__*/function () {
     return token;
   };
 
-  APISb.get = function get(token, endpoint, params, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.get = function get(token, baseUrl, endpoint, params, customHeaders) {
+    var url = baseUrl + endpoint;
     token = this.cleanToken(token);
     var defaultHeaders = {
       "content-type": "application/json",
@@ -102,8 +100,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb.post = function post(token, endpoint, params, data, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.post = function post(token, baseUrl, endpoint, params, data, customHeaders) {
+    var url = baseUrl + endpoint;
     token = this.cleanToken(token);
     var defaultHeaders = {
       "content-type": "application/json",
@@ -127,8 +125,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb.put = function put(token, endpoint, params, data, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.put = function put(token, baseUrl, endpoint, params, data, customHeaders) {
+    var url = baseUrl + endpoint;
     token = this.cleanToken(token);
     var defaultHeaders = {
       "content-type": "application/json",
@@ -152,8 +150,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb["delete"] = function _delete(token, endpoint, params, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb["delete"] = function _delete(token, baseUrl, endpoint, params, customHeaders) {
+    var url = baseUrl + endpoint;
     token = this.cleanToken(token);
     var defaultHeaders = {
       "content-type": "application/json",
@@ -176,8 +174,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb.get_plain = function get_plain(endpoint, params, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.get_plain = function get_plain(baseUrl, endpoint, params, customHeaders) {
+    var url = baseUrl + endpoint;
     var defaultHeaders = {
       "content-type": "application/json",
       "Accept": "application/json"
@@ -198,8 +196,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb.post_plain = function post_plain(endpoint, params, data, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.post_plain = function post_plain(baseUrl, endpoint, params, data, customHeaders) {
+    var url = baseUrl + endpoint;
     var defaultHeaders = {
       "content-type": "application/json",
       "Accept": "application/json"
@@ -221,8 +219,8 @@ var APISb = /*#__PURE__*/function () {
     });
   };
 
-  APISb.put_plain = function put_plain(endpoint, params, data, customHeaders) {
-    var url = API_SB_BASE_URL + endpoint;
+  APISb.put_plain = function put_plain(baseUrl, endpoint, params, data, customHeaders) {
+    var url = baseUrl + endpoint;
     var defaultHeaders = {
       "content-type": "application/json",
       "Accept": "application/json"
@@ -246,8 +244,6 @@ var APISb = /*#__PURE__*/function () {
 
   return APISb;
 }();
-
-APISb.API_SB_BASE_URL = API_SB_BASE_URL;
 
 var SBDashboardAuthkey = "SBDashboardAuth";
 var SBUserAuthkey = "SBUserAuth";
