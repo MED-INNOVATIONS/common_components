@@ -2,7 +2,7 @@ export default class PluginStore {
     /*************************************************************************/
     /************************** AVAILABLE PLUGIN *****************************/
     /*************************************************************************/
-    static availablePlugin = {};
+    static availablePlugin = null;
 
     static setAvailablePlugin(availablePlugin) {
         this.availablePlugin = availablePlugin;
@@ -15,7 +15,7 @@ export default class PluginStore {
     /*************************************************************************/
     /************************** ACTIVED PLUGIN *******************************/
     /*************************************************************************/
-    static pluginActivation = {};
+    static pluginActivation = null;
 
     static setPluginActivation(pluginActivation) {
         this.pluginActivation = pluginActivation;
@@ -29,7 +29,7 @@ export default class PluginStore {
     /*************************************************************************/
     /************************** PLUGIN CONFIGURATION *************************/
     /*************************************************************************/
-    static pluginConfiguration = {};
+    static pluginConfiguration = null;
 
     static setPluginConfiguration(pluginConfiguration) {
         this.pluginConfiguration = pluginConfiguration;

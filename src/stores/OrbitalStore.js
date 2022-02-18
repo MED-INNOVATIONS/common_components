@@ -2,7 +2,7 @@ export default class OrbitalStore {
     /*************************************************************************/
     /************************** ORBITAL CONFIG *******************************/
     /*************************************************************************/
-    static orbitalConfig = {};
+    static orbitalConfig = null;
 
     static setOrbitalConfig(orbitalConfig) {
         this.orbitalConfig = orbitalConfig || {};
@@ -11,8 +11,4 @@ export default class OrbitalStore {
     static getOrbitalConfig() {
         return this.orbitalConfig;
     }
-
-    /*************************************************************************/
-    /************************** GET METHODS **********************************/
-    /*************************************************************************/
 }

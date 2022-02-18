@@ -134,10 +134,10 @@ export function initializePluginPipeline(initializationObject) {
                 PluginStore.setPluginActivation(pluginActivation);
 
                 var p0 = SpecificAPI.getPluginConfiguration(authKey, apiUrl, pluginActivationId);
-                var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
-                var p2 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
-                var p3 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
-                var p4 = self.getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId);
+                var p1 = self.getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId);
+                var p2 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+                var p3 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
+                var p4 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
 
                 return Promise.all([p0, p1, p2, p3, p4])
             })
@@ -145,18 +145,63 @@ export function initializePluginPipeline(initializationObject) {
                 var pluginConfiguration = results[0];
                 PluginStore.setPluginConfiguration(pluginConfiguration);
 
-                var orbitalConfig = results[1];
-                OrbitalStore.setOrbitalConfig(orbitalConfig);
-
-                var brand = results[2];
-                BrandStore.setBrand(brand);
-
-                var brandConfig = results[3];
-                BrandStore.setBrandConfiguration(brandConfig);
-
-                var localizationObj = results[4];
+                var localizationObj = results[1];
                 self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
                 self.setUserLocalizationLanguage(AuthStore, localizationInstance);
+
+                var orbitalConfig = results[2];
+                OrbitalStore.setOrbitalConfig(orbitalConfig);
+
+                var brand = results[3];
+                BrandStore.setBrand(brand);
+
+                var brandConfig = results[4];
+                BrandStore.setBrandConfiguration(brandConfig);
+
+                resolve();
+            })
+            .catch((error) => {
+                console.error("Error during plugin initalization pipeline");
+                reject(error);
+            })
+    })
+}
+
+export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initializationObject) {
+    var { authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var self = this;
+    return new Promise(function (resolve, reject) {
+        ClientSession.checkLogin()
+            .then(() => {
+                return AuthStore.setAuthStore();
+            })
+            .then(() => {
+                var brandId = AuthStore.getBrandId();
+                var ownerId = AuthStore.getOwnerId();
+
+                return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey)
+            })
+            .then((availablePlugin) => {
+                PluginStore.setAvailablePlugin(availablePlugin);
+
+                var p0 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+                var p1 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
+                var p2 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
+
+                return Promise.all([p0, p1, p2])
+            })
+            .then((results) => {
+                var orbitalConfig = results[0];
+                OrbitalStore.setOrbitalConfig(orbitalConfig);
+
+                var brand = results[1];
+                BrandStore.setBrand(brand);
+
+                var brandConfig = results[2];
+                BrandStore.setBrandConfiguration(brandConfig);
+
+                var localizationObj = {};
+                self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
 
                 resolve();
             })

@@ -2,7 +2,7 @@ export default class BrandStore {
     /*************************************************************************/
     /**************************** BRAND **************************************/
     /*************************************************************************/
-    static brand = {};
+    static brand = null;
 
     static setBrand(brand) {
         this.brand = brand || {};
@@ -15,7 +15,7 @@ export default class BrandStore {
     /*************************************************************************/
     /************************** BRAND CONFIG *********************************/
     /*************************************************************************/
-    static brandConfiguration = {};
+    static brandConfiguration = null;
 
     static setBrandConfiguration(brandConfiguration) {
         this.brandConfiguration = brandConfiguration || {};
