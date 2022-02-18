@@ -8,7 +8,7 @@ export function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, bra
 
 export function getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId) {
     return new Promise(function (resolve, reject) {
-        var p0 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId, true);
+        var p0 = SpecificAPI.getPluginActivationForAll(authKey, apiUrl, pluginKey, brandId, brandId);
         var p1 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, ownerId);
         Promise.all([p0, p1])
             .then((results) => {

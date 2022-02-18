@@ -487,26 +487,41 @@ var SpecificAPI = /*#__PURE__*/function () {
     });
   };
 
-  SpecificAPI.getPluginActivation = function getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId, buyForAll) {
+  SpecificAPI.getPluginActivationForAll = function getPluginActivationForAll(authKey, apiUrl, pluginKey, brandId, userId) {
     return new Promise(function (resolve, reject) {
-      var url = "/PluginActivationMo/search/findByBrandIdAndIdRelAndPluginKey";
+      var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnableAndBuyForAll";
       var params = {
-        "pluginEnable": true,
-        "pluginActive": true,
+        "pluginKey": pluginKey,
         "brandId": brandId,
         "idRel": userId,
-        "pluginKey": pluginKey
+        "pluginActive": true,
+        "pluginEnable": true,
+        "buyForAll": true
       };
-
-      if (buyForAll != null) {
-        params.buyForAll = buyForAll;
-      }
-
       APISb.get(authKey, apiUrl, url, params).then(function (result) {
         var data = result.data;
         resolve(data);
       })["catch"](function (error) {
-        resolve(error);
+        reject(error);
+      });
+    });
+  };
+
+  SpecificAPI.getPluginActivation = function getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId) {
+    return new Promise(function (resolve, reject) {
+      var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnable";
+      var params = {
+        "pluginKey": pluginKey,
+        "brandId": brandId,
+        "idRel": userId,
+        "pluginActive": true,
+        "pluginEnable": true
+      };
+      APISb.get(authKey, apiUrl, url, params).then(function (result) {
+        var data = result.data;
+        resolve(data);
+      })["catch"](function (error) {
+        reject(error);
       });
     });
   };
@@ -612,7 +627,7 @@ function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
 }
 function getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId) {
   return new Promise(function (resolve, reject) {
-    var p0 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId, true);
+    var p0 = SpecificAPI.getPluginActivationForAll(authKey, apiUrl, pluginKey, brandId, brandId);
     var p1 = SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, ownerId);
     Promise.all([p0, p1]).then(function (results) {
       var buyForAllActivation = results[0];

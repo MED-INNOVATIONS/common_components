@@ -17,13 +17,17 @@ export default class SpecificAPI {
         })
     }
 
-    static getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId, buyForAll) {
+    static getPluginActivationForAll(authKey, apiUrl, pluginKey, brandId, userId) {
         return new Promise(function (resolve, reject) {
-            var url = "/PluginActivationMo/search/findByBrandIdAndIdRelAndPluginKey";
-            var params = { "pluginEnable": true, "pluginActive": true, "brandId": brandId, "idRel": userId, "pluginKey": pluginKey };
-            if (buyForAll != null) {
-                params.buyForAll = buyForAll;
-            }
+            var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnableAndBuyForAll";
+            var params = {
+                "pluginKey": pluginKey,
+                "brandId": brandId,
+                "idRel": userId,
+                "pluginActive": true,
+                "pluginEnable": true,
+                "buyForAll": true
+            };
 
             APISb.get(authKey, apiUrl, url, params)
                 .then((result) => {
@@ -31,7 +35,29 @@ export default class SpecificAPI {
                     resolve(data);
                 })
                 .catch((error) => {
-                    resolve(error);
+                    reject(error);
+                })
+        })
+    }
+
+    static getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId) {
+        return new Promise(function (resolve, reject) {
+            var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnable";
+            var params = {
+                "pluginKey": pluginKey,
+                "brandId": brandId,
+                "idRel": userId,
+                "pluginActive": true,
+                "pluginEnable": true
+            };
+
+            APISb.get(authKey, apiUrl, url, params)
+                .then((result) => {
+                    var data = result.data;
+                    resolve(data);
+                })
+                .catch((error) => {
+                    reject(error);
                 })
         })
     }
