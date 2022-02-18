@@ -249,6 +249,7 @@ var SBDashboardAuthkey = "SBDashboardAuth";
 var SBUserAuthkey = "SBUserAuth";
 var orbitalAuthkey = "orbitalAuth";
 var authkey = "auth";
+var SBAPI_URL = "sbapiUrl";
 
 sessionStorage$1.setItem = function (key) {
   var setLocalizationEvent = new Event("setLocalizationEvent");
@@ -999,6 +1000,39 @@ var PluginStore = /*#__PURE__*/function () {
 PluginStore.availablePlugin = {};
 PluginStore.pluginActivation = {};
 PluginStore.pluginConfiguration = {};
+
+var SessionStorageStore = /*#__PURE__*/function () {
+  function SessionStorageStore() {}
+
+  SessionStorageStore.setDashboardAuthKey = function setDashboardAuthKey(dashboardAuthKey) {
+    sessionStorage.setItem(SBDashboardAuthkey, dashboardAuthKey);
+  };
+
+  SessionStorageStore.getDashboardAuthKey = function getDashboardAuthKey() {
+    var dashboardAuthKey = sessionStorage.getItem(SBDashboardAuthkey);
+    return dashboardAuthKey;
+  };
+
+  SessionStorageStore.setUserAuthKey = function setUserAuthKey(userAuthKey) {
+    sessionStorage.setItem(SBUserAuthkey, userAuthKey);
+  };
+
+  SessionStorageStore.getUserAuthKey = function getUserAuthKey() {
+    var userAuthKey = sessionStorage.getItem(SBUserAuthkey);
+    return userAuthKey;
+  };
+
+  SessionStorageStore.setSBAPIUrl = function setSBAPIUrl(SBAPIUrl) {
+    sessionStorage.setItem(SBAPI_URL, SBAPIUrl);
+  };
+
+  SessionStorageStore.getSBAPIUrl = function getSBAPIUrl() {
+    var SBAPIUrl = sessionStorage.getItem(SBAPI_URL);
+    return SBAPIUrl;
+  };
+
+  return SessionStorageStore;
+}();
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
@@ -2825,5 +2859,5 @@ function ReactTable(_ref) {
   }, setPageSizeOptions()))));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, TimePicker, CustomTooltip as Tooltip, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map

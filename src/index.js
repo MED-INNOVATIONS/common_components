@@ -8,6 +8,7 @@ import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
 import BrandStore from './stores/BrandStore';
 import PluginStore from './stores/PluginStore';
+import SessionStorageStore from "./stores/SessionStorageStore"
 
 import DatePicker from './components/DateComponents/DatePicker';
 import DateTimePicker from './components/DateComponents/DateTimePicker';
@@ -31,6 +32,7 @@ export {
     APISb,
     ClientSession,
     CommonUtils,
+    SessionStorageStore,
     AuthStore,
     OrbitalStore,
     BrandStore,
