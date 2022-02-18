@@ -780,11 +780,10 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
     ClientSession.checkLogin().then(function () {
       return AuthStore.setAuthStore();
     }).then(function () {
-      var brandId = AuthStore.getBrandId();
-      var ownerId = AuthStore.getOwnerId();
       return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey);
     }).then(function (availablePlugin) {
       PluginStore.setAvailablePlugin(availablePlugin);
+      var brandId = AuthStore.getBrandId();
       var p0 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
       var p1 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
       var p2 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);

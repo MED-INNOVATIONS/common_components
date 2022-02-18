@@ -176,13 +176,11 @@ export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivatio
                 return AuthStore.setAuthStore();
             })
             .then(() => {
-                var brandId = AuthStore.getBrandId();
-                var ownerId = AuthStore.getOwnerId();
-
                 return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey)
             })
             .then((availablePlugin) => {
                 PluginStore.setAvailablePlugin(availablePlugin);
+                var brandId = AuthStore.getBrandId();
 
                 var p0 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
                 var p1 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
