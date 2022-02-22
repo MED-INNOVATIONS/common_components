@@ -3,7 +3,7 @@ import { Row, Col, Button, Modal, Card, Image as ReactBootstrapImage } from 'rea
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faUpload, faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTrashAlt, faEye, faFile } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 
 import Tooltip from "../Tooltip/Tooltip";
@@ -20,7 +20,8 @@ class UploadImage extends Component {
             showCropModal: false,
             image: this.props.image,
             imageToCropSrc: null,
-            imageToCrop: null
+            imageToCrop: null,
+            fileUploadSrc: null
         }
 
         this.checkImageRatioAndDimensions = this.checkImageRatioAndDimensions.bind(this);
@@ -74,8 +75,8 @@ class UploadImage extends Component {
                 currentImageSize = currentImageSize / 1048576;
                 if (cropImage != true && imageSize != null && currentImageSize > imageSize) {
                     var message = (localization.imageTooBig || "Image size must be at most") + " " + imageSize.toString() + "MB";
-                    toast.warn(message);
-                    resolve(true);
+                    toast.warn(message, { theme: "colored" });
+                    reject();
                     return;
                 }
 
@@ -148,38 +149,44 @@ class UploadImage extends Component {
         var { resizeImage, resizeHeight, resizeWidth, } = resizeProperties || {};
         var { cropImage } = cropProperties || {};
 
-        self.checkImageRatioAndDimensions(uploadedImage)
-            .then(() => {
-                if (resizeImage == true) {
-                    self.fileChangedHandler(fileSrc, resizeWidth, resizeHeight)
-                        .then((data) => {
-                            if (cropImage == true) {
-                                self.setState({
-                                    imageToCrop: data,
-                                    imageToCropSrc: fileSrc,
-                                    showCropModal: true
-                                })
-                            } else {
-                                self.props.onChange(data);
-                            }
+        if (fileSrc.type.includes("image")) {
+            self.checkImageRatioAndDimensions(uploadedImage)
+                .then(() => {
+                    if (resizeImage == true) {
+                        self.fileChangedHandler(fileSrc, resizeWidth, resizeHeight)
+                            .then((data) => {
+                                if (cropImage == true) {
+                                    self.setState({
+                                        imageToCrop: data,
+                                        imageToCropSrc: fileSrc,
+                                        showCropModal: true
+                                    })
+                                } else {
+                                    self.props.onChange(data);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                toast.error(localization.errorResizingImage || "Error resizing image")
+                            })
+                    } else if (cropImage == true) {
+                        self.setState({
+                            imageToCrop: uploadedImage,
+                            imageToCropSrc: fileSrc,
+                            showCropModal: true
                         })
-                        .catch((error) => {
-                            console.error(error);
-                            toast.error(localization.errorResizingImage || "Error resizing image")
-                        })
-                } else if (cropImage == true) {
-                    self.setState({
-                        imageToCrop: uploadedImage,
-                        imageToCropSrc: fileSrc,
-                        showCropModal: true
-                    })
-                } else {
-                    self.props.onChange(uploadedImage);
-                }
-            })
-            .catch((e) => {
+                    } else {
+                        self.props.onChange(uploadedImage);
+                    }
+                })
+                .catch((e) => {
 
-            })
+                })
+        } else {
+            self.setState({
+                fileUploadSrc: fileSrc
+            }, () => { self.props.onChange(uploadedImage); })
+        }
     }
 
     /*************************************************************************/
@@ -249,17 +256,19 @@ class UploadImage extends Component {
     }
 
     render() {
-        var { disabled, localization, cropProperties, error, errorMessage, ratio } = this.props;
-        var { image, showPreviewImage, showCropModal } = this.state;
+        var { disabled, localization, cropProperties, error, errorMessage, ratio, uploadType, isImage } = this.props;
+        var { image, showPreviewImage, showCropModal, fileUploadSrc } = this.state;
         var { imageToCropSrc, imageToCrop } = this.state;
 
         cropProperties = cropProperties || {};
+        uploadType = uploadType || "image/*";
+        var fileName = fileUploadSrc ? fileUploadSrc.name.slice(0, 15) + "..." : null;
 
         return (
             <div>
                 <Row>
                     <Col sm={12}>
-                        {image != null &&
+                        {image != null && isImage == null &&
                             <div>
                                 <div className="upload_image_crud_buttons">
                                     <FontAwesomeIcon className="delete_image_icon" icon={faTrashAlt} onClick={this.onRemove} />
@@ -270,6 +279,22 @@ class UploadImage extends Component {
                                 </div>
                             </div>
                         }
+                        {image != null && isImage == false &&
+                            <div>
+                                <div className="upload_image_crud_buttons">
+                                    <FontAwesomeIcon className="delete_image_icon" icon={faTrashAlt} onClick={this.onRemove} />
+                                </div>
+                                <div className="upload_image_box">
+                                    <div className="upload_file_box">
+                                        <div class="d-flex justify-content-center">
+                                            <FontAwesomeIcon className="file_icon" icon={faFile} onClick={this.onRemove} />
+                                        </div>
+                                        <p className="file_name">{fileName}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
                         {image == null &&
                             <div className="upload_image_box">
                                 <React.Fragment>
@@ -277,7 +302,7 @@ class UploadImage extends Component {
                                         ref="fileInput"
                                         onChange={this.handleFileUpload}
                                         type="file"
-                                        accept="image/*"
+                                        accept={uploadType}
                                         style={{ display: "none" }}
                                         multiple={false}>
                                     </input>
