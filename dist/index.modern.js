@@ -874,7 +874,15 @@ var AuthStore = /*#__PURE__*/function () {
       return user.referrerId;
     } else if (user.role == "Owner") {
       return user.id;
+    } else if (user.role == "Brand Manager" && user.subRole == "Brand Assistant") {
+      return user.referrerId;
+    } else if (user.role == "Brand Manager") {
+      return user.id;
     }
+  };
+
+  AuthStore.getParentId = function getParentId() {
+    return this.getOwnerId();
   };
 
   AuthStore.getUser = function getUser() {

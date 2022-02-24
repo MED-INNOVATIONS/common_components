@@ -27,7 +27,7 @@ export default class AuthStore {
         return this.auth;
     }
 
-    static getUserPluginPermission(){
+    static getUserPluginPermission() {
         var permission = this.auth.permission || [];
         permission = permission[0];
         permission = permission != null ? permission.permission : {};
@@ -59,7 +59,15 @@ export default class AuthStore {
             return user.referrerId;
         } else if (user.role == "Owner") {
             return user.id;
+        } else if (user.role == "Brand Manager" && user.subRole == "Brand Assistant") {
+            return user.referrerId;
+        } else if (user.role == "Brand Manager") {
+            return user.id;
         }
+    }
+
+    static getParentId() {
+        return this.getOwnerId();
     }
 
     static getUser() {
