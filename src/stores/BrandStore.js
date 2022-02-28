@@ -1,4 +1,19 @@
+const EventEmitter = require('events');
 export default class BrandStore {
+    static eventEmitter = new EventEmitter();
+
+    static emit(channel, data) {
+        this.eventEmitter.emit(channel, data);
+    }
+
+    static on(channel, callback) {
+        return this.eventEmitter.on(channel, callback);
+    }
+
+    static removeListener(channel, callback) {
+        return this.eventEmitter.removeListener(channel, callback);
+    }
+
     /*************************************************************************/
     /**************************** BRAND **************************************/
     /*************************************************************************/

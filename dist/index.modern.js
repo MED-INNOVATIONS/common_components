@@ -965,8 +965,22 @@ var OrbitalStore = /*#__PURE__*/function () {
 
 OrbitalStore.orbitalConfig = null;
 
+var EventEmitter = require('events');
+
 var BrandStore = /*#__PURE__*/function () {
   function BrandStore() {}
+
+  BrandStore.emit = function emit(channel, data) {
+    this.eventEmitter.emit(channel, data);
+  };
+
+  BrandStore.on = function on(channel, callback) {
+    return this.eventEmitter.on(channel, callback);
+  };
+
+  BrandStore.removeListener = function removeListener(channel, callback) {
+    return this.eventEmitter.removeListener(channel, callback);
+  };
 
   BrandStore.setBrand = function setBrand(brand) {
     this.brand = brand || {};
@@ -1023,6 +1037,7 @@ var BrandStore = /*#__PURE__*/function () {
   return BrandStore;
 }();
 
+BrandStore.eventEmitter = new EventEmitter();
 BrandStore.brand = null;
 BrandStore.brandConfiguration = null;
 
