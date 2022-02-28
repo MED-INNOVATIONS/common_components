@@ -1009,6 +1009,17 @@ var BrandStore = /*#__PURE__*/function () {
     return customerIsolation;
   };
 
+  BrandStore.getPermissionGroups = function getPermissionGroups() {
+    var pluginPermissionGroups = this.brandConfiguration != null ? this.brandConfiguration.pluginPermissionGroups : null;
+    return pluginPermissionGroups;
+  };
+
+  BrandStore.setPermissionGroups = function setPermissionGroups(pluginPermissionGroups) {
+    var brandConfiguration = this.brandConfiguration ? this.brandConfiguration : {};
+    brandConfiguration.pluginPermissionGroups = pluginPermissionGroups;
+    this.brandConfiguration = brandConfiguration;
+  };
+
   return BrandStore;
 }();
 

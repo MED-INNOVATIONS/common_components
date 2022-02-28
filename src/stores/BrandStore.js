@@ -53,4 +53,15 @@ export default class BrandStore {
         return customerIsolation;
     }
 
+    static getPermissionGroups() {
+        var pluginPermissionGroups = this.brandConfiguration != null ? this.brandConfiguration.pluginPermissionGroups : null;
+        return pluginPermissionGroups;
+    }
+
+    static setPermissionGroups(pluginPermissionGroups) {
+        var brandConfiguration = this.brandConfiguration ? this.brandConfiguration : {};
+        brandConfiguration.pluginPermissionGroups = pluginPermissionGroups;
+        this.brandConfiguration = brandConfiguration;
+    }
+
 }
