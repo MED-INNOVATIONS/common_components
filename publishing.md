@@ -1,8 +1,8 @@
 # Steps to publish a new version
 
 * do changes
-* update package.json version {tag_version}
 * npm install
+* update package.json version {tag_version}
 * commit
 * push
 * git tag {tag_version}
