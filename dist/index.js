@@ -964,10 +964,20 @@ var OrbitalStore = /*#__PURE__*/function () {
     return this.orbitalConfig;
   };
 
+  OrbitalStore.getDefaultImage = function getDefaultImage() {
+    var image = this.orbitalConfig && this.orbitalConfig.image ? this.orbitalConfig.image : null;
+    return image;
+  };
+
+  OrbitalStore.getDefaultLang = function getDefaultLang() {
+    var defaultLang = this.orbitalConfig && this.orbitalConfig.defaultLang ? this.orbitalConfig.defaultLang : null;
+    return defaultLang;
+  };
+
   return OrbitalStore;
 }();
 
-OrbitalStore.orbitalConfig = null;
+OrbitalStore.orbitalConfig = {};
 
 var EventEmitter = require('events');
 
