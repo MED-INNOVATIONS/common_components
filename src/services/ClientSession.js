@@ -191,6 +191,13 @@ class ClientSession {
     })
   }
 
+  static isLoggedInV2() {
+    var logged = false;
+    const authKey = sessionStorage.getItem(self.authkey);
+    logged = _.isEmpty(authKey) ? false : true;
+    return logged;
+  }
+
   static getAccessToken(callback) {
     this.getAuth()
       .then((value) => {

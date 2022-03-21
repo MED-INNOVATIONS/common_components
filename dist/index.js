@@ -426,6 +426,13 @@ var ClientSession = /*#__PURE__*/function () {
     });
   };
 
+  ClientSession.isLoggedInV2 = function isLoggedInV2() {
+    var logged = false;
+    var authKey = sessionStorage$1.getItem(self.authkey);
+    logged = _$1.isEmpty(authKey) ? false : true;
+    return logged;
+  };
+
   ClientSession.getAccessToken = function getAccessToken(callback) {
     this.getAuth().then(function (value) {
       callback(true, value);
