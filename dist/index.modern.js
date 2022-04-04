@@ -2915,7 +2915,6 @@ function ReactTable(_ref) {
     type: "number",
     min: 1,
     max: pageOptions.length,
-    defaultValue: pageIndex + 1,
     value: pageIndex + 1,
     onChange: function onChange(e) {
       var page = e.target.value ? Number(e.target.value) - 1 : 0;
