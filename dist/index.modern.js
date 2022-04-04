@@ -848,29 +848,74 @@ var AuthStore = /*#__PURE__*/function () {
     return this.auth;
   };
 
+  AuthStore.getUser = function getUser() {
+    var user = this.auth.user || {};
+    return user;
+  };
+
+  AuthStore.getUserId = function getUserId() {
+    var user = this.auth.user || {};
+    var userId = user.id;
+    return userId;
+  };
+
+  AuthStore.getUserRole = function getUserRole() {
+    var user = this.auth.user || {};
+    var role = user.role;
+    return role;
+  };
+
+  AuthStore.getUserSubRole = function getUserSubRole() {
+    var user = this.auth.user || {};
+    var subRole = user.subRole;
+    return subRole;
+  };
+
+  AuthStore.getDefautlLang = function getDefautlLang() {
+    var auth = this.auth || {};
+    var lang = auth.lang;
+    return lang;
+  };
+
+  AuthStore.getCurrentLang = function getCurrentLang() {
+    return this.getDefautlLang();
+  };
+
+  AuthStore.getUserLang = function getUserLang() {
+    return this.getDefautlLang();
+  };
+
+  AuthStore.getPreferedLanguages = function getPreferedLanguages() {
+    var auth = this.auth || {};
+    var user = auth.user || {};
+    var brand = user._brand || {};
+    var brandConfiguration = brand._brandConfiguration || {};
+    var languages = brandConfiguration.preferedLang || [];
+    return languages;
+  };
+
   AuthStore.getUserPluginPermission = function getUserPluginPermission() {
-    var permission = this.auth.permission || [];
-    permission = permission[0];
-    permission = permission != null ? permission.permission : {};
-    return permission;
+    var user = this.auth.user || {};
+    var permissions = user._permission || {};
+    return permissions;
   };
 
   AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
-    var permitted = null;
-    var permission = this.auth.permission || [];
-    permission = permission[0];
-    permission = permission != null ? permission.permission : {};
-    permitted = permission[permission_key] || permitted;
+    var user = this.auth.user || {};
+    var permissions = user._permission || {};
+    var permitted = permissions[permission_key] || "D";
     return permitted;
   };
 
   AuthStore.getBrandId = function getBrandId() {
-    var brandId = this.auth && this.auth.user && this.auth.user.brandId ? this.auth.user.brandId : null;
+    var user = this.auth.user || {};
+    var brandId = user.brandId;
     return brandId;
   };
 
   AuthStore.getReferrerId = function getReferrerId() {
-    var referrerId = this.auth && this.auth.user && this.auth.user.referrerId ? this.auth.user.referrerId : null;
+    var user = this.auth.user || {};
+    var referrerId = user.referrerId;
     return referrerId;
   };
 
@@ -890,64 +935,6 @@ var AuthStore = /*#__PURE__*/function () {
 
   AuthStore.getParentId = function getParentId() {
     return this.getOwnerId();
-  };
-
-  AuthStore.getUser = function getUser() {
-    var user = this.auth && this.auth.user ? this.auth.user : null;
-    return user;
-  };
-
-  AuthStore.getUserId = function getUserId() {
-    var userId = this.auth && this.auth.user && this.auth.user.id ? this.auth.user.id : null;
-    return userId;
-  };
-
-  AuthStore.isChildOwner = function isChildOwner() {
-    var isChild = this.auth && this.auth.user && this.auth.user.referrerId != null ? true : false;
-    return isChild;
-  };
-
-  AuthStore.getOwnerAllowedActivities = function getOwnerAllowedActivities() {
-    return this.getUserAllowedActivities();
-  };
-
-  AuthStore.getUserAllowedActivities = function getUserAllowedActivities() {
-    var allowedActivities = this.auth && this.auth.user && this.auth.user.allowedActivities ? this.auth.user.allowedActivities : [];
-    return allowedActivities;
-  };
-
-  AuthStore.getUserRole = function getUserRole() {
-    var role = this.auth && this.auth.user && this.auth.user.role ? this.auth.user.role : null;
-    return role;
-  };
-
-  AuthStore.getDefautlLang = function getDefautlLang() {
-    var config = this.auth.config;
-    var defaultLang = config != null ? config.defaultLang : this.defaultLang;
-    return defaultLang;
-  };
-
-  AuthStore.getCurrentLang = function getCurrentLang() {
-    var lang = null;
-    var auth = sessionStorage.getItem("auth");
-
-    if (auth) {
-      auth = JSON.parse(auth);
-      lang = auth.config.userLang;
-    }
-
-    return lang;
-  };
-
-  AuthStore.getPreferedLanguages = function getPreferedLanguages() {
-    var config = this.auth.config;
-    var preferedlang = config != null ? config.preferedlang : null;
-    return preferedlang;
-  };
-
-  AuthStore.getUserLang = function getUserLang() {
-    var lang = this.auth && this.auth.user && this.auth.user.lang ? this.auth.user.lang : null;
-    return lang;
   };
 
   return AuthStore;
