@@ -27,22 +27,76 @@ export default class AuthStore {
         return this.auth;
     }
 
+    static getUser() {
+        var user = this.auth.user || {};
+        return user;
+    }
+
+    static getUserId() {
+        var user = this.auth.user || {};
+        var userId = user.id;
+        return userId
+    }
+
+    static getUserRole() {
+        var user = this.auth.user || {};
+        var role = user.role;
+        return role;
+    }
+
+    static getUserSubRole() {
+        var user = this.auth.user || {};
+        var subRole = user.subRole;
+        return subRole;
+    }
+
+    static getDefautlLang() {
+        var auth = this.auth || {};
+        var lang = auth.lang;
+        return lang;
+    }
+
+    static getCurrentLang() {
+       return this.getDefautlLang();
+    }
+
+    static getUserLang() {
+        return this.getDefautlLang();
+    }
+
+    static getPreferedLanguages() {
+        var auth = this.auth || {};
+        var user = auth.user || {};
+        var brand = user._brand || {};
+        var brandConfiguration = brand._brandConfiguration || {};
+        var languages = brandConfiguration.preferedLang || [];
+
+        return languages;
+    }
+
+    static getUserPluginPermission() {
+        var user = this.auth.user || {};
+        var permissions = user._permission || {};
+        return permissions
+    }
+
     static checkPermissionKey(permission_key) {
-        var permitted = null;
-        var permission = this.auth.permission || [];
-        permission = permission[0];
-        permission = permission != null ? permission.permission : {};
-        permitted = permission[permission_key] || permitted;
+        var user = this.auth.user || {};
+        var permissions = user._permission || {};
+        var permitted = permissions[permission_key] || "D";
+
         return permitted;
     }
 
     static getBrandId() {
-        var brandId = this.auth && this.auth.user && this.auth.user.brandId ? this.auth.user.brandId : null;
+        var user = this.auth.user || {};
+        var brandId = user.brandId;
         return brandId
     }
 
     static getReferrerId() {
-        var referrerId = this.auth && this.auth.user && this.auth.user.referrerId ? this.auth.user.referrerId : null;
+        var user = this.auth.user || {};
+        var referrerId = user.referrerId;
         return referrerId
     }
 
@@ -52,61 +106,14 @@ export default class AuthStore {
             return user.referrerId;
         } else if (user.role == "Owner") {
             return user.id;
+        } else if (user.role == "Brand Manager" && user.subRole == "Brand Assistant") {
+            return user.referrerId;
+        } else if (user.role == "Brand Manager") {
+            return user.id;
         }
     }
 
-    static getUser() {
-        var user = this.auth && this.auth.user ? this.auth.user : null;
-        return user;
-    }
-
-    static getUserId() {
-        var userId = this.auth && this.auth.user && this.auth.user.id ? this.auth.user.id : null;
-        return userId
-    }
-
-    static isChildOwner() {
-        var isChild = this.auth && this.auth.user && this.auth.user.referrerId != null ? true : false;
-        return isChild;
-    }
-
-    static getOwnerAllowedActivities() {
-        return this.getUserAllowedActivities();
-    }
-
-    static getUserAllowedActivities() {
-        var allowedActivities = this.auth && this.auth.user && this.auth.user.allowedActivities ? this.auth.user.allowedActivities : [];
-        return allowedActivities;
-    }
-    static getUserRole() {
-        var role = this.auth && this.auth.user && this.auth.user.role ? this.auth.user.role : null;
-        return role;
-    }
-
-    static getDefautlLang() {
-        var config = this.auth.config;
-        var defaultLang = config != null ? config.defaultLang : this.defaultLang;
-        return defaultLang;
-    }
-
-    static getCurrentLang() {
-        var lang = null;
-        var auth = sessionStorage.getItem("auth");
-        if (auth) {
-            auth = JSON.parse(auth);
-            lang = auth.config.userLang;
-        }
-        return lang;
-    }
-
-    static getPreferedLanguages() {
-        var config = this.auth.config;
-        var preferedlang = config != null ? config.preferedlang : null;
-        return preferedlang;
-    }
-
-    static getUserLang() {
-        var lang = this.auth && this.auth.user && this.auth.user.lang ? this.auth.user.lang : null;
-        return lang;
+    static getParentId() {
+        return this.getOwnerId();
     }
 }

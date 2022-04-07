@@ -53,6 +53,7 @@ The component is used to upload and crop images
 <UploadImage
     localization={localization}
     image={siteHeaderImage}
+    imageSize={1}
     ratio={'16:3'}
     sizeConstraints={{
         constraints: 
