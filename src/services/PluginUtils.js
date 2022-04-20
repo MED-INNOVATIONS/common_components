@@ -73,7 +73,6 @@ export function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivati
 }
 
 export function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
-    debugger
     var newLocalizationObject = {};
     _.each(localizationObj, (obj, key) => {
         var languages = Object.keys(obj);
@@ -96,7 +95,6 @@ export function setLocalization(localizationInstance, localizationObj, callbackL
 }
 
 export function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-    debugger
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
     localizationInstance.setLanguage(lang);
 }
@@ -152,7 +150,6 @@ export function initializePluginPipeline(initializationObject) {
                 PluginStore.setPluginConfiguration(pluginConfiguration);
 
                 var localizationObj = results[1];
-                debugger
                 self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
                 self.setUserLocalizationLanguage(AuthStore, localizationInstance);
 
