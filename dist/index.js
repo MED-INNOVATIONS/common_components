@@ -733,7 +733,9 @@ function initializePluginPipeline(initializationObject) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      return AuthStore.setAuthStore();
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
     }).then(function () {
       self.checkPermission(AuthStore, pluginKey);
     }).then(function () {
@@ -783,7 +785,9 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      return AuthStore.setAuthStore();
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
     }).then(function () {
       return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey);
     }).then(function (availablePlugin) {
