@@ -1,7 +1,7 @@
-import * as MySessionStorage from "browser-session-store";
 import _ from "lodash";
-
 import * as constants from "../constants";
+
+const MySessionStorage = require('browser-session-store')
 
 MySessionStorage.setItem = function (key) {
     if (key == constants.currentLang) {
