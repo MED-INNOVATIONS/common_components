@@ -4,6 +4,8 @@ import ClientSession from "./ClientSession";
 import SpecificAPI from "./SpecificAPI";
 import SessionStorageStore from "../stores/SessionStorageStore";
 
+import * as constants from "../constants";
+
 export function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
     return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
 }
@@ -214,4 +216,9 @@ export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivatio
                 reject(error);
             })
     })
+}
+
+export function getLocalizationChannel() {
+    var localizationChannel = constants.localizationChannel;
+    return localizationChannel;
 }

@@ -252,6 +252,7 @@ var SBUserAuthkey = "SBUserAuth";
 var authkey = "auth";
 var SBAPI_URL = "sbapiUrl";
 var currentLang = "currentLang";
+var localizationChannel = "setLocalizationEvent";
 
 var MySessionStorage = require('browser-session-store');
 
@@ -681,7 +682,6 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
   });
 }
 function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
-  debugger;
   var newLocalizationObject = {};
 
   _$1.each(localizationObj, function (obj, key) {
@@ -703,7 +703,6 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  debugger;
   var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
   localizationInstance.setLanguage(lang);
 }
@@ -756,7 +755,6 @@ function initializePluginPipeline(initializationObject) {
       var pluginConfiguration = results[0];
       PluginStore.setPluginConfiguration(pluginConfiguration);
       var localizationObj = results[1];
-      debugger;
       self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
       self.setUserLocalizationLanguage(AuthStore, localizationInstance);
       var orbitalConfig = results[2];
@@ -813,6 +811,10 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
     });
   });
 }
+function getLocalizationChannel() {
+  var localizationChannel$1 = localizationChannel;
+  return localizationChannel$1;
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -824,23 +826,12 @@ var PluginUtils = {
   setUserLocalizationLanguage: setUserLocalizationLanguage,
   checkPermission: checkPermission,
   initializePluginPipeline: initializePluginPipeline,
-  initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation
+  initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
+  getLocalizationChannel: getLocalizationChannel
 };
 
 var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
-
-  AuthStore.setAuthStore = function setAuthStore() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      ClientSession.getAuth().then(function (data) {
-        self.setAuth(data);
-        resolve();
-      })["catch"](function (error) {
-        reject(error);
-      });
-    });
-  };
 
   AuthStore.setAuth = function setAuth(auth) {
     this.auth = auth;
