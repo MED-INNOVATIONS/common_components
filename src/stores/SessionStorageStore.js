@@ -5,7 +5,8 @@ const MySessionStorage = require('browser-session-store')
 
 MySessionStorage.setItem = function (key) {
     if (key == constants.currentLang) {
-        var setLocalizationEvent = new Event("setLocalizationEvent");
+        var localizationChannel = constants.localizationChannel;
+        var setLocalizationEvent = new Event(localizationChannel);
         setLocalizationEvent.key = key;
         window.dispatchEvent(setLocalizationEvent);
     }
