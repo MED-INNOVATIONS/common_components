@@ -1,6 +1,8 @@
+import _ from "lodash";
+
 import ClientSession from "./ClientSession";
 import SpecificAPI from "./SpecificAPI";
-import _ from "lodash";
+import SessionStorageStore from "../stores/SessionStorageStore";
 
 export function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
     return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
@@ -71,6 +73,7 @@ export function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivati
 }
 
 export function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
+    debugger
     var newLocalizationObject = {};
     _.each(localizationObj, (obj, key) => {
         var languages = Object.keys(obj);
@@ -93,8 +96,9 @@ export function setLocalization(localizationInstance, localizationObj, callbackL
 }
 
 export function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-    var userDefaultLang = AuthStore.getUserLang() || "En";
-    localizationInstance.setLanguage(userDefaultLang);
+    debugger
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
+    localizationInstance.setLanguage(lang);
 }
 
 export function checkPermission(AuthStore, pluginKey) {
@@ -146,6 +150,7 @@ export function initializePluginPipeline(initializationObject) {
                 PluginStore.setPluginConfiguration(pluginConfiguration);
 
                 var localizationObj = results[1];
+                debugger
                 self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
                 self.setUserLocalizationLanguage(AuthStore, localizationInstance);
 

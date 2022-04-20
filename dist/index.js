@@ -681,6 +681,7 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
   });
 }
 function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
+  debugger;
   var newLocalizationObject = {};
 
   _$1.each(localizationObj, function (obj, key) {
@@ -702,8 +703,9 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  var userDefaultLang = AuthStore.getUserLang() || "En";
-  localizationInstance.setLanguage(userDefaultLang);
+  debugger;
+  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
+  localizationInstance.setLanguage(lang);
 }
 function checkPermission(AuthStore, pluginKey) {
   return new Promise(function (resolve, reject) {
@@ -752,6 +754,7 @@ function initializePluginPipeline(initializationObject) {
       var pluginConfiguration = results[0];
       PluginStore.setPluginConfiguration(pluginConfiguration);
       var localizationObj = results[1];
+      debugger;
       self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
       self.setUserLocalizationLanguage(AuthStore, localizationInstance);
       var orbitalConfig = results[2];
