@@ -835,7 +835,6 @@ var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
 
   AuthStore.setAuthStore = function setAuthStore() {
-    debugger;
     var self = this;
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();

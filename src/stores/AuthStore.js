@@ -6,7 +6,6 @@ export default class AuthStore {
     static auth = {};
 
     static setAuthStore() {
-        debugger
         var self = this;
         return new Promise(function (resolve, reject) {
             var auth = SessionStorageStore.getAuth();
