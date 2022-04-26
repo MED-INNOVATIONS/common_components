@@ -261,7 +261,7 @@ MySessionStorage.setItem = function (key) {
   }
 };
 
-var SessionStorageStore$1 = /*#__PURE__*/function () {
+var SessionStorageStore = /*#__PURE__*/function () {
   function SessionStorageStore() {}
 
   SessionStorageStore.cleanKey = function cleanKey(value) {
@@ -430,7 +430,7 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.isLoggedIn = function isLoggedIn() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
 
       if (_$2.isEmpty(auth) == true) {
         resolve(false);
@@ -457,7 +457,7 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.getAuth = function getAuth() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
 
       if (_$2.isEmpty(auth) == true) {
         reject(null);
@@ -700,7 +700,7 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  var lang = SessionStorageStore$1.getCurrentLang() || AuthStore.getDefautlLang();
+  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
   localizationInstance.setLanguage(lang);
 }
 function checkPermission(AuthStore, pluginKey) {
@@ -729,7 +729,7 @@ function initializePluginPipeline(initializationObject) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -780,7 +780,7 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -831,6 +831,7 @@ var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
 
   AuthStore.setAuthStore = function setAuthStore() {
+    debugger;
     var self = this;
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
@@ -2907,5 +2908,5 @@ function ReactTable(_ref) {
   }, setPageSizeOptions()))));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore$1 as SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map

@@ -1,4 +1,4 @@
-import ClientSession from "../services/ClientSession";
+import SessionStorageStore from "./SessionStorageStore";
 
 export default class AuthStore {
     static defaultLang = "En";
@@ -6,6 +6,7 @@ export default class AuthStore {
     static auth = {};
 
     static setAuthStore() {
+        debugger
         var self = this;
         return new Promise(function (resolve, reject) {
             var auth = SessionStorageStore.getAuth();

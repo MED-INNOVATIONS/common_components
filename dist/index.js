@@ -265,7 +265,7 @@ MySessionStorage.setItem = function (key) {
   }
 };
 
-var SessionStorageStore$1 = /*#__PURE__*/function () {
+var SessionStorageStore = /*#__PURE__*/function () {
   function SessionStorageStore() {}
 
   SessionStorageStore.cleanKey = function cleanKey(value) {
@@ -434,7 +434,7 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.isLoggedIn = function isLoggedIn() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
 
       if (_$2.isEmpty(auth) == true) {
         resolve(false);
@@ -461,7 +461,7 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.getAuth = function getAuth() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
 
       if (_$2.isEmpty(auth) == true) {
         reject(null);
@@ -704,7 +704,7 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  var lang = SessionStorageStore$1.getCurrentLang() || AuthStore.getDefautlLang();
+  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
   localizationInstance.setLanguage(lang);
 }
 function checkPermission(AuthStore, pluginKey) {
@@ -733,7 +733,7 @@ function initializePluginPipeline(initializationObject) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -784,7 +784,7 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore$1.getAuth();
+      var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -835,6 +835,7 @@ var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
 
   AuthStore.setAuthStore = function setAuthStore() {
+    debugger;
     var self = this;
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
@@ -2929,7 +2930,7 @@ exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
 exports.Scheduler = ReservationScheduler;
-exports.SessionStorageStore = SessionStorageStore$1;
+exports.SessionStorageStore = SessionStorageStore;
 exports.TimePicker = TimePicker;
 exports.Tooltip = CustomTooltip;
 exports.UploadImage = UploadImage;
