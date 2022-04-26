@@ -5,6 +5,19 @@ export default class AuthStore {
 
     static auth = {};
 
+    static setAuthStore() {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            var auth = SessionStorageStore.getAuth();
+            if (_.isEmpty(auth) == true) {
+                reject("'Auth' is null");
+            } else {
+                self.setAuth(auth);
+                resolve();
+            }
+        })
+    }
+
     static setAuth(auth) {
         this.auth = auth;
     }
@@ -43,7 +56,7 @@ export default class AuthStore {
     }
 
     static getCurrentLang() {
-       return this.getDefautlLang();
+        return this.getDefautlLang();
     }
 
     static getUserLang() {

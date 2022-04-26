@@ -1,7 +1,7 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var axios = _interopDefault(require('axios'));
-var _$1 = _interopDefault(require('lodash'));
+var _$2 = _interopDefault(require('lodash'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
@@ -265,7 +265,7 @@ MySessionStorage.setItem = function (key) {
   }
 };
 
-var SessionStorageStore = /*#__PURE__*/function () {
+var SessionStorageStore$1 = /*#__PURE__*/function () {
   function SessionStorageStore() {}
 
   SessionStorageStore.cleanKey = function cleanKey(value) {
@@ -434,9 +434,9 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.isLoggedIn = function isLoggedIn() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore.getAuth();
+      var auth = SessionStorageStore$1.getAuth();
 
-      if (_$1.isEmpty(auth) == true) {
+      if (_$2.isEmpty(auth) == true) {
         resolve(false);
       } else {
         resolve(true);
@@ -461,9 +461,9 @@ var ClientSession = /*#__PURE__*/function () {
 
   ClientSession.getAuth = function getAuth() {
     return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore.getAuth();
+      var auth = SessionStorageStore$1.getAuth();
 
-      if (_$1.isEmpty(auth) == true) {
+      if (_$2.isEmpty(auth) == true) {
         reject(null);
       } else {
         resolve(auth);
@@ -637,7 +637,7 @@ function getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, o
     Promise.all([p0, p1]).then(function (results) {
       var buyForAllActivation = results[0];
       var singleOwnerActivation = results[1];
-      var pluginActivation = _$1.isEmpty(buyForAllActivation) == false ? buyForAllActivation : singleOwnerActivation;
+      var pluginActivation = _$2.isEmpty(buyForAllActivation) == false ? buyForAllActivation : singleOwnerActivation;
       resolve(pluginActivation);
     })["catch"](function (error) {
       reject(error);
@@ -656,7 +656,7 @@ function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, 
         return self.getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId);
       }
     }).then(function (pluginActivation) {
-      if (_$1.isEmpty(pluginActivation) == true) {
+      if (_$2.isEmpty(pluginActivation) == true) {
         reject("Plugin '" + pluginKey + "' is not active");
       } else {
         resolve(pluginActivation);
@@ -685,10 +685,10 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
 function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
   var newLocalizationObject = {};
 
-  _$1.each(localizationObj, function (obj, key) {
+  _$2.each(localizationObj, function (obj, key) {
     var languages = Object.keys(obj);
 
-    _$1.each(languages, function (language) {
+    _$2.each(languages, function (language) {
       if (newLocalizationObject[language] == null) {
         newLocalizationObject[language] = {};
       }
@@ -704,7 +704,7 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
+  var lang = SessionStorageStore$1.getCurrentLang() || AuthStore.getDefautlLang();
   localizationInstance.setLanguage(lang);
 }
 function checkPermission(AuthStore, pluginKey) {
@@ -733,7 +733,7 @@ function initializePluginPipeline(initializationObject) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore.getAuth();
+      var auth = SessionStorageStore$1.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -784,7 +784,7 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      var auth = SessionStorageStore.getAuth();
+      var auth = SessionStorageStore$1.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
       return AuthStore.setAuth(auth);
     }).then(function () {
@@ -833,6 +833,20 @@ var PluginUtils = {
 
 var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
+
+  AuthStore.setAuthStore = function setAuthStore() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      var auth = SessionStorageStore.getAuth();
+
+      if (_.isEmpty(auth) == true) {
+        reject("'Auth' is null");
+      } else {
+        self.setAuth(auth);
+        resolve();
+      }
+    });
+  };
 
   AuthStore.setAuth = function setAuth(auth) {
     this.auth = auth;
@@ -1155,7 +1169,7 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
   return RecurrenceEditor;
 }(React.Component);
 
-var _ = require("lodash");
+var _$1 = require("lodash");
 
 var date_format = "DD/MM/YYYY";
 var ReservationScheduler = /*#__PURE__*/function (_Component) {
@@ -1241,7 +1255,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
   };
 
   _proto.parseClosedDates = function parseClosedDates(closedDates) {
-    var closed_day = closedDates.length ? _.map(this.state.closedDates, function (el) {
+    var closed_day = closedDates.length ? _$1.map(this.state.closedDates, function (el) {
       var se = new Date(el);
       var s = new Date(se.getFullYear(), se.getMonth(), se.getDate()).getTime();
       return s;
@@ -1267,9 +1281,9 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     if (this.currentView == "Agenda") {
       setTimeout(function () {
         if (_this3.props.onChangeAgendaRange) {
-          var first = _.first(_this3.scheduleObj.activeView.renderDates);
+          var first = _$1.first(_this3.scheduleObj.activeView.renderDates);
 
-          var last = _.last(_this3.scheduleObj.activeView.renderDates);
+          var last = _$1.last(_this3.scheduleObj.activeView.renderDates);
 
           _this3.props.onChangeAgendaRange(first, last);
         }
@@ -1309,7 +1323,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
 
     function actionComplete(props) {
       if (props.requestType == "toolBarItemRendered") {
-        var todayButton = _.find(props.items || [], {
+        var todayButton = _$1.find(props.items || [], {
           cssClass: "e-today"
         });
 
@@ -2365,7 +2379,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
     this.setState({
       autoCompleteLocation: autoCompleteLocation
     }, function () {
-      if (_$1.isEmpty(autoCompleteLocation) == true) {
+      if (_$2.isEmpty(autoCompleteLocation) == true) {
         _this2.props.onChange([]);
       }
     });
@@ -2483,7 +2497,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
             var firstResult = results[0];
             var address_components = firstResult.address_components;
 
-            var addressComponent = _$1.find(address_components, function (component) {
+            var addressComponent = _$2.find(address_components, function (component) {
               var types = component.types;
 
               if (types.indexOf(addressComponentType) != -1) {
@@ -2509,7 +2523,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     this.setState({
       autoCompleteAddress: autoCompleteAddress
     }, function () {
-      if (_$1.isEmpty() == true) {
+      if (_$2.isEmpty() == true) {
         _this2.props.onChange({
           address: null,
           position: {},
@@ -2701,17 +2715,17 @@ function ReactTable(_ref) {
   var setPageSizeOptions = function setPageSizeOptions() {
     var base_values = [5, 10, 20, 30, 40, 50];
 
-    if (_$1.includes(base_values, _defaultPageSize) == false) {
+    if (_$2.includes(base_values, _defaultPageSize) == false) {
       base_values.push(_defaultPageSize);
-      base_values = _$1.sortBy(base_values);
+      base_values = _$2.sortBy(base_values);
     }
 
-    if (_$1.includes(base_values, _fixedPageSize) == false) {
+    if (_$2.includes(base_values, _fixedPageSize) == false) {
       base_values.push(_fixedPageSize);
-      base_values = _$1.sortBy(base_values);
+      base_values = _$2.sortBy(base_values);
     }
 
-    var options = _$1.map(base_values, function (value, index) {
+    var options = _$2.map(base_values, function (value, index) {
       return /*#__PURE__*/React__default.createElement("option", {
         key: index,
         value: value
@@ -2762,7 +2776,7 @@ function ReactTable(_ref) {
       var new_filling_rows = pageSize - page.length;
       new_filling_rows = new Array(new_filling_rows);
 
-      var page_tmp = _$1.map(new_filling_rows, function (f) {
+      var page_tmp = _$2.map(new_filling_rows, function (f) {
         return page[0];
       });
 
@@ -2790,7 +2804,7 @@ function ReactTable(_ref) {
   var setEmptyHeaders = function setEmptyHeaders() {
     var new_filling_rows = new Array(pageSize);
 
-    var rows = _$1.map(new_filling_rows, function () {
+    var rows = _$2.map(new_filling_rows, function () {
       return headerGroups.map(function (headerGroup) {
         return /*#__PURE__*/React__default.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
           className: "tr"
@@ -2915,7 +2929,7 @@ exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
 exports.Scheduler = ReservationScheduler;
-exports.SessionStorageStore = SessionStorageStore;
+exports.SessionStorageStore = SessionStorageStore$1;
 exports.TimePicker = TimePicker;
 exports.Tooltip = CustomTooltip;
 exports.UploadImage = UploadImage;
