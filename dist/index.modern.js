@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { get, put, remove } from 'browser-store';
-import sessionStorage$1 from 'browser-session-store';
-import _$1 from 'lodash';
+import _$2 from 'lodash';
 import React, { Component } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
@@ -247,210 +245,198 @@ var APISb = /*#__PURE__*/function () {
 
 var SBDashboardAuthkey = "SBDashboardAuth";
 var SBUserAuthkey = "SBUserAuth";
-var orbitalAuthkey = "orbitalAuth";
 var authkey = "auth";
 var SBAPI_URL = "sbapiUrl";
+var currentLang = "currentLang";
+var localizationChannel = "setLocalizationEvent";
 
-sessionStorage$1.setItem = function (key) {
-  var setLocalizationEvent = new Event("setLocalizationEvent");
-  setLocalizationEvent.key = key;
-  window.dispatchEvent(setLocalizationEvent);
+var MySessionStorage = require('browser-session-store');
+
+MySessionStorage.setItem = function (key) {
+  if (key == currentLang) {
+    var localizationChannel$1 = localizationChannel;
+    var setLocalizationEvent = new Event(localizationChannel$1);
+    setLocalizationEvent.key = key;
+    window.dispatchEvent(setLocalizationEvent);
+  }
 };
+
+var SessionStorageStore = /*#__PURE__*/function () {
+  function SessionStorageStore() {}
+
+  SessionStorageStore.cleanKey = function cleanKey(value) {
+    if (value != null) {
+      value = value.replaceAll('"', "");
+    }
+
+    return value;
+  };
+
+  SessionStorageStore.getCurrentLang = function getCurrentLang() {
+    var currentLang$1 = sessionStorage.getItem(currentLang);
+    currentLang$1 = this.cleanKey(currentLang$1);
+    return currentLang$1;
+  };
+
+  SessionStorageStore.setCurrentLang = function setCurrentLang(currentLang$1) {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.put(currentLang, currentLang$1, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          MySessionStorage.setItem(currentLang);
+          resolve(currentLang$1);
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.removeCurrentLang = function removeCurrentLang() {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.remove(currentLang, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.getDashboardAuthKey = function getDashboardAuthKey() {
+    var SBDashboardAuthkey$1 = sessionStorage.getItem(SBDashboardAuthkey);
+    SBDashboardAuthkey$1 = this.cleanKey(SBDashboardAuthkey$1);
+    return SBDashboardAuthkey$1;
+  };
+
+  SessionStorageStore.setDashboardAuthKey = function setDashboardAuthKey(dashboardAuthKey) {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.put(SBDashboardAuthkey, dashboardAuthKey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(dashboardAuthKey);
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.removeDashboardAuthKey = function removeDashboardAuthKey() {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.remove(SBDashboardAuthkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.getUserAuthKey = function getUserAuthKey() {
+    var SBUserAuthkey$1 = sessionStorage.getItem(SBUserAuthkey);
+    SBUserAuthkey$1 = this.cleanKey(SBUserAuthkey$1);
+    return SBUserAuthkey$1;
+  };
+
+  SessionStorageStore.setUserAuthKey = function setUserAuthKey(userAuthKey) {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.put(SBUserAuthkey, userAuthKey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(userAuthKey);
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.removeUserAuthKey = function removeUserAuthKey() {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.remove(SBUserAuthkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.getAuth = function getAuth() {
+    var authkey$1 = sessionStorage.getItem(authkey);
+    return authkey$1;
+  };
+
+  SessionStorageStore.setAuth = function setAuth(authkey$1) {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.put(authkey, authkey$1, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(authkey$1);
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.removeAuth = function removeAuth() {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.remove(authkey, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.getSBAPIUrl = function getSBAPIUrl() {
+    var SBAPI_URL$1 = sessionStorage.getItem(SBAPI_URL);
+    SBAPI_URL$1 = this.cleanKey(SBAPI_URL$1);
+    return SBAPI_URL$1;
+  };
+
+  SessionStorageStore.setSBAPIUrl = function setSBAPIUrl(SBAPIUrl) {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.put(SBAPI_URL, SBAPIUrl, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(SBAPIUrl);
+        }
+      });
+    });
+  };
+
+  SessionStorageStore.removeSBAPIUrl = function removeSBAPIUrl() {
+    return new Promise(function (resolve, reject) {
+      MySessionStorage.remove(SBAPI_URL, function (error) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  return SessionStorageStore;
+}();
 
 var ClientSession = /*#__PURE__*/function () {
   function ClientSession() {}
 
-  ClientSession.getAuth = function getAuth() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.get(self.authkey, function (error, value) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
-    });
-  };
-
-  ClientSession.setAuth = function setAuth(value) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.put(self.authkey, value, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          sessionStorage$1.setItem(self.authkey);
-          resolve(value);
-        }
-      });
-    });
-  };
-
-  ClientSession.removeAuth = function removeAuth() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.remove(self.authkey, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          sessionStorage$1.setItem(self.authkey);
-          resolve();
-        }
-      });
-    });
-  };
-
-  ClientSession.getOrbitalAuthkey = function getOrbitalAuthkey() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      get(self.orbitalAuthkey, function (error, value) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
-    });
-  };
-
-  ClientSession.setOrbitalAuthkey = function setOrbitalAuthkey(authData) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      put(self.orbitalAuthkey, authData, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(authData.user);
-        }
-      });
-    });
-  };
-
-  ClientSession.removeOrbitalAuthKey = function removeOrbitalAuthKey() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      remove(self.orbitalAuthkey, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  };
-
-  ClientSession.setSBDashboardAuthkey = function setSBDashboardAuthkey(value) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.put(self.SBDashboardAuthkey, value, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
-    });
-  };
-
-  ClientSession.removeSBDashboardAuthkey = function removeSBDashboardAuthkey() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.remove(self.SBDashboardAuthkey, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  };
-
-  ClientSession.setSBUserAuthkey = function setSBUserAuthkey(value) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.put(self.SBUserAuthkey, value, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
-    });
-  };
-
-  ClientSession.removeSBUserAuthkey = function removeSBUserAuthkey() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      sessionStorage$1.remove(self.SBUserAuthkey, function (error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  };
-
-  ClientSession.isLoggedInToOrbital = function isLoggedInToOrbital() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      self.getOrbitalAuthkey().then(function (data) {
-        if (_$1.isEmpty(data) == true) {
-          resolve(false);
-        } else {
-          resolve(true);
-        }
-      })["catch"](function (error) {
-        reject(error);
-      });
-    });
-  };
-
   ClientSession.isLoggedIn = function isLoggedIn() {
-    var self = this;
     return new Promise(function (resolve, reject) {
-      self.getAuth().then(function (data) {
-        if (_$1.isEmpty(data) == true) {
-          resolve(false);
-        } else {
-          resolve(true);
-        }
-      })["catch"](function (error) {
-        reject(error);
-      });
-    });
-  };
+      var auth = SessionStorageStore.getAuth();
 
-  ClientSession.isLoggedInV2 = function isLoggedInV2() {
-    var logged = false;
-    var authKey = sessionStorage$1.getItem(self.authkey);
-    logged = _$1.isEmpty(authKey) ? false : true;
-    return logged;
-  };
-
-  ClientSession.getAccessToken = function getAccessToken(callback) {
-    this.getAuth().then(function (value) {
-      callback(true, value);
-    })["catch"](function (error) {
-      console.error(error);
-      callback(false, error);
-    });
-  };
-
-  ClientSession.getPermission = function getPermission(callback) {};
-
-  ClientSession.checkPermission = function checkPermission(plugin_key) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      self.getAuth().then(function (auth) {
-        var permission = auth.permission || {};
-        permission = permission.permission || {};
-        var permission_value = permission[plugin_key];
-        resolve(permission_value);
-      })["catch"](function (error) {
-        reject(error);
-      });
+      if (_$2.isEmpty(auth) == true) {
+        resolve(false);
+      } else {
+        resolve(true);
+      }
     });
   };
 
@@ -469,13 +455,20 @@ var ClientSession = /*#__PURE__*/function () {
     });
   };
 
+  ClientSession.getAuth = function getAuth() {
+    return new Promise(function (resolve, reject) {
+      var auth = SessionStorageStore.getAuth();
+
+      if (_$2.isEmpty(auth) == true) {
+        reject(null);
+      } else {
+        resolve(auth);
+      }
+    });
+  };
+
   return ClientSession;
 }();
-
-ClientSession.SBDashboardAuthkey = SBDashboardAuthkey;
-ClientSession.SBUserAuthkey = SBUserAuthkey;
-ClientSession.orbitalAuthkey = orbitalAuthkey;
-ClientSession.authkey = authkey;
 
 var SpecificAPI = /*#__PURE__*/function () {
   function SpecificAPI() {}
@@ -640,7 +633,7 @@ function getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, o
     Promise.all([p0, p1]).then(function (results) {
       var buyForAllActivation = results[0];
       var singleOwnerActivation = results[1];
-      var pluginActivation = _$1.isEmpty(buyForAllActivation) == false ? buyForAllActivation : singleOwnerActivation;
+      var pluginActivation = _$2.isEmpty(buyForAllActivation) == false ? buyForAllActivation : singleOwnerActivation;
       resolve(pluginActivation);
     })["catch"](function (error) {
       reject(error);
@@ -659,7 +652,7 @@ function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, 
         return self.getOwnerPluginActivationInstance(authKey, apiUrl, pluginKey, brandId, ownerId);
       }
     }).then(function (pluginActivation) {
-      if (_$1.isEmpty(pluginActivation) == true) {
+      if (_$2.isEmpty(pluginActivation) == true) {
         reject("Plugin '" + pluginKey + "' is not active");
       } else {
         resolve(pluginActivation);
@@ -688,10 +681,10 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
 function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
   var newLocalizationObject = {};
 
-  _$1.each(localizationObj, function (obj, key) {
+  _$2.each(localizationObj, function (obj, key) {
     var languages = Object.keys(obj);
 
-    _$1.each(languages, function (language) {
+    _$2.each(languages, function (language) {
       if (newLocalizationObject[language] == null) {
         newLocalizationObject[language] = {};
       }
@@ -707,8 +700,8 @@ function setLocalization(localizationInstance, localizationObj, callbackLocaliza
   localizationInstance.setContent(newLocalizationObject);
 }
 function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-  var userDefaultLang = AuthStore.getUserLang() || "En";
-  localizationInstance.setLanguage(userDefaultLang);
+  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
+  localizationInstance.setLanguage(lang);
 }
 function checkPermission(AuthStore, pluginKey) {
   return new Promise(function (resolve, reject) {
@@ -736,7 +729,9 @@ function initializePluginPipeline(initializationObject) {
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      return AuthStore.setAuthStore();
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
     }).then(function () {
       self.checkPermission(AuthStore, pluginKey);
     }).then(function () {
@@ -785,7 +780,9 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var self = this;
   return new Promise(function (resolve, reject) {
     ClientSession.checkLogin().then(function () {
-      return AuthStore.setAuthStore();
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
     }).then(function () {
       return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey);
     }).then(function (availablePlugin) {
@@ -811,6 +808,10 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
     });
   });
 }
+function getLocalizationChannel() {
+  var localizationChannel$1 = localizationChannel;
+  return localizationChannel$1;
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -822,7 +823,8 @@ var PluginUtils = {
   setUserLocalizationLanguage: setUserLocalizationLanguage,
   checkPermission: checkPermission,
   initializePluginPipeline: initializePluginPipeline,
-  initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation
+  initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
+  getLocalizationChannel: getLocalizationChannel
 };
 
 var AuthStore = /*#__PURE__*/function () {
@@ -831,12 +833,14 @@ var AuthStore = /*#__PURE__*/function () {
   AuthStore.setAuthStore = function setAuthStore() {
     var self = this;
     return new Promise(function (resolve, reject) {
-      ClientSession.getAuth().then(function (data) {
-        self.setAuth(data);
+      var auth = SessionStorageStore.getAuth();
+
+      if (_.isEmpty(auth) == true) {
+        reject("'Auth' is null");
+      } else {
+        self.setAuth(auth);
         resolve();
-      })["catch"](function (error) {
-        reject(error);
-      });
+      }
     });
   };
 
@@ -1079,39 +1083,6 @@ PluginStore.availablePlugin = null;
 PluginStore.pluginActivation = null;
 PluginStore.pluginConfiguration = null;
 
-var SessionStorageStore = /*#__PURE__*/function () {
-  function SessionStorageStore() {}
-
-  SessionStorageStore.setDashboardAuthKey = function setDashboardAuthKey(dashboardAuthKey) {
-    sessionStorage.setItem(SBDashboardAuthkey, dashboardAuthKey);
-  };
-
-  SessionStorageStore.getDashboardAuthKey = function getDashboardAuthKey() {
-    var dashboardAuthKey = sessionStorage.getItem(SBDashboardAuthkey);
-    return dashboardAuthKey;
-  };
-
-  SessionStorageStore.setUserAuthKey = function setUserAuthKey(userAuthKey) {
-    sessionStorage.setItem(SBUserAuthkey, userAuthKey);
-  };
-
-  SessionStorageStore.getUserAuthKey = function getUserAuthKey() {
-    var userAuthKey = sessionStorage.getItem(SBUserAuthkey);
-    return userAuthKey;
-  };
-
-  SessionStorageStore.setSBAPIUrl = function setSBAPIUrl(SBAPIUrl) {
-    sessionStorage.setItem(SBAPI_URL, SBAPIUrl);
-  };
-
-  SessionStorageStore.getSBAPIUrl = function getSBAPIUrl() {
-    var SBAPIUrl = sessionStorage.getItem(SBAPI_URL);
-    return SBAPIUrl;
-  };
-
-  return SessionStorageStore;
-}();
-
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
 
@@ -1194,7 +1165,7 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
   return RecurrenceEditor;
 }(Component);
 
-var _ = require("lodash");
+var _$1 = require("lodash");
 
 var date_format = "DD/MM/YYYY";
 var ReservationScheduler = /*#__PURE__*/function (_Component) {
@@ -1280,7 +1251,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
   };
 
   _proto.parseClosedDates = function parseClosedDates(closedDates) {
-    var closed_day = closedDates.length ? _.map(this.state.closedDates, function (el) {
+    var closed_day = closedDates.length ? _$1.map(this.state.closedDates, function (el) {
       var se = new Date(el);
       var s = new Date(se.getFullYear(), se.getMonth(), se.getDate()).getTime();
       return s;
@@ -1306,9 +1277,9 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     if (this.currentView == "Agenda") {
       setTimeout(function () {
         if (_this3.props.onChangeAgendaRange) {
-          var first = _.first(_this3.scheduleObj.activeView.renderDates);
+          var first = _$1.first(_this3.scheduleObj.activeView.renderDates);
 
-          var last = _.last(_this3.scheduleObj.activeView.renderDates);
+          var last = _$1.last(_this3.scheduleObj.activeView.renderDates);
 
           _this3.props.onChangeAgendaRange(first, last);
         }
@@ -1348,7 +1319,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
 
     function actionComplete(props) {
       if (props.requestType == "toolBarItemRendered") {
-        var todayButton = _.find(props.items || [], {
+        var todayButton = _$1.find(props.items || [], {
           cssClass: "e-today"
         });
 
@@ -2404,7 +2375,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
     this.setState({
       autoCompleteLocation: autoCompleteLocation
     }, function () {
-      if (_$1.isEmpty(autoCompleteLocation) == true) {
+      if (_$2.isEmpty(autoCompleteLocation) == true) {
         _this2.props.onChange([]);
       }
     });
@@ -2522,7 +2493,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
             var firstResult = results[0];
             var address_components = firstResult.address_components;
 
-            var addressComponent = _$1.find(address_components, function (component) {
+            var addressComponent = _$2.find(address_components, function (component) {
               var types = component.types;
 
               if (types.indexOf(addressComponentType) != -1) {
@@ -2548,7 +2519,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     this.setState({
       autoCompleteAddress: autoCompleteAddress
     }, function () {
-      if (_$1.isEmpty() == true) {
+      if (_$2.isEmpty() == true) {
         _this2.props.onChange({
           address: null,
           position: {},
@@ -2740,17 +2711,17 @@ function ReactTable(_ref) {
   var setPageSizeOptions = function setPageSizeOptions() {
     var base_values = [5, 10, 20, 30, 40, 50];
 
-    if (_$1.includes(base_values, _defaultPageSize) == false) {
+    if (_$2.includes(base_values, _defaultPageSize) == false) {
       base_values.push(_defaultPageSize);
-      base_values = _$1.sortBy(base_values);
+      base_values = _$2.sortBy(base_values);
     }
 
-    if (_$1.includes(base_values, _fixedPageSize) == false) {
+    if (_$2.includes(base_values, _fixedPageSize) == false) {
       base_values.push(_fixedPageSize);
-      base_values = _$1.sortBy(base_values);
+      base_values = _$2.sortBy(base_values);
     }
 
-    var options = _$1.map(base_values, function (value, index) {
+    var options = _$2.map(base_values, function (value, index) {
       return /*#__PURE__*/React.createElement("option", {
         key: index,
         value: value
@@ -2801,7 +2772,7 @@ function ReactTable(_ref) {
       var new_filling_rows = pageSize - page.length;
       new_filling_rows = new Array(new_filling_rows);
 
-      var page_tmp = _$1.map(new_filling_rows, function (f) {
+      var page_tmp = _$2.map(new_filling_rows, function (f) {
         return page[0];
       });
 
@@ -2829,7 +2800,7 @@ function ReactTable(_ref) {
   var setEmptyHeaders = function setEmptyHeaders() {
     var new_filling_rows = new Array(pageSize);
 
-    var rows = _$1.map(new_filling_rows, function () {
+    var rows = _$2.map(new_filling_rows, function () {
       return headerGroups.map(function (headerGroup) {
         return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
           className: "tr"
