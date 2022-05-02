@@ -28,6 +28,12 @@ class HTMLTextEditor extends Component {
         this.parseData(this.props.data);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(this.props.data!=nextProps.data){
+            this.parseData(nextProps.data);
+        }
+    }
+
     parseData(data) {
         if (data != null) {
             var tmp = htmlToDraft(data);
