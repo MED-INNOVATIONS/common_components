@@ -60,6 +60,7 @@ const Styles = styled.div`
   }
 `;
 
+
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset }) {
   const {
     getTableProps,
