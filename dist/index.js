@@ -1518,6 +1518,12 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
     this.parseData(this.props.data);
   };
 
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    if (this.props.data != nextProps.data) {
+      this.parseData(nextProps.data);
+    }
+  };
+
   _proto.parseData = function parseData(data) {
     if (data != null) {
       var tmp = htmlToDraft(data);
