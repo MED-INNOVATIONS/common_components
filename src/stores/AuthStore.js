@@ -1,4 +1,4 @@
-import ClientSession from "../services/ClientSession";
+import SessionStorageStore from "./SessionStorageStore";
 
 export default class AuthStore {
     static defaultLang = "En";
@@ -8,14 +8,13 @@ export default class AuthStore {
     static setAuthStore() {
         var self = this;
         return new Promise(function (resolve, reject) {
-            ClientSession.getAuth()
-                .then((data) => {
-                    self.setAuth(data);
-                    resolve();
-                })
-                .catch((error) => {
-                    reject(error);
-                })
+            var auth = SessionStorageStore.getAuth();
+            if (_.isEmpty(auth) == true) {
+                reject("'Auth' is null");
+            } else {
+                self.setAuth(auth);
+                resolve();
+            }
         })
     }
 
@@ -57,7 +56,7 @@ export default class AuthStore {
     }
 
     static getCurrentLang() {
-       return this.getDefautlLang();
+        return this.getDefautlLang();
     }
 
     static getUserLang() {

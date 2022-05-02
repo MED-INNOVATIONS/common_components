@@ -1,6 +1,10 @@
+import _ from "lodash";
+
 import ClientSession from "./ClientSession";
 import SpecificAPI from "./SpecificAPI";
-import _ from "lodash";
+import SessionStorageStore from "../stores/SessionStorageStore";
+
+import * as constants from "../constants";
 
 export function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
     return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
@@ -93,8 +97,8 @@ export function setLocalization(localizationInstance, localizationObj, callbackL
 }
 
 export function setUserLocalizationLanguage(AuthStore, localizationInstance) {
-    var userDefaultLang = AuthStore.getUserLang() || "En";
-    localizationInstance.setLanguage(userDefaultLang);
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang();
+    localizationInstance.setLanguage(lang);
 }
 
 export function checkPermission(AuthStore, pluginKey) {
@@ -117,7 +121,9 @@ export function initializePluginPipeline(initializationObject) {
     return new Promise(function (resolve, reject) {
         ClientSession.checkLogin()
             .then(() => {
-                return AuthStore.setAuthStore();
+                var auth = SessionStorageStore.getAuth();
+                auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+                return AuthStore.setAuth(auth);
             })
             .then(() => {
                 self.checkPermission(AuthStore, pluginKey);
@@ -173,7 +179,9 @@ export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivatio
     return new Promise(function (resolve, reject) {
         ClientSession.checkLogin()
             .then(() => {
-                return AuthStore.setAuthStore();
+                var auth = SessionStorageStore.getAuth();
+                auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+                return AuthStore.setAuth(auth);
             })
             .then(() => {
                 return SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey)
@@ -208,4 +216,9 @@ export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivatio
                 reject(error);
             })
     })
+}
+
+export function getLocalizationChannel() {
+    var localizationChannel = constants.localizationChannel;
+    return localizationChannel;
 }
