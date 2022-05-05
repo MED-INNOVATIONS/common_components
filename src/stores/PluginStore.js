@@ -25,17 +25,8 @@ export default class PluginStore {
         return this.pluginActivation;
     }
 
-
-    /*************************************************************************/
-    /************************** PLUGIN CONFIGURATION *************************/
-    /*************************************************************************/
-    static pluginConfiguration = null;
-
-    static setPluginConfiguration(pluginConfiguration) {
-        this.pluginConfiguration = pluginConfiguration;
-    }
-
     static getPluginConfiguration() {
-        return this.pluginConfiguration;
+        var pluginConfiguration = this.pluginActivation && this.pluginActivation.config ? this.pluginActivation.config : null;
+        return pluginConfiguration;
     }
 }
