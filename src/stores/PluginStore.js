@@ -26,7 +26,7 @@ export default class PluginStore {
     }
 
     static getPluginConfiguration() {
-        var pluginConfiguration = pluginActivation && pluginActivation.config ? this.pluginActivation.config : null;
+        var pluginConfiguration = this.pluginActivation && this.pluginActivation.config ? this.pluginActivation.config : null;
         return pluginConfiguration;
     }
 }
