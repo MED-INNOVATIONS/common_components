@@ -139,29 +139,25 @@ export function initializePluginPipeline(initializationObject) {
                 var brandId = AuthStore.getBrandId();
                 PluginStore.setPluginActivation(pluginActivation);
 
-                var p0 = SpecificAPI.getPluginConfiguration(authKey, apiUrl, pluginActivationId);
-                var p1 = self.getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId);
-                var p2 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
-                var p3 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
-                var p4 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
+                var p0 = self.getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId);
+                var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+                var p2 = SpecificAPI.getBrandById(authKey, apiUrl, brandId);
+                var p3 = SpecificAPI.getBrandConfig(authKey, apiUrl, brandId);
 
-                return Promise.all([p0, p1, p2, p3, p4])
+                return Promise.all([p0, p1, p2, p3])
             })
             .then((results) => {
-                var pluginConfiguration = results[0];
-                PluginStore.setPluginConfiguration(pluginConfiguration);
-
-                var localizationObj = results[1];
+                var localizationObj = results[0];
                 self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
                 self.setUserLocalizationLanguage(AuthStore, localizationInstance);
 
-                var orbitalConfig = results[2];
+                var orbitalConfig = results[1];
                 OrbitalStore.setOrbitalConfig(orbitalConfig);
 
-                var brand = results[3];
+                var brand = results[2];
                 BrandStore.setBrand(brand);
 
-                var brandConfig = results[4];
+                var brandConfig = results[3];
                 BrandStore.setBrandConfiguration(brandConfig);
 
                 resolve();
