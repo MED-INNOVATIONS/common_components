@@ -29,4 +29,9 @@ export default class PluginStore {
         var pluginConfiguration = this.pluginActivation && this.pluginActivation.config ? this.pluginActivation.config : null;
         return pluginConfiguration;
     }
+
+    static getPluginDefaultData() {
+        var pluginDefaultData = this.pluginActivation && this.pluginActivation.defaultData ? this.pluginActivation.defaultData : null;
+        return pluginDefaultData;
+    }
 }
