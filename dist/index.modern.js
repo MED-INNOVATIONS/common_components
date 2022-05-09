@@ -1070,6 +1070,11 @@ var PluginStore = /*#__PURE__*/function () {
     return pluginConfiguration;
   };
 
+  PluginStore.getPluginDefaultData = function getPluginDefaultData() {
+    var pluginDefaultData = this.pluginActivation && this.pluginActivation.defaultData ? this.pluginActivation.defaultData : null;
+    return pluginDefaultData;
+  };
+
   return PluginStore;
 }();
 
