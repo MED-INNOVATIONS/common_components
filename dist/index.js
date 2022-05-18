@@ -2512,7 +2512,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
             var city = addressComponent.long_name;
             resolve(city);
           } else {
-            reject("Error getting 'city' from coordinates (lat, lng)");
+            console.log("status - ", status);
+            reject("Error getting 'city' from coordinates (" + lat + ", " + lng + ")");
           }
         });
       } catch (error) {
@@ -2567,7 +2568,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       });
     })["catch"](function (error) {
       console.error(error);
-      reactToastify.toast.error(localization.error || "Error");
+      reactToastify.toast.warn(localization.UnableToAcquireTheCity || "Unable to acquire the city please re position the pointer again in a few seconds.");
     });
   };
 
