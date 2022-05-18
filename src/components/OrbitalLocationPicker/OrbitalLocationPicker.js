@@ -58,7 +58,8 @@ class OrbitalLocationPicker extends Component {
                         var city = addressComponent.long_name;
                         resolve(city);
                     } else {
-                        reject("Error getting 'city' from coordinates (lat, lng)");
+                        console.log("status - ",status);
+                        reject(`Error getting 'city' from coordinates (${lat}, ${lng})`);
                     }
                 })
             } catch (error) {
@@ -114,7 +115,7 @@ class OrbitalLocationPicker extends Component {
             })
             .catch((error) => {
                 console.error(error);
-                toast.error(localization.error || "Error");
+                toast.warn(localization.UnableToAcquireTheCity || "Unable to acquire the city please re position the pointer again in a few seconds.");
             })
     };
 
