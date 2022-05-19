@@ -253,6 +253,7 @@ var authkey = "auth";
 var SBAPI_URL = "sbapiUrl";
 var currentLang = "currentLang";
 var localizationChannel = "setLocalizationEvent";
+var pluginVersionChannel = "pluginVersionEvent";
 
 var MySessionStorage = require('browser-session-store');
 
@@ -724,6 +725,7 @@ function initializePluginPipeline(initializationObject) {
       apiUrl = initializationObject.apiUrl,
       pluginTarget = initializationObject.pluginTarget,
       pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
       AuthStore = initializationObject.AuthStore,
       OrbitalStore = initializationObject.OrbitalStore,
       BrandStore = initializationObject.BrandStore,
@@ -732,6 +734,9 @@ function initializePluginPipeline(initializationObject) {
       callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
     ClientSession.checkLogin().then(function () {
       var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
@@ -772,6 +777,7 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var authKey = initializationObject.authKey,
       apiUrl = initializationObject.apiUrl,
       pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
       AuthStore = initializationObject.AuthStore,
       OrbitalStore = initializationObject.OrbitalStore,
       BrandStore = initializationObject.BrandStore,
@@ -780,6 +786,9 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
       callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
     ClientSession.checkLogin().then(function () {
       var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
@@ -813,6 +822,10 @@ function getLocalizationChannel() {
   var localizationChannel$1 = localizationChannel;
   return localizationChannel$1;
 }
+function getPluginVersionChannel() {
+  var pluginVersionChannel$1 = pluginVersionChannel;
+  return pluginVersionChannel$1;
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -825,7 +838,8 @@ var PluginUtils = {
   checkPermission: checkPermission,
   initializePluginPipeline: initializePluginPipeline,
   initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
-  getLocalizationChannel: getLocalizationChannel
+  getLocalizationChannel: getLocalizationChannel,
+  getPluginVersionChannel: getPluginVersionChannel
 };
 
 var AuthStore = /*#__PURE__*/function () {
