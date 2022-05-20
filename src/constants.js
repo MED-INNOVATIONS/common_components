@@ -3,4 +3,5 @@ export const SBUserAuthkey = "SBUserAuth";
 export const authkey = "auth";
 export const SBAPI_URL = "sbapiUrl";
 export const currentLang = "currentLang";
-export const localizationChannel = "setLocalizationEvent"
+export const localizationChannel = "setLocalizationEvent";
+export const pluginVersionChannel = "pluginVersionEvent";

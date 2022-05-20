@@ -116,9 +116,14 @@ export function checkPermission(AuthStore, pluginKey) {
 
 // export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
 export function initializePluginPipeline(initializationObject) {
-    var { authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
     var self = this;
     return new Promise(function (resolve, reject) {
+
+        var pluginVersionEvent = new Event(constants.pluginVersionChannel);
+        pluginVersionEvent.pluginVersion = pluginVersion;
+        window.dispatchEvent(pluginVersionEvent);
+
         ClientSession.checkLogin()
             .then(() => {
                 var auth = SessionStorageStore.getAuth();
@@ -170,9 +175,14 @@ export function initializePluginPipeline(initializationObject) {
 }
 
 export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initializationObject) {
-    var { authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
     var self = this;
     return new Promise(function (resolve, reject) {
+
+        var pluginVersionEvent = new Event(constants.pluginVersionChannel);
+        pluginVersionEvent.pluginVersion = pluginVersion;
+        window.dispatchEvent(pluginVersionEvent);
+
         ClientSession.checkLogin()
             .then(() => {
                 var auth = SessionStorageStore.getAuth();
@@ -217,4 +227,9 @@ export function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivatio
 export function getLocalizationChannel() {
     var localizationChannel = constants.localizationChannel;
     return localizationChannel;
+}
+
+export function getPluginVersionChannel(){
+    var pluginVersionChannel = constants.pluginVersionChannel;
+    return pluginVersionChannel;
 }

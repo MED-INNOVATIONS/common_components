@@ -14,7 +14,7 @@ import { OverlayTrigger, Tooltip, Card, Row, Col, Image as Image$1, Button, Moda
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faDownload, faTrashAlt, faEye, faUpload, faSort, faSortDown, faSortUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faTrashAlt, faEye, faUpload, faInfoCircle, faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
@@ -249,6 +249,7 @@ var authkey = "auth";
 var SBAPI_URL = "sbapiUrl";
 var currentLang = "currentLang";
 var localizationChannel = "setLocalizationEvent";
+var pluginVersionChannel = "pluginVersionEvent";
 
 var MySessionStorage = require('browser-session-store');
 
@@ -720,6 +721,7 @@ function initializePluginPipeline(initializationObject) {
       apiUrl = initializationObject.apiUrl,
       pluginTarget = initializationObject.pluginTarget,
       pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
       AuthStore = initializationObject.AuthStore,
       OrbitalStore = initializationObject.OrbitalStore,
       BrandStore = initializationObject.BrandStore,
@@ -728,6 +730,9 @@ function initializePluginPipeline(initializationObject) {
       callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
     ClientSession.checkLogin().then(function () {
       var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
@@ -768,6 +773,7 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
   var authKey = initializationObject.authKey,
       apiUrl = initializationObject.apiUrl,
       pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
       AuthStore = initializationObject.AuthStore,
       OrbitalStore = initializationObject.OrbitalStore,
       BrandStore = initializationObject.BrandStore,
@@ -776,6 +782,9 @@ function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initi
       callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
     ClientSession.checkLogin().then(function () {
       var auth = SessionStorageStore.getAuth();
       auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
@@ -809,6 +818,10 @@ function getLocalizationChannel() {
   var localizationChannel$1 = localizationChannel;
   return localizationChannel$1;
 }
+function getPluginVersionChannel() {
+  var pluginVersionChannel$1 = pluginVersionChannel;
+  return pluginVersionChannel$1;
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -821,7 +834,8 @@ var PluginUtils = {
   checkPermission: checkPermission,
   initializePluginPipeline: initializePluginPipeline,
   initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
-  getLocalizationChannel: getLocalizationChannel
+  getLocalizationChannel: getLocalizationChannel,
+  getPluginVersionChannel: getPluginVersionChannel
 };
 
 var AuthStore = /*#__PURE__*/function () {
@@ -1068,6 +1082,11 @@ var PluginStore = /*#__PURE__*/function () {
   PluginStore.getPluginConfiguration = function getPluginConfiguration() {
     var pluginConfiguration = this.pluginActivation && this.pluginActivation.config ? this.pluginActivation.config : null;
     return pluginConfiguration;
+  };
+
+  PluginStore.getPluginDefaultData = function getPluginDefaultData() {
+    var pluginDefaultData = this.pluginActivation && this.pluginActivation.defaultData ? this.pluginActivation.defaultData : null;
+    return pluginDefaultData;
   };
 
   return PluginStore;
@@ -1589,7 +1608,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       toolbarClassName: "toolbar_style",
       editorClassName: "editor_style",
       toolbar: {
-        options: ["inline", "blockType", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
+        options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
         inline: {
           inDropdown: true
         },
@@ -2442,6 +2461,49 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(Component);
 
+var MandatoryFieldLabel$1 = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(MandatoryFieldLabel, _Component);
+
+  function MandatoryFieldLabel(props) {
+    return _Component.call(this, props) || this;
+  }
+
+  var _proto = MandatoryFieldLabel.prototype;
+
+  _proto.render = function render() {
+    var className = "label_style" + " " + this.props.className;
+    return /*#__PURE__*/React.createElement("div", {
+      style: this.props.style
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "mandatory_style"
+    }, "* "), /*#__PURE__*/React.createElement("span", {
+      className: className
+    }, this.props.value));
+  };
+
+  return MandatoryFieldLabel;
+}(Component);
+
+var NormalFieldLabel$1 = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(NormalFieldLabel, _Component);
+
+  function NormalFieldLabel(props) {
+    return _Component.call(this, props) || this;
+  }
+
+  var _proto = NormalFieldLabel.prototype;
+
+  _proto.render = function render() {
+    var className = "label_style" + " " + this.props.className;
+    return /*#__PURE__*/React.createElement("div", {
+      style: this.props.style,
+      className: className
+    }, this.props.value);
+  };
+
+  return NormalFieldLabel;
+}(Component);
+
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -2503,7 +2565,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
             var city = addressComponent.long_name;
             resolve(city);
           } else {
-            reject("Error getting 'city' from coordinates (lat, lng)");
+            console.error("status - ", status);
+            reject("Error getting 'city' from coordinates (" + lat + ", " + lng + ")");
           }
         });
       } catch (error) {
@@ -2530,7 +2593,6 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
 
   _proto.onSelectAddress = function onSelectAddress(address) {
     var self = this;
-    var localization = this.props.localization;
     var city = null;
     var position = null;
     geocodeByAddress(address).then(function (results) {
@@ -2558,7 +2620,6 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       });
     })["catch"](function (error) {
       console.error(error);
-      toast.error(localization.error || "Error");
     });
   };
 
@@ -2586,18 +2647,55 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
         city = _this$state.city;
     var _this$props = this.props,
         localization = _this$props.localization,
-        error = _this$props.error;
+        error = _this$props.error,
+        mandatory = _this$props.mandatory;
+
+    var _ref = position || {},
+        lat = _ref.lat,
+        lng = _ref.lng;
+
+    var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
+    var cityLabel = /*#__PURE__*/React.createElement("span", null, " ", localization.city || "City", " ", /*#__PURE__*/React.createElement(CustomTooltip, {
+      tooltip: tooltip
+    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+      className: "info_icon",
+      icon: faInfoCircle
+    })));
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
-      sm: 9
+      sm: 5
+    }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel$1, {
+      value: localization.address || "Address"
+    }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel$1, {
+      value: localization.address || "Address"
+    })), /*#__PURE__*/React.createElement(Col, {
+      sm: 2
+    }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel$1, {
+      value: localization.lat || "Lat"
+    }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel$1, {
+      value: localization.lat || "Lat"
+    })), /*#__PURE__*/React.createElement(Col, {
+      sm: 2
+    }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel$1, {
+      value: localization.lon || "Lon"
+    }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel$1, {
+      value: localization.lon || "Lon"
+    })), /*#__PURE__*/React.createElement(Col, {
+      sm: 3
+    }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel$1, {
+      value: localization.city || "City"
+    }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel$1, {
+      value: cityLabel
+    }))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
+      sm: 5
     }, /*#__PURE__*/React.createElement(PlacesAutocomplete, {
       ref: this.placeAutocomplete,
       value: autoCompleteAddress || "",
       onChange: this.changeAddress,
       onSelect: this.onSelectAddress
-    }, function (_ref) {
-      var getInputProps = _ref.getInputProps,
-          suggestions = _ref.suggestions,
-          getSuggestionItemProps = _ref.getSuggestionItemProps;
+    }, function (_ref2) {
+      var getInputProps = _ref2.getInputProps,
+          suggestions = _ref2.suggestions,
+          getSuggestionItemProps = _ref2.getSuggestionItemProps;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FormGroup, {
         style: {
           width: "100%"
@@ -2615,20 +2713,46 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
         type: "invalid"
       }, localization.completeField || "Please complete the field")), /*#__PURE__*/React.createElement("div", {
         className: "autocomplete-dropdown-container"
-      }, suggestions.map(function (suggestion) {
+      }, suggestions.map(function (suggestion, index) {
         var className = self.getAutoCompleteClassname(suggestion);
         var style = self.getAutoCompleteStyle(suggestion);
-        return /*#__PURE__*/React.createElement("div", getSuggestionItemProps(suggestion, {
+        return /*#__PURE__*/React.createElement("div", _extends({
+          key: index
+        }, getSuggestionItemProps(suggestion, {
           className: className,
           style: style
-        }), /*#__PURE__*/React.createElement("span", null, suggestion.description));
+        })), /*#__PURE__*/React.createElement("span", {
+          key: index
+        }, suggestion.description));
       })));
+    })), /*#__PURE__*/React.createElement(Col, {
+      sm: 2
+    }, /*#__PURE__*/React.createElement(FormControl, {
+      placeholder: localization.lat || "Lat",
+      value: lat || "",
+      disabled: true
+    })), /*#__PURE__*/React.createElement(Col, {
+      sm: 2
+    }, /*#__PURE__*/React.createElement(FormControl, {
+      placeholder: localization.lon || "Lon",
+      value: lng || "",
+      disabled: true
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 3
     }, /*#__PURE__*/React.createElement(FormControl, {
       placeholder: localization.city || "City",
       value: city || "",
-      disabled: true
+      onChange: function onChange(e) {
+        var value = e.target.value;
+
+        _this3.setState({
+          city: value
+        });
+
+        if (_this3.props.onChangeCity) {
+          _this3.props.onChangeCity(value);
+        }
+      }
     }))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 12
     }, /*#__PURE__*/React.createElement(LocationPicker, {

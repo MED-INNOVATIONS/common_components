@@ -8,6 +8,7 @@
 @import './components/DateComponents/css/input_group/material_custom.css';
 @import './components/DateComponents/css/schedule/material_custom.css';
 @import './components/DateComponents/css/timepicker/material_custom.css';
+@import './components/OrbitalLocationPicker/orbitalLocationPicker.css';
 
 ._3ybTi {
   margin: 2em;
@@ -16,7 +17,6 @@
   font-size: 2em;
   text-align: center;
 }
-
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
 /*! button layout */
 ._282Vm,
@@ -31183,4 +31183,9 @@ ejs-listbox {
     cursor: pointer;
     font-size: 1.5rem;
     color: grey
+}
+._GKuY3{
+    color: #007bff;
+    font-size: 0.7rem;
+    margin-bottom: 0.35rem;
 }
