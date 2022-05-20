@@ -8,6 +8,7 @@
 @import './components/DateComponents/css/input_group/material_custom.css';
 @import './components/DateComponents/css/schedule/material_custom.css';
 @import './components/DateComponents/css/timepicker/material_custom.css';
+@import './components/OrbitalLocationPicker/orbitalLocationPicker.css';
 
 .test {
   margin: 2em;
