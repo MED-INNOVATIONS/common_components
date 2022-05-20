@@ -58,7 +58,7 @@ class OrbitalLocationPicker extends Component {
                         var city = addressComponent.long_name;
                         resolve(city);
                     } else {
-                        console.log("status - ",status);
+                        console.log("status - ", status);
                         reject(`Error getting 'city' from coordinates (${lat}, ${lng})`);
                     }
                 })
@@ -138,7 +138,7 @@ class OrbitalLocationPicker extends Component {
         var { position, autoCompleteAddress, city } = this.state;
         var { localization, error } = this.props;
 
-        
+
         return (
             <div>
                 <Row>
