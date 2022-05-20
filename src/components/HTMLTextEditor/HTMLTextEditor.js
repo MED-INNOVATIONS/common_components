@@ -139,6 +139,7 @@ class HTMLTextEditor extends Component {
                         options: [
                             "inline",
                             "blockType",
+                            "fontFamily",
                             "fontSize",
                             "list",
                             "textAlign",
