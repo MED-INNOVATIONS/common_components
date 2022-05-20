@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import { Row, Col, FormGroup, FormControl, Form } from 'react-bootstrap';
-import LocationPicker from "react-location-picker";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { toast } from "react-toastify";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import LocationPicker from "react-location-picker";
 import _ from "lodash";
+// import { MandatoryFieldLabel, NormalFieldLabel, Tooltip } from "orbital_common_components";
+
+import Tooltip from "../Tooltip/Tooltip";
+import MandatoryFieldLabel from "../MandatoryFieldLabel/mandatoryFieldLabel";
+import NormalFieldLabel from "../NormalFieldLabel/normalFieldLabel";
+
+import "./orbitalLocationPicker.css"
 
 const google = window.google;
 const addressComponentType = "administrative_area_level_3";
@@ -58,7 +66,7 @@ class OrbitalLocationPicker extends Component {
                         var city = addressComponent.long_name;
                         resolve(city);
                     } else {
-                        console.log("status - ", status);
+                        console.error("status - ", status);
                         reject(`Error getting 'city' from coordinates (${lat}, ${lng})`);
                     }
                 })
@@ -115,7 +123,6 @@ class OrbitalLocationPicker extends Component {
             })
             .catch((error) => {
                 console.error(error);
-                toast.warn(localization.UnableToAcquireTheCity || "Unable to acquire the city please re position the pointer again in a few seconds.");
             })
     };
 
@@ -136,13 +143,50 @@ class OrbitalLocationPicker extends Component {
     render() {
         var self = this;
         var { position, autoCompleteAddress, city } = this.state;
-        var { localization, error } = this.props;
+        var { localization, error, mandatory } = this.props;
+        var { lat, lng } = position || {};
 
+        var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
+        var cityLabel = <span> {localization.city || "City"} <Tooltip tooltip={tooltip} ><FontAwesomeIcon className="info_icon" icon={faInfoCircle} /></Tooltip></span>
 
         return (
             <div>
                 <Row>
-                    <Col sm={9}>
+                    <Col sm={5}>
+                        {mandatory == false &&
+                            <NormalFieldLabel value={localization.address || "Address"}></NormalFieldLabel>
+                        }
+                        {(mandatory == null || mandatory == true) &&
+                            <MandatoryFieldLabel value={localization.address || "Address"}></MandatoryFieldLabel>
+                        }
+                    </Col>
+                    <Col sm={2}>
+                        {mandatory == false &&
+                            <NormalFieldLabel value={localization.lat || "Lat"}></NormalFieldLabel>
+                        }
+                        {(mandatory == null || mandatory == true) &&
+                            <MandatoryFieldLabel value={localization.lat || "Lat"}></MandatoryFieldLabel>
+                        }
+                    </Col>
+                    <Col sm={2}>
+                        {mandatory == false &&
+                            <NormalFieldLabel value={localization.lon || "Lon"}></NormalFieldLabel>
+                        }
+                        {(mandatory == null || mandatory == true) &&
+                            <MandatoryFieldLabel value={localization.lon || "Lon"}></MandatoryFieldLabel>
+                        }
+                    </Col>
+                    <Col sm={3}>
+                        {mandatory == false &&
+                            <NormalFieldLabel value={localization.city || "City"}></NormalFieldLabel>
+                        }
+                        {(mandatory == null || mandatory == true) &&
+                            <MandatoryFieldLabel value={cityLabel}></MandatoryFieldLabel>
+                        }
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={5}>
                         <PlacesAutocomplete
                             ref={this.placeAutocomplete}
                             value={autoCompleteAddress || ""}
@@ -164,16 +208,17 @@ class OrbitalLocationPicker extends Component {
                                         </Form.Control.Feedback>
                                     </FormGroup>
                                     <div className="autocomplete-dropdown-container">
-                                        {suggestions.map((suggestion) => {
+                                        {suggestions.map((suggestion, index) => {
                                             var className = self.getAutoCompleteClassname(suggestion);
                                             var style = self.getAutoCompleteStyle(suggestion);
                                             return (
                                                 <div
+                                                    key={index}
                                                     {...getSuggestionItemProps(suggestion, {
                                                         className,
                                                         style
                                                     })}>
-                                                    <span>{suggestion.description}</span>
+                                                    <span key={index}>{suggestion.description}</span>
                                                 </div>
                                             );
                                         })}
@@ -182,11 +227,31 @@ class OrbitalLocationPicker extends Component {
                             )}
                         </PlacesAutocomplete>
                     </Col>
+                    <Col sm={2}>
+                        <FormControl
+                            placeholder={localization.lat || "Lat"}
+                            value={lat || ""}
+                            disabled={true}>
+                        </FormControl>
+                    </Col>
+                    <Col sm={2}>
+                        <FormControl
+                            placeholder={localization.lon || "Lon"}
+                            value={lng || ""}
+                            disabled={true}>
+                        </FormControl>
+                    </Col>
                     <Col sm={3}>
                         <FormControl
                             placeholder={localization.city || "City"}
                             value={city || ""}
-                            disabled={true}>
+                            onChange={(e) => {
+                                var value = e.target.value;
+                                this.setState({ city: value })
+                                if (this.props.onChangeCity) {
+                                    this.props.onChangeCity(value);
+                                }
+                            }}>
                         </FormControl>
                     </Col>
                 </Row>
