@@ -14,7 +14,6 @@ const Styles = styled.div`
     display: inline-block;
     border-spacing: 0;
     border: 1px solid #dee2e6;
-    width: fit-content;
 
     .tr {
       :last-child {
