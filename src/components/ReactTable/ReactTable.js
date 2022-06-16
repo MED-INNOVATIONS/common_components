@@ -14,7 +14,8 @@ const Styles = styled.div`
     display: inline-block;
     border-spacing: 0;
     border: 1px solid #dee2e6;
-    width: fit-content;
+    overflow: auto;
+    table-layout: auto !important;
 
     .tr {
       :last-child {
