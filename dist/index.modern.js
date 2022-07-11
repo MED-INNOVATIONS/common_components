@@ -3027,7 +3027,7 @@ function ReactTable(_ref) {
     }
 
     prepareRow(row);
-    return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
       className: "tr"
     }), row.cells.map(function (cell) {
       return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
