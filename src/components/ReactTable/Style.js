@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
 export default styled.div`
+.sub_content_container{
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px;
+} 
+
 .table {
   display: inline-block;
   border-spacing: 0;
