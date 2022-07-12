@@ -76,7 +76,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
             //============================================//
             prepareRow(row);
             return (
-              <>
+              <React.Fragment>
                 <div {...row.getRowProps()} className="my_tr">
                   {row.cells.map(cell => {
                     return (
@@ -87,7 +87,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
                   })}
                 </div>
                 {row.isExpanded ? <div className="sub_content_container">{row.original.subContent}</div> : null}
-              </>
+              </React.Fragment>
             );
           })}
           {data.length > 0 && <span>{Utils.setEmptyRows(prepareRow, canNextPage, page, pageSize, data)}</span>}
