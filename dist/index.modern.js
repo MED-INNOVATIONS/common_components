@@ -2860,8 +2860,31 @@ function setResize(column) {
     className: "my_resizer " + (column.isResizing ? "isResizing" : "")
   })));
 }
+
+function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
+  var base_values = [5, 10, 20, 30, 40, 50];
+
+  if (_$2.includes(base_values, _defaultPageSize) === false) {
+    base_values.push(_defaultPageSize);
+    base_values = _$2.sortBy(base_values);
+  }
+
+  if (_$2.includes(base_values, _fixedPageSize) === false) {
+    base_values.push(_fixedPageSize);
+    base_values = _$2.sortBy(base_values);
+  }
+
+  var options = _$2.map(base_values, function (value, index) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: index,
+      value: value
+    }, value);
+  });
+
+  return options;
+}
+
 function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
-  var self = this;
   return /*#__PURE__*/React.createElement(Row, {
     className: "pagination",
     hidden: hidePagination === true
@@ -2925,7 +2948,7 @@ function getPaginationSection(localization, gotoPage, canPreviousPage, previousP
     onChange: function onChange(e) {
       setPageSize(Number(e.target.value));
     }
-  }, self.setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
+  }, setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
 }
 
 function ReactTable(_ref) {

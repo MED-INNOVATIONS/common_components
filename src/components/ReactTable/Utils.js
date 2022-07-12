@@ -100,7 +100,7 @@ export function setResize(column) {
     return <span>{column.canResize && <div {...column.getResizerProps()} className={`my_resizer ${column.isResizing ? "isResizing" : ""}`} />}</span>;
 };
 
-export function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
+function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
     var base_values = [5, 10, 20, 30, 40, 50];
     if (_.includes(base_values, _defaultPageSize) === false) {
         base_values.push(_defaultPageSize);
@@ -123,8 +123,6 @@ export function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
 }
 
 export function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
-    var self = this;
-
     return <Row className="pagination" hidden={hidePagination === true}>
         <Col sm={8}>
             <span>
@@ -179,7 +177,7 @@ export function getPaginationSection(localization, gotoPage, canPreviousPage, pr
                 onChange={e => {
                     setPageSize(Number(e.target.value));
                 }}>
-                {self.setPageSizeOptions(_defaultPageSize, _fixedPageSize)}
+                {setPageSizeOptions(_defaultPageSize, _fixedPageSize)}
             </Form.Control>
         </Col>
     </Row>
