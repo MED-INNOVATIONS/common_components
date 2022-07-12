@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
-import Styles from "./Style";
 import * as Utils from "./Utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./reactTable.css";
 
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {
@@ -51,13 +51,13 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
   );
 
   return (
-    <Styles>
-      <div {...getTableProps()} className="table">
+    <div>
+      <div {...getTableProps()} className="my_table">
         <div>
           {headerGroups.map(headerGroup => (
-            <div {...headerGroup.getHeaderGroupProps()} className="tr">
+            <div {...headerGroup.getHeaderGroupProps()} className="my_tr">
               {headerGroup.headers.map(column => (
-                <div {...column.getHeaderProps()} className="th">
+                <div {...column.getHeaderProps()} className="my_th">
                   {column.render("Header")}
                   {Utils.setSortIcon(column)}
                   {Utils.setResize(column)}
@@ -76,30 +76,30 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
             //============================================//
             prepareRow(row);
             return (
-              <React.Fragment>
-                <div {...row.getRowProps()} className="tr">
+              <>
+                <div {...row.getRowProps()} className="my_tr">
                   {row.cells.map(cell => {
                     return (
-                      <div {...cell.getCellProps()} className="td">
+                      <div {...cell.getCellProps()} className="my_th">
                         {cell.render("Cell")}
                       </div>
                     );
                   })}
                 </div>
                 {row.isExpanded ? <div className="sub_content_container">{row.original.subContent}</div> : null}
-              </React.Fragment>
+              </>
             );
           })}
           {data.length > 0 && <span>{Utils.setEmptyRows(prepareRow, canNextPage, page, pageSize, data)}</span>}
         </div>
-        {data.length == 0 && (
+        {data.length === 0 && (
           <div className="noData">
             <FontAwesomeIcon icon={faInfoCircle} /> {_noDataMessage || "No data"}
           </div>
         )}
       </div>
       {Utils.getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination)}
-    </Styles>
+    </div>
   );
 }
 export default ReactTable;

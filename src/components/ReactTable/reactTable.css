@@ -1,0 +1,64 @@
+.noData {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    z-index: 1;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.sub_content_container {
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px;
+}
+
+.my_table {
+    display: inline-block;
+    border-spacing: 0;
+    border: 1px solid #dee2e6;
+    width: 100%;
+}
+
+.my_tr:last-child.my_td {
+    border-bottom: 0;
+}
+
+.my_tr:last-child {
+    overflow-x: hidden;
+}
+
+.my_th {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+
+    position: relative;
+}
+
+.my_td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+
+    position: relative;
+}
+
+.pagination {
+    margin-top: 1rem;
+}
+
+.my_resizer {
+    right: 0;
+    background: #dee2e6;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+
+    touch-action: none;
+}

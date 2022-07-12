@@ -25,7 +25,6 @@ var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
 var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
-var styled = _interopDefault(require('styled-components'));
 require('bootstrap/dist/css/bootstrap.min.css');
 
 function _extends() {
@@ -58,15 +57,6 @@ function _assertThisInitialized(self) {
   }
 
   return self;
-}
-
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
 }
 
 var APISb = /*#__PURE__*/function () {
@@ -2790,17 +2780,6 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(React.Component);
 
-function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n.sub_content_container{\n  border-bottom: 1px solid #dee2e6;\n  padding: 15px;\n} \n\n.table {\n  display: inline-block;\n  border-spacing: 0;\n  border: 1px solid #dee2e6;\n\n  .tr {\n    :last-child {\n      .td {\n        border-bottom: 0;\n      }\n    }\n    .td {\n      overflow-x: hidden;\n    }\n  }\n\n  .th,\n  .td {\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n\n    ", "\n    position: relative;\n\n    :last-child {\n      border-right: 0;\n    }\n\n    .resizer {\n      right: 0;\n      background: #dee2e6;\n      width: 1px;\n      height: 100%;\n      position: absolute;\n      top: 0;\n      z-index: 1;\n      ", "\n      touch-action :none;\n\n      &.isResizing {\n        background: black;\n      }\n    }\n  }\n}\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Styles = styled.div(_templateObject(), "", "");
-
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
   var rows = null;
 
@@ -2885,31 +2864,8 @@ function setResize(column) {
     className: "my_resizer " + (column.isResizing ? "isResizing" : "")
   })));
 }
-
-function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
-  var base_values = [5, 10, 20, 30, 40, 50];
-
-  if (_$2.includes(base_values, _defaultPageSize) === false) {
-    base_values.push(_defaultPageSize);
-    base_values = _$2.sortBy(base_values);
-  }
-
-  if (_$2.includes(base_values, _fixedPageSize) === false) {
-    base_values.push(_fixedPageSize);
-    base_values = _$2.sortBy(base_values);
-  }
-
-  var options = _$2.map(base_values, function (value, index) {
-    return /*#__PURE__*/React__default.createElement("option", {
-      key: index,
-      value: value
-    }, value);
-  });
-
-  return options;
-}
-
 function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
+  var self = this;
   return /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
     className: "pagination",
     hidden: hidePagination === true
@@ -2973,7 +2929,7 @@ function getPaginationSection(localization, gotoPage, canPreviousPage, previousP
     onChange: function onChange(e) {
       setPageSize(Number(e.target.value));
     }
-  }, setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
+  }, self.setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
 }
 
 function ReactTable(_ref) {
@@ -3015,14 +2971,14 @@ function ReactTable(_ref) {
       pageIndex = _useTable$state.pageIndex,
       pageSize = _useTable$state.pageSize;
 
-  return /*#__PURE__*/React__default.createElement(Styles, null, /*#__PURE__*/React__default.createElement("div", _extends({}, getTableProps(), {
-    className: "table"
+  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", _extends({}, getTableProps(), {
+    className: "my_table"
   }), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React__default.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
-      className: "tr"
+      className: "my_tr"
     }), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React__default.createElement("div", _extends({}, column.getHeaderProps(), {
-        className: "th"
+        className: "my_th"
       }), column.render("Header"), setSortIcon(column), setResize(column));
     }));
   }), data.length === 0 && /*#__PURE__*/React__default.createElement("span", null, setEmptyHeaders(pageSize, headerGroups))), /*#__PURE__*/React__default.createElement("div", getTableBodyProps(), page.map(function (row, i) {
@@ -3031,16 +2987,16 @@ function ReactTable(_ref) {
     }
 
     prepareRow(row);
-    return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", _extends({}, row.getRowProps(), {
-      className: "tr"
+    return /*#__PURE__*/React__default.createElement(Fragment, null, /*#__PURE__*/React__default.createElement("div", _extends({}, row.getRowProps(), {
+      className: "my_tr"
     }), row.cells.map(function (cell) {
       return /*#__PURE__*/React__default.createElement("div", _extends({}, cell.getCellProps(), {
-        className: "td"
+        className: "my_th"
       }), cell.render("Cell"));
     })), row.isExpanded ? /*#__PURE__*/React__default.createElement("div", {
       className: "sub_content_container"
     }, row.original.subContent) : null);
-  }), data.length > 0 && /*#__PURE__*/React__default.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length == 0 && /*#__PURE__*/React__default.createElement("div", {
+  }), data.length > 0 && /*#__PURE__*/React__default.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length === 0 && /*#__PURE__*/React__default.createElement("div", {
     className: "noData"
   }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
     icon: freeSolidSvgIcons.faInfoCircle
