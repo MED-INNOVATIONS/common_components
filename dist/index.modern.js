@@ -1,6 +1,6 @@
 import axios from 'axios';
 import _$2 from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
@@ -21,7 +21,6 @@ import Cropper from 'cropperjs';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
-import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function _extends() {
@@ -54,15 +53,6 @@ function _assertThisInitialized(self) {
   }
 
   return self;
-}
-
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
 }
 
 var APISb = /*#__PURE__*/function () {
@@ -2786,187 +2776,118 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(Component);
 
-function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n  .table {\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n\n    .tr {\n      :last-child {\n        .td {\n          border-bottom: 0;\n        }\n      }\n      .td {\n        overflow-x: hidden;\n      }\n    }\n\n    .th,\n    .td {\n      margin: 0;\n      padding: 0.5rem;\n      border-bottom: 1px solid #dee2e6;\n      border-right: 1px solid #dee2e6;\n\n      ", "\n      position: relative;\n\n      :last-child {\n        border-right: 0;\n      }\n\n      .resizer {\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        ", "\n        touch-action :none;\n\n        &.isResizing {\n          background: black;\n        }\n      }\n    }\n  }\n"]);
+function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
+  var rows = null;
 
-  _templateObject = function _templateObject() {
-    return data;
-  };
+  if (canNextPage === false && page.length < pageSize && page[0]) {
+    var new_filling_rows = pageSize - page.length;
+    new_filling_rows = new Array(new_filling_rows);
 
-  return data;
+    var page_tmp = _$2.map(new_filling_rows, function (f) {
+      return page[0];
+    });
+
+    rows = page_tmp.map(function (row, i) {
+      var new_id = data.length + i;
+      row.id = new_id;
+      prepareRow(row);
+      return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+        className: "my_tr"
+      }), row.cells.map(function (cell) {
+        return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+          className: "my_td"
+        }), /*#__PURE__*/React.createElement("div", {
+          style: {
+            color: "#66000000"
+          }
+        }, "."));
+      }));
+    });
+  }
+
+  return rows;
 }
-var Styles = styled.div(_templateObject(), "", "");
+function setEmptyHeaders(pageSize, headerGroups) {
+  var new_filling_rows = new Array(pageSize);
 
-function ReactTable(_ref) {
-  var localization = _ref.localization,
-      columns = _ref.columns,
-      data = _ref.data,
-      _defaultPageSize = _ref._defaultPageSize,
-      _fixedPageSize = _ref._fixedPageSize,
-      _noDataMessage = _ref._noDataMessage,
-      skipPageReset = _ref.skipPageReset;
-
-  var _useTable = useTable({
-    columns: columns,
-    data: data,
-    autoResetPage: !skipPageReset,
-    initialState: {
-      pageSize: _fixedPageSize || _defaultPageSize || 10
-    }
-  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
-      getTableProps = _useTable.getTableProps,
-      getTableBodyProps = _useTable.getTableBodyProps,
-      headerGroups = _useTable.headerGroups,
-      prepareRow = _useTable.prepareRow,
-      page = _useTable.page,
-      canPreviousPage = _useTable.canPreviousPage,
-      canNextPage = _useTable.canNextPage,
-      pageOptions = _useTable.pageOptions,
-      pageCount = _useTable.pageCount,
-      gotoPage = _useTable.gotoPage,
-      nextPage = _useTable.nextPage,
-      previousPage = _useTable.previousPage,
-      setPageSize = _useTable.setPageSize,
-      _useTable$state = _useTable.state,
-      pageIndex = _useTable$state.pageIndex,
-      pageSize = _useTable$state.pageSize;
-
-  var setPageSizeOptions = function setPageSizeOptions() {
-    var base_values = [5, 10, 20, 30, 40, 50];
-
-    if (_$2.includes(base_values, _defaultPageSize) == false) {
-      base_values.push(_defaultPageSize);
-      base_values = _$2.sortBy(base_values);
-    }
-
-    if (_$2.includes(base_values, _fixedPageSize) == false) {
-      base_values.push(_fixedPageSize);
-      base_values = _$2.sortBy(base_values);
-    }
-
-    var options = _$2.map(base_values, function (value, index) {
-      return /*#__PURE__*/React.createElement("option", {
-        key: index,
-        value: value
-      }, value);
+  var rows = _$2.map(new_filling_rows, function () {
+    return headerGroups.map(function (headerGroup) {
+      return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+        className: "my_tr"
+      }), headerGroup.headers.map(function (column) {
+        return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+          className: "my_th"
+        }), /*#__PURE__*/React.createElement("div", {
+          style: {
+            color: "#66000000"
+          }
+        }, "."));
+      }));
     });
+  });
 
-    return options;
-  };
-
-  var setSortIcon = function setSortIcon(column) {
-    return /*#__PURE__*/React.createElement("span", null, column.disableSortBy != true && column.isSorted == false && /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      icon: faSort,
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick() {
-        column.toggleSortBy();
-      }
-    })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      icon: faSortDown,
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick() {
-        column.toggleSortBy();
-      }
-    })) : /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      icon: faSortUp,
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick() {
-        column.toggleSortBy();
-      }
-    })) : ""));
-  };
-
-  var setResize = function setResize(column) {
-    return /*#__PURE__*/React.createElement("span", null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
-      className: "resizer " + (column.isResizing ? "isResizing" : "")
-    })));
-  };
-
-  var setEmptyRows = function setEmptyRows() {
-    var rows = null;
-
-    if (canNextPage == false && page.length < pageSize && page[0]) {
-      var new_filling_rows = pageSize - page.length;
-      new_filling_rows = new Array(new_filling_rows);
-
-      var page_tmp = _$2.map(new_filling_rows, function (f) {
-        return page[0];
-      });
-
-      rows = page_tmp.map(function (row, i) {
-        var new_id = data.length + i;
-        row.id = new_id;
-        prepareRow(row);
-        return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
-          className: "tr"
-        }), row.cells.map(function (cell) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
-            className: "td"
-          }), /*#__PURE__*/React.createElement("div", {
-            style: {
-              color: "#66000000"
-            }
-          }, "."));
-        }));
-      });
+  return rows;
+}
+function setSortIcon(column) {
+  return /*#__PURE__*/React.createElement("span", null, column.disableSortBy !== true && column.isSorted === false && /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    icon: faSort,
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick() {
+      column.toggleSortBy();
     }
+  })), /*#__PURE__*/React.createElement("span", null, column.isSorted ? column.isSortedDesc ? /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    icon: faSortDown,
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick() {
+      column.toggleSortBy();
+    }
+  })) : /*#__PURE__*/React.createElement("span", null, " ", /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    icon: faSortUp,
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick() {
+      column.toggleSortBy();
+    }
+  })) : ""));
+}
+function setResize(column) {
+  return /*#__PURE__*/React.createElement("span", null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
+    className: "my_resizer " + (column.isResizing ? "isResizing" : "")
+  })));
+}
 
-    return rows;
-  };
+function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
+  var base_values = [5, 10, 20, 30, 40, 50];
 
-  var setEmptyHeaders = function setEmptyHeaders() {
-    var new_filling_rows = new Array(pageSize);
+  if (_$2.includes(base_values, _defaultPageSize) === false) {
+    base_values.push(_defaultPageSize);
+    base_values = _$2.sortBy(base_values);
+  }
 
-    var rows = _$2.map(new_filling_rows, function () {
-      return headerGroups.map(function (headerGroup) {
-        return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
-          className: "tr"
-        }), headerGroup.headers.map(function (column) {
-          return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
-            className: "th"
-          }), /*#__PURE__*/React.createElement("div", {
-            style: {
-              color: "#66000000"
-            }
-          }, "."));
-        }));
-      });
-    });
+  if (_$2.includes(base_values, _fixedPageSize) === false) {
+    base_values.push(_fixedPageSize);
+    base_values = _$2.sortBy(base_values);
+  }
 
-    return rows;
-  };
+  var options = _$2.map(base_values, function (value, index) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: index,
+      value: value
+    }, value);
+  });
 
-  return /*#__PURE__*/React.createElement(Styles, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", _extends({}, getTableProps(), {
-    className: "table"
-  }), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
-    return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
-      className: "tr"
-    }), headerGroup.headers.map(function (column) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
-        className: "th"
-      }), column.render("Header"), setSortIcon(column), setResize(column));
-    }));
-  }), data.length == 0 && /*#__PURE__*/React.createElement("span", null, setEmptyHeaders())), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
-    prepareRow(row);
-    return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
-      className: "tr"
-    }), row.cells.map(function (cell) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
-        className: "td"
-      }), cell.render("Cell"));
-    }));
-  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows())), data.length == 0 && /*#__PURE__*/React.createElement("div", {
-    className: "noData"
-  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-    icon: faInfoCircle
-  }), " ", _noDataMessage || "No data"))), /*#__PURE__*/React.createElement(Row, {
-    className: "pagination"
+  return options;
+}
+
+function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
+  return /*#__PURE__*/React.createElement(Row, {
+    className: "pagination",
+    hidden: hidePagination === true
   }, /*#__PURE__*/React.createElement(Col, {
     sm: 8
   }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(Button, {
@@ -3004,7 +2925,7 @@ function ReactTable(_ref) {
   }, /*#__PURE__*/React.createElement("span", null, localization.page || "Page", " ", /*#__PURE__*/React.createElement("strong", null, pageIndex + 1, " ", localization.of || "of", " ", pageOptions.length), " "), /*#__PURE__*/React.createElement("span", null, "| ", localization.go_to_page, ": ")))), /*#__PURE__*/React.createElement(Col, {
     sm: 2
   }, /*#__PURE__*/React.createElement(Form.Control, {
-    disabled: data.length == 0,
+    disabled: data.length === 0,
     size: "sm",
     type: "number",
     min: 1,
@@ -3023,11 +2944,82 @@ function ReactTable(_ref) {
     as: "select",
     size: "sm",
     value: pageSize,
-    disabled: _fixedPageSize != null || data.length == 0,
+    disabled: _fixedPageSize != null || data.length === 0,
     onChange: function onChange(e) {
       setPageSize(Number(e.target.value));
     }
-  }, setPageSizeOptions()))));
+  }, setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
+}
+
+function ReactTable(_ref) {
+  var localization = _ref.localization,
+      columns = _ref.columns,
+      data = _ref.data,
+      _defaultPageSize = _ref._defaultPageSize,
+      _fixedPageSize = _ref._fixedPageSize,
+      _noDataMessage = _ref._noDataMessage,
+      skipPageReset = _ref.skipPageReset,
+      hidePagination = _ref.hidePagination;
+  useEffect(function () {
+    var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
+    setPageSize(tableSize);
+  }, [_fixedPageSize, _defaultPageSize]);
+
+  var _useTable = useTable({
+    columns: columns,
+    data: data,
+    autoResetPage: !skipPageReset,
+    initialState: {
+      pageSize: _fixedPageSize || _defaultPageSize || 10
+    }
+  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
+      getTableProps = _useTable.getTableProps,
+      getTableBodyProps = _useTable.getTableBodyProps,
+      headerGroups = _useTable.headerGroups,
+      prepareRow = _useTable.prepareRow,
+      page = _useTable.page,
+      canPreviousPage = _useTable.canPreviousPage,
+      canNextPage = _useTable.canNextPage,
+      pageOptions = _useTable.pageOptions,
+      pageCount = _useTable.pageCount,
+      gotoPage = _useTable.gotoPage,
+      nextPage = _useTable.nextPage,
+      previousPage = _useTable.previousPage,
+      setPageSize = _useTable.setPageSize,
+      _useTable$state = _useTable.state,
+      pageIndex = _useTable$state.pageIndex,
+      pageSize = _useTable$state.pageSize;
+
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", _extends({}, getTableProps(), {
+    className: "my_table"
+  }), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
+    return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
+      className: "my_tr"
+    }), headerGroup.headers.map(function (column) {
+      return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
+        className: "my_th"
+      }), column.render("Header"), setSortIcon(column), setResize(column));
+    }));
+  }), data.length === 0 && /*#__PURE__*/React.createElement("span", null, setEmptyHeaders(pageSize, headerGroups))), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
+    if (row.original && row.original.subContent && _$2.isEmpty(row.original.subContent) === false) {
+      row.canExpand = true;
+    }
+
+    prepareRow(row);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
+      className: "my_tr"
+    }), row.cells.map(function (cell) {
+      return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
+        className: "my_th"
+      }), cell.render("Cell"));
+    })), row.isExpanded ? /*#__PURE__*/React.createElement("div", {
+      className: "sub_content_container"
+    }, row.original.subContent) : null);
+  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length === 0 && /*#__PURE__*/React.createElement("div", {
+    className: "noData"
+  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    icon: faInfoCircle
+  }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
 export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
