@@ -2052,7 +2052,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         currentImageSize = currentImageSize / 1048576;
 
         if (cropImage != true && imageSize != null && currentImageSize > imageSize) {
-          var message = (localization.imageTooBig || "Image size must be at most") + " " + imageSize.toString() + "MB";
+          var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
           toast.warn(message);
           resolve(true);
           return;
@@ -2081,23 +2081,26 @@ var UploadImage = /*#__PURE__*/function (_Component) {
           if (constraints == true) {
             if (imageWidth < minWidth) {
               isError = true;
-              var message = localization.imageDimensionsConstraints || "Image dimensions must be at least";
-              message = message + " " + minWidth + "x" + minHeight;
+              var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
+              message = message + " " + minWidth + "x" + minHeight + " pixel";
               toast.warn(message);
             } else if (imageWidth > maxWidth) {
               isError = true;
-              var message = localization.imageDimensionsConstraints || "Image dimensions must be at most";
-              message = message + " " + maxWidth + "x" + maxHeight;
+              var message = localization.imageDimensionsConstraintsAtMost || "Image dimensions must be at most";
+              message = message + " " + maxWidth + "x" + maxHeight + " pixel";
+              ;
               toast.warn(message);
             } else if (imageHeight < minHeight) {
               isError = true;
-              var message = localization.imageDimensionsConstraints || "Image dimensions must be at least";
-              message = message + " " + minWidth + "x" + minHeight;
+              var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
+              message = message + " " + minWidth + "x" + minHeight + " pixel";
+              ;
               toast.warn(message);
             } else if (imageHeight > maxHeight) {
               isError = true;
-              var message = localization.imageDimensionsConstraints || "Image dimensions must be at most";
-              message = message + " " + maxWidth + "x" + maxHeight;
+              var message = localization.imageDimensionsConstraintsAtMost || "Image dimensions must be at most";
+              message = message + " " + maxWidth + "x" + maxHeight + " pixel";
+              ;
               toast.warn(message);
             }
 
@@ -2194,7 +2197,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         currentImageSize = currentImageSize / 1048576;
 
         if (imageSize != null && currentImageSize > imageSize) {
-          var message = (localization.imageTooBig || "Image size must be at most") + " " + imageSize.toString() + "MB";
+          var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
           toast.warn(message);
         } else {
           self.props.onChange(data);
