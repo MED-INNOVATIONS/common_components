@@ -1632,7 +1632,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
           }
         }
       },
-      editorState: editorState,
+      defaultEditorState: editorState,
       onEditorStateChange: this.onEditorStateChange
     }));
   };
