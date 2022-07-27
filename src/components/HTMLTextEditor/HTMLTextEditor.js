@@ -28,8 +28,8 @@ class HTMLTextEditor extends Component {
         this.parseData(this.props.data);
     }
 
-    componentWillReceiveProps(nextProps){
-        if(this.props.data!=nextProps.data){
+    componentWillReceiveProps(nextProps) {
+        if (this.props.data != nextProps.data) {
             this.parseData(nextProps.data);
         }
     }
@@ -161,7 +161,7 @@ class HTMLTextEditor extends Component {
                             defaultSize: { width: "100%", height: "100%" },
                         },
                     }}
-                    editorState={editorState}
+                    defaultEditorState={editorState}
                     onEditorStateChange={this.onEditorStateChange}
 
 
