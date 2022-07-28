@@ -1505,6 +1505,9 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       loading: false,
       editorState: EditorState.createEmpty()
     };
+    _this.state = {
+      editorState: _this.parseData(props.value)
+    };
     _this.onEditorStateChange = _this.onEditorStateChange.bind(_assertThisInitialized(_this));
     _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_assertThisInitialized(_this));
     return _this;
@@ -1513,13 +1516,10 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   var _proto = HTMLTextEditor.prototype;
 
   _proto.componentDidMount = function componentDidMount() {
-    this.parseData(this.props.data);
-  };
-
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (this.props.data != nextProps.data) {
-      this.parseData(nextProps.data);
-    }
+    var editorState = this.parseData(this.props.data);
+    this.setState({
+      editorState: editorState
+    });
   };
 
   _proto.parseData = function parseData(data) {
@@ -1527,9 +1527,8 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       var tmp = htmlToDraft(data);
       tmp = ContentState.createFromBlockArray(tmp);
       tmp = EditorState.createWithContent(tmp);
-      this.setState({
-        editorState: EditorState.moveFocusToEnd(tmp)
-      });
+      tmp = EditorState.moveFocusToEnd(tmp);
+      return tmp;
     }
   };
 
@@ -1628,7 +1627,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
           }
         }
       },
-      defaultEditorState: editorState,
+      editorState: editorState,
       onEditorStateChange: this.onEditorStateChange
     }));
   };
