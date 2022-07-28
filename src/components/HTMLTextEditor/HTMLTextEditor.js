@@ -17,6 +17,10 @@ class HTMLTextEditor extends Component {
 
         }
 
+        this.state = {
+            editorState: this.parseData(props.value)
+        }
+
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
         this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
     }
@@ -25,13 +29,10 @@ class HTMLTextEditor extends Component {
     /************************** STANDARD *************************************/
     /*************************************************************************/
     componentDidMount() {
-        this.parseData(this.props.data);
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(this.props.data!=nextProps.data){
-            this.parseData(nextProps.data);
-        }
+        var editorState = this.parseData(this.props.data);
+        this.setState({
+            editorState: editorState
+        })
     }
 
     parseData(data) {
@@ -39,10 +40,8 @@ class HTMLTextEditor extends Component {
             var tmp = htmlToDraft(data);
             tmp = ContentState.createFromBlockArray(tmp);
             tmp = EditorState.createWithContent(tmp);
-
-            this.setState({
-                editorState: EditorState.moveFocusToEnd(tmp)
-            })
+            tmp = EditorState.moveFocusToEnd(tmp);
+            return tmp;
         }
     }
 
