@@ -3,14 +3,13 @@ import { Row, Col, Button, Modal, Card, Image as ReactBootstrapImage } from 'rea
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faUpload, faTrashAlt, faEye, faPencilAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTrashAlt, faPencilAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 
 import Tooltip from "../Tooltip/Tooltip";
 import CropImage from "./CropImage";
 
 import "./uploadImage.css";
-
 
 class UploadImage extends Component {
     constructor(props) {
@@ -47,7 +46,6 @@ class UploadImage extends Component {
     handleFileUpload(e) {
         var self = this;
 
-        debugger
         var files = e.target.files;
         if (files.length > 0) {
             var fileSrc = files[0];
@@ -250,11 +248,14 @@ class UploadImage extends Component {
     }
 
     render() {
-        var { disabled, localization, cropProperties, error, errorMessage, ratio } = this.props;
+        var { disabled, localization, cropProperties, error, errorMessage, ratio, viewImgHeight, viewImgWidth } = this.props;
         var { image, showPreviewImage, showCropModal } = this.state;
         var { imageToCropSrc, imageToCrop } = this.state;
-
         cropProperties = cropProperties || {};
+
+        viewImgHeight = viewImgHeight || "auto";
+        viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
+        var imageStyle = { height: viewImgHeight, width: viewImgWidth }
 
         return (
             <React.Fragment>
@@ -263,7 +264,7 @@ class UploadImage extends Component {
                         {image != null &&
                             <div className={"image_box"}>
                                 <div className="icons_box">
-                                    <span class="image-upload">
+                                    <div class="image-upload">
                                         <label for="file-input">
                                             <span class="fa-stack small">
                                                 <FontAwesomeIcon className="upload_image_box fa-stack-2x" icon={faCircle} />
@@ -277,13 +278,13 @@ class UploadImage extends Component {
                                             style={{ display: "none" }}
                                             multiple={false}
                                             onChange={this.handleFileUpload} />
-                                    </span>
-                                    <span class="fa-stack small" onClick={this.onRemove} >
+                                    </div>
+                                    <div class="delete_image_set fa-stack small" onClick={this.onRemove} >
                                         <FontAwesomeIcon className="delete_image_box fa-stack-2x" icon={faCircle} />
                                         <FontAwesomeIcon className="delete_image_icon fa-stack-1x" icon={faTrashAlt} />
-                                    </span>
+                                    </div>
                                 </div>
-                                <img src={image} className={"image_src"} alt="img" onClick={() => { this.setState({ showPreviewImage: true }) }} />
+                                <img style={imageStyle} src={image} className={"image_src"} alt="img" onClick={() => { this.setState({ showPreviewImage: true }) }} />
                             </div>
                         }
                         {image == null &&

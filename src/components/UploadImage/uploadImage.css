@@ -1,22 +1,22 @@
 .icons_box {
     position: absolute;
     z-index: 10;
-    top: -12px;
-    right: -15px;
+    top: -3px;
+    left: -17px;
 }
 
 .image_box {
-    border: 1px dashed #d9d9d9;
     position: relative;
 }
 
 .image_src {
-    max-width: 100%;
+    max-width: 100% !important;
     max-height: 100%;
     cursor: pointer;
 }
 
 .upload_image_box {
+    opacity: 0.7;
     color: #007bff;
     cursor: pointer;
 }
@@ -26,7 +26,12 @@
     cursor: pointer;
 }
 
+.delete_image_set {
+    top: -10px
+}
+
 .delete_image_box {
+    opacity: 0.7;
     color: #dc3545;
     cursor: pointer;
 }

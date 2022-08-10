@@ -2009,7 +2009,6 @@ var UploadImage = /*#__PURE__*/function (_Component) {
 
   _proto.handleFileUpload = function handleFileUpload(e) {
     var self = this;
-    debugger;
     var files = e.target.files;
 
     if (files.length > 0) {
@@ -2231,7 +2230,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         cropProperties = _this$props2.cropProperties,
         error = _this$props2.error,
         errorMessage = _this$props2.errorMessage,
-        ratio = _this$props2.ratio;
+        ratio = _this$props2.ratio,
+        viewImgHeight = _this$props2.viewImgHeight,
+        viewImgWidth = _this$props2.viewImgWidth;
     var _this$state = this.state,
         image = _this$state.image,
         showPreviewImage = _this$state.showPreviewImage,
@@ -2240,13 +2241,19 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         imageToCropSrc = _this$state2.imageToCropSrc,
         imageToCrop = _this$state2.imageToCrop;
     cropProperties = cropProperties || {};
+    viewImgHeight = viewImgHeight || "auto";
+    viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
+    var imageStyle = {
+      height: viewImgHeight,
+      width: viewImgWidth
+    };
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 12
     }, image != null && /*#__PURE__*/React.createElement("div", {
       className: "image_box"
     }, /*#__PURE__*/React.createElement("div", {
       className: "icons_box"
-    }, /*#__PURE__*/React.createElement("span", {
+    }, /*#__PURE__*/React.createElement("div", {
       "class": "image-upload"
     }, /*#__PURE__*/React.createElement("label", {
       "for": "file-input"
@@ -2267,8 +2274,8 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       },
       multiple: false,
       onChange: this.handleFileUpload
-    })), /*#__PURE__*/React.createElement("span", {
-      "class": "fa-stack small",
+    })), /*#__PURE__*/React.createElement("div", {
+      "class": "delete_image_set fa-stack small",
       onClick: this.onRemove
     }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       className: "delete_image_box fa-stack-2x",
@@ -2277,6 +2284,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       className: "delete_image_icon fa-stack-1x",
       icon: faTrashAlt
     }))), /*#__PURE__*/React.createElement("img", {
+      style: imageStyle,
       src: image,
       className: "image_src",
       alt: "img",
