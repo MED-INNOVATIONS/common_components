@@ -2013,6 +2013,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
 
   _proto.handleFileUpload = function handleFileUpload(e) {
     var self = this;
+    debugger;
     var files = e.target.files;
 
     if (files.length > 0) {
@@ -2243,30 +2244,52 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         imageToCropSrc = _this$state2.imageToCropSrc,
         imageToCrop = _this$state2.imageToCrop;
     cropProperties = cropProperties || {};
-    return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 12
-    }, image != null && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", {
-      className: "upload_image_crud_buttons"
+    }, image != null && /*#__PURE__*/React__default.createElement("div", {
+      className: "image_box"
+    }, /*#__PURE__*/React__default.createElement("div", {
+      className: "icons_box"
+    }, /*#__PURE__*/React__default.createElement("span", {
+      "class": "image-upload"
+    }, /*#__PURE__*/React__default.createElement("label", {
+      "for": "file-input"
+    }, /*#__PURE__*/React__default.createElement("span", {
+      "class": "fa-stack small"
     }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
-      className: "delete_image_icon",
-      icon: freeSolidSvgIcons.faTrashAlt,
-      onClick: this.onRemove
+      className: "upload_image_box fa-stack-2x",
+      icon: freeSolidSvgIcons.faCircle
     }), /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
-      className: "view_image_icon",
-      icon: freeSolidSvgIcons.faEye,
+      className: "upload_image_icon fa-stack-1x",
+      icon: freeSolidSvgIcons.faPencilAlt
+    }))), /*#__PURE__*/React__default.createElement("input", {
+      id: "file-input",
+      type: "file",
+      accept: "image/*",
+      style: {
+        display: "none"
+      },
+      multiple: false,
+      onChange: this.handleFileUpload
+    })), /*#__PURE__*/React__default.createElement("span", {
+      "class": "fa-stack small",
+      onClick: this.onRemove
+    }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+      className: "delete_image_box fa-stack-2x",
+      icon: freeSolidSvgIcons.faCircle
+    }), /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+      className: "delete_image_icon fa-stack-1x",
+      icon: freeSolidSvgIcons.faTrashAlt
+    }))), /*#__PURE__*/React__default.createElement("img", {
+      src: image,
+      className: "image_src",
+      alt: "img",
       onClick: function onClick() {
         _this3.setState({
           showPreviewImage: true
         });
       }
-    })), /*#__PURE__*/React__default.createElement("div", {
-      className: "upload_image_box"
-    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Image, {
-      src: image,
-      fluid: true
-    }))), image == null && /*#__PURE__*/React__default.createElement("div", {
-      className: "upload_image_box"
-    }, /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("input", {
+    })), image == null && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("input", {
       ref: "fileInput",
       onChange: this.handleFileUpload,
       type: "file",
@@ -2285,7 +2308,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faUpload,
       onClick: this.props.onCancel
-    })))))), error == true && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement("div", {
+    }))))), error == true && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement("div", {
       className: "upload_image_error_message"
     }, errorMessage || "Error"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
       onHide: function onHide() {},
