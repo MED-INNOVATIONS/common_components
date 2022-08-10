@@ -31130,22 +31130,22 @@ ejs-listbox {
 ._2ZTbh {
     position: absolute;
     z-index: 10;
-    top: -12px;
-    right: -15px;
+    top: -3px;
+    left: -17px;
 }
 
 ._3WR3x {
-    border: 1px dashed #d9d9d9;
     position: relative;
 }
 
 ._2D3ak {
-    max-width: 100%;
+    max-width: 100% !important;
     max-height: 100%;
     cursor: pointer;
 }
 
 ._2RaPz {
+    opacity: 0.7;
     color: #007bff;
     cursor: pointer;
 }
@@ -31155,7 +31155,12 @@ ejs-listbox {
     cursor: pointer;
 }
 
+._cIMar {
+    top: -10px
+}
+
 ._2yJBx {
+    opacity: 0.7;
     color: #dc3545;
     cursor: pointer;
 }
