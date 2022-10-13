@@ -2232,7 +2232,8 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         errorMessage = _this$props2.errorMessage,
         ratio = _this$props2.ratio,
         viewImgHeight = _this$props2.viewImgHeight,
-        viewImgWidth = _this$props2.viewImgWidth;
+        viewImgWidth = _this$props2.viewImgWidth,
+        viewImgMaxHeight = _this$props2.viewImgMaxHeight;
     var _this$state = this.state,
         image = _this$state.image,
         showPreviewImage = _this$state.showPreviewImage,
@@ -2244,8 +2245,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     viewImgHeight = viewImgHeight || "auto";
     viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
     var imageStyle = {
-      height: viewImgHeight,
-      width: viewImgWidth
+      "height": viewImgHeight,
+      "width": viewImgWidth,
+      "maxHeight": viewImgMaxHeight
     };
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 12

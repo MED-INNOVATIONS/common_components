@@ -248,14 +248,14 @@ class UploadImage extends Component {
     }
 
     render() {
-        var { disabled, localization, cropProperties, error, errorMessage, ratio, viewImgHeight, viewImgWidth } = this.props;
+        var { disabled, localization, cropProperties, error, errorMessage, ratio, viewImgHeight, viewImgWidth, viewImgMaxHeight } = this.props;
         var { image, showPreviewImage, showCropModal } = this.state;
         var { imageToCropSrc, imageToCrop } = this.state;
         cropProperties = cropProperties || {};
 
         viewImgHeight = viewImgHeight || "auto";
         viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
-        var imageStyle = { height: viewImgHeight, width: viewImgWidth }
+        var imageStyle = { "height": viewImgHeight, "width": viewImgWidth, "maxHeight": viewImgMaxHeight }
 
         return (
             <React.Fragment>
