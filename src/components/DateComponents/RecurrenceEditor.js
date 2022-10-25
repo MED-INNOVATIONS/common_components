@@ -97,15 +97,27 @@ L10n.load({
 class RecurrenceEditor extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            locale: this.props.locale
+        }
     }
 
+    componentWillReceiveProps(nextProps) {
+        setTimeout(() => {
+            this.setState({
+                locale: nextProps.locale
+            })
+        }, 100)
+    }
+
+
     render() {
-        var { dateFormat, locale } = this.props;
+        var { dateFormat } = this.props;
+        var locale = this.state.locale || "en-US"
 
         return <RecurrenceEditorComponent
             dateFormat={dateFormat || "dd/MM/yyyy"}
-            locale={locale || "en-US"}
+            locale={locale}
             {...this.props}>
         </RecurrenceEditorComponent>
     }
