@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
-import { L10n } from '@syncfusion/ej2-base';
-import { loadCldr } from '@syncfusion/ej2-base';
+import { L10n, loadCldr } from '@syncfusion/ej2-base';
 
 import "./css/buttons/material_custom.css";
 import "./css/calendar/material_custom.css";
@@ -16,7 +15,8 @@ loadCldr(
     require('cldr-data/supplemental/numberingSystems.json'),
     require('cldr-data/main/it-CH/ca-gregorian.json'),
     require('cldr-data/main/it-CH/numbers.json'),
-    require('cldr-data/main/it-CH/timeZoneNames.json')
+    require('cldr-data/main/it-CH/timeZoneNames.json'),
+    require('cldr-data/main/it-CH/dateFields.json')
 );
 
 L10n.load({
