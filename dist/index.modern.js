@@ -7991,19 +7991,30 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
     var _this;
 
     _this = _Component.call(this, props) || this;
-    _this.state = {};
+    _this.state = {
+      locale: _this.props.locale
+    };
     return _this;
   }
 
   var _proto = RecurrenceEditor.prototype;
 
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var _this2 = this;
+
+    setTimeout(function () {
+      _this2.setState({
+        locale: nextProps.locale
+      });
+    }, 100);
+  };
+
   _proto.render = function render() {
-    var _this$props = this.props,
-        dateFormat = _this$props.dateFormat,
-        locale = _this$props.locale;
+    var dateFormat = this.props.dateFormat;
+    var locale = this.state.locale || "en-US";
     return /*#__PURE__*/React.createElement(RecurrenceEditorComponent, _extends({
       dateFormat: dateFormat || "dd/MM/yyyy",
-      locale: locale || "en-US"
+      locale: locale
     }, this.props));
   };
 
