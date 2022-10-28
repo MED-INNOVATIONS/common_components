@@ -28,6 +28,7 @@ var reactTable = require('react-table');
 require('bootstrap/dist/css/bootstrap.min.css');
 var styled = _interopDefault(require('styled-components'));
 var bs = require('react-icons/bs');
+var Select = _interopDefault(require('react-select'));
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -10039,6 +10040,67 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$3(), function (props) {
+  return props.paddingTop ? props.paddingTop : "0.5rem";
+}, function (props) {
+  return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
+});
+
+var OrbitalCheckbox = function OrbitalCheckbox(props) {
+  return /*#__PURE__*/React__default.createElement(StyledFormCheck, _extends({
+    type: "checkbox"
+  }, props));
+};
+
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function OrbitalErrorDiv(props) {
+  var StyledDiv = styled.div(_templateObject$4());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+}
+
+function OrbitalSelect(props) {
+  var isInvalid = props.isInvalid,
+      errorMsg = props.errorMsg;
+
+  function getTypeSelectStyles(isInvalid) {
+    var typeBorder = isInvalid ? {
+      borderColor: "#dc3545",
+      boxShadow: "#dc3545",
+      "&:hover": {
+        borderColor: "#dc3545"
+      }
+    } : {};
+    var typeStyles = {
+      control: function control(styles) {
+        return _extends({}, styles, typeBorder);
+      }
+    };
+    return typeStyles;
+  }
+
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Select, _extends({
+    styles: getTypeSelectStyles(isInvalid)
+  }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMsg));
+}
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -10053,8 +10115,11 @@ exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddIcon = OrbitalAddIcon;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalCancelIcon = OrbitalCancelIcon;
+exports.OrbitalCheckbox = OrbitalCheckbox;
+exports.OrbitalErrorDiv = OrbitalErrorDiv;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
+exports.OrbitalSelect = OrbitalSelect;
 exports.OrbitalStore = OrbitalStore;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;

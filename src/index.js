@@ -24,10 +24,12 @@ import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLoc
 import Tooltip from './components/Tooltip/Tooltip';
 import ReactTable from './components/ReactTable/ReactTable';
 import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
-
 import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
 import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
 import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
+import OrbitalCheckbox from './components/OrbitalCheckbox/OrbitalCheckbox';
+import OrbitalSelect from './components/OrbitalSelect/OrbitalSelect';
+import OrbitalErrorDiv from './components/OrbitalErrorDiv/OrbitalErrorDiv';
 
 export {
     APISb,
@@ -54,5 +56,8 @@ export {
     UploadImage,
     OrbitalSaveIcon,
     OrbitalAddIcon,
-    OrbitalCancelIcon
+    OrbitalCancelIcon,
+    OrbitalCheckbox,
+    OrbitalSelect,
+    OrbitalErrorDiv
 }

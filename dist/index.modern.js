@@ -10,7 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import LoadingOverlay from 'react-loading-overlay';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { OverlayTrigger, Tooltip, Card, Row, Col, Image as Image$1, Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Card, Row, Col, Image as Image$1, Button, Modal, FormGroup, FormControl, Form, FormCheck } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
@@ -24,6 +24,7 @@ import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useF
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import { BsPlusCircle } from 'react-icons/bs';
+import Select from 'react-select';
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -10035,5 +10036,66 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledFormCheck = styled(FormCheck)(_templateObject$3(), function (props) {
+  return props.paddingTop ? props.paddingTop : "0.5rem";
+}, function (props) {
+  return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
+});
+
+var OrbitalCheckbox = function OrbitalCheckbox(props) {
+  return /*#__PURE__*/React.createElement(StyledFormCheck, _extends({
+    type: "checkbox"
+  }, props));
+};
+
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function OrbitalErrorDiv(props) {
+  var StyledDiv = styled.div(_templateObject$4());
+  return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
+}
+
+function OrbitalSelect(props) {
+  var isInvalid = props.isInvalid,
+      errorMsg = props.errorMsg;
+
+  function getTypeSelectStyles(isInvalid) {
+    var typeBorder = isInvalid ? {
+      borderColor: "#dc3545",
+      boxShadow: "#dc3545",
+      "&:hover": {
+        borderColor: "#dc3545"
+      }
+    } : {};
+    var typeStyles = {
+      control: function control(styles) {
+        return _extends({}, styles, typeBorder);
+      }
+    };
+    return typeStyles;
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Select, _extends({
+    styles: getTypeSelectStyles(isInvalid)
+  }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMsg));
+}
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map
