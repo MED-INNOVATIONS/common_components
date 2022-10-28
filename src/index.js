@@ -25,8 +25,7 @@ import Tooltip from './components/Tooltip/Tooltip';
 import ReactTable from './components/ReactTable/ReactTable';
 import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
 
-
-
+import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
 
 export {
     APISb,
@@ -50,5 +49,6 @@ export {
     HTMLTextEditor,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
-    UploadImage
+    UploadImage,
+    OrbitalSaveIcon
 }
