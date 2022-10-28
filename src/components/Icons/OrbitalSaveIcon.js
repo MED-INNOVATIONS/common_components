@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
-import { Tooltip } from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip/Tooltip";
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     color: ${(props) => (props.disabled === true ? "grey" : "#007bff")};

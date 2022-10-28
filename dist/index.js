@@ -26,6 +26,7 @@ var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
 var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
 require('bootstrap/dist/css/bootstrap.min.css');
+var styled = _interopDefault(require('styled-components'));
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -57,6 +58,15 @@ function _assertThisInitialized(self) {
   }
 
   return self;
+}
+
+function _taggedTemplateLiteralLoose(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  strings.raw = raw;
+  return strings;
 }
 
 var APISb = /*#__PURE__*/function () {
@@ -9915,6 +9925,42 @@ function ReactTable(_ref) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject(), function (props) {
+  return props.disabled === true ? "grey" : "#007bff";
+}, function (props) {
+  return props.disabled === true ? "not-allowed" : "pointer";
+}, function (props) {
+  return props.marginright;
+});
+
+var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
+  var tooltip = props.tooltip,
+      disabled = props.disabled,
+      marginright = props.marginright,
+      _onClick = props.onClick;
+  return /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    tooltip: tooltip
+  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, {
+    marginright: marginright,
+    icon: freeRegularSvgIcons.faSave,
+    disabled: disabled,
+    onClick: function onClick() {
+      if (disabled !== true) {
+        _onClick();
+      }
+    }
+  }));
+};
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -9928,6 +9974,7 @@ exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
+exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalStore = OrbitalStore;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
