@@ -23,6 +23,7 @@ import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import { BsPlusCircle } from 'react-icons/bs';
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -9957,5 +9958,82 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddressComponentsPicker, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Container = styled.div(_templateObject$1(), function (props) {
+  return props["float"];
+});
+var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2(), function (props) {
+  return props.disabled === true ? "grey" : "#007bff";
+}, function (props) {
+  return props.disabled === true ? "not-allowed" : "pointer";
+});
+
+var OrbitalAddIcon = function OrbitalAddIcon(props) {
+  var _float = props["float"],
+      tooltip = props.tooltip,
+      disabled = props.disabled,
+      _onClick = props.onClick;
+  return /*#__PURE__*/React.createElement(Container, {
+    "float": _float
+  }, /*#__PURE__*/React.createElement(CustomTooltip, {
+    tooltip: tooltip
+  }, /*#__PURE__*/React.createElement(StyledBsPlusCircle, {
+    disabled: disabled,
+    onClick: function onClick() {
+      if (disabled !== true) {
+        _onClick();
+      }
+    }
+  })));
+};
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$2(), function (props) {
+  return props.disabled === true ? "not-allowed" : "pointer";
+});
+
+var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
+  var tooltip = props.tooltip,
+      disabled = props.disabled,
+      _onClick = props.onClick;
+  return /*#__PURE__*/React.createElement(CustomTooltip, {
+    tooltip: tooltip
+  }, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon$1, {
+    icon: faTimesCircle,
+    disabled: disabled,
+    onClick: function onClick() {
+      if (disabled !== true) {
+        _onClick();
+      }
+    }
+  }));
+};
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadImage };
 //# sourceMappingURL=index.modern.js.map

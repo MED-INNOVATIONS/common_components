@@ -26,6 +26,8 @@ import ReactTable from './components/ReactTable/ReactTable';
 import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
 
 import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
+import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
+import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
 
 export {
     APISb,
@@ -50,5 +52,7 @@ export {
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage,
-    OrbitalSaveIcon
+    OrbitalSaveIcon,
+    OrbitalAddIcon,
+    OrbitalCancelIcon
 }

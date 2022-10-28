@@ -27,6 +27,7 @@ var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
 require('bootstrap/dist/css/bootstrap.min.css');
 var styled = _interopDefault(require('styled-components'));
+var bs = require('react-icons/bs');
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -9961,6 +9962,83 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Container = styled.div(_templateObject$1(), function (props) {
+  return props["float"];
+});
+var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2(), function (props) {
+  return props.disabled === true ? "grey" : "#007bff";
+}, function (props) {
+  return props.disabled === true ? "not-allowed" : "pointer";
+});
+
+var OrbitalAddIcon = function OrbitalAddIcon(props) {
+  var _float = props["float"],
+      tooltip = props.tooltip,
+      disabled = props.disabled,
+      _onClick = props.onClick;
+  return /*#__PURE__*/React__default.createElement(Container, {
+    "float": _float
+  }, /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    tooltip: tooltip
+  }, /*#__PURE__*/React__default.createElement(StyledBsPlusCircle, {
+    disabled: disabled,
+    onClick: function onClick() {
+      if (disabled !== true) {
+        _onClick();
+      }
+    }
+  })));
+};
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$2(), function (props) {
+  return props.disabled === true ? "not-allowed" : "pointer";
+});
+
+var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
+  var tooltip = props.tooltip,
+      disabled = props.disabled,
+      _onClick = props.onClick;
+  return /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    tooltip: tooltip
+  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$1, {
+    icon: freeRegularSvgIcons.faTimesCircle,
+    disabled: disabled,
+    onClick: function onClick() {
+      if (disabled !== true) {
+        _onClick();
+      }
+    }
+  }));
+};
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -9972,7 +10050,9 @@ exports.HTMLTextEditor = HTMLTextEditor;
 exports.LoadingOverlay = CustomLoadingOverlay;
 exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
+exports.OrbitalAddIcon = OrbitalAddIcon;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
+exports.OrbitalCancelIcon = OrbitalCancelIcon;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalStore = OrbitalStore;
