@@ -1,14 +1,16 @@
 import React from 'react';
 import LoadingOverlay from 'react-loading-overlay';
-import styled from "styled-components";
 
 function CustomLoadingOverlay(props) {
-    const StyledLoadingOverlay = styled(LoadingOverlay)`
-        .MyLoader_overlay {
-            background: rgba(24, 144, 255, 0.5);
-        }
-    `;
-
-    return <StyledLoadingOverlay classNamePrefix='MyLoader_' {...props}>{props.children}</StyledLoadingOverlay>
+    
+    return <LoadingOverlay {...props}
+        styles={{
+            overlay: (base) => ({
+                ...base,
+                background: 'rgba(24, 144, 255, 0.5)'
+            })
+        }}>
+        {props.children}
+    </LoadingOverlay>
 }
 export default CustomLoadingOverlay;

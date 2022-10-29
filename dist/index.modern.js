@@ -8341,21 +8341,16 @@ function NormalFieldLabel(props) {
   return /*#__PURE__*/React.createElement(StyledDiv, props, props.value);
 }
 
-function _templateObject$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        .MyLoader_overlay {\n            background: rgba(24, 144, 255, 0.5);\n        }\n    "]);
-
-  _templateObject$2 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
 function CustomLoadingOverlay(props) {
-  var StyledLoadingOverlay = styled(LoadingOverlay)(_templateObject$2());
-  return /*#__PURE__*/React.createElement(StyledLoadingOverlay, _extends({
-    classNamePrefix: "MyLoader_"
-  }, props), props.children);
+  return /*#__PURE__*/React.createElement(LoadingOverlay, _extends({}, props, {
+    styles: {
+      overlay: function overlay(base) {
+        return _extends({}, base, {
+          background: 'rgba(24, 144, 255, 0.5)'
+        });
+      }
+    }
+  }), props.children);
 }
 
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
@@ -8722,10 +8717,10 @@ function _templateObject2$1() {
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$2() {
   var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$2 = function _templateObject() {
     return data;
   };
 
@@ -8733,7 +8728,7 @@ function _templateObject$3() {
 }
 
 function ImageBox(props) {
-  var StyledDiv = styled.div(_templateObject$3());
+  var StyledDiv = styled.div(_templateObject$2());
   return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
 }
 
@@ -9562,6 +9557,22 @@ function _templateObject2$2() {
   return data;
 }
 
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function MandatoryFieldLabel$1(props) {
+  var StyledDiv = styled.div(_templateObject$3());
+  var StyledSpan = styled.span(_templateObject2$2());
+  return /*#__PURE__*/React.createElement(StyledDiv, props, /*#__PURE__*/React.createElement(StyledSpan, null, "* "), /*#__PURE__*/React.createElement("span", null, props.value));
+}
+
 function _templateObject$4() {
   var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
 
@@ -9572,24 +9583,8 @@ function _templateObject$4() {
   return data;
 }
 
-function MandatoryFieldLabel$1(props) {
-  var StyledDiv = styled.div(_templateObject$4());
-  var StyledSpan = styled.span(_templateObject2$2());
-  return /*#__PURE__*/React.createElement(StyledDiv, props, /*#__PURE__*/React.createElement(StyledSpan, null, "* "), /*#__PURE__*/React.createElement("span", null, props.value));
-}
-
-function _templateObject$5() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
-
-  _templateObject$5 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
 function NormalFieldLabel$1(props) {
-  var StyledDiv = styled.div(_templateObject$5());
+  var StyledDiv = styled.div(_templateObject$4());
   return /*#__PURE__*/React.createElement(StyledDiv, props, props.value);
 }
 
@@ -10121,16 +10116,16 @@ function ReactTable(_ref) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$6() {
+function _templateObject$5() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject$6(), function (props) {
+var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject$5(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10167,16 +10162,16 @@ function _templateObject2$3() {
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$7(), function (props) {
+var Container = styled.div(_templateObject$6(), function (props) {
   return props["float"];
 });
 var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$3(), function (props) {
@@ -10204,16 +10199,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$8() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$8(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$7(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10234,16 +10229,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$9() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(FormCheck)(_templateObject$9(), function (props) {
+var StyledFormCheck = styled(FormCheck)(_templateObject$8(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10255,10 +10250,10 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
   }, props));
 };
 
-function _templateObject$a() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
@@ -10266,7 +10261,7 @@ function _templateObject$a() {
 }
 
 function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$a());
+  var StyledDiv = styled.div(_templateObject$9());
   return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
 }
 
