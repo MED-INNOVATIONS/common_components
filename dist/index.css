@@ -8,6 +8,7 @@
 @import './components/DateComponents/css/schedule/material_custom.css';
 @import './components/DateComponents/css/timepicker/material_custom.css';
 @import './components/OrbitalLocationPicker/orbitalLocationPicker.css';
+@import './components/ReactTable/reactTable.css';
 
 ._3ybTi {
   margin: 2em;
