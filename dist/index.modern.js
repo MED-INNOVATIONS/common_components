@@ -9,20 +9,20 @@ import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import LoadingOverlay from 'react-loading-overlay';
+import styled from 'styled-components';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { OverlayTrigger, Tooltip, Card, Row, Col, Image as Image$1, Button, Modal, FormGroup, FormControl, Form, FormCheck } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$1, Modal, FormGroup, FormControl, Form, FormCheck } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faDownload, faCircle, faPencilAlt, faTrashAlt, faUpload, faInfoCircle, faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
+import { faTimesCircle, faSave } from '@fortawesome/free-regular-svg-icons';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 
@@ -8343,22 +8343,22 @@ var NormalFieldLabel = /*#__PURE__*/function (_Component) {
   return NormalFieldLabel;
 }(Component$1);
 
-var CustomLoadingOverlay = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CustomLoadingOverlay, _Component);
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n        .MyLoader_overlay {\n            background: rgba(24, 144, 255, 0.5);\n        }\n    "]);
 
-  function CustomLoadingOverlay(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = CustomLoadingOverlay.prototype;
-
-  _proto.render = function render() {
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    return /*#__PURE__*/React.createElement(LoadingOverlay, this.props, children);
+  _templateObject = function _templateObject() {
+    return data;
   };
 
-  return CustomLoadingOverlay;
-}(Component$1);
+  return data;
+}
+
+function CustomLoadingOverlay(props) {
+  var StyledLoadingOverlay = styled(LoadingOverlay)(_templateObject());
+  return /*#__PURE__*/React.createElement(StyledLoadingOverlay, _extends({
+    classNamePrefix: "MyLoader_"
+  }, props), props.children);
+}
 
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HTMLTextEditor, _Component);
@@ -8604,6 +8604,221 @@ var ImageService = /*#__PURE__*/function () {
   return ImageService;
 }();
 
+function _templateObject13() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-size: 1.5rem;\n        margin-right: 15px;\n        cursor: ", ";\n        color: ", ";\n    "]);
+
+  _templateObject13 = function _templateObject13() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject12() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-size: 1.5rem;\n        margin-right: 15px;\n        cursor: ", ";\n        color: ", ";\n    "]);
+
+  _templateObject12 = function _templateObject12() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject11() {
+  var data = _taggedTemplateLiteralLoose(["\n        cursor: pointer;\n        font-size: 1.5rem;\n        color: grey\n    "]);
+
+  _templateObject11 = function _templateObject11() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0.25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = _taggedTemplateLiteralLoose(["\n        width: 104px;\n        height: 104px;\n        background-color: #fafafa;\n        text-align: center;\n        border-radius: 4px;\n        vertical-align: top;\n        border: 1px dashed;\n        border-color: ", ";\n    "]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteralLoose(["\n        max-width: 100% !important;\n        max-height: 100%;\n        cursor: pointer;\n    "]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #dc3545;\n        cursor: pointer;\n    "]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteralLoose(["\n        top: -10px\n    "]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #007bff;\n        cursor: pointer;\n    "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n        position: absolute;\n        z-index: 10;\n        top: -3px;\n        left: -17px;\n    "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function ImageBox(props) {
+  var StyledDiv = styled.div(_templateObject$1());
+  return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
+}
+
+function IconsBox(props) {
+  var StyledDiv = styled.div(_templateObject2());
+  return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
+}
+
+function UpdateImageIcon() {
+  var StyledFaCircle = styled(FontAwesomeIcon)(_templateObject3());
+  var StyledPencilAlt = styled(FontAwesomeIcon)(_templateObject4());
+  return /*#__PURE__*/React.createElement("span", {
+    className: "fa-stack small"
+  }, /*#__PURE__*/React.createElement(StyledFaCircle, {
+    className: "fa-stack-2x",
+    icon: faCircle
+  }), /*#__PURE__*/React.createElement(StyledPencilAlt, {
+    className: "fa-stack-1x",
+    icon: faPencilAlt
+  }));
+}
+
+function DeleteImageIcon(props) {
+  var StyledDiv = styled.div(_templateObject5());
+  var StyledFaCircle = styled(FontAwesomeIcon)(_templateObject6());
+  var StyledTrashAlt = styled(FontAwesomeIcon)(_templateObject7());
+  return /*#__PURE__*/React.createElement(StyledDiv, _extends({
+    className: "fa-stack small"
+  }, props), /*#__PURE__*/React.createElement(StyledFaCircle, {
+    className: "fa-stack-2x",
+    icon: faCircle
+  }), /*#__PURE__*/React.createElement(StyledTrashAlt, {
+    className: "fa-stack-1x",
+    icon: faTrashAlt
+  }));
+}
+
+function StyledImage(props) {
+  var StyledImg = styled.img(_templateObject8());
+  return /*#__PURE__*/React.createElement(StyledImg, props);
+}
+
+function UploadImageButton(props) {
+  var StyledButton = styled(Button)(_templateObject9(), function (props) {
+    return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+  });
+  return /*#__PURE__*/React.createElement(StyledButton, props, props.children);
+}
+
+function ErrorMessage(props) {
+  var StyledDiv = styled.div(_templateObject10());
+  return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
+}
+
+function CloseIcon(props) {
+  var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject11());
+  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({
+    icon: faTimesCircle
+  }, props));
+}
+
+function CropperDownloadIcon(props) {
+  var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject12(), function (props) {
+    return props.isError === true ? "not-allowed" : "pointer";
+  }, function (props) {
+    return props.isError === true ? "#dee2e6" : "#007bff";
+  });
+  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+    icon: faDownload
+  }));
+}
+
+function CropperSaveIcon(props) {
+  var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject13(), function (props) {
+    return props.isError === true ? "not-allowed" : "pointer";
+  }, function (props) {
+    return props.isError === true ? "#dee2e6" : "#007bff";
+  });
+  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+    icon: faSave
+  }));
+}
+
 var CropImage = /*#__PURE__*/function (_Component) {
   _inheritsLoose(CropImage, _Component);
 
@@ -8788,31 +9003,26 @@ var CropImage = /*#__PURE__*/function (_Component) {
         src = _this$state3.src,
         croppedImageUrl = _this$state3.croppedImageUrl,
         isError = _this$state3.isError;
-    var downloadClassname = isError == true ? "cropper_download_icon_disabled" : "cropper_download_icon";
-    var saveClassname = isError == true ? "cropper_save_icon_disabled" : "cropper_save_icon";
     return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Card.Header, null, /*#__PURE__*/React.createElement("span", {
       style: {
         "float": "right"
       }
     }, /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.download || "Download"
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: downloadClassname,
-      icon: faDownload,
+    }, /*#__PURE__*/React.createElement(CropperDownloadIcon, {
+      tooltip: localization.download || "Download",
+      isError: isError,
       onClick: this.downloadCroppedImg
     })), /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.save || "Save"
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: saveClassname,
-      icon: faSave,
+    }, /*#__PURE__*/React.createElement(CropperSaveIcon, {
+      isError: isError,
       onClick: function onClick() {
         _this3.parseCroppedImage();
       }
     })), /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "cropper_close_icon",
-      icon: faTimesCircle,
+    }, /*#__PURE__*/React.createElement(CloseIcon, {
       onClick: this.props.onClose
     })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5
@@ -8821,7 +9031,9 @@ var CropImage = /*#__PURE__*/function (_Component) {
     }), /*#__PURE__*/React.createElement(Col, {
       sm: 5
     }, localization.cropped_image || "Cropped image")), /*#__PURE__*/React.createElement(Row, {
-      className: "margin_top_row"
+      style: {
+        marginTop: "1rem"
+      }
     }, /*#__PURE__*/React.createElement(Col, {
       sm: 5
     }, /*#__PURE__*/React.createElement(Image$1, {
@@ -8853,7 +9065,10 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       showCropModal: false,
       image: _this.props.image,
       imageToCropSrc: null,
-      imageToCrop: null
+      imageToCrop: null,
+      fileName: null,
+      fileExtension: null,
+      fileType: null
     };
     _this.checkImageRatioAndDimensions = _this.checkImageRatioAndDimensions.bind(_assertThisInitialized(_this));
     _this.handleFileUpload = _this.handleFileUpload.bind(_assertThisInitialized(_this));
@@ -8943,7 +9158,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
             }
           }
 
-          if (constraints == true) {
+          if (constraints === true) {
             if (imageWidth < minWidth) {
               isError = true;
               var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
@@ -8969,7 +9184,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
               toast.warn(message);
             }
 
-            if (isError == true) {
+            if (isError === true) {
               reject();
             } else {
               resolve();
@@ -9005,30 +9220,39 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     var _ref4 = cropProperties || {},
         cropImage = _ref4.cropImage;
 
+    var fileName = fileSrc.name;
+    var fileType = fileSrc.type;
+    var fileExtension = uploadedImage.split(';')[0].split('/')[1];
     self.checkImageRatioAndDimensions(uploadedImage).then(function () {
-      if (resizeImage == true) {
+      if (resizeImage === true) {
         self.fileChangedHandler(fileSrc, resizeWidth, resizeHeight).then(function (data) {
-          if (cropImage == true) {
+          if (cropImage === true) {
             self.setState({
               imageToCrop: data,
               imageToCropSrc: fileSrc,
-              showCropModal: true
+              showCropModal: true,
+              fileName: fileName,
+              fileType: fileType,
+              fileExtension: fileExtension
             });
           } else {
-            self.props.onChange(data);
+            self.props.onChange(data, fileName, fileExtension, fileType);
           }
         })["catch"](function (error) {
           console.error(error);
           toast.error(localization.errorResizingImage || "Error resizing image");
         });
-      } else if (cropImage == true) {
+      } else if (cropImage === true) {
         self.setState({
           imageToCrop: uploadedImage,
           imageToCropSrc: fileSrc,
-          showCropModal: true
+          showCropModal: true,
+          fileName: fileName,
+          fileType: fileType,
+          fileExtension: fileExtension
         });
       } else {
-        self.props.onChange(uploadedImage);
+        self.props.onChange(uploadedImage, fileName, fileExtension, fileType);
       }
     })["catch"](function (e) {});
   };
@@ -9050,6 +9274,10 @@ var UploadImage = /*#__PURE__*/function (_Component) {
 
   _proto.saveCrop = function saveCrop(data) {
     var self = this;
+    var _self$state = self.state,
+        fileName = _self$state.fileName,
+        fileType = _self$state.fileType,
+        fileExtension = _self$state.fileExtension;
 
     if (this.props.onChange) {
       this.setState({
@@ -9065,7 +9293,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
           var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
           toast.warn(message);
         } else {
-          self.props.onChange(data);
+          self.props.onChange(data, fileName, fileExtension, fileType);
         }
       });
     }
@@ -9117,23 +9345,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     };
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 12
-    }, image != null && /*#__PURE__*/React.createElement("div", {
-      className: "image_box"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "icons_box"
-    }, /*#__PURE__*/React.createElement("div", {
-      "class": "image-upload"
-    }, /*#__PURE__*/React.createElement("label", {
-      "for": "file-input"
-    }, /*#__PURE__*/React.createElement("span", {
-      "class": "fa-stack small"
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "upload_image_box fa-stack-2x",
-      icon: faCircle
-    }), /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "upload_image_icon fa-stack-1x",
-      icon: faPencilAlt
-    }))), /*#__PURE__*/React.createElement("input", {
+    }, _$2.isEmpty(image) === false && /*#__PURE__*/React.createElement(ImageBox, null, /*#__PURE__*/React.createElement(IconsBox, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "file-input"
+    }, /*#__PURE__*/React.createElement(UpdateImageIcon, null)), /*#__PURE__*/React.createElement("input", {
       id: "file-input",
       type: "file",
       accept: "image/*",
@@ -9142,26 +9356,18 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       },
       multiple: false,
       onChange: this.handleFileUpload
-    })), /*#__PURE__*/React.createElement("div", {
-      "class": "delete_image_set fa-stack small",
+    })), /*#__PURE__*/React.createElement(DeleteImageIcon, {
       onClick: this.onRemove
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "delete_image_box fa-stack-2x",
-      icon: faCircle
-    }), /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "delete_image_icon fa-stack-1x",
-      icon: faTrashAlt
-    }))), /*#__PURE__*/React.createElement("img", {
+    })), /*#__PURE__*/React.createElement(StyledImage, {
       style: imageStyle,
       src: image,
-      className: "image_src",
       alt: "img",
       onClick: function onClick() {
         _this3.setState({
           showPreviewImage: true
         });
       }
-    })), image == null && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("input", {
+    })), _$2.isEmpty(image) === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("input", {
       ref: "fileInput",
       onChange: this.handleFileUpload,
       type: "file",
@@ -9170,19 +9376,17 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         display: "none"
       },
       multiple: false
-    }), /*#__PURE__*/React.createElement(Button, {
+    }), /*#__PURE__*/React.createElement(UploadImageButton, {
       disabled: disabled,
       variant: "outline-secondary",
-      className: error == true ? "upload_image_button_error" : "upload_image_button",
+      isInvalid: error,
       onClick: function onClick() {
         return _this3.refs.fileInput.click();
       }
     }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faUpload,
       onClick: this.props.onCancel
-    }))))), error == true && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement("div", {
-      className: "upload_image_error_message"
-    }, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
+    }))))), error === true && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
       onHide: function onHide() {},
       size: "xl",
       show: showPreviewImage
@@ -9192,9 +9396,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       }
     }, /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      className: "edit_header_icon_close",
-      icon: faTimesCircle,
+    }, /*#__PURE__*/React.createElement(CloseIcon, {
       onClick: function onClick() {
         _this3.setState({
           showPreviewImage: false
@@ -9923,16 +10125,16 @@ function ReactTable(_ref) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject() {
+function _templateObject$2() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject = function _templateObject() {
+  _templateObject$2 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject(), function (props) {
+var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject$2(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -9959,29 +10161,29 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-function _templateObject2() {
+function _templateObject2$1() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject2 = function _templateObject2() {
+  _templateObject2$1 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$1() {
+function _templateObject$3() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$3 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$1(), function (props) {
+var Container = styled.div(_templateObject$3(), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2(), function (props) {
+var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$1(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10006,16 +10208,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$2() {
+function _templateObject$4() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$4 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$2(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$4(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10036,16 +10238,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$3() {
+function _templateObject$5() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(FormCheck)(_templateObject$3(), function (props) {
+var StyledFormCheck = styled(FormCheck)(_templateObject$5(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10057,10 +10259,10 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
   }, props));
 };
 
-function _templateObject$4() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
@@ -10068,7 +10270,7 @@ function _templateObject$4() {
 }
 
 function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$4());
+  var StyledDiv = styled.div(_templateObject$6());
   return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
 }
 

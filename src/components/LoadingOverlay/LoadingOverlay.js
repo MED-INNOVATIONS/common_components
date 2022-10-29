@@ -1,23 +1,14 @@
-import React, { Component } from "react";
+import React from 'react';
 import LoadingOverlay from 'react-loading-overlay';
+import styled from "styled-components";
 
-import './loadingOverlay.css';
+function CustomLoadingOverlay(props) {
+    const StyledLoadingOverlay = styled(LoadingOverlay)`
+        .MyLoader_overlay {
+            background: rgba(24, 144, 255, 0.5);
+        }
+    `;
 
-class CustomLoadingOverlay extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        var children = this.props.children || <div>Error children</div>
-
-        return (
-            <LoadingOverlay
-                {...this.props}>
-                {children}
-            </LoadingOverlay>
-        )
-    }
+    return <StyledLoadingOverlay classNamePrefix='MyLoader_' {...props}>{props.children}</StyledLoadingOverlay>
 }
-
-export default CustomLoadingOverlay
+export default CustomLoadingOverlay;
