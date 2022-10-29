@@ -15,7 +15,7 @@ import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$1, Moda
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import Resizer from 'react-image-file-resizer';
+import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
 import { faTimesCircle, faSave } from '@fortawesome/free-regular-svg-icons';
@@ -9254,7 +9254,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     return new Promise(function (resolve, reject) {
       try {
         if (input && (newWidth != null || newHeight != null)) {
-          Resizer.imageFileResizer(input, newWidth || 5000, newHeight || 5000, 'PNG', 100, 0, function (uri) {
+          Resizer$1.imageFileResizer(input, newWidth || 5000, newHeight || 5000, 'PNG', 100, 0, function (uri) {
             resolve(uri);
           }, 'base64', newWidth || 1, newHeight || 1);
         }
@@ -9870,6 +9870,126 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(Component$1);
 
+function _templateObject8$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        &:last-child{\n            overflow-x: hidden;\n            ", "{\n                border-bottom: 0;\n            }\n        }\n    "]);
+
+  _templateObject8$1 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        touch-action: none;\n    "]);
+
+  _templateObject7$1 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 1rem;\n    "]);
+
+  _templateObject6$1 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
+
+  _templateObject5$1 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        display: inline-block;\n        border-spacing: 0;\n        border: 1px solid #dee2e6;\n        width: 100%;\n    "]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$3() {
+  var data = _taggedTemplateLiteralLoose(["\n        border-bottom: 1px solid #dee2e6;\n        padding: 15px;\n    "]);
+
+  _templateObject2$3 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteralLoose(["\n        display: block;\n        position: absolute;\n        left: 50%;\n        top: 40%;\n        z-index: 1;\n        padding: 20px;\n        background-color: white;\n        border: 1px solid #dee2e6;\n    "]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function NoData(props) {
+  var StyledDiv = styled.div(_templateObject$5());
+  return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
+}
+
+function SubContentContainer(props) {
+  var StyledDiv = styled.div(_templateObject2$3());
+  return /*#__PURE__*/React.createElement(SubContentContainer, null, props.children);
+}
+
+function StyledTable(props) {
+  var StyledDiv = styled.div(_templateObject3$1());
+  return /*#__PURE__*/React.createElement(StyledDiv, props, props.children);
+}
+
+function StyledTd(props) {
+  var StyledDiv = styled.div(_templateObject4$1());
+  return /*#__PURE__*/React.createElement(StyledDiv, props, props.children);
+}
+
+function StyledTh(props) {
+  var StyledDiv = styled.div(_templateObject5$1());
+  return /*#__PURE__*/React.createElement(StyledDiv, props, props.children);
+}
+
+function PaginationRow(props) {
+  var StyledRow = styled(Row)(_templateObject6$1());
+  return /*#__PURE__*/React.createElement(StyledRow, props, props.children);
+}
+
+function Resizer(props) {
+  var StyledDiv = styled.div(_templateObject7$1());
+  return /*#__PURE__*/React.createElement(StyledDiv, props, props.children);
+}
+
+function StyledTr(props) {
+  var StyledDiv = styled.div(_templateObject8$1(), StyledTd);
+  return /*#__PURE__*/React.createElement(StyledDiv, props, props.children);
+}
+
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
   var rows = null;
 
@@ -9885,12 +10005,8 @@ function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
       var new_id = data.length + i;
       row.id = new_id;
       prepareRow(row);
-      return /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
-        className: "my_tr"
-      }), row.cells.map(function (cell) {
-        return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
-          className: "my_td"
-        }), /*#__PURE__*/React.createElement("div", {
+      return /*#__PURE__*/React.createElement(StyledTr, row.getRowProps(), row.cells.map(function (cell) {
+        return /*#__PURE__*/React.createElement(StyledTd, cell.getCellProps(), /*#__PURE__*/React.createElement("div", {
           style: {
             color: "#66000000"
           }
@@ -9906,12 +10022,8 @@ function setEmptyHeaders(pageSize, headerGroups) {
 
   var rows = _$2.map(new_filling_rows, function () {
     return headerGroups.map(function (headerGroup) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
-        className: "my_tr"
-      }), headerGroup.headers.map(function (column) {
-        return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
-          className: "my_th"
-        }), /*#__PURE__*/React.createElement("div", {
+      return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
+        return /*#__PURE__*/React.createElement(StyledTh, column.getHeaderProps(), /*#__PURE__*/React.createElement("div", {
           style: {
             color: "#66000000"
           }
@@ -9950,8 +10062,8 @@ function setSortIcon(column) {
   })) : ""));
 }
 function setResize(column) {
-  return /*#__PURE__*/React.createElement("span", null, column.canResize && /*#__PURE__*/React.createElement("div", _extends({}, column.getResizerProps(), {
-    className: "my_resizer " + (column.isResizing ? "isResizing" : "")
+  return /*#__PURE__*/React.createElement("span", null, column.canResize && /*#__PURE__*/React.createElement(Resizer, _extends({}, column.getResizerProps(), {
+    className: "" + (column.isResizing ? "isResizing" : "")
   })));
 }
 
@@ -9979,7 +10091,7 @@ function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
 }
 
 function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
-  return /*#__PURE__*/React.createElement(Row, {
+  return /*#__PURE__*/React.createElement(PaginationRow, {
     className: "pagination",
     hidden: hidePagination === true
   }, /*#__PURE__*/React.createElement(Col, {
@@ -10084,15 +10196,9 @@ function ReactTable(_ref) {
       pageIndex = _useTable$state.pageIndex,
       pageSize = _useTable$state.pageSize;
 
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", _extends({}, getTableProps(), {
-    className: "my_table"
-  }), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
-    return /*#__PURE__*/React.createElement("div", _extends({}, headerGroup.getHeaderGroupProps(), {
-      className: "my_tr"
-    }), headerGroup.headers.map(function (column) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, column.getHeaderProps(), {
-        className: "my_th"
-      }), column.render("Header"), setSortIcon(column), setResize(column));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledTable, getTableProps(), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
+    return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
+      return /*#__PURE__*/React.createElement(StyledTh, column.getHeaderProps(), column.render("Header"), setSortIcon(column), setResize(column));
     }));
   }), data.length === 0 && /*#__PURE__*/React.createElement("span", null, setEmptyHeaders(pageSize, headerGroups))), /*#__PURE__*/React.createElement("div", getTableBodyProps(), page.map(function (row, i) {
     if (row.original && row.original.subContent && _$2.isEmpty(row.original.subContent) === false) {
@@ -10100,32 +10206,28 @@ function ReactTable(_ref) {
     }
 
     prepareRow(row);
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({}, row.getRowProps(), {
-      className: "my_tr"
-    }), row.cells.map(function (cell) {
-      return /*#__PURE__*/React.createElement("div", _extends({}, cell.getCellProps(), {
-        className: "my_th"
-      }), cell.render("Cell"));
-    })), row.isExpanded ? /*#__PURE__*/React.createElement("div", {
-      className: "sub_content_container"
-    }, row.original.subContent) : null);
-  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length === 0 && /*#__PURE__*/React.createElement("div", {
-    className: "noData"
-  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+    return /*#__PURE__*/React.createElement(React.Fragment, {
+      key: i
+    }, /*#__PURE__*/React.createElement(StyledTr, row.getRowProps(), row.cells.map(function (cell, index) {
+      return /*#__PURE__*/React.createElement(StyledTh, _extends({
+        key: index
+      }, cell.getCellProps()), cell.render("Cell"));
+    })), row.isExpanded ? /*#__PURE__*/React.createElement(SubContentContainer, null, row.original.subContent) : null);
+  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length === 0 && /*#__PURE__*/React.createElement(NoData, null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faInfoCircle
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject$5(), function (props) {
+var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject$6(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10152,29 +10254,29 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-function _templateObject2$3() {
+function _templateObject2$4() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject2$3 = function _templateObject2() {
+  _templateObject2$4 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$6(), function (props) {
+var Container = styled.div(_templateObject$7(), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$3(), function (props) {
+var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10199,16 +10301,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$7(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$8(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10229,16 +10331,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$8() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(FormCheck)(_templateObject$8(), function (props) {
+var StyledFormCheck = styled(FormCheck)(_templateObject$9(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10250,10 +10352,10 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
   }, props));
 };
 
-function _templateObject$9() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
@@ -10261,7 +10363,7 @@ function _templateObject$9() {
 }
 
 function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$9());
+  var StyledDiv = styled.div(_templateObject$a());
   return /*#__PURE__*/React.createElement(StyledDiv, null, props.children);
 }
 

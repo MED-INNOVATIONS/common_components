@@ -22,7 +22,7 @@ import UploadImage from './components/UploadImage/UploadImage'
 import OrbitalAddressComponentsPicker from './components/OrbitalAddressComponentsPicker/OrbitalAddressComponentsPicker'
 import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLocationPicker'
 import Tooltip from './components/Tooltip/Tooltip';
-import ReactTable from './components/ReactTable/ReactTable';
+import ReactTable from './components/ReactTable_styled/ReactTable';
 import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
 import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
 import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
