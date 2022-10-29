@@ -7,12 +7,12 @@ var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
 var ej2ReactSchedule = require('@syncfusion/ej2-react-schedule');
 var moment = _interopDefault(require('moment'));
+var styled = _interopDefault(require('styled-components'));
 var reactDraftWysiwyg = require('react-draft-wysiwyg');
 var draftJs = require('draft-js');
 var draftToHtml = _interopDefault(require('draftjs-to-html'));
 var htmlToDraft = _interopDefault(require('html-to-draftjs'));
 var LoadingOverlay = _interopDefault(require('react-loading-overlay'));
-var styled = _interopDefault(require('styled-components'));
 require('react-draft-wysiwyg/dist/react-draft-wysiwyg.css');
 var reactBootstrap = require('react-bootstrap');
 var reactToastify = require('react-toastify');
@@ -8304,51 +8304,18 @@ var TimePicker = /*#__PURE__*/function (_Component) {
   return TimePicker;
 }(React.Component);
 
-var MandatoryFieldLabel = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(MandatoryFieldLabel, _Component);
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: #dc3545;\n    "]);
 
-  function MandatoryFieldLabel(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = MandatoryFieldLabel.prototype;
-
-  _proto.render = function render() {
-    var className = "label_style" + " " + this.props.className;
-    return /*#__PURE__*/React__default.createElement("div", {
-      style: this.props.style
-    }, /*#__PURE__*/React__default.createElement("span", {
-      className: "mandatory_style"
-    }, "* "), /*#__PURE__*/React__default.createElement("span", {
-      className: className
-    }, this.props.value));
+  _templateObject2 = function _templateObject2() {
+    return data;
   };
 
-  return MandatoryFieldLabel;
-}(React.Component);
-
-var NormalFieldLabel = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(NormalFieldLabel, _Component);
-
-  function NormalFieldLabel(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = NormalFieldLabel.prototype;
-
-  _proto.render = function render() {
-    var className = "label_style" + " " + this.props.className;
-    return /*#__PURE__*/React__default.createElement("div", {
-      style: this.props.style,
-      className: className
-    }, this.props.value);
-  };
-
-  return NormalFieldLabel;
-}(React.Component);
+  return data;
+}
 
 function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n        .MyLoader_overlay {\n            background: rgba(24, 144, 255, 0.5);\n        }\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -8357,8 +8324,39 @@ function _templateObject() {
   return data;
 }
 
+function MandatoryFieldLabel(props) {
+  var StyledDiv = styled.div(_templateObject());
+  var StyledSpan = styled.span(_templateObject2());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function NormalFieldLabel(props) {
+  var StyledDiv = styled.div(_templateObject$1());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.value);
+}
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n        .MyLoader_overlay {\n            background: rgba(24, 144, 255, 0.5);\n        }\n    "]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
 function CustomLoadingOverlay(props) {
-  var StyledLoadingOverlay = styled(LoadingOverlay)(_templateObject());
+  var StyledLoadingOverlay = styled(LoadingOverlay)(_templateObject$2());
   return /*#__PURE__*/React__default.createElement(StyledLoadingOverlay, _extends({
     classNamePrefix: "MyLoader_"
   }, props), props.children);
@@ -8718,20 +8716,20 @@ function _templateObject3() {
   return data;
 }
 
-function _templateObject2() {
+function _templateObject2$1() {
   var data = _taggedTemplateLiteralLoose(["\n        position: absolute;\n        z-index: 10;\n        top: -3px;\n        left: -17px;\n    "]);
 
-  _templateObject2 = function _templateObject2() {
+  _templateObject2$1 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$1() {
+function _templateObject$3() {
   var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$3 = function _templateObject() {
     return data;
   };
 
@@ -8739,12 +8737,12 @@ function _templateObject$1() {
 }
 
 function ImageBox(props) {
-  var StyledDiv = styled.div(_templateObject$1());
+  var StyledDiv = styled.div(_templateObject$3());
   return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
 }
 
 function IconsBox(props) {
-  var StyledDiv = styled.div(_templateObject2());
+  var StyledDiv = styled.div(_templateObject2$1());
   return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
 }
 
@@ -9558,48 +9556,46 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(React.Component);
 
-var MandatoryFieldLabel$1 = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(MandatoryFieldLabel, _Component);
+function _templateObject2$2() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: #dc3545;\n    "]);
 
-  function MandatoryFieldLabel(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = MandatoryFieldLabel.prototype;
-
-  _proto.render = function render() {
-    var className = "label_style" + " " + this.props.className;
-    return /*#__PURE__*/React__default.createElement("div", {
-      style: this.props.style
-    }, /*#__PURE__*/React__default.createElement("span", {
-      className: "mandatory_style"
-    }, "* "), /*#__PURE__*/React__default.createElement("span", {
-      className: className
-    }, this.props.value));
+  _templateObject2$2 = function _templateObject2() {
+    return data;
   };
 
-  return MandatoryFieldLabel;
-}(React.Component);
+  return data;
+}
 
-var NormalFieldLabel$1 = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(NormalFieldLabel, _Component);
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
 
-  function NormalFieldLabel(props) {
-    return _Component.call(this, props) || this;
-  }
-
-  var _proto = NormalFieldLabel.prototype;
-
-  _proto.render = function render() {
-    var className = "label_style" + " " + this.props.className;
-    return /*#__PURE__*/React__default.createElement("div", {
-      style: this.props.style,
-      className: className
-    }, this.props.value);
+  _templateObject$4 = function _templateObject() {
+    return data;
   };
 
-  return NormalFieldLabel;
-}(React.Component);
+  return data;
+}
+
+function MandatoryFieldLabel$1(props) {
+  var StyledDiv = styled.div(_templateObject$4());
+  var StyledSpan = styled.span(_templateObject2$2());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
+}
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function NormalFieldLabel$1(props) {
+  var StyledDiv = styled.div(_templateObject$5());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.value);
+}
 
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
@@ -10129,16 +10125,16 @@ function ReactTable(_ref) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$2() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$2(), function (props) {
+var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$6(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10165,29 +10161,29 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-function _templateObject2$1() {
+function _templateObject2$3() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject2$1 = function _templateObject2() {
+  _templateObject2$3 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$3(), function (props) {
+var Container = styled.div(_templateObject$7(), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$1(), function (props) {
+var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$3(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10212,16 +10208,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$4() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$4(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$8(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10242,16 +10238,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$5() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$5(), function (props) {
+var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$9(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10263,10 +10259,10 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
   }, props));
 };
 
-function _templateObject$6() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
@@ -10274,7 +10270,7 @@ function _templateObject$6() {
 }
 
 function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$6());
+  var StyledDiv = styled.div(_templateObject$a());
   return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
 }
 

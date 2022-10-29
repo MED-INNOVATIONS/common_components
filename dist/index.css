@@ -1,5 +1,4 @@
 /* add css module styles here (optional) */
-@import './components/LoadingOverlay/loadingOverlay.css';
 @import './components/DateComponents/css/buttons/material_custom.css';
 @import './components/DateComponents/css/calendar/material_custom.css';
 @import './components/DateComponents/css/datepicker/material_custom.css';
@@ -30777,16 +30776,6 @@ ejs-listbox {
   padding-right: 1.0666em;
 }
 
-._xP4uZ {
-    font-weight: normal;
-}
-
-._2wI4G {
-    color: #dc3545;
-}
-._38v1Q{
-    font-weight: normal;
-}
 /*!
  * Cropper.js v1.5.9
  * https://fengyuanchen.github.io/cropperjs
