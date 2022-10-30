@@ -9320,6 +9320,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         localization = _this$props2.localization,
         cropProperties = _this$props2.cropProperties,
         error = _this$props2.error,
+        isInvalid = _this$props2.isInvalid,
         errorMessage = _this$props2.errorMessage,
         ratio = _this$props2.ratio,
         viewImgHeight = _this$props2.viewImgHeight,
@@ -9376,14 +9377,14 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     }), /*#__PURE__*/React__default.createElement(UploadImageButton, {
       disabled: disabled,
       variant: "outline-secondary",
-      isInvalid: error,
+      isInvalid: error || isInvalid,
       onClick: function onClick() {
         return _this3.refs.fileInput.click();
       }
     }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faUpload,
       onClick: this.props.onCancel
-    }))))), error === true && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
+    }))))), (error === true || isInvalid === true) && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
       onHide: function onHide() {},
       size: "xl",
       show: showPreviewImage
@@ -9425,6 +9426,226 @@ var UploadImage = /*#__PURE__*/function (_Component) {
 
   return UploadImage;
 }(React.Component);
+
+function _templateObject10$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0.25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+
+  _templateObject10$1 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: #007bff;\n        font-size: 4rem;\n    "]);
+
+  _templateObject9$1 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+
+  _templateObject8$1 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #dc3545;\n        cursor: pointer;\n    "]);
+
+  _templateObject7$1 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        top: -10px\n    "]);
+
+  _templateObject6$1 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+
+  _templateObject5$1 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #007bff;\n        cursor: pointer;\n    "]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteralLoose(["\n        position: absolute;\n        z-index: 10;\n        top: -3px;\n        left: -17px;\n    "]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$2() {
+  var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
+
+  _templateObject2$2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n        width: 50px;\n        height: 60px;\n        background-color: #fafafa;\n        text-align: center;\n        border-radius: 4px;\n        vertical-align: top;\n        border: 1px dashed;\n        border-color: ", ";\n    "]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function UploadImageButton$1(props) {
+  var StyledButton = styled(reactBootstrap.Button)(_templateObject$3(), function (props) {
+    return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+  });
+  return /*#__PURE__*/React__default.createElement(StyledButton, props, props.children);
+}
+
+function DocumentBox(props) {
+  var StyledDiv = styled.div(_templateObject2$2());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+}
+
+function IconsBox$1(props) {
+  var StyledDiv = styled.div(_templateObject3$1());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+}
+
+function UpdateImageIcon$1() {
+  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject4$1());
+  var StyledPencilAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject5$1());
+  return /*#__PURE__*/React__default.createElement("span", {
+    className: "fa-stack small"
+  }, /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+    className: "fa-stack-2x",
+    icon: freeSolidSvgIcons.faCircle
+  }), /*#__PURE__*/React__default.createElement(StyledPencilAlt, {
+    className: "fa-stack-1x",
+    icon: freeSolidSvgIcons.faPencilAlt
+  }));
+}
+
+function DeleteImageIcon$1(props) {
+  var StyledDiv = styled.div(_templateObject6$1());
+  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7$1());
+  var StyledTrashAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject8$1());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, _extends({
+    className: "fa-stack small"
+  }, props), /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+    className: "fa-stack-2x",
+    icon: freeSolidSvgIcons.faCircle
+  }), /*#__PURE__*/React__default.createElement(StyledTrashAlt, {
+    className: "fa-stack-1x",
+    icon: freeSolidSvgIcons.faTrashAlt
+  }));
+}
+
+function FileIcon(props) {
+  var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject9$1());
+  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, {
+    icon: freeRegularSvgIcons.faFileAlt
+  });
+}
+
+function ErrorMessage$1(props) {
+  var StyledDiv = styled.div(_templateObject10$1());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+}
+
+function UploadDocument(props) {
+  var document = props.document,
+      onChange = props.onChange,
+      onRemove = props.onRemove,
+      disabled = props.disabled,
+      isInvalid = props.isInvalid,
+      errorMessage = props.errorMessage;
+  var inputRef = React.useRef(null);
+
+  function handleFileUpload(e) {
+    var files = e.target.files;
+
+    if (files.length > 0) {
+      var fileSrc = files[0];
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        var data = reader.result;
+        var fileName = fileSrc.name;
+        var fileType = fileSrc.type;
+        var fileExtension = data.split(';')[0].split('/')[1];
+        onChange(data, fileName, fileExtension, fileType);
+      };
+
+      reader.readAsDataURL(fileSrc);
+    }
+  }
+
+  return /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, _$2.isEmpty(document) === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("input", {
+    ref: inputRef,
+    onChange: handleFileUpload,
+    type: "file",
+    accept: "application/*, text/*",
+    style: {
+      display: "none"
+    },
+    multiple: false
+  }), /*#__PURE__*/React__default.createElement(UploadImageButton$1, {
+    disabled: disabled,
+    variant: "outline-secondary",
+    isInvalid: isInvalid,
+    onClick: function onClick() {
+      inputRef.current.click();
+    }
+  }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+    icon: freeSolidSvgIcons.faUpload
+  })), isInvalid === true && /*#__PURE__*/React__default.createElement(ErrorMessage$1, null, errorMessage || "Error")), _$2.isEmpty(document) === false && /*#__PURE__*/React__default.createElement(DocumentBox, null, /*#__PURE__*/React__default.createElement(IconsBox$1, null, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("label", {
+    htmlFor: "file-input"
+  }, /*#__PURE__*/React__default.createElement(UpdateImageIcon$1, null)), /*#__PURE__*/React__default.createElement("input", {
+    id: "file-input",
+    type: "file",
+    accept: "application/*, text/*",
+    style: {
+      display: "none"
+    },
+    multiple: false,
+    onChange: handleFileUpload
+  })), /*#__PURE__*/React__default.createElement(DeleteImageIcon$1, {
+    onClick: onRemove
+  })), /*#__PURE__*/React__default.createElement(FileIcon, null), /*#__PURE__*/React__default.createElement("div", null, document && document.fileName ? document.fileName : "N/A"))));
+}
 
 var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(OrbitalAddressComponentsPicker, _Component);
@@ -9551,30 +9772,14 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(React.Component);
 
-function _templateObject2$2() {
+function _templateObject2$3() {
   var data = _taggedTemplateLiteralLoose(["\n        color: #dc3545;\n    "]);
 
-  _templateObject2$2 = function _templateObject2() {
+  _templateObject2$3 = function _templateObject2() {
     return data;
   };
 
   return data;
-}
-
-function _templateObject$3() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
-
-  _templateObject$3 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function MandatoryFieldLabel$1(props) {
-  var StyledDiv = styled.div(_templateObject$3());
-  var StyledSpan = styled.span(_templateObject2$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
 }
 
 function _templateObject$4() {
@@ -9587,8 +9792,24 @@ function _templateObject$4() {
   return data;
 }
 
-function NormalFieldLabel$1(props) {
+function MandatoryFieldLabel$1(props) {
   var StyledDiv = styled.div(_templateObject$4());
+  var StyledSpan = styled.span(_templateObject2$3());
+  return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
+}
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function NormalFieldLabel$1(props) {
+  var StyledDiv = styled.div(_templateObject$5());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.value);
 }
 
@@ -9874,80 +10095,80 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(React.Component);
 
-function _templateObject8$1() {
+function _templateObject8$2() {
   var data = _taggedTemplateLiteralLoose(["\n        &:last-child{\n            overflow-x: hidden;\n            ", "{\n                border-bottom: 0;\n            }\n        }\n    "]);
 
-  _templateObject8$1 = function _templateObject8() {
+  _templateObject8$2 = function _templateObject8() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject7$1() {
+function _templateObject7$2() {
   var data = _taggedTemplateLiteralLoose(["\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        touch-action: none;\n    "]);
 
-  _templateObject7$1 = function _templateObject7() {
+  _templateObject7$2 = function _templateObject7() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject6$1() {
+function _templateObject6$2() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 1rem;\n    "]);
 
-  _templateObject6$1 = function _templateObject6() {
+  _templateObject6$2 = function _templateObject6() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject5$1() {
+function _templateObject5$2() {
   var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
 
-  _templateObject5$1 = function _templateObject5() {
+  _templateObject5$2 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$1() {
+function _templateObject4$2() {
   var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
 
-  _templateObject4$1 = function _templateObject4() {
+  _templateObject4$2 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$1() {
+function _templateObject3$2() {
   var data = _taggedTemplateLiteralLoose(["\n        display: inline-block;\n        border-spacing: 0;\n        border: 1px solid #dee2e6;\n        width: 100%;\n    "]);
 
-  _templateObject3$1 = function _templateObject3() {
+  _templateObject3$2 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$3() {
+function _templateObject2$4() {
   var data = _taggedTemplateLiteralLoose(["\n        border-bottom: 1px solid #dee2e6;\n        padding: 15px;\n    "]);
 
-  _templateObject2$3 = function _templateObject2() {
+  _templateObject2$4 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteralLoose(["\n        display: block;\n        position: absolute;\n        left: 50%;\n        top: 40%;\n        z-index: 1;\n        padding: 20px;\n        background-color: white;\n        border: 1px solid #dee2e6;\n    "]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
@@ -9955,42 +10176,42 @@ function _templateObject$5() {
 }
 
 function NoData(props) {
-  var StyledDiv = styled.div(_templateObject$5());
+  var StyledDiv = styled.div(_templateObject$6());
   return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
 }
 
 function SubContentContainer(props) {
-  var StyledDiv = styled.div(_templateObject2$3());
+  var StyledDiv = styled.div(_templateObject2$4());
   return /*#__PURE__*/React__default.createElement(SubContentContainer, null, props.children);
 }
 
 function StyledTable(props) {
-  var StyledDiv = styled.div(_templateObject3$1());
+  var StyledDiv = styled.div(_templateObject3$2());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
 }
 
 function StyledTd(props) {
-  var StyledDiv = styled.div(_templateObject4$1());
+  var StyledDiv = styled.div(_templateObject4$2());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
 }
 
 function StyledTh(props) {
-  var StyledDiv = styled.div(_templateObject5$1());
+  var StyledDiv = styled.div(_templateObject5$2());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
 }
 
 function PaginationRow(props) {
-  var StyledRow = styled(reactBootstrap.Row)(_templateObject6$1());
+  var StyledRow = styled(reactBootstrap.Row)(_templateObject6$2());
   return /*#__PURE__*/React__default.createElement(StyledRow, props, props.children);
 }
 
 function Resizer(props) {
-  var StyledDiv = styled.div(_templateObject7$1());
+  var StyledDiv = styled.div(_templateObject7$2());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
 }
 
 function StyledTr(props) {
-  var StyledDiv = styled.div(_templateObject8$1(), StyledTd);
+  var StyledDiv = styled.div(_templateObject8$2(), StyledTd);
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
 }
 
@@ -10222,16 +10443,16 @@ function ReactTable(_ref) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$6(), function (props) {
+var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$7(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10258,29 +10479,29 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-function _templateObject2$4() {
+function _templateObject2$5() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject2$4 = function _templateObject2() {
+  _templateObject2$5 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$7(), function (props) {
+var Container = styled.div(_templateObject$8(), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$4(), function (props) {
+var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$5(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10305,16 +10526,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$8() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$8(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$9(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10335,16 +10556,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$9() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$9(), function (props) {
+var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$a(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10356,10 +10577,10 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
   }, props));
 };
 
-function _templateObject$a() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
@@ -10367,7 +10588,7 @@ function _templateObject$a() {
 }
 
 function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$a());
+  var StyledDiv = styled.div(_templateObject$b());
   return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
 }
 
@@ -10423,5 +10644,6 @@ exports.Scheduler = ReservationScheduler;
 exports.SessionStorageStore = SessionStorageStore;
 exports.TimePicker = TimePicker;
 exports.Tooltip = CustomTooltip;
+exports.UploadDocument = UploadDocument;
 exports.UploadImage = UploadImage;
 //# sourceMappingURL=index.js.map
