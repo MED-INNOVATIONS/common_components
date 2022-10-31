@@ -10954,7 +10954,7 @@ function AddEditOption(props) {
     }), /*#__PURE__*/React.createElement(OrbitalCancelIcon, {
       tooltip: localization.cancel || "Cancel",
       onClick: onCancel
-    }))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React.createElement(Row, {
+    }))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, {
       style: {
         marginTop: "1rem"
       }
@@ -11142,7 +11142,7 @@ function AddEditProperty(props) {
     }), /*#__PURE__*/React.createElement(OrbitalCancelIcon, {
       tooltip: localization.cancel || "Cancel",
       onClick: onCancel
-    }))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, JSON.stringify(errors, null, 2))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
+    }))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 4
     }, /*#__PURE__*/React.createElement(NormalFieldLabel, {
       value: localization.language || "Language"

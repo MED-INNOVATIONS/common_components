@@ -10958,7 +10958,7 @@ function AddEditOption(props) {
     }), /*#__PURE__*/React__default.createElement(OrbitalCancelIcon, {
       tooltip: localization.cancel || "Cancel",
       onClick: onCancel
-    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
       style: {
         marginTop: "1rem"
       }
@@ -11146,7 +11146,7 @@ function AddEditProperty(props) {
     }), /*#__PURE__*/React__default.createElement(OrbitalCancelIcon, {
       tooltip: localization.cancel || "Cancel",
       onClick: onCancel
-    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(errors, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 4
     }, /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
       value: localization.language || "Language"

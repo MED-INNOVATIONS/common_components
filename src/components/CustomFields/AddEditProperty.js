@@ -138,11 +138,6 @@ function AddEditOption(props) {
                         </span>
                     </Card.Header>
                     <Card.Body>
-                        <Row>
-                            <Col>
-                                {JSON.stringify(values, null, 2)}
-                            </Col>
-                        </Row>
                         <Row style={{ marginTop: "1rem" }}>
                             <Col sm={4}>
                                 <NormalFieldLabel value={localization.language || "Language"}></NormalFieldLabel>
@@ -308,16 +303,6 @@ function AddEditProperty(props) {
                         </span>
                     </Card.Header>
                     <Card.Body>
-                        <Row>
-                            <Col>
-                                {JSON.stringify(values, null, 2)}
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                {JSON.stringify(errors, null, 2)}
-                            </Col>
-                        </Row>
                         <Row>
                             <Col sm={4}>
                                 <NormalFieldLabel value={localization.language || "Language"}></NormalFieldLabel>
