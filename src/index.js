@@ -31,6 +31,8 @@ import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
 import OrbitalCheckbox from './components/OrbitalCheckbox/OrbitalCheckbox';
 import OrbitalSelect from './components/OrbitalSelect/OrbitalSelect';
 import OrbitalErrorDiv from './components/OrbitalErrorDiv/OrbitalErrorDiv';
+import CompleteSchema from "./components/CustomFields/CompleteSchema";
+import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 
 export {
     APISb,
@@ -61,5 +63,7 @@ export {
     OrbitalCancelIcon,
     OrbitalCheckbox,
     OrbitalSelect,
-    OrbitalErrorDiv
+    OrbitalErrorDiv,
+    CompleteSchema,
+    OrbitalJsonSchema
 }

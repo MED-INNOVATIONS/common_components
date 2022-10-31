@@ -29,6 +29,9 @@ var reactTable = require('react-table');
 require('bootstrap/dist/css/bootstrap.min.css');
 var bs = require('react-icons/bs');
 var Select = _interopDefault(require('react-select'));
+var ReactPlayer = _interopDefault(require('react-player/lazy'));
+var formik = require('formik');
+var yup = require('yup');
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -10617,11 +10620,899 @@ function OrbitalSelect(props) {
   }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMsg));
 }
 
+function CompleteSchema(props) {
+  var localization = props.localization,
+      jsonSchema = props.jsonSchema,
+      customFields = props.customFields,
+      lang = props.lang,
+      onLoadImage = props.onLoadImage,
+      onLoadDocument = props.onLoadDocument,
+      onChange = props.onChange;
+
+  var _useState = React.useState(false),
+      playing = _useState[0],
+      setPlaying = _useState[1];
+
+  var _useState2 = React.useState(false),
+      enablePlay = _useState2[0],
+      setEnablePlay = _useState2[1];
+
+  function onChangeBoolean(fieldName) {
+    var tmp = _$2.cloneDeep(customFields);
+
+    tmp[fieldName] = !tmp[fieldName];
+    onChange(tmp);
+  }
+
+  function onChangeNumber(fieldName, e) {
+    var value = e.target.value;
+    value = Number(value);
+
+    var tmp = _$2.cloneDeep(customFields);
+
+    tmp[fieldName] = value;
+    onChange(tmp);
+  }
+
+  function onChangeObject(fieldName, e) {
+    var value = e.target.value;
+    value = _$2.isEmpty(value) === true ? null : JSON.stringify(JSON.parse(value));
+
+    var tmp = _$2.cloneDeep(customFields);
+
+    tmp[fieldName] = value;
+    onChange(tmp);
+  }
+
+  function onChangeString(fieldName, e) {
+    var value = e.target.value;
+    value = _$2.isEmpty(value) === true ? null : value;
+
+    var tmp = _$2.cloneDeep(customFields);
+
+    tmp[fieldName] = value;
+    onChange(tmp);
+  }
+
+  function onChangeSelect(fieldName, value) {
+    var tmp = _$2.cloneDeep(customFields);
+
+    tmp[fieldName] = value;
+    onChange(tmp);
+  }
+
+  function parseObject(value) {
+    value = JSON.parse(value);
+    value = JSON.stringify(value, undefined, 4);
+    return value;
+  }
+
+  function getSelectOptions(options) {
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+
+    var selectOptions = _$2.map(options, function (option) {
+      var value = option.value,
+          label = option.label;
+      var localizedLabel = label[lang] || value;
+      return {
+        "value": value,
+        "label": localizedLabel
+      };
+    });
+
+    selectOptions = _$2.sortBy(selectOptions, "label");
+    return selectOptions;
+  }
+
+  function getSelectValue(options, value) {
+    var selectOptions = getSelectOptions(options);
+
+    var option = _$2.find(selectOptions, {
+      "value": value
+    });
+
+    return option;
+  }
+
+  return /*#__PURE__*/React__default.createElement("div", {
+    style: {
+      border: "2px solid red"
+    }
+  }, _$2.map(jsonSchema, function (entry) {
+    var fieldName = entry.fieldName,
+        label = entry.label,
+        type = entry.type,
+        required = entry.required,
+        step = entry.step,
+        options = entry.options;
+    label = entry.label[lang];
+    var value = customFields[fieldName];
+    return /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      className: "margin_top_row",
+      key: fieldName
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, required === true ? /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: label
+    }) : /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      value: label
+    }), type === "boolean" && /*#__PURE__*/React__default.createElement(OrbitalCheckbox, {
+      checked: value || false,
+      onChange: function onChange() {
+        onChangeBoolean(fieldName);
+      }
+    }), type === "document" && /*#__PURE__*/React__default.createElement(UploadDocument, {
+      localization: localization,
+      document: value || {},
+      isInvalid: false,
+      errorMessage: "",
+      onChange: function onChange(base64, fileName, fileExtension, fileType) {
+        onLoadDocument(fieldName, base64, fileName, fileExtension, fileType);
+      },
+      onRemove: function onRemove() {
+        onLoadImage(fieldName);
+      }
+    }), type === "image" && /*#__PURE__*/React__default.createElement(UploadImage, {
+      localization: localization,
+      image: value || null,
+      onChange: function onChange(base64, fileName, fileExtension, fileType) {
+        onLoadImage(fieldName, base64, fileName, fileExtension);
+      },
+      onRemove: function onRemove() {
+        onLoadImage(fieldName);
+      }
+    }), type === "number" && /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      type: "number",
+      placeholder: label,
+      step: step.toString(),
+      value: value != null ? value.toString() : "",
+      onChange: function onChange(e) {
+        onChangeNumber(fieldName, e);
+      }
+    }), type === "link" && /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      type: "url",
+      placeholder: label,
+      value: value || "",
+      onChange: function onChange(e) {
+        onChangeString(fieldName, e);
+      }
+    }), type === "object" && /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      as: "textarea",
+      rows: 6,
+      value: value != null ? parseObject(value) : "",
+      onChange: function onChange(e) {
+        onChangeObject(fieldName, e);
+      }
+    }), type === "string" && /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      placeholder: label,
+      value: value,
+      onChange: function onChange(e) {
+        onChangeString(fieldName, e);
+      }
+    }), type === "select" && /*#__PURE__*/React__default.createElement(Select, {
+      placeholder: label,
+      value: getSelectValue(options, value),
+      isClearable: true,
+      onChange: function onChange(data) {
+        var value = data && data.value ? data.value : null;
+        onChangeSelect(fieldName, value);
+      },
+      options: getSelectOptions(options)
+    }), type === "video" && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Prepend, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Text, null, "Url")), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      placeholder: localization.videoUrl || "Video url",
+      value: value || "",
+      onChange: function onChange(e) {
+        setEnablePlay(false);
+        onChangeString(fieldName, e);
+      }
+    })), _$2.isEmpty(value) === false && /*#__PURE__*/React__default.createElement("div", {
+      style: {
+        marginTop: "0.5rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(ReactPlayer, {
+      playing: playing,
+      onReady: function onReady() {
+        setEnablePlay(true);
+      },
+      onPlay: function onPlay() {
+        setPlaying(true);
+      },
+      onPause: function onPause() {
+        setPlaying(false);
+      },
+      url: value || null
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+      size: "sm",
+      disabled: enablePlay === false,
+      style: {
+        marginTop: "0.2rem"
+      },
+      onClick: function onClick() {
+        setPlaying(!playing);
+      }
+    }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+      icon: playing === true ? freeSolidSvgIcons.faPause : freeSolidSvgIcons.faPlay
+    }))))));
+  }));
+}
+
+var types = ["string", "number", "boolean", "object", "image", "video", "link", "select", "document"];
+var newProperty = {
+  fieldName: null,
+  label: {},
+  type: null,
+  step: null,
+  options: []
+};
+var newOption = {
+  value: null,
+  label: {}
+};
+
+function getLocalizedField(editingLanguage) {
+  return "label." + editingLanguage;
+}
+
+function parseLocalLocalizedField(field, editingLanguage) {
+  field = field && field[editingLanguage] ? field[editingLanguage] : null;
+  return field;
+}
+
+function DeleteOption(props) {
+  var localization = props.localization,
+      option = props.option,
+      onCancel = props.onCancel,
+      onDelete = props.onDelete;
+
+  var _useState = React.useState(""),
+      cardTitle = _useState[0],
+      setCardTitle = _useState[1];
+
+  React.useEffect(function () {
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+    var cardTitle = _$2.isEmpty(option) === true ? localization.newOption || "New option" : option.label[lang] || option.value;
+    setCardTitle(cardTitle);
+  }, []);
+  return /*#__PURE__*/React__default.createElement(reactBootstrap.Card, {
+    style: {
+      marginTop: "1rem"
+    }
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Header, null, /*#__PURE__*/React__default.createElement("b", null, cardTitle)), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement("div", null, localization.confirmDeleteOption || "Do you really want to delete this option?"), /*#__PURE__*/React__default.createElement("div", null, localization.affectAlreadyAssignedValue || "This might affect some elements that are already using this option."), /*#__PURE__*/React__default.createElement("div", {
+    style: {
+      marginTop: "1rem",
+      "float": "right"
+    }
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+    style: {
+      marginRight: "0.25rem"
+    },
+    variant: "outline-secondary",
+    onClick: onCancel
+  }, " ", localization.cancel || "Cancel"), /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+    variant: "outline-danger",
+    onClick: function onClick() {
+      onDelete(option);
+    }
+  }, localization["delete"] || "Delete"))));
+}
+
+function AddEditOption(props) {
+  var _yup$object$shape;
+
+  var languageOptions = props.languageOptions,
+      localization = props.localization,
+      option = props.option,
+      onSave = props.onSave,
+      onUpdate = props.onUpdate,
+      onCancel = props.onCancel;
+  var defaultLang = AuthStore.getDefautlLang();
+  var validationSchema = yup.object().shape({
+    value: yup.string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").matches("^[a-zA-Z0-9]*$", localization.onlyLettersAndNumberAllowed || "Only letters and numbers allowed"),
+    label: yup.object().shape((_yup$object$shape = {}, _yup$object$shape[defaultLang] = yup.string().typeError((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang).required((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang), _yup$object$shape))
+  });
+
+  var _useState2 = React.useState(AuthStore.getUserLang() || "En"),
+      editingLanguage = _useState2[0],
+      setEditingLanguage = _useState2[1];
+
+  var _useState3 = React.useState(""),
+      cardTitle = _useState3[0],
+      setCardTitle = _useState3[1];
+
+  React.useEffect(function () {
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+    var cardTitle = _$2.isEmpty(option) === true ? localization.newOption || "New option" : option.label[lang] || option.value;
+    setCardTitle(cardTitle);
+  }, []);
+
+  function setInitialValues() {
+    var initialValues = _$2.isEmpty(option) === true ? newOption : option;
+    return initialValues;
+  }
+
+  var parsedLang = _$2.find(languageOptions, {
+    "value": editingLanguage
+  });
+
+  return /*#__PURE__*/React__default.createElement(formik.Formik, {
+    validationSchema: validationSchema,
+    onSubmit: function onSubmit(values, actions) {
+      if (_$2.isEmpty(option) === true) {
+        onSave(values);
+      } else {
+        onUpdate(values);
+      }
+    },
+    initialValues: setInitialValues()
+  }, function (_ref) {
+    var handleSubmit = _ref.handleSubmit,
+        handleChange = _ref.handleChange,
+        values = _ref.values,
+        errors = _ref.errors;
+    return /*#__PURE__*/React__default.createElement(reactBootstrap.Card, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Header, null, /*#__PURE__*/React__default.createElement("b", null, cardTitle), /*#__PURE__*/React__default.createElement("span", {
+      style: {
+        "float": "right"
+      }
+    }, /*#__PURE__*/React__default.createElement(OrbitalSaveIcon, {
+      tooltip: localization.save || "Save",
+      marginright: "15px",
+      onClick: handleSubmit
+    }), /*#__PURE__*/React__default.createElement(OrbitalCancelIcon, {
+      tooltip: localization.cancel || "Cancel",
+      onClick: onCancel
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+      sm: 4
+    }, /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      value: localization.language || "Language"
+    }), /*#__PURE__*/React__default.createElement(OrbitalSelect, {
+      value: parsedLang,
+      onChange: function onChange(data) {
+        setEditingLanguage(data.value);
+      },
+      options: languageOptions
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: localization.optionValue || "Option value"
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      name: "value",
+      disabled: _$2.isEmpty(option) === false,
+      placeholder: localization.optionValue || "Option value",
+      value: values.value || "",
+      onChange: handleChange,
+      isInvalid: errors.value
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl.Feedback, {
+      type: "invalid"
+    }, errors.value))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: localization.optionLabel || "Option label"
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Prepend, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Text, null, editingLanguage)), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      name: getLocalizedField(editingLanguage),
+      placeholder: localization.propertyLabel || "Property label",
+      value: parseLocalLocalizedField(values.label, editingLanguage) || "",
+      onChange: handleChange,
+      isInvalid: errors.label && errors.label[defaultLang]
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl.Feedback, {
+      type: "invalid"
+    }, errors.label && errors.label[defaultLang] ? errors.label[defaultLang] : ""))))));
+  });
+}
+
+function AddEditProperty(props) {
+  var _yup$object$shape2;
+
+  var localization = props.localization,
+      onSave = props.onSave,
+      onCancel = props.onCancel,
+      property = props.property;
+  var defaultLang = AuthStore.getDefautlLang();
+  var validationSchema = yup.object().shape({
+    fieldName: yup.string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").min(2, localization.atLeastTwoCharacters || "At least two caracthers").matches("^([a-z])([A-Za-z])+$", localization.onlyLettersAllowedTheFirstLowerCase || "The first letter must be lowercase and only letters are allowed"),
+    label: yup.object().shape((_yup$object$shape2 = {}, _yup$object$shape2[defaultLang] = yup.string().typeError((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang).required((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang), _yup$object$shape2)),
+    type: yup.string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field"),
+    step: yup.string().nullable(true).when("type", {
+      is: "number",
+      then: yup.string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").matches("^[0-9.]+$", localization.onlyDecimelNumbersAllowed || "Only decimal numbers allowed")
+    })
+  });
+
+  var _useState4 = React.useState(null),
+      cardTitle = _useState4[0],
+      setCardTitle = _useState4[1];
+
+  var _useState5 = React.useState([]),
+      languageOptions = _useState5[0],
+      setLanguageOptions = _useState5[1];
+
+  var _useState6 = React.useState(AuthStore.getUserLang() || "En"),
+      editingLanguage = _useState6[0],
+      setEditingLanguage = _useState6[1];
+
+  var _useState7 = React.useState([]),
+      typeOptions = _useState7[0],
+      setTypeOptions = _useState7[1];
+
+  var _useState8 = React.useState(false),
+      showAddEditOption = _useState8[0],
+      setShowAddEditOption = _useState8[1];
+
+  var _useState9 = React.useState(false),
+      showDeleteOption = _useState9[0],
+      setShowDeleteOption = _useState9[1];
+
+  var _useState10 = React.useState({}),
+      selectedOption = _useState10[0],
+      setSelectedOption = _useState10[1];
+
+  React.useEffect(function () {
+    var cardTitle = _$2.isEmpty(property) === true ? localization.newProperty || "New property" : property.name;
+    var languages = AuthStore.getPreferedLanguages() || ["En"];
+
+    var languageOptions = _$2.map(languages, function (lang) {
+      return {
+        "value": lang,
+        "label": lang
+      };
+    });
+
+    var typeOptions = _$2.map(types, function (type) {
+      var label = localization[type] || type;
+      return {
+        "value": type,
+        "label": label
+      };
+    });
+
+    typeOptions = _$2.sortBy(typeOptions, "label");
+    setCardTitle(cardTitle);
+    setLanguageOptions(languageOptions);
+    setTypeOptions(typeOptions);
+  }, []);
+
+  function addOption(values, setFieldValue, newOption) {
+    var options = _$2.cloneDeep(values).options || [];
+
+    var tmp = _$2.find(options, {
+      "value": newOption.value
+    });
+
+    if (tmp) {
+      reactToastify.toast.warn(localization.optionWithSameValueAlreadyPresent || "An option with the same value is already present");
+    } else {
+      options.push(newOption);
+      setFieldValue("options", options);
+      setShowAddEditOption(false);
+    }
+  }
+
+  function updateOption(values, setFieldValue, option) {
+    var options = _$2.cloneDeep(values).options || [];
+
+    var idx = _$2.findIndex(options, ['value', option.value]);
+
+    options.splice(idx, 1, option);
+    setFieldValue("options", options);
+    setShowAddEditOption(false);
+  }
+
+  function deleteOption(values, setFieldValue, option) {
+    var options = _$2.cloneDeep(values).options || [];
+
+    var idx = _$2.findIndex(options, ['value', option.value]);
+
+    options.splice(idx, 1);
+    setFieldValue("options", options);
+    setShowDeleteOption(false);
+  }
+
+  function setInitialValues() {
+    var initialValues = _$2.isEmpty(property) === true ? newProperty : property;
+    return initialValues;
+  }
+
+  var parsedLang = _$2.find(languageOptions, {
+    "value": editingLanguage
+  });
+
+  return /*#__PURE__*/React__default.createElement(formik.Formik, {
+    validationSchema: validationSchema,
+    onSubmit: function onSubmit(values, actions) {
+      onSave(values);
+    },
+    initialValues: setInitialValues()
+  }, function (_ref2) {
+    var handleSubmit = _ref2.handleSubmit,
+        handleChange = _ref2.handleChange,
+        values = _ref2.values,
+        errors = _ref2.errors,
+        setFieldValue = _ref2.setFieldValue,
+        setValues = _ref2.setValues;
+    return /*#__PURE__*/React__default.createElement(reactBootstrap.Card, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Header, null, /*#__PURE__*/React__default.createElement("b", null, cardTitle), /*#__PURE__*/React__default.createElement("span", {
+      style: {
+        "float": "right"
+      }
+    }, /*#__PURE__*/React__default.createElement(OrbitalSaveIcon, {
+      disabled: showAddEditOption === true || showDeleteOption === true,
+      tooltip: localization.save || "Save",
+      marginright: "15px",
+      onClick: handleSubmit
+    }), /*#__PURE__*/React__default.createElement(OrbitalCancelIcon, {
+      tooltip: localization.cancel || "Cancel",
+      onClick: onCancel
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(values, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, JSON.stringify(errors, null, 2))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+      sm: 4
+    }, /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      value: localization.language || "Language"
+    }), /*#__PURE__*/React__default.createElement(OrbitalSelect, {
+      value: parsedLang,
+      onChange: function onChange(data) {
+        setEditingLanguage(data.value);
+      },
+      options: languageOptions
+    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: (localization.propertyFieldName || "Property field name") + " - " + (localization.onlyLetters || "Only letter") + " (a-zA-Z)"
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      name: "fieldName",
+      disabled: _$2.isEmpty(property) === false,
+      placeholder: localization.propertyFieldName || "Property field name",
+      value: values.fieldName || "",
+      onChange: handleChange,
+      isInvalid: errors.fieldName
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl.Feedback, {
+      type: "invalid"
+    }, errors.fieldName))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: localization.propertyLabel || "Property label"
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Prepend, null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup.Text, null, editingLanguage)), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      name: getLocalizedField(editingLanguage),
+      placeholder: localization.propertyLabel || "Property label",
+      value: parseLocalLocalizedField(values.label, editingLanguage) || "",
+      onChange: handleChange,
+      isInvalid: errors.label && errors.label[defaultLang]
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl.Feedback, {
+      type: "invalid"
+    }, errors.label && errors.label[defaultLang] ? errors.label[defaultLang] : "")))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      value: localization.propertyType || "Property type"
+    }), /*#__PURE__*/React__default.createElement(OrbitalSelect, {
+      isInvalid: errors.type,
+      isDisabled: _$2.isEmpty(property) === false,
+      errorMsg: errors.type,
+      value: _$2.find(typeOptions, {
+        "value": values.type
+      }),
+      placeholder: localization.propertyType || "Property type",
+      options: typeOptions,
+      onChange: function onChange(data) {
+        var value = data ? data.value : null;
+        setValues(_extends({}, values, {
+          type: value,
+          step: value === "number" ? "0.5" : null,
+          options: value === "select" ? [] : null
+        }));
+      }
+    }))), values.type && values.type === "number" && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      value: localization.stepNumber || "Step number"
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+      name: "step",
+      placeholder: localization.step || "Step number",
+      value: values.step || "",
+      onChange: handleChange,
+      isInvalid: errors.step
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl.Feedback, {
+      type: "invalid"
+    }, errors.step))), values.type && values.type === "select" && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+      sm: 8
+    }, /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      value: localization.options || "Options"
+    })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+      sm: 4
+    }, /*#__PURE__*/React__default.createElement("div", {
+      style: {
+        "float": "right"
+      }
+    }, showAddEditOption !== true && /*#__PURE__*/React__default.createElement(OrbitalAddIcon, {
+      "float": "right",
+      tooltip: localization.addOption || "Add option",
+      onClick: function onClick() {
+        setShowAddEditOption(true);
+        setSelectedOption({});
+      }
+    })))), showAddEditOption === true && /*#__PURE__*/React__default.createElement(AddEditOption, {
+      localization: localization,
+      languageOptions: languageOptions,
+      option: selectedOption,
+      onSave: function onSave(option) {
+        addOption(values, setFieldValue, option);
+      },
+      onUpdate: function onUpdate(option) {
+        updateOption(values, setFieldValue, option);
+      },
+      onCancel: function onCancel() {
+        setShowAddEditOption(false);
+      }
+    }), showDeleteOption === true && /*#__PURE__*/React__default.createElement(DeleteOption, {
+      localization: localization,
+      option: selectedOption,
+      onDelete: function onDelete(option) {
+        deleteOption(values, setFieldValue, option);
+      },
+      onCancel: function onCancel() {
+        setShowDeleteOption(false);
+      }
+    }), values.options.length === 0 && showAddEditOption === false && showDeleteOption === false && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, localization.noOptionsArePresentsYet || "No options are presents yet")), values.options.length > 0 && showAddEditOption === false && showDeleteOption === false && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, _$2.map(values.options || [], function (option) {
+      var label = option.label[editingLanguage];
+      return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+        sm: 8
+      }, label), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+        sm: 4
+      }, /*#__PURE__*/React__default.createElement(reactBootstrap.ButtonGroup, {
+        style: {
+          "float": "right"
+        }
+      }, /*#__PURE__*/React__default.createElement(CustomTooltip, {
+        key: "edit_option",
+        tooltip: localization.editCategory || "Edit category"
+      }, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+        variant: "outline-primary",
+        onClick: function onClick() {
+          setShowAddEditOption(true);
+          setSelectedOption(option);
+        }
+      }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+        icon: freeSolidSvgIcons.faPencilAlt
+      }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+        key: "delete_option",
+        tooltip: localization["delete"] || "Delete"
+      }, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+        variant: "outline-danger",
+        onClick: function onClick() {
+          setShowDeleteOption(true);
+          setSelectedOption(option);
+        }
+      }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+        icon: freeSolidSvgIcons.faTrashAlt
+      }))))));
+    })))));
+  });
+}
+
+function DeleteProperty(props) {
+  var localization = props.localization,
+      onDelete = props.onDelete,
+      onCancel = props.onCancel,
+      property = props.property;
+  var name = property ? property.name : null;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Header, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Title, null, localization["delete"] || "Delete", " ", name)), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Body, null, /*#__PURE__*/React__default.createElement("div", null, localization.confirmDeleteProperty || "Do you really want to delete the property", " ", /*#__PURE__*/React__default.createElement("b", null, name), "?")), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Footer, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+    variant: "outline-secondary",
+    onClick: onCancel
+  }, " ", localization.cancel || "Cancel"), /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+    variant: "outline-danger",
+    onClick: function onClick() {
+      onDelete(property);
+    }
+  }, localization["delete"] || "Delete")));
+}
+
+function OrbitalJsonSchema(props) {
+  var localization = props.localization,
+      title = props.title,
+      onChange = props.onChange,
+      orbitalJsonSchema = props.orbitalJsonSchema;
+
+  var _useState = React.useState([]),
+      body = _useState[0],
+      setBody = _useState[1];
+
+  var _useState2 = React.useState(false),
+      showEditModal = _useState2[0],
+      setShowEditModal = _useState2[1];
+
+  var _useState3 = React.useState(false),
+      showDeleteModal = _useState3[0],
+      setShowDeleteModal = _useState3[1];
+
+  var _useState4 = React.useState(null),
+      selectedProperty = _useState4[0],
+      setSelectedProperty = _useState4[1];
+
+  React.useEffect(function () {
+    var schema = _$2.isEmpty(orbitalJsonSchema) === true ? [] : orbitalJsonSchema;
+    var body = parseBody(schema);
+    setBody(body);
+  }, [orbitalJsonSchema]);
+
+  function parseLabel(label) {
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+    label = label && label[lang] ? label[lang] : null;
+    return label;
+  }
+
+  function parseActions(property) {
+    return /*#__PURE__*/React__default.createElement(reactBootstrap.ButtonToolbar, null, /*#__PURE__*/React__default.createElement(reactBootstrap.ButtonGroup, null, /*#__PURE__*/React__default.createElement(CustomTooltip, {
+      key: "edit_property",
+      tooltip: localization.editProperty || "Edit property"
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+      variant: "outline-primary",
+      onClick: function onClick() {
+        setSelectedProperty(property);
+        setShowEditModal(true);
+      }
+    }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+      icon: freeSolidSvgIcons.faPencilAlt
+    }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+      key: "delete_property",
+      tooltip: localization["delete"] || "Delete"
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+      variant: "outline-danger",
+      onClick: function onClick() {
+        setSelectedProperty(property);
+        setShowDeleteModal(true);
+      }
+    }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+      icon: freeSolidSvgIcons.faTrashAlt
+    })))));
+  }
+
+  function parseBody(schema) {
+    var body = [];
+
+    _$2.each(schema, function (property) {
+      var label = parseLabel(property.label);
+      var type = property.type;
+      var actions = parseActions(property);
+      body.push({
+        fieldName: property.fieldName,
+        label: label,
+        type: localization[type] || type,
+        actions: actions
+      });
+    });
+
+    return body;
+  }
+
+  function changeProperty(property) {
+    var tmpSchema = _$2.cloneDeep(orbitalJsonSchema) || [];
+
+    var idx = _$2.findIndex(tmpSchema, {
+      "name": property.name
+    });
+
+    if (_$2.isEmpty(selectedProperty) === true && idx !== -1) {
+      reactToastify.toast.warn(localization.propertyWithSameNameExisting || "A property with the same 'name' is already present");
+    } else if (_$2.isEmpty(selectedProperty) === true && idx === -1) {
+      tmpSchema.push(property);
+    } else if (_$2.isEmpty(selectedProperty) === false) ;
+
+    setShowEditModal(false);
+    onChange(tmpSchema);
+  }
+
+  function deleteProperty(property) {
+    var tmpSchema = _$2.cloneDeep(orbitalJsonSchema);
+
+    var idx = _$2.findIndex(tmpSchema, {
+      "name": property.name
+    });
+
+    tmpSchema.splice(idx, 1);
+    setShowDeleteModal(false);
+    onChange(tmpSchema);
+  }
+
+  function getColumns() {
+    return [{
+      Header: localization.propertyName || "Property name",
+      accessor: 'fieldName',
+      disableSortBy: true
+    }, {
+      Header: localization.propertyLabel || "Property label",
+      accessor: 'label',
+      disableSortBy: true
+    }, {
+      Header: localization.propertyType || "Property type",
+      accessor: 'type',
+      disableSortBy: true
+    }, {
+      Header: localization.actions || "Actions",
+      accessor: 'actions',
+      disableSortBy: true
+    }];
+  }
+
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, title && /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    sm: 8
+  }, title), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    sm: title ? 4 : 12
+  }, /*#__PURE__*/React__default.createElement("div", {
+    style: {
+      "float": "right"
+    }
+  }, /*#__PURE__*/React__default.createElement(OrbitalAddIcon, {
+    "float": "right",
+    tooltip: localization.addProperty || "Add property",
+    onClick: function onClick() {
+      setShowEditModal(true);
+      setSelectedProperty({});
+    }
+  })))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+    className: "margin_top_row"
+  }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(ReactTable, {
+    localization: localization,
+    columns: getColumns(),
+    data: body,
+    _defaultPageSize: 5,
+    _noDataMessage: localization.noData || "No data",
+    skipPageReset: true
+  }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
+    onHide: function onHide() {},
+    show: showEditModal
+  }, /*#__PURE__*/React__default.createElement(AddEditProperty, {
+    localization: localization,
+    property: selectedProperty,
+    onSave: changeProperty,
+    onCancel: function onCancel() {
+      setShowEditModal(false);
+    }
+  })), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
+    onHide: function onHide() {},
+    size: "lg",
+    show: showDeleteModal
+  }, /*#__PURE__*/React__default.createElement(DeleteProperty, {
+    localization: localization,
+    property: _$2.cloneDeep(selectedProperty),
+    onDelete: deleteProperty,
+    onCancel: function onCancel() {
+      setShowDeleteModal(false);
+      setSelectedProperty(null);
+    }
+  })));
+}
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
 exports.ClientSession = ClientSession;
 exports.CommonUtils = PluginUtils;
+exports.CompleteSchema = CompleteSchema;
 exports.DatePicker = DatePicker;
 exports.DateTimePicker = DatePicker$1;
 exports.HTMLTextEditor = HTMLTextEditor;
@@ -10633,6 +11524,7 @@ exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
 exports.OrbitalCancelIcon = OrbitalCancelIcon;
 exports.OrbitalCheckbox = OrbitalCheckbox;
 exports.OrbitalErrorDiv = OrbitalErrorDiv;
+exports.OrbitalJsonSchema = OrbitalJsonSchema;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalSelect = OrbitalSelect;

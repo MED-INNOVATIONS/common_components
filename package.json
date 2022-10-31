@@ -1,6 +1,6 @@
 {
   "name": "orbital_common_components",
-  "version": "1.4.23-ni",
+  "version": "1.4.23-csi",
   "description": "Orbital common components",
   "author": "MED-INNOVATIONS",
   "license": "MIT",
@@ -52,6 +52,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
     "events": "^3.3.0",
+    "formik": "^2.2.9",
     "gh-pages": "^2.2.0",
     "html-to-draftjs": "^1.5.0",
     "lodash": "^4.17.21",
@@ -68,12 +69,14 @@
     "react-loading-overlay": "^1.0.1",
     "react-location-picker": "^1.5.0",
     "react-places-autocomplete": "^7.3.0",
+    "react-player": "^2.11.0",
     "react-scripts": "^3.4.1",
     "react-select": "^4.3.0",
     "react-table": "^7.7.0",
     "react-toastify": "^7.0.3",
     "styled-components": "^5.3.0",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "yup": "^0.32.11"
   },
   "files": [
     "dist"
@@ -92,6 +95,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "events": "^3.3.0",
+    "formik": "^2.2.9",
     "html-to-draftjs": "^1.5.0",
     "lodash": "^4.17.21",
     "moment": "^2.24.0",
@@ -103,10 +107,12 @@
     "react-loading-overlay": "^1.0.1",
     "react-location-picker": "^1.5.0",
     "react-places-autocomplete": "^7.3.0",
+    "react-player": "^2.11.0",
     "react-select": "^4.3.0",
     "react-table": "^7.7.0",
     "react-toastify": "^7.0.3",
     "styled-components": "^5.3.0",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "yup": "^0.32.11"
   }
 }
