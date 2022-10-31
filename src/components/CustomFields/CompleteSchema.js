@@ -90,7 +90,7 @@ function CompleteSchema(props) {
     }
 
     return (
-        <div style={{ border: "2px solid red" }}>
+        <React.Fragment>
             {_.map(jsonSchema, (entry) => {
                 var { fieldName, label, type, required, step, options } = entry;
                 label = entry.label[lang];
@@ -218,7 +218,7 @@ function CompleteSchema(props) {
                     </Col>
                 </Row>
             })}
-        </div>
+        </React.Fragment>
     )
 }
 export default CompleteSchema;

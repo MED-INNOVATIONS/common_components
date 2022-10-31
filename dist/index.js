@@ -10714,11 +10714,7 @@ function CompleteSchema(props) {
     return option;
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
-    style: {
-      border: "2px solid red"
-    }
-  }, _$2.map(jsonSchema, function (entry) {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, _$2.map(jsonSchema, function (entry) {
     var fieldName = entry.fieldName,
         label = entry.label,
         type = entry.type,
@@ -11319,11 +11315,12 @@ function DeleteProperty(props) {
       onDelete = props.onDelete,
       onCancel = props.onCancel,
       property = props.property;
-  var name = property ? property.name : null;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Header, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Title, null, localization["delete"] || "Delete", " ", name)), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Body, null, /*#__PURE__*/React__default.createElement("div", null, localization.confirmDeleteProperty || "Do you really want to delete the property", " ", /*#__PURE__*/React__default.createElement("b", null, name), "?")), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Footer, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+  var fieldName = property && property.fieldName ? property.fieldName : null;
+  var elements = property && property._elements ? property._elements : [];
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Header, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Title, null, localization["delete"] || "Delete", " ", "\"", fieldName, "\"")), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Body, null, elements.length === 0 && /*#__PURE__*/React__default.createElement("div", null, localization.confirmDeleteProperty || "Do you really want to delete the property", " ", /*#__PURE__*/React__default.createElement("b", null, fieldName), "?"), elements.length > 0 && /*#__PURE__*/React__default.createElement("div", null, localization.cannotDeletePropertyInUse || "Impossible to delete the property because it's currently in use")), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal.Footer, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-secondary",
     onClick: onCancel
-  }, " ", localization.cancel || "Cancel"), /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
+  }, " ", localization.cancel || "Cancel"), elements.length === 0 && /*#__PURE__*/React__default.createElement(reactBootstrap.Button, {
     variant: "outline-danger",
     onClick: function onClick() {
       onDelete(property);
@@ -11413,14 +11410,16 @@ function OrbitalJsonSchema(props) {
     var tmpSchema = _$2.cloneDeep(orbitalJsonSchema) || [];
 
     var idx = _$2.findIndex(tmpSchema, {
-      "name": property.name
+      "fieldName": property.fieldName
     });
 
     if (_$2.isEmpty(selectedProperty) === true && idx !== -1) {
       reactToastify.toast.warn(localization.propertyWithSameNameExisting || "A property with the same 'name' is already present");
     } else if (_$2.isEmpty(selectedProperty) === true && idx === -1) {
       tmpSchema.push(property);
-    } else if (_$2.isEmpty(selectedProperty) === false) ;
+    } else if (_$2.isEmpty(selectedProperty) === false && idx !== -1) {
+      tmpSchema.splice(idx, 1, property);
+    }
 
     setShowEditModal(false);
     onChange(tmpSchema);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Modal, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+// import { Tooltip, OrbitalAddIcon, ReactTable, SessionStorageStore, AuthStore } from "orbital_common_components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from "react-toastify";
@@ -84,15 +85,16 @@ function OrbitalJsonSchema(props) {
     function changeProperty(property) {
         var tmpSchema = _.cloneDeep(orbitalJsonSchema) || [];
 
-        var idx = _.findIndex(tmpSchema, { "name": property.name });
+        var idx = _.findIndex(tmpSchema, { "fieldName": property.fieldName });
         if (_.isEmpty(selectedProperty) === true && idx !== -1) {
             // sto creando una proprietà con un "name" già esistente
             toast.warn(localization.propertyWithSameNameExisting || "A property with the same 'name' is already present")
         } else if (_.isEmpty(selectedProperty) === true && idx === -1) {
             // sto creando una proprietà con un "name" che non esiste
             tmpSchema.push(property);
-        } else if (_.isEmpty(selectedProperty) === false) {
+        } else if (_.isEmpty(selectedProperty) === false && idx !== -1) {
             // sto modificando una proprietà esistente
+            tmpSchema.splice(idx, 1, property);
         }
 
         setShowEditModal(false);
