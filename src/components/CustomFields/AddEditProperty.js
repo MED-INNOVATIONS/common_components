@@ -228,7 +228,9 @@ function AddEditProperty(props) {
     /************************ STANDARD ***************************************/
     /*************************************************************************/
     useEffect(() => {
-        var cardTitle = _.isEmpty(property) === true ? localization.newProperty || "New property" : property.name;
+        var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+        var cardTitle = _.isEmpty(property) === true ? localization.newProperty || "New property" : (property.label[lang] || property.fieldName);
+
 
         var languages = AuthStore.getPreferedLanguages() || ["En"];
         var languageOptions = _.map(languages, (lang) => {

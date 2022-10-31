@@ -11052,7 +11052,8 @@ function AddEditProperty(props) {
       setSelectedOption = _useState10[1];
 
   React.useEffect(function () {
-    var cardTitle = _$2.isEmpty(property) === true ? localization.newProperty || "New property" : property.name;
+    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+    var cardTitle = _$2.isEmpty(property) === true ? localization.newProperty || "New property" : property.label[lang] || property.fieldName;
     var languages = AuthStore.getPreferedLanguages() || ["En"];
 
     var languageOptions = _$2.map(languages, function (lang) {
