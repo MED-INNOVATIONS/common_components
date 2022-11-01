@@ -19,14 +19,20 @@ import MandatoryFieldLabel from './components/MandatoryFieldLabel/MandatoryField
 import NormalFieldLabel from './components/NormalFieldLabel/NormalFieldLabel'
 import HTMLTextEditor from './components/HTMLTextEditor/HTMLTextEditor'
 import UploadImage from './components/UploadImage/UploadImage'
+import UploadDocument from './components/UploadDocument/UploadDocument'
 import OrbitalAddressComponentsPicker from './components/OrbitalAddressComponentsPicker/OrbitalAddressComponentsPicker'
 import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLocationPicker'
 import Tooltip from './components/Tooltip/Tooltip';
-import ReactTable from './components/ReactTable/ReactTable';
+import ReactTable from './components/ReactTable_styled/ReactTable';
 import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
-
-
-
+import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
+import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
+import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
+import OrbitalCheckbox from './components/OrbitalCheckbox/OrbitalCheckbox';
+import OrbitalSelect from './components/OrbitalSelect/OrbitalSelect';
+import OrbitalErrorDiv from './components/OrbitalErrorDiv/OrbitalErrorDiv';
+import CompleteSchema from "./components/CustomFields/CompleteSchema";
+import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 
 export {
     APISb,
@@ -50,5 +56,14 @@ export {
     HTMLTextEditor,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
-    UploadImage
+    UploadImage,
+    UploadDocument,
+    OrbitalSaveIcon,
+    OrbitalAddIcon,
+    OrbitalCancelIcon,
+    OrbitalCheckbox,
+    OrbitalSelect,
+    OrbitalErrorDiv,
+    CompleteSchema,
+    OrbitalJsonSchema
 }

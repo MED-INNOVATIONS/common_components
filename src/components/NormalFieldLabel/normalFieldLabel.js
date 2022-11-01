@@ -1,20 +1,11 @@
-import React, { Component } from "react";
-import "./normalFieldLabel.css"
+import React from "react";
+import styled from "styled-components";
 
-class NormalFieldLabel extends Component {
-    constructor(props) {
-        super(props);
-    }
+function NormalFieldLabel(props) {
+    const StyledDiv = styled.div`
+        font-weight: normal;
+    `;
 
-    render() {
-        var className = "label_style" + " " + this.props.className;
-
-        return (
-            <div style={this.props.style} className={className}>
-                {this.props.value}
-            </div>
-        )
-    }
+    return <StyledDiv {...props}>{props.value}</StyledDiv>
 }
-
 export default NormalFieldLabel

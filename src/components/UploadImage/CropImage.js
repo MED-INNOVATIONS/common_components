@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Image } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { toast } from "react-toastify";
 import uuidV4 from "uuid/v4";
 import Cropper from 'cropperjs';
 
 import Tooltip from "../Tooltip/Tooltip";
 import ImageService from "./ImageService";
+
+import { CropperDownloadIcon, CropperSaveIcon, CloseIcon } from "./styledComponents";
 
 import "./cropper.css"
 
@@ -186,21 +185,18 @@ class CropImage extends Component {
         var { localization } = this.props;
         var { src, croppedImageUrl, isError } = this.state;
 
-        var downloadClassname = isError == true ? "cropper_download_icon_disabled" : "cropper_download_icon";
-        var saveClassname = isError == true ? "cropper_save_icon_disabled" : "cropper_save_icon";
-
         return (
             <Card>
                 <Card.Header>
                     <span style={{ float: "right" }}>
                         <Tooltip tooltip={localization.download || "Download"}>
-                            <FontAwesomeIcon className={downloadClassname} icon={faDownload} onClick={this.downloadCroppedImg} />
+                            <CropperDownloadIcon tooltip={localization.download || "Download"} isError={isError} onClick={this.downloadCroppedImg}></CropperDownloadIcon>
                         </Tooltip>
                         <Tooltip tooltip={localization.save || "Save"}>
-                            <FontAwesomeIcon className={saveClassname} icon={faSave} onClick={() => { this.parseCroppedImage() }} />
+                            <CropperSaveIcon isError={isError} onClick={() => { this.parseCroppedImage() }}></CropperSaveIcon>
                         </Tooltip>
                         <Tooltip tooltip={localization.cancel || "Cancel"}>
-                            <FontAwesomeIcon className="cropper_close_icon" icon={faTimesCircle} onClick={this.props.onClose} />
+                            <CloseIcon onClick={this.props.onClose}></CloseIcon>
                         </Tooltip>
                     </span>
                 </Card.Header>
@@ -214,7 +210,7 @@ class CropImage extends Component {
                             {localization.cropped_image || "Cropped image"}
                         </Col>
                     </Row>
-                    <Row className="margin_top_row">
+                    <Row style={{ marginTop: "1rem" }}>
                         <Col sm={5}>
                             <Image src={src} id="image" fluid />
                         </Col>

@@ -302,37 +302,3 @@
 .cropper-disabled .cropper-point {
   cursor: not-allowed;
 }
-
-.cropper_download_icon {
-  cursor: pointer;
-  margin-right: 15px;
-  font-size: 1.5rem;
-  color: #007bff;
-}
-
-.cropper_download_icon_disabled {
-  cursor: not-allowed;
-  margin-right: 15px;
-  font-size: 1.5rem;
-  color: #dee2e6;
-}
-
-.cropper_save_icon {
-  cursor: pointer;
-  margin-right: 15px;
-  font-size: 1.5rem;
-  color: #007bff;
-}
-
-.cropper_save_icon_disabled {
-  cursor: not-allowed;
-  margin-right: 15px;
-  font-size: 1.5rem;
-  color: #dee2e6;
-}
-
-.cropper_close_icon {
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: grey
-}

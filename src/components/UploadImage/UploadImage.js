@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Modal, Card, Image as ReactBootstrapImage } from 'react-bootstrap';
+import { Row, Col, Modal, Card, Image as ReactBootstrapImage } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faUpload, faTrashAlt, faPencilAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
+import _ from "lodash";
 
 import Tooltip from "../Tooltip/Tooltip";
 import CropImage from "./CropImage";
-
-import "./uploadImage.css";
+import { ImageBox, IconsBox, UpdateImageIcon, DeleteImageIcon, StyledImage, UploadImageButton, ErrorMessage, CloseIcon } from "./styledComponents";
 
 class UploadImage extends Component {
     constructor(props) {
@@ -19,7 +18,10 @@ class UploadImage extends Component {
             showCropModal: false,
             image: this.props.image,
             imageToCropSrc: null,
-            imageToCrop: null
+            imageToCrop: null,
+            fileName: null,
+            fileExtension: null,
+            fileType: null
         }
 
         this.checkImageRatioAndDimensions = this.checkImageRatioAndDimensions.bind(this);
@@ -98,7 +100,7 @@ class UploadImage extends Component {
                         }
                     }
 
-                    if (constraints == true) {
+                    if (constraints === true) {
                         if (imageWidth < minWidth) {
                             isError = true;
                             var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
@@ -121,7 +123,7 @@ class UploadImage extends Component {
                             toast.warn(message);
                         }
 
-                        if (isError == true) {
+                        if (isError === true) {
                             reject();
                         } else {
                             resolve();
@@ -146,34 +148,43 @@ class UploadImage extends Component {
         var { localization, resizeProperties, cropProperties } = this.props;
         var { resizeImage, resizeHeight, resizeWidth, } = resizeProperties || {};
         var { cropImage } = cropProperties || {};
+        var fileName = fileSrc.name;
+        var fileType = fileSrc.type;
+        var fileExtension = uploadedImage.split(';')[0].split('/')[1];
 
         self.checkImageRatioAndDimensions(uploadedImage)
             .then(() => {
-                if (resizeImage == true) {
+                if (resizeImage === true) {
                     self.fileChangedHandler(fileSrc, resizeWidth, resizeHeight)
                         .then((data) => {
-                            if (cropImage == true) {
+                            if (cropImage === true) {
                                 self.setState({
                                     imageToCrop: data,
                                     imageToCropSrc: fileSrc,
-                                    showCropModal: true
+                                    showCropModal: true,
+                                    fileName: fileName,
+                                    fileType: fileType,
+                                    fileExtension: fileExtension
                                 })
                             } else {
-                                self.props.onChange(data);
+                                self.props.onChange(data, fileName, fileExtension, fileType);
                             }
                         })
                         .catch((error) => {
                             console.error(error);
                             toast.error(localization.errorResizingImage || "Error resizing image")
                         })
-                } else if (cropImage == true) {
+                } else if (cropImage === true) {
                     self.setState({
                         imageToCrop: uploadedImage,
                         imageToCropSrc: fileSrc,
-                        showCropModal: true
+                        showCropModal: true,
+                        fileName: fileName,
+                        fileType: fileType,
+                        fileExtension: fileExtension
                     })
                 } else {
-                    self.props.onChange(uploadedImage);
+                    self.props.onChange(uploadedImage, fileName, fileExtension, fileType);
                 }
             })
             .catch((e) => {
@@ -215,6 +226,7 @@ class UploadImage extends Component {
     /*************************************************************************/
     saveCrop(data) {
         var self = this;
+        var { fileName, fileType, fileExtension } = self.state;
         if (this.props.onChange) {
             this.setState({
                 showCropModal: false
@@ -227,7 +239,7 @@ class UploadImage extends Component {
                     var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
                     toast.warn(message);
                 } else {
-                    self.props.onChange(data);
+                    self.props.onChange(data, fileName, fileExtension, fileType);
                 }
             })
         }
@@ -248,7 +260,7 @@ class UploadImage extends Component {
     }
 
     render() {
-        var { disabled, localization, cropProperties, error, errorMessage, ratio, viewImgHeight, viewImgWidth, viewImgMaxHeight } = this.props;
+        var { disabled, localization, cropProperties, error, isInvalid, errorMessage, ratio, viewImgHeight, viewImgWidth, viewImgMaxHeight } = this.props;
         var { image, showPreviewImage, showCropModal } = this.state;
         var { imageToCropSrc, imageToCrop } = this.state;
         cropProperties = cropProperties || {};
@@ -261,15 +273,12 @@ class UploadImage extends Component {
             <React.Fragment>
                 <Row>
                     <Col sm={12}>
-                        {image != null &&
-                            <div className={"image_box"}>
-                                <div className="icons_box">
-                                    <div class="image-upload">
-                                        <label for="file-input">
-                                            <span class="fa-stack small">
-                                                <FontAwesomeIcon className="upload_image_box fa-stack-2x" icon={faCircle} />
-                                                <FontAwesomeIcon className="upload_image_icon fa-stack-1x" icon={faPencilAlt} />
-                                            </span>
+                        {_.isEmpty(image) === false &&
+                            <ImageBox>
+                                <IconsBox>
+                                    <div>
+                                        <label htmlFor="file-input">
+                                            <UpdateImageIcon></UpdateImageIcon>
                                         </label>
                                         <input
                                             id="file-input"
@@ -279,15 +288,12 @@ class UploadImage extends Component {
                                             multiple={false}
                                             onChange={this.handleFileUpload} />
                                     </div>
-                                    <div class="delete_image_set fa-stack small" onClick={this.onRemove} >
-                                        <FontAwesomeIcon className="delete_image_box fa-stack-2x" icon={faCircle} />
-                                        <FontAwesomeIcon className="delete_image_icon fa-stack-1x" icon={faTrashAlt} />
-                                    </div>
-                                </div>
-                                <img style={imageStyle} src={image} className={"image_src"} alt="img" onClick={() => { this.setState({ showPreviewImage: true }) }} />
-                            </div>
+                                    <DeleteImageIcon onClick={this.onRemove}></DeleteImageIcon>
+                                </IconsBox>
+                                <StyledImage style={imageStyle} src={image} alt="img" onClick={() => { this.setState({ showPreviewImage: true }) }}></StyledImage>
+                            </ImageBox>
                         }
-                        {image == null &&
+                        {_.isEmpty(image) === true &&
                             <React.Fragment>
                                 <input
                                     ref="fileInput"
@@ -297,20 +303,19 @@ class UploadImage extends Component {
                                     style={{ display: "none" }}
                                     multiple={false}>
                                 </input>
-                                <Button disabled={disabled} variant="outline-secondary" className={error == true ? "upload_image_button_error" : "upload_image_button"} onClick={() => this.refs.fileInput.click()}>
+                                <UploadImageButton disabled={disabled} variant="outline-secondary" isInvalid={error || isInvalid} onClick={() => this.refs.fileInput.click()}>
                                     <FontAwesomeIcon icon={faUpload} onClick={this.props.onCancel} />
-                                </Button>
+                                </UploadImageButton>
                             </React.Fragment>
                         }
                     </Col>
                 </Row>
-                {error == true && <Row>
-                    <Col>
-                        <div className="upload_image_error_message">
-                            {errorMessage || "Error"}
-                        </div>
-                    </Col>
-                </Row>
+                {(error === true || isInvalid === true) &&
+                    <Row>
+                        <Col>
+                            <ErrorMessage>{errorMessage || "Error"}</ErrorMessage>
+                        </Col>
+                    </Row>
                 }
                 <Modal
                     onHide={() => { }}
@@ -321,7 +326,7 @@ class UploadImage extends Component {
                             <Card.Header>
                                 <span style={{ float: "right" }}>
                                     <Tooltip tooltip={localization.cancel || "Cancel"}>
-                                        <FontAwesomeIcon className="edit_header_icon_close" icon={faTimesCircle} onClick={() => { this.setState({ showPreviewImage: false }) }} />
+                                        <CloseIcon onClick={() => { this.setState({ showPreviewImage: false }) }}></CloseIcon>
                                     </Tooltip>
                                 </span>
                             </Card.Header>
