@@ -1,20 +1,17 @@
-import React, { Component } from "react";
-import "./mandatoryFieldLabel.css"
+import React from "react";
+import styled from "styled-components";
 
-class MandatoryFieldLabel extends Component {
-    constructor(props) {
-        super(props);
-    }
+function MandatoryFieldLabel(props) {
+    const StyledDiv = styled.div`
+        font-weight: normal;
+    `;
 
-    render() {
-        var className = "label_style" + " " + this.props.className;
+    const StyledSpan = styled.span`
+        color: #dc3545;
+    `;
 
-        return (
-            <div style={this.props.style}>
-                <span className="mandatory_style">* </span><span className={className}>{this.props.value}</span>
-            </div>
-        )
-    }
+    return <StyledDiv {...props}>
+        <StyledSpan>* </StyledSpan><span>{props.value}</span>
+    </StyledDiv>
 }
-
-export default MandatoryFieldLabel
+export default MandatoryFieldLabel;
