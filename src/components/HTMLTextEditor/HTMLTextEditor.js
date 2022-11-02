@@ -13,9 +13,12 @@ class HTMLTextEditor extends Component {
     super(props);
     this.state = {
       loading: false,
-      init: 0,
-      editorState: EditorState.createEmpty(),
-    }
+      editorState: EditorState.createEmpty()
+    };
+
+    this.state = {
+      editorState: this.parseData(props.value)
+    };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
@@ -25,26 +28,19 @@ class HTMLTextEditor extends Component {
   /************************** STANDARD *************************************/
   /*************************************************************************/
   componentDidMount() {
-    this.parseData(this.props.data);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.data != nextProps.data && this.state.init == 0) {
-      this.setState({ init: 1 });
-      this.parseData(nextProps.data);
-    } else if (this.props.data != nextProps.data && this.props.lang != nextProps.lang) {
-      this.parseData(nextProps.data);
-    }
+    var editorState = this.parseData(this.props.data);
+    this.setState({
+      editorState: editorState
+    });
   }
 
   parseData(data) {
     if (data != null) {
-      const contentBlock = htmlToDraft(data);
-      if (contentBlock) {
-        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-        const editorState = EditorState.createWithContent(contentState);
-        this.setState({ editorState: editorState });
-      }
+      var tmp = htmlToDraft(data);
+      tmp = ContentState.createFromBlockArray(tmp);
+      tmp = EditorState.createWithContent(tmp);
+      tmp = EditorState.moveFocusToEnd(tmp);
+      return tmp;
     }
   }
 
@@ -53,21 +49,22 @@ class HTMLTextEditor extends Component {
   /*************************************************************************/
   uploadImageCallBack(file) {
     var self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       self.setState({ loading: true }, () => {
-        self.props.onUploadImage(file)
-          .then((imageUrl) => {
-            var uploadResponse = { "data": { "link": imageUrl } };
+        self.props
+          .onUploadImage(file)
+          .then(imageUrl => {
+            var uploadResponse = { data: { link: imageUrl } };
             resolve(uploadResponse);
           })
-          .catch((error) => {
+          .catch(error => {
             reject(error);
           })
           .finally(() => {
             self.setState({ loading: false });
-          })
-      })
-    })
+          });
+      });
+    });
   }
 
   clearText(text) {
@@ -100,11 +97,22 @@ class HTMLTextEditor extends Component {
     //     return str2;
     // }
     return text;
-  };
+  }
 
   onEditorStateChange(editorState) {
-    this.props.onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
-    this.setState({ editorState: editorState });
+    this.setState(
+      {
+        editorState: editorState
+      },
+      () => {
+        if (this.props.onChange) {
+          var rawContent = convertToRaw(editorState.getCurrentContent());
+          var editorValue = draftToHtml(rawContent);
+          var newText = this.clearText(editorValue);
+          this.props.onChange(newText);
+        }
+      }
+    );
   }
 
   /*************************************************************************/
@@ -117,10 +125,7 @@ class HTMLTextEditor extends Component {
     var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
 
     return (
-      <LoadingOverlay
-      active={loading}
-      spinner
-      text={(localization.loading || "Loading") + "..."}>
+      <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
         <Editor
           readOnly={disabled}
           toolbarHidden={disabled}
@@ -139,14 +144,12 @@ class HTMLTextEditor extends Component {
               previewImage: true,
               inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
               alt: { present: true, mandatory: false },
-              defaultSize: { width: "100%", height: "100%" },
-            },
+              defaultSize: { width: "100%", height: "100%" }
+            }
           }}
           editorState={editorState}
           onEditorStateChange={this.onEditorStateChange}
-        >
-          <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
-        </Editor>
+        ></Editor>
       </LoadingOverlay>
     );
   }
