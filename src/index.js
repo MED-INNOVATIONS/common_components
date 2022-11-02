@@ -18,6 +18,7 @@ import TimePicker from './components/DateComponents/TimePicker';
 import MandatoryFieldLabel from './components/MandatoryFieldLabel/MandatoryFieldLabel'
 import NormalFieldLabel from './components/NormalFieldLabel/NormalFieldLabel'
 import HTMLTextEditor from './components/HTMLTextEditor/HTMLTextEditor'
+import HTMLTextEditorV2 from "./components/HTMLTextEditorV2/HTMLTextEditorV2";
 import UploadImage from './components/UploadImage/UploadImage'
 import OrbitalAddressComponentsPicker from './components/OrbitalAddressComponentsPicker/OrbitalAddressComponentsPicker'
 import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLocationPicker'
@@ -47,7 +48,7 @@ export {
     LoadingOverlay,
     MandatoryFieldLabel,
     NormalFieldLabel,
-    HTMLTextEditor,
+    HTMLTextEditorV2,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage
