@@ -9,167 +9,146 @@ import LoadingOverlay from "../LoadingOverlay/LoadingOverlay";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 class HTMLTextEditor extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false,
-            editorState: EditorState.createEmpty(),
-
-        }
-
-        this.state = {
-            editorState: this.parseData(props.value)
-        }
-
-        this.onEditorStateChange = this.onEditorStateChange.bind(this);
-        this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      init: 0,
+      editorState: EditorState.createEmpty(),
     }
 
-    /*************************************************************************/
-    /************************** STANDARD *************************************/
-    /*************************************************************************/
-    componentDidMount() {
-        var editorState = this.parseData(this.props.data);
-        this.setState({
-            editorState: editorState
-        })
+    this.onEditorStateChange = this.onEditorStateChange.bind(this);
+    this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
+  }
+
+  /*************************************************************************/
+  /************************** STANDARD *************************************/
+  /*************************************************************************/
+  componentDidMount() {
+    this.parseData(this.props.data);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data != nextProps.data && this.state.init == 0) {
+      this.setState({ init: 1 });
+      this.parseData(nextProps.data);
+    } else if (this.props.data != nextProps.data && this.props.lang != nextProps.lang) {
+      this.parseData(nextProps.data);
     }
+  }
 
-    parseData(data) {
-        if (data != null) {
-            var tmp = htmlToDraft(data);
-            tmp = ContentState.createFromBlockArray(tmp);
-            tmp = EditorState.createWithContent(tmp);
-            tmp = EditorState.moveFocusToEnd(tmp);
-            return tmp;
-        }
+  parseData(data) {
+    if (data != null) {
+      const contentBlock = htmlToDraft(data);
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        const editorState = EditorState.createWithContent(contentState);
+        this.setState({ editorState: editorState });
+      }
     }
+  }
 
-    /*************************************************************************/
-    /************************** FUNCTIONS ************************************/
-    /*************************************************************************/
-    uploadImageCallBack(file) {
-        var self = this;
-        return new Promise(function (resolve, reject) {
-            self.setState({ loading: true }, () => {
-                self.props.onUploadImage(file)
-                    .then((imageUrl) => {
-                        var uploadResponse = { "data": { "link": imageUrl } };
-                        resolve(uploadResponse);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    })
-                    .finally(() => {
-                        self.setState({ loading: false });
-                    })
-            })
-        })
-    }
+  /*************************************************************************/
+  /************************** FUNCTIONS ************************************/
+  /*************************************************************************/
+  uploadImageCallBack(file) {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      self.setState({ loading: true }, () => {
+        self.props.onUploadImage(file)
+          .then((imageUrl) => {
+            var uploadResponse = { "data": { "link": imageUrl } };
+            resolve(uploadResponse);
+          })
+          .catch((error) => {
+            reject(error);
+          })
+          .finally(() => {
+            self.setState({ loading: false });
+          })
+      })
+    })
+  }
 
-    clearText(text) {
-        // var rx = /(<img.*float:.*\/>*)/g;
-        // var str = text;
+  clearText(text) {
+    // var rx = /(<img.*float:.*\/>*)/g;
+    // var str = text;
 
-        // String.prototype.insert = function (index, string) {
-        //     if (index > 0)
-        //         return (
-        //             this.substring(0, index + 1) +
-        //             string +
-        //             this.substring(index + 1, this.length)
-        //         );
-        //     else return string + this;
-        // };
+    // String.prototype.insert = function (index, string) {
+    //     if (index > 0)
+    //         return (
+    //             this.substring(0, index + 1) +
+    //             string +
+    //             this.substring(index + 1, this.length)
+    //         );
+    //     else return string + this;
+    // };
 
-        // var match;
-        // var str2 = "";
+    // var match;
+    // var str2 = "";
 
-        // while ((match = rx.exec(str))) {
-        //     var str2 = str.insert(
-        //         rx.lastIndex - 1,
-        //         '<div style="clear: both;"></div>'
-        //     );
-        // }
+    // while ((match = rx.exec(str))) {
+    //     var str2 = str.insert(
+    //         rx.lastIndex - 1,
+    //         '<div style="clear: both;"></div>'
+    //     );
+    // }
 
-        // if (str2 == "") {
-        //     return str;
-        // } else {
-        //     return str2;
-        // }
-        return text;
-    };
+    // if (str2 == "") {
+    //     return str;
+    // } else {
+    //     return str2;
+    // }
+    return text;
+  };
 
-    onEditorStateChange(editorState) {
-        this.setState({
-            editorState: editorState
-        }, () => {
-            if (this.props.onChange) {
-                var rawContent = convertToRaw(editorState.getCurrentContent())
-                var editorValue = draftToHtml(rawContent);
-                var newText = this.clearText(editorValue);
-                this.props.onChange(newText);
-            }
-        })
-    }
+  onEditorStateChange(editorState) {
+    this.props.onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    this.setState({ editorState: editorState });
+  }
 
-    /*************************************************************************/
-    /************************** RENDER ***************************************/
-    /*************************************************************************/
-    render() {
-        var { localization, disabled, error } = this.props;
-        var { editorState, loading } = this.state;
+  /*************************************************************************/
+  /************************** RENDER ***************************************/
+  /*************************************************************************/
+  render() {
+    var { localization, disabled, error } = this.props;
+    var { editorState, loading } = this.state;
 
-        var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
+    var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
 
-        return (
-            <LoadingOverlay
-                active={loading}
-                spinner
-                text={(localization.loading || "Loading") + "..."}>
-                <Editor
-                    readOnly={disabled}
-                    toolbarHidden={disabled}
-
-                    wrapperClassName={wrapperClassName}
-                    toolbarClassName={"toolbar_style"}
-                    editorClassName={"editor_style"}
-
-                    toolbar={{
-                        options: [
-                            "inline",
-                            "blockType",
-                            "fontFamily",
-                            "fontSize",
-                            "list",
-                            "textAlign",
-                            "link",
-                            "image",
-                            "remove",
-                            "history",
-                        ],
-                        inline: { inDropdown: true },
-                        list: { inDropdown: true },
-                        textAlign: { inDropdown: true },
-                        link: { inDropdown: true },
-                        history: { inDropdown: true },
-                        image: {
-                            uploadCallback: this.uploadImageCallBack,
-                            previewImage: true,
-                            inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
-                            alt: { present: true, mandatory: false },
-                            defaultSize: { width: "100%", height: "100%" },
-                        },
-                    }}
-                    editorState={editorState}
-                    onEditorStateChange={this.onEditorStateChange}
-
-
-
-                >
-
-                </Editor>
-            </LoadingOverlay>
-        )
-    }
+    return (
+      <LoadingOverlay
+      active={loading}
+      spinner
+      text={(localization.loading || "Loading") + "..."}>
+        <Editor
+          readOnly={disabled}
+          toolbarHidden={disabled}
+          wrapperClassName={wrapperClassName}
+          toolbarClassName={"toolbar_style"}
+          editorClassName={"editor_style"}
+          toolbar={{
+            options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
+            inline: { inDropdown: true },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+            image: {
+              uploadCallback: this.uploadImageCallBack,
+              previewImage: true,
+              inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+              alt: { present: true, mandatory: false },
+              defaultSize: { width: "100%", height: "100%" },
+            },
+          }}
+          editorState={editorState}
+          onEditorStateChange={this.onEditorStateChange}
+        >
+          <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
+        </Editor>
+      </LoadingOverlay>
+    );
+  }
 }
 export default HTMLTextEditor;
