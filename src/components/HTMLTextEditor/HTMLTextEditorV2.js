@@ -3,10 +3,37 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
+import styled from "styled-components";
+import _ from "lodash";
 
+// import { LoadingOverlay } from "orbital_common_components";
 import LoadingOverlay from "../LoadingOverlay/LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+function StyledDiv(props) {
+  var Tmp = styled.div`
+      .rdw-editor-toolbar{
+        border-top-color: white;
+        border-right-color: white;
+        border-left-color: white;
+        border-bottom-color: #d9d9d9;
+        z-index: 1;
+      }
+
+      .rdw-editor-wrapper{
+        border: 1px solid;
+        border-color: ${(props) => (props.isInvalid === true ? "#ff4d4f" : "#d9d9d9")};
+      }
+
+      .rdw-editor-main{
+        height: ${props.editorHeight};
+        max-height: ${props.maxHeight};
+      }
+  `;
+
+  return <Tmp {...props}></Tmp>
+}
 
 class HTMLTextEditor extends Component {
   constructor(props) {
@@ -38,13 +65,12 @@ class HTMLTextEditor extends Component {
   }
 
   parseData(data) {
-    if (data != null) {
-      const contentBlock = htmlToDraft(data);
-      if (contentBlock) {
-        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-        const editorState = EditorState.createWithContent(contentState);
-        this.setState({ editorState: editorState });
-      }
+    data = _.isEmpty(data) === false ? data : "";
+    const contentBlock = htmlToDraft(data);
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      const editorState = EditorState.createWithContent(contentState);
+      this.setState({ editorState: editorState });
     }
   }
 
@@ -53,7 +79,7 @@ class HTMLTextEditor extends Component {
   /*************************************************************************/
   uploadImageCallBack(file) {
     var self = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       self.setState({ loading: true }, () => {
         self.props
           .onUploadImage(file)
@@ -71,38 +97,6 @@ class HTMLTextEditor extends Component {
     });
   }
 
-  clearText(text) {
-    // var rx = /(<img.*float:.*\/>*)/g;
-    // var str = text;
-
-    // String.prototype.insert = function (index, string) {
-    //     if (index > 0)
-    //         return (
-    //             this.substring(0, index + 1) +
-    //             string +
-    //             this.substring(index + 1, this.length)
-    //         );
-    //     else return string + this;
-    // };
-
-    // var match;
-    // var str2 = "";
-
-    // while ((match = rx.exec(str))) {
-    //     var str2 = str.insert(
-    //         rx.lastIndex - 1,
-    //         '<div style="clear: both;"></div>'
-    //     );
-    // }
-
-    // if (str2 == "") {
-    //     return str;
-    // } else {
-    //     return str2;
-    // }
-    return text;
-  }
-
   onEditorStateChange(editorState) {
     this.props.onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     this.setState({ editorState: editorState });
@@ -112,39 +106,36 @@ class HTMLTextEditor extends Component {
   /************************** RENDER ***************************************/
   /*************************************************************************/
   render() {
-    var { localization, disabled, error } = this.props;
+    var { localization, disabled, error, isInvalid, editorHeight, maxHeight } = this.props;
     var { editorState, loading } = this.state;
-
-    var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
 
     return (
       <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
-        <Editor
-          readOnly={disabled}
-          toolbarHidden={disabled}
-          wrapperClassName={wrapperClassName}
-          toolbarClassName={"toolbar_style"}
-          editorClassName={"editor_style"}
-          toolbar={{
-            options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
-            inline: { inDropdown: true },
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-            image: {
-              uploadCallback: this.uploadImageCallBack,
-              previewImage: true,
-              inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
-              alt: { present: true, mandatory: false },
-              defaultSize: { width: "100%", height: "100%" }
-            }
-          }}
-          editorState={editorState}
-          onEditorStateChange={this.onEditorStateChange}
-        >
-          <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
-        </Editor>
+        <StyledDiv isInvalid={error || isInvalid} editorHeight={editorHeight} maxHeight={maxHeight}>
+          <Editor
+            readOnly={disabled}
+            toolbarHidden={disabled}
+            editorClassName={"editor_style"}
+            toolbar={{
+              options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
+              inline: { inDropdown: true },
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true },
+              image: {
+                uploadCallback: this.uploadImageCallBack,
+                previewImage: true,
+                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+                alt: { present: true, mandatory: false },
+                defaultSize: { width: "100%", height: "100%" }
+              }
+            }}
+            editorState={editorState}
+            onEditorStateChange={this.onEditorStateChange}>
+            <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
+          </Editor>
+        </StyledDiv>
       </LoadingOverlay>
     );
   }

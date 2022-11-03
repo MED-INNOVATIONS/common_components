@@ -8365,10 +8365,8 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
     _this = _Component.call(this, props) || this;
     _this.state = {
       loading: false,
+      init: 0,
       editorState: EditorState.createEmpty()
-    };
-    _this.state = {
-      editorState: _this.parseData(props.value)
     };
     _this.onEditorStateChange = _this.onEditorStateChange.bind(_assertThisInitialized(_this));
     _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_assertThisInitialized(_this));
@@ -8378,19 +8376,31 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   var _proto = HTMLTextEditor.prototype;
 
   _proto.componentDidMount = function componentDidMount() {
-    var editorState = this.parseData(this.props.data);
-    this.setState({
-      editorState: editorState
-    });
+    this.parseData(this.props.data);
+  };
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    if (this.props.data != nextProps.data && this.state.init == 0) {
+      this.setState({
+        init: 1
+      });
+      this.parseData(nextProps.data);
+    } else if (this.props.data != nextProps.data && this.props.lang != nextProps.lang) {
+      this.parseData(nextProps.data);
+    }
   };
 
   _proto.parseData = function parseData(data) {
     if (data != null) {
-      var tmp = htmlToDraft(data);
-      tmp = ContentState.createFromBlockArray(tmp);
-      tmp = EditorState.createWithContent(tmp);
-      tmp = EditorState.moveFocusToEnd(tmp);
-      return tmp;
+      var contentBlock = htmlToDraft(data);
+
+      if (contentBlock) {
+        var contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        var editorState = EditorState.createWithContent(contentState);
+        this.setState({
+          editorState: editorState
+        });
+      }
     }
   };
 
@@ -8402,8 +8412,8 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       }, function () {
         self.props.onUploadImage(file).then(function (imageUrl) {
           var uploadResponse = {
-            "data": {
-              "link": imageUrl
+            data: {
+              link: imageUrl
             }
           };
           resolve(uploadResponse);
@@ -8423,19 +8433,9 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   };
 
   _proto.onEditorStateChange = function onEditorStateChange(editorState) {
-    var _this2 = this;
-
+    this.props.onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     this.setState({
       editorState: editorState
-    }, function () {
-      if (_this2.props.onChange) {
-        var rawContent = convertToRaw(editorState.getCurrentContent());
-        var editorValue = draftToHtml(rawContent);
-
-        var newText = _this2.clearText(editorValue);
-
-        _this2.props.onChange(newText);
-      }
     });
   };
 
@@ -8491,7 +8491,10 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       },
       editorState: editorState,
       onEditorStateChange: this.onEditorStateChange
-    }));
+    }, /*#__PURE__*/React.createElement("textarea", {
+      disabled: true,
+      value: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    })));
   };
 
   return HTMLTextEditor;
@@ -11503,5 +11506,5 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadDocument, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor as HTMLTextEditorV2, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadDocument, UploadImage };
 //# sourceMappingURL=index.modern.js.map
