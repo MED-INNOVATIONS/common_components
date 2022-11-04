@@ -7,7 +7,7 @@ import Select from "react-select";
 import _ from "lodash";
 
 import NormalFieldLabel from "../NormalFieldLabel";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/MandatoryFieldLabel";
+import MandatoryFieldLabel from "../MandatoryFieldLabel";
 import OrbitalCheckbox from "../OrbitalCheckbox/OrbitalCheckbox";
 import UploadImage from "../UploadImage/UploadImage";
 import UploadDocument from "../UploadDocument/UploadDocument";

@@ -10,7 +10,7 @@ import _ from "lodash";
 import * as yup from "yup";
 
 import NormalFieldLabel from "../NormalFieldLabel";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/MandatoryFieldLabel";
+import MandatoryFieldLabel from "../MandatoryFieldLabel";
 import Tooltip from "../Tooltip";
 import OrbitalSaveIcon from "../Icons/OrbitalSaveIcon";
 import OrbitalAddIcon from "../Icons/OrbitalAddIcon";

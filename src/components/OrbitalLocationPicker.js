@@ -10,7 +10,7 @@ import _ from "lodash";
 // import { MandatoryFieldLabel, NormalFieldLabel, Tooltip } from "orbital_common_components";
 
 import Tooltip  from "./Tooltip";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/mandatoryFieldLabel";
+import MandatoryFieldLabel from "./MandatoryFieldLabel";
 import NormalFieldLabel from "./NormalFieldLabel";
 
 // import "./orbitalLocationPicker.css"
