@@ -22,6 +22,7 @@ var Resizer$1 = _interopDefault(require('react-image-file-resizer'));
 var uuidV4 = _interopDefault(require('uuid/v4'));
 var Cropper = _interopDefault(require('cropperjs'));
 var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
+require('cropperjs/dist/cropper.css');
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
 var LocationPicker = _interopDefault(require('react-location-picker'));
@@ -9028,22 +9029,22 @@ var CropImage = /*#__PURE__*/function (_Component) {
       }
     }, /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.download || "Download"
-    }, /*#__PURE__*/React__default.createElement(CropperDownloadIcon, {
+    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CropperDownloadIcon, {
       tooltip: localization.download || "Download",
       isError: isError,
       onClick: this.downloadCroppedImg
-    })), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.save || "Save"
-    }, /*#__PURE__*/React__default.createElement(CropperSaveIcon, {
+    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CropperSaveIcon, {
       isError: isError,
       onClick: function onClick() {
         _this3.parseCroppedImage();
       }
-    })), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React__default.createElement(CloseIcon, {
+    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CloseIcon, {
       onClick: this.props.onClose
-    })))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    }))))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 5
     }, localization.loaded_image_to_crop || "Loaded image to crop"), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2

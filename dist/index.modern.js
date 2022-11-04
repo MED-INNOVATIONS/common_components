@@ -19,6 +19,7 @@ import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
 import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
@@ -9024,22 +9025,22 @@ var CropImage = /*#__PURE__*/function (_Component) {
       }
     }, /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.download || "Download"
-    }, /*#__PURE__*/React.createElement(CropperDownloadIcon, {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CropperDownloadIcon, {
       tooltip: localization.download || "Download",
       isError: isError,
       onClick: this.downloadCroppedImg
-    })), /*#__PURE__*/React.createElement(CustomTooltip, {
+    }))), /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.save || "Save"
-    }, /*#__PURE__*/React.createElement(CropperSaveIcon, {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CropperSaveIcon, {
       isError: isError,
       onClick: function onClick() {
         _this3.parseCroppedImage();
       }
-    })), /*#__PURE__*/React.createElement(CustomTooltip, {
+    }))), /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React.createElement(CloseIcon, {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CloseIcon, {
       onClick: this.props.onClose
-    })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
+    }))))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5
     }, localization.loaded_image_to_crop || "Loaded image to crop"), /*#__PURE__*/React.createElement(Col, {
       sm: 2

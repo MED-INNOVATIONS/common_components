@@ -9,7 +9,9 @@ import ImageService from "./ImageService";
 
 import { CropperDownloadIcon, CropperSaveIcon, CloseIcon } from "./styledComponents";
 
-import "./cropper.css"
+import 'cropperjs/dist/cropper.css';
+
+// import "./cropper.css"
 
 // https://fengyuanchen.github.io/cropperjs/
 // https://www.npmjs.com/package/react-image-file-resizer
@@ -190,13 +192,13 @@ class CropImage extends Component {
                 <Card.Header>
                     <span style={{ float: "right" }}>
                         <Tooltip tooltip={localization.download || "Download"}>
-                            <CropperDownloadIcon tooltip={localization.download || "Download"} isError={isError} onClick={this.downloadCroppedImg}></CropperDownloadIcon>
+                            <div><CropperDownloadIcon tooltip={localization.download || "Download"} isError={isError} onClick={this.downloadCroppedImg}></CropperDownloadIcon></div>
                         </Tooltip>
                         <Tooltip tooltip={localization.save || "Save"}>
-                            <CropperSaveIcon isError={isError} onClick={() => { this.parseCroppedImage() }}></CropperSaveIcon>
+                            <div><CropperSaveIcon isError={isError} onClick={() => { this.parseCroppedImage() }}></CropperSaveIcon></div>
                         </Tooltip>
                         <Tooltip tooltip={localization.cancel || "Cancel"}>
-                            <CloseIcon onClick={this.props.onClose}></CloseIcon>
+                            <div><CloseIcon onClick={this.props.onClose}></CloseIcon></div>
                         </Tooltip>
                     </span>
                 </Card.Header>
