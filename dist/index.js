@@ -8812,9 +8812,9 @@ function ErrorMessage(props) {
 
 function CloseIcon(props) {
   var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject11());
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({
     icon: freeRegularSvgIcons.faTimesCircle
-  }, props));
+  }, props)));
 }
 
 function CropperDownloadIcon(props) {
@@ -8823,9 +8823,9 @@ function CropperDownloadIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: freeSolidSvgIcons.faDownload
-  }));
+  })));
 }
 
 function CropperSaveIcon(props) {
@@ -8834,9 +8834,9 @@ function CropperSaveIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: freeRegularSvgIcons.faSave
-  }));
+  })));
 }
 
 var CropImage = /*#__PURE__*/function (_Component) {
@@ -9029,22 +9029,22 @@ var CropImage = /*#__PURE__*/function (_Component) {
       }
     }, /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.download || "Download"
-    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CropperDownloadIcon, {
+    }, /*#__PURE__*/React__default.createElement(CropperDownloadIcon, {
       tooltip: localization.download || "Download",
       isError: isError,
       onClick: this.downloadCroppedImg
-    }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    })), /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.save || "Save"
-    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CropperSaveIcon, {
+    }, /*#__PURE__*/React__default.createElement(CropperSaveIcon, {
       isError: isError,
       onClick: function onClick() {
         _this3.parseCroppedImage();
       }
-    }))), /*#__PURE__*/React__default.createElement(CustomTooltip, {
+    })), /*#__PURE__*/React__default.createElement(CustomTooltip, {
       tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(CloseIcon, {
+    }, /*#__PURE__*/React__default.createElement(CloseIcon, {
       onClick: this.props.onClose
-    }))))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    })))), /*#__PURE__*/React__default.createElement(reactBootstrap.Card.Body, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 5
     }, localization.loaded_image_to_crop || "Loaded image to crop"), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2

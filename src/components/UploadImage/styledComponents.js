@@ -104,7 +104,7 @@ function CloseIcon(props) {
         color: grey
     `;
 
-    return <StyledFontAwesomeIcon icon={faTimesCircle} {...props}></StyledFontAwesomeIcon>
+    return <span><StyledFontAwesomeIcon icon={faTimesCircle} {...props}></StyledFontAwesomeIcon></span>
 }
 
 function CropperDownloadIcon(props) {
@@ -115,7 +115,7 @@ function CropperDownloadIcon(props) {
         color: ${(props) => (props.isError === true ? "#dee2e6" : "#007bff")};
     `;
 
-    return <StyledFontAwesomeIcon {...props} icon={faDownload}></StyledFontAwesomeIcon>
+    return <span><StyledFontAwesomeIcon {...props} icon={faDownload}></StyledFontAwesomeIcon></span>
 }
 
 function CropperSaveIcon(props) {
@@ -126,8 +126,10 @@ function CropperSaveIcon(props) {
         color: ${(props) => (props.isError === true ? "#dee2e6" : "#007bff")};
     `;
 
-    return <StyledFontAwesomeIcon {...props} icon={faSave}></StyledFontAwesomeIcon>
+    return <span><StyledFontAwesomeIcon {...props} icon={faSave}></StyledFontAwesomeIcon></span>
 }
 
-export { ImageBox, IconsBox, UpdateImageIcon, DeleteImageIcon, StyledImage, UploadImageButton, ErrorMessage, CloseIcon, 
-    CropperDownloadIcon, CropperSaveIcon };
+export {
+    ImageBox, IconsBox, UpdateImageIcon, DeleteImageIcon, StyledImage, UploadImageButton, ErrorMessage, CloseIcon,
+    CropperDownloadIcon, CropperSaveIcon
+};
