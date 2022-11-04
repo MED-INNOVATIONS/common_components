@@ -11499,6 +11499,25 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
+function _templateObject$c() {
+  var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n"]);
+
+  _templateObject$c = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var PluginContainer = styled.div(_templateObject$c(), function (props) {
+  return props.paddingLeft || "15px";
+}, function (props) {
+  return props.paddingTop || "15px";
+}, function (props) {
+  return props.paddingRight || "15px";
+}, function (props) {
+  return props.height || "95vh";
+});
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -11521,6 +11540,7 @@ exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalSelect = OrbitalSelect;
 exports.OrbitalStore = OrbitalStore;
+exports.PluginContainer = PluginContainer;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;

@@ -11495,5 +11495,24 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor as HTMLTextEditorV2, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadDocument, UploadImage };
+function _templateObject$c() {
+  var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n"]);
+
+  _templateObject$c = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var PluginContainer = styled.div(_templateObject$c(), function (props) {
+  return props.paddingLeft || "15px";
+}, function (props) {
+  return props.paddingTop || "15px";
+}, function (props) {
+  return props.paddingRight || "15px";
+}, function (props) {
+  return props.height || "95vh";
+});
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePicker$1 as DateTimePicker, HTMLTextEditor as HTMLTextEditorV2, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, ReservationScheduler as Scheduler, SessionStorageStore, TimePicker, CustomTooltip as Tooltip, UploadDocument, UploadImage };
 //# sourceMappingURL=index.modern.js.map

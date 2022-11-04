@@ -33,6 +33,7 @@ import OrbitalSelect from './components/OrbitalSelect';
 import OrbitalErrorDiv from './components/OrbitalErrorDiv';
 import CompleteSchema from "./components/CustomFields/CompleteSchema";
 import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
+import PluginContainer from "./components/PluginContainer";
 
 export {
     APISb,
@@ -65,5 +66,6 @@ export {
     OrbitalSelect,
     OrbitalErrorDiv,
     CompleteSchema,
-    OrbitalJsonSchema
+    OrbitalJsonSchema,
+    PluginContainer
 }
