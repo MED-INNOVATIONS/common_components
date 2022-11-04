@@ -9,7 +9,7 @@ import _ from "lodash";
 
 // import { MandatoryFieldLabel, NormalFieldLabel, Tooltip } from "orbital_common_components";
 
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip  from "./Tooltip";
 import MandatoryFieldLabel from "../MandatoryFieldLabel/mandatoryFieldLabel";
 import NormalFieldLabel from "../NormalFieldLabel/normalFieldLabel";
 

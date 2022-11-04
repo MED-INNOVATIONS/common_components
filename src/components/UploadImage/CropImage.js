@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import uuidV4 from "uuid/v4";
 import Cropper from 'cropperjs';
 
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip";
 import ImageService from "./ImageService";
 
 import { CropperDownloadIcon, CropperSaveIcon, CloseIcon } from "./styledComponents";

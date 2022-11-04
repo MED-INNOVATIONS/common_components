@@ -11,7 +11,7 @@ import * as yup from "yup";
 
 import NormalFieldLabel from "../NormalFieldLabel/NormalFieldLabel";
 import MandatoryFieldLabel from "../MandatoryFieldLabel/MandatoryFieldLabel";
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip";
 import OrbitalSaveIcon from "../Icons/OrbitalSaveIcon";
 import OrbitalAddIcon from "../Icons/OrbitalAddIcon";
 import OrbitalCancelIcon from "../Icons/OrbitalCancelIcon";

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BsPlusCircle } from "react-icons/bs";
 
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip";
 
 const Container = styled.div`
     float: ${(props) => (props.float)}

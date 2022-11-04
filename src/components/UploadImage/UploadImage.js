@@ -6,7 +6,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import Resizer from 'react-image-file-resizer';
 import _ from "lodash";
 
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "../Tooltip";
 import CropImage from "./CropImage";
 import { ImageBox, IconsBox, UpdateImageIcon, DeleteImageIcon, StyledImage, UploadImageButton, ErrorMessage, CloseIcon } from "./styledComponents";
 
