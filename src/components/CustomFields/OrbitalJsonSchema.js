@@ -8,7 +8,7 @@ import _ from "lodash";
 
 import Tooltip from "../Tooltip";
 import OrbitalAddIcon from "../Icons/OrbitalAddIcon";
-import ReactTable from "../ReactTable_styled/ReactTable";
+import ReactTable from "../ReactTable/v2/ReactTable";
 import SessionStorageStore from "../../stores/SessionStorageStore";
 import AuthStore from "../../stores/AuthStore";
 
