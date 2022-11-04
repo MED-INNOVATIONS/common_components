@@ -22,6 +22,7 @@ var Resizer$1 = _interopDefault(require('react-image-file-resizer'));
 var uuidV4 = _interopDefault(require('uuid/v4'));
 var Cropper = _interopDefault(require('cropperjs'));
 var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
+require('cropperjs/dist/cropper.css');
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
 var LocationPicker = _interopDefault(require('react-location-picker'));
@@ -8811,9 +8812,9 @@ function ErrorMessage(props) {
 
 function CloseIcon(props) {
   var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject11());
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({
     icon: freeRegularSvgIcons.faTimesCircle
-  }, props));
+  }, props)));
 }
 
 function CropperDownloadIcon(props) {
@@ -8822,9 +8823,9 @@ function CropperDownloadIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: freeSolidSvgIcons.faDownload
-  }));
+  })));
 }
 
 function CropperSaveIcon(props) {
@@ -8833,9 +8834,9 @@ function CropperSaveIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: freeRegularSvgIcons.faSave
-  }));
+  })));
 }
 
 var CropImage = /*#__PURE__*/function (_Component) {

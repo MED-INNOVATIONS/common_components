@@ -9,7 +9,7 @@ import ImageService from "./ImageService";
 
 import { CropperDownloadIcon, CropperSaveIcon, CloseIcon } from "./styledComponents";
 
-import "./cropper.css"
+import 'cropperjs/dist/cropper.css';
 
 // https://fengyuanchen.github.io/cropperjs/
 // https://www.npmjs.com/package/react-image-file-resizer

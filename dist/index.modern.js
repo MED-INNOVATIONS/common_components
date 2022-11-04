@@ -19,6 +19,7 @@ import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
 import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
@@ -8807,9 +8808,9 @@ function ErrorMessage(props) {
 
 function CloseIcon(props) {
   var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject11());
-  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({
+  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({
     icon: faTimesCircle
-  }, props));
+  }, props)));
 }
 
 function CropperDownloadIcon(props) {
@@ -8818,9 +8819,9 @@ function CropperDownloadIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: faDownload
-  }));
+  })));
 }
 
 function CropperSaveIcon(props) {
@@ -8829,9 +8830,9 @@ function CropperSaveIcon(props) {
   }, function (props) {
     return props.isError === true ? "#dee2e6" : "#007bff";
   });
-  return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, _extends({}, props, {
     icon: faSave
-  }));
+  })));
 }
 
 var CropImage = /*#__PURE__*/function (_Component) {
