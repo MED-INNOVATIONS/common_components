@@ -7,7 +7,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 // import { LoadingOverlay } from "orbital_common_components";
-import LoadingOverlay from "../LoadingOverlay/LoadingOverlay";
+import LoadingOverlay from "../../LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
