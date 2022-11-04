@@ -4,14 +4,32 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-au
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import LocationPicker from "react-location-picker";
+import styled from "styled-components";
 import _ from "lodash";
+
 // import { MandatoryFieldLabel, NormalFieldLabel, Tooltip } from "orbital_common_components";
 
-import Tooltip from "../Tooltip/Tooltip";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/mandatoryFieldLabel";
-import NormalFieldLabel from "../NormalFieldLabel/normalFieldLabel";
+import Tooltip  from "./Tooltip";
+import MandatoryFieldLabel from "./MandatoryFieldLabel";
+import NormalFieldLabel from "./NormalFieldLabel";
 
-import "./orbitalLocationPicker.css"
+// import "./orbitalLocationPicker.css"
+
+// .info_icon{
+//     color: #007bff;
+//     font-size: 0.7rem;
+//     margin-bottom: 0.35rem;
+// }
+
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+    color: #007bff;
+    font-size: 0.7rem;
+    margin-bottom: 0.35rem;
+`;
+
+const OrbitalInfoIcon = (props) => {
+    return <div><StyledFontAwesomeIcon {...props}></StyledFontAwesomeIcon></div>
+}
 
 const google = window.google;
 const addressComponentType = "administrative_area_level_3";
@@ -147,7 +165,8 @@ class OrbitalLocationPicker extends Component {
         var { lat, lng } = position || {};
 
         var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
-        var cityLabel = <span> {localization.city || "City"} <Tooltip tooltip={tooltip} ><FontAwesomeIcon className="info_icon" icon={faInfoCircle} /></Tooltip></span>
+        // var cityLabel = <span> {localization.city || "City"} <Tooltip tooltip={tooltip}><FontAwesomeIcon className="info_icon" icon={faInfoCircle} /></Tooltip></span>
+        var cityLabel = <span> {localization.city || "City"} <Tooltip tooltip={tooltip}><OrbitalInfoIcon icon={faInfoCircle} /></Tooltip></span>
 
         return (
             <div>

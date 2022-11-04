@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
+import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./styledComponents";
 import * as Utils from "./Utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./reactTable.css";
 
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {
@@ -51,19 +51,19 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
   );
 
   return (
-    <div>
-      <div {...getTableProps()} className="my_table">
+    <React.Fragment>
+      <StyledTable {...getTableProps()}>
         <div>
           {headerGroups.map(headerGroup => (
-            <div {...headerGroup.getHeaderGroupProps()} className="my_tr">
+            <StyledTr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <div {...column.getHeaderProps()} className="my_th">
+                <StyledTh {...column.getHeaderProps()}>
                   {column.render("Header")}
                   {Utils.setSortIcon(column)}
                   {Utils.setResize(column)}
-                </div>
+                </StyledTh>
               ))}
-            </div>
+            </StyledTr>
           ))}
           {data.length === 0 && <span>{Utils.setEmptyHeaders(pageSize, headerGroups)}</span>}
         </div>
@@ -75,31 +75,27 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
             }
             //============================================//
             prepareRow(row);
-            return (
-              <React.Fragment>
-                <div {...row.getRowProps()} className="my_tr">
-                  {row.cells.map(cell => {
-                    return (
-                      <div {...cell.getCellProps()} className="my_th">
-                        {cell.render("Cell")}
-                      </div>
-                    );
-                  })}
-                </div>
-                {row.isExpanded ? <div className="sub_content_container">{row.original.subContent}</div> : null}
-              </React.Fragment>
-            );
+            return <React.Fragment key={i}>
+              <StyledTr {...row.getRowProps()}>
+                {row.cells.map((cell, index) => {
+                  return <StyledTh key={index} {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </StyledTh>
+                })}
+              </StyledTr>
+              {row.isExpanded ? <SubContentContainer>{row.original.subContent}</SubContentContainer> : null}
+            </React.Fragment>
           })}
           {data.length > 0 && <span>{Utils.setEmptyRows(prepareRow, canNextPage, page, pageSize, data)}</span>}
         </div>
         {data.length === 0 && (
-          <div className="noData">
+          <NoData>
             <FontAwesomeIcon icon={faInfoCircle} /> {_noDataMessage || "No data"}
-          </div>
+          </NoData>
         )}
-      </div>
+      </StyledTable>
       {Utils.getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination)}
-    </div>
+    </React.Fragment>
   );
 }
 export default ReactTable;

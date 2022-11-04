@@ -15,18 +15,25 @@ import DateTimePicker from './components/DateComponents/DateTimePicker';
 import RecurrenceEditor from './components/DateComponents/RecurrenceEditor';
 import Scheduler from './components/DateComponents/Scheduler';
 import TimePicker from './components/DateComponents/TimePicker';
-import MandatoryFieldLabel from './components/MandatoryFieldLabel/MandatoryFieldLabel'
-import NormalFieldLabel from './components/NormalFieldLabel/NormalFieldLabel'
-import HTMLTextEditor from './components/HTMLTextEditor/HTMLTextEditor'
-import UploadImage from './components/UploadImage/UploadImage'
-import OrbitalAddressComponentsPicker from './components/OrbitalAddressComponentsPicker/OrbitalAddressComponentsPicker'
-import OrbitalLocationPicker from './components/OrbitalLocationPicker/OrbitalLocationPicker'
-import Tooltip from './components/Tooltip/Tooltip';
-import ReactTable from './components/ReactTable/ReactTable';
-import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay';
-
-
-
+import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
+import NormalFieldLabel from "./components/NormalFieldLabel";
+import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";
+import UploadImage from './components/UploadImage/UploadImage';
+import UploadDocument from './components/UploadDocument/UploadDocument';
+import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponentsPicker";
+import OrbitalLocationPicker from './components/OrbitalLocationPicker';
+import Tooltip from './components/Tooltip';
+import ReactTable from './components/ReactTable/v2/ReactTable';
+import LoadingOverlay from './components/LoadingOverlay';
+import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
+import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
+import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
+import OrbitalCheckbox from './components/OrbitalCheckbox';
+import OrbitalSelect from './components/OrbitalSelect';
+import OrbitalErrorDiv from './components/OrbitalErrorDiv';
+import CompleteSchema from "./components/CustomFields/CompleteSchema";
+import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
+import PluginContainer from "./components/PluginContainer";
 
 export {
     APISb,
@@ -47,8 +54,18 @@ export {
     LoadingOverlay,
     MandatoryFieldLabel,
     NormalFieldLabel,
-    HTMLTextEditor,
+    HTMLTextEditorV2,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
-    UploadImage
+    UploadImage,
+    UploadDocument,
+    OrbitalSaveIcon,
+    OrbitalAddIcon,
+    OrbitalCancelIcon,
+    OrbitalCheckbox,
+    OrbitalSelect,
+    OrbitalErrorDiv,
+    CompleteSchema,
+    OrbitalJsonSchema,
+    PluginContainer
 }
