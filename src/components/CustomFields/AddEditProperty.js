@@ -15,7 +15,7 @@ import Tooltip from "../Tooltip";
 import OrbitalSaveIcon from "../Icons/OrbitalSaveIcon";
 import OrbitalAddIcon from "../Icons/OrbitalAddIcon";
 import OrbitalCancelIcon from "../Icons/OrbitalCancelIcon";
-import OrbitalSelect from "../OrbitalSelect/OrbitalSelect";
+import OrbitalSelect from "../OrbitalSelect";
 
 import SessionStorageStore from "../../stores/SessionStorageStore";
 import AuthStore from "../../stores/AuthStore";
