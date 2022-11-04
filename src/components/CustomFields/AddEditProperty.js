@@ -9,13 +9,13 @@ import { Formik } from "formik";
 import _ from "lodash";
 import * as yup from "yup";
 
-import NormalFieldLabel from "../NormalFieldLabel/NormalFieldLabel";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/MandatoryFieldLabel";
-import Tooltip from "../Tooltip/Tooltip";
+import NormalFieldLabel from "../NormalFieldLabel";
+import MandatoryFieldLabel from "../MandatoryFieldLabel";
+import Tooltip from "../Tooltip";
 import OrbitalSaveIcon from "../Icons/OrbitalSaveIcon";
 import OrbitalAddIcon from "../Icons/OrbitalAddIcon";
 import OrbitalCancelIcon from "../Icons/OrbitalCancelIcon";
-import OrbitalSelect from "../OrbitalSelect/OrbitalSelect";
+import OrbitalSelect from "../OrbitalSelect";
 
 import SessionStorageStore from "../../stores/SessionStorageStore";
 import AuthStore from "../../stores/AuthStore";

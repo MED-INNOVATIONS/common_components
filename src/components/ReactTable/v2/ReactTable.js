@@ -3,6 +3,7 @@ import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResiz
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
+
 import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./styledComponents";
 import * as Utils from "./Utils";
 

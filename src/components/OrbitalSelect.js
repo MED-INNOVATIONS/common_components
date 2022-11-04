@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-import OrbitalErrorDiv from "../OrbitalErrorDiv/OrbitalErrorDiv"
+import OrbitalErrorDiv from "./OrbitalErrorDiv";
 
 function OrbitalSelect(props) {
     var { isInvalid, errorMsg } = props;

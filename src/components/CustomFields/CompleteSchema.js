@@ -6,9 +6,9 @@ import ReactPlayer from 'react-player/lazy';
 import Select from "react-select";
 import _ from "lodash";
 
-import NormalFieldLabel from "../NormalFieldLabel/NormalFieldLabel";
-import MandatoryFieldLabel from "../MandatoryFieldLabel/MandatoryFieldLabel";
-import OrbitalCheckbox from "../OrbitalCheckbox/OrbitalCheckbox";
+import NormalFieldLabel from "../NormalFieldLabel";
+import MandatoryFieldLabel from "../MandatoryFieldLabel";
+import OrbitalCheckbox from "../OrbitalCheckbox";
 import UploadImage from "../UploadImage/UploadImage";
 import UploadDocument from "../UploadDocument/UploadDocument";
 import SessionStorageStore from "../../stores/SessionStorageStore";

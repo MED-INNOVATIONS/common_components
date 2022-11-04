@@ -4,7 +4,7 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 
-import LoadingOverlay from "../LoadingOverlay/LoadingOverlay";
+import LoadingOverlay from "../../LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
