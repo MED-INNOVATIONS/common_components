@@ -8,7 +8,7 @@ import _ from "lodash";
 
 import NormalFieldLabel from "../NormalFieldLabel";
 import MandatoryFieldLabel from "../MandatoryFieldLabel";
-import OrbitalCheckbox from "../OrbitalCheckbox/OrbitalCheckbox";
+import OrbitalCheckbox from "../OrbitalCheckbox";
 import UploadImage from "../UploadImage/UploadImage";
 import UploadDocument from "../UploadDocument/UploadDocument";
 import SessionStorageStore from "../../stores/SessionStorageStore";
