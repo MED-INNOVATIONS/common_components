@@ -630,6 +630,147 @@ var SpecificAPI = /*#__PURE__*/function () {
   return SpecificAPI;
 }();
 
+var AuthStore = /*#__PURE__*/function () {
+  function AuthStore() {}
+
+  AuthStore.setAuthStore = function setAuthStore() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      var auth = SessionStorageStore.getAuth();
+
+      if (_.isEmpty(auth) == true) {
+        reject("'Auth' is null");
+      } else {
+        self.setAuth(auth);
+        resolve();
+      }
+    });
+  };
+
+  AuthStore.setAuth = function setAuth(auth) {
+    this.auth = auth;
+  };
+
+  AuthStore.getAuth = function getAuth() {
+    return this.auth;
+  };
+
+  AuthStore.getUser = function getUser() {
+    var user = this.auth.user || {};
+    return user;
+  };
+
+  AuthStore.getUserId = function getUserId() {
+    var user = this.auth.user || {};
+    var userId = user.id;
+    return userId;
+  };
+
+  AuthStore.getUserRole = function getUserRole() {
+    var user = this.auth.user || {};
+    var role = user.role;
+    return role;
+  };
+
+  AuthStore.getUserSubRole = function getUserSubRole() {
+    var user = this.auth.user || {};
+    var subRole = user.subRole;
+    return subRole;
+  };
+
+  AuthStore.getDefautlLang = function getDefautlLang() {
+    var auth = this.auth || {};
+    var lang = auth.lang;
+    return lang;
+  };
+
+  AuthStore.getCurrentLang = function getCurrentLang() {
+    return this.getDefautlLang();
+  };
+
+  AuthStore.getUserLang = function getUserLang() {
+    return this.getDefautlLang();
+  };
+
+  AuthStore.getPreferedLanguages = function getPreferedLanguages() {
+    var auth = this.auth || {};
+    var user = auth.user || {};
+    var brand = user._brand || {};
+    var brandConfiguration = brand._brandConfiguration || {};
+    var languages = brandConfiguration.preferedLang || [];
+    return languages;
+  };
+
+  AuthStore.getUserPluginPermission = function getUserPluginPermission() {
+    var user = this.auth.user || {};
+    var permissions = user._permission || {};
+    return permissions;
+  };
+
+  AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
+    var user = this.auth.user || {};
+    var permissions = user._permission || {};
+    var permitted = permissions[permission_key] || "D";
+    return permitted;
+  };
+
+  AuthStore.getBrandId = function getBrandId() {
+    var user = this.auth.user || {};
+    var brandId = user.brandId;
+    return brandId;
+  };
+
+  AuthStore.getReferrerId = function getReferrerId() {
+    var user = this.auth.user || {};
+    var referrerId = user.referrerId;
+    return referrerId;
+  };
+
+  AuthStore.getOwnerId = function getOwnerId() {
+    var user = this.auth && this.auth.user ? this.auth.user : null;
+
+    if (user.role == "Owner" && user.subRole == "Sub Owner") {
+      return user.referrerId;
+    } else if (user.role == "Owner") {
+      return user.id;
+    } else if (user.role == "Brand Manager" && user.subRole == "Brand Assistant") {
+      return user.referrerId;
+    } else if (user.role == "Brand Manager") {
+      return user.id;
+    }
+  };
+
+  AuthStore.getParentId = function getParentId() {
+    return this.getOwnerId();
+  };
+
+  return AuthStore;
+}();
+
+AuthStore.defaultLang = "En";
+AuthStore.auth = {};
+
+function getBrowserLang() {
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  try {
+    var browserLang = navigator.language || navigator.userLanguage;
+    browserLang = browserLang.substring(0, 2).toLowerCase();
+    browserLang = capitalizeFirstLetter(browserLang);
+    return browserLang;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+function getInitialLocalizationLanguage() {
+  var browserLang = getBrowserLang();
+  var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || browserLang || "En";
+  return lang;
+}
 function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
   return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
 }
@@ -831,6 +972,7 @@ function getPluginVersionChannel() {
 
 var PluginUtils = {
   __proto__: null,
+  getInitialLocalizationLanguage: getInitialLocalizationLanguage,
   getBrandPluginActivationInstance: getBrandPluginActivationInstance,
   getOwnerPluginActivationInstance: getOwnerPluginActivationInstance,
   getPluginActivation: getPluginActivation,
@@ -843,126 +985,6 @@ var PluginUtils = {
   getLocalizationChannel: getLocalizationChannel,
   getPluginVersionChannel: getPluginVersionChannel
 };
-
-var AuthStore = /*#__PURE__*/function () {
-  function AuthStore() {}
-
-  AuthStore.setAuthStore = function setAuthStore() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      var auth = SessionStorageStore.getAuth();
-
-      if (_.isEmpty(auth) == true) {
-        reject("'Auth' is null");
-      } else {
-        self.setAuth(auth);
-        resolve();
-      }
-    });
-  };
-
-  AuthStore.setAuth = function setAuth(auth) {
-    this.auth = auth;
-  };
-
-  AuthStore.getAuth = function getAuth() {
-    return this.auth;
-  };
-
-  AuthStore.getUser = function getUser() {
-    var user = this.auth.user || {};
-    return user;
-  };
-
-  AuthStore.getUserId = function getUserId() {
-    var user = this.auth.user || {};
-    var userId = user.id;
-    return userId;
-  };
-
-  AuthStore.getUserRole = function getUserRole() {
-    var user = this.auth.user || {};
-    var role = user.role;
-    return role;
-  };
-
-  AuthStore.getUserSubRole = function getUserSubRole() {
-    var user = this.auth.user || {};
-    var subRole = user.subRole;
-    return subRole;
-  };
-
-  AuthStore.getDefautlLang = function getDefautlLang() {
-    var auth = this.auth || {};
-    var lang = auth.lang;
-    return lang;
-  };
-
-  AuthStore.getCurrentLang = function getCurrentLang() {
-    return this.getDefautlLang();
-  };
-
-  AuthStore.getUserLang = function getUserLang() {
-    return this.getDefautlLang();
-  };
-
-  AuthStore.getPreferedLanguages = function getPreferedLanguages() {
-    var auth = this.auth || {};
-    var user = auth.user || {};
-    var brand = user._brand || {};
-    var brandConfiguration = brand._brandConfiguration || {};
-    var languages = brandConfiguration.preferedLang || [];
-    return languages;
-  };
-
-  AuthStore.getUserPluginPermission = function getUserPluginPermission() {
-    var user = this.auth.user || {};
-    var permissions = user._permission || {};
-    return permissions;
-  };
-
-  AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
-    var user = this.auth.user || {};
-    var permissions = user._permission || {};
-    var permitted = permissions[permission_key] || "D";
-    return permitted;
-  };
-
-  AuthStore.getBrandId = function getBrandId() {
-    var user = this.auth.user || {};
-    var brandId = user.brandId;
-    return brandId;
-  };
-
-  AuthStore.getReferrerId = function getReferrerId() {
-    var user = this.auth.user || {};
-    var referrerId = user.referrerId;
-    return referrerId;
-  };
-
-  AuthStore.getOwnerId = function getOwnerId() {
-    var user = this.auth && this.auth.user ? this.auth.user : null;
-
-    if (user.role == "Owner" && user.subRole == "Sub Owner") {
-      return user.referrerId;
-    } else if (user.role == "Owner") {
-      return user.id;
-    } else if (user.role == "Brand Manager" && user.subRole == "Brand Assistant") {
-      return user.referrerId;
-    } else if (user.role == "Brand Manager") {
-      return user.id;
-    }
-  };
-
-  AuthStore.getParentId = function getParentId() {
-    return this.getOwnerId();
-  };
-
-  return AuthStore;
-}();
-
-AuthStore.defaultLang = "En";
-AuthStore.auth = {};
 
 var OrbitalStore = /*#__PURE__*/function () {
   function OrbitalStore() {}
@@ -11463,7 +11485,9 @@ function OrbitalJsonSchema(props) {
       setSelectedProperty({});
     }
   })))), /*#__PURE__*/React.createElement(Row, {
-    className: "margin_top_row"
+    style: {
+      marginTop: "1rem"
+    }
   }, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ReactTable, {
     localization: localization,
     columns: getColumns(),

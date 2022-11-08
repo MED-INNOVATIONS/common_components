@@ -156,7 +156,7 @@ function OrbitalJsonSchema(props) {
                     </div>
                 </Col>
             </Row>
-            <Row className="margin_top_row">
+            <Row style={{ marginTop: "1rem" }}>
                 <Col>
                     <ReactTable
                         localization={localization}
