@@ -3,8 +3,31 @@ import _ from "lodash";
 import ClientSession from "./ClientSession";
 import SpecificAPI from "./SpecificAPI";
 import SessionStorageStore from "../stores/SessionStorageStore";
+import AuthStore from "../stores/AuthStore";
 
 import * as constants from "../constants";
+
+function getBrowserLang() {
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    try {
+        var browserLang = navigator.language || navigator.userLanguage; //no ?s necessary
+        browserLang = browserLang.substring(0, 2).toLowerCase();
+        browserLang = capitalizeFirstLetter(browserLang);
+        return browserLang;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+}
+
+export function getInitialLocalizationLanguage() {
+    const browserLang = getBrowserLang();
+    const lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || browserLang || "En";
+    return lang;
+}
 
 export function getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId) {
     return SpecificAPI.getPluginActivation(authKey, apiUrl, pluginKey, brandId, brandId);
@@ -229,7 +252,7 @@ export function getLocalizationChannel() {
     return localizationChannel;
 }
 
-export function getPluginVersionChannel(){
+export function getPluginVersionChannel() {
     var pluginVersionChannel = constants.pluginVersionChannel;
     return pluginVersionChannel;
 }
