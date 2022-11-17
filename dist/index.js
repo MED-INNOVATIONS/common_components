@@ -817,7 +817,7 @@ function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, 
 function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
   return new Promise(function (resolve, reject) {
     var p0 = SpecificAPI.getGeneralPluginLocalization(authKey, apiUrl, pluginKey);
-    var p1 = SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId);
+    var p1 = pluginActivationId ? SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId) : null;
     Promise.all([p0, p1]).then(function (results) {
       var generalPluginLocalization = results[0];
       var activePluginLocalization = results[1];
@@ -973,6 +973,41 @@ function getPluginVersionChannel() {
   var pluginVersionChannel$1 = pluginVersionChannel;
   return pluginVersionChannel$1;
 }
+function initializeSystemPluginPipeline(initializationObject) {
+  var authKey = initializationObject.authKey,
+      apiUrl = initializationObject.apiUrl,
+      pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
+      AuthStore = initializationObject.AuthStore,
+      OrbitalStore = initializationObject.OrbitalStore,
+      localizationInstance = initializationObject.localizationInstance,
+      callbackLocalization = initializationObject.callbackLocalization;
+  var self = this;
+  return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
+    ClientSession.checkLogin().then(function () {
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
+    }).then(function () {
+      var p0 = self.getPluginLocalization(authKey, apiUrl, pluginKey, null);
+      var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+      return Promise.all([p0, p1]);
+    }).then(function (results) {
+      var localizationObj = results[0];
+      self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
+      self.setUserLocalizationLanguage(AuthStore, localizationInstance);
+      var orbitalConfig = results[1];
+      OrbitalStore.setOrbitalConfig(orbitalConfig);
+      resolve();
+    })["catch"](function (error) {
+      console.error("Error during plugin initalization pipeline");
+      reject(error);
+    });
+  });
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -987,7 +1022,8 @@ var PluginUtils = {
   initializePluginPipeline: initializePluginPipeline,
   initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
   getLocalizationChannel: getLocalizationChannel,
-  getPluginVersionChannel: getPluginVersionChannel
+  getPluginVersionChannel: getPluginVersionChannel,
+  initializeSystemPluginPipeline: initializeSystemPluginPipeline
 };
 
 var OrbitalStore = /*#__PURE__*/function () {
@@ -8331,7 +8367,7 @@ var TimePicker = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: #dc3545;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: #dc3545;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -8341,7 +8377,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -8349,15 +8385,15 @@ function _templateObject() {
 
   return data;
 }
+var StyledDiv = styled.div(_templateObject());
+var StyledSpan = styled.span(_templateObject2());
 
 function MandatoryFieldLabel(props) {
-  var StyledDiv = styled.div(_templateObject());
-  var StyledSpan = styled.span(_templateObject2());
   return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
 }
 
 function _templateObject$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-weight: normal;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
 
   _templateObject$1 = function _templateObject() {
     return data;
@@ -8365,10 +8401,10 @@ function _templateObject$1() {
 
   return data;
 }
+var StyledDiv$1 = styled.div(_templateObject$1());
 
 function NormalFieldLabel(props) {
-  var StyledDiv = styled.div(_templateObject$1());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.value);
+  return /*#__PURE__*/React__default.createElement(StyledDiv$1, props, props.value);
 }
 
 function CustomLoadingOverlay(props) {
@@ -8384,7 +8420,7 @@ function CustomLoadingOverlay(props) {
 }
 
 function _templateObject$2() {
-  var data = _taggedTemplateLiteralLoose(["\n      .rdw-editor-toolbar{\n        border-top-color: white;\n        border-right-color: white;\n        border-left-color: white;\n        border-bottom-color: #d9d9d9;\n        z-index: 1;\n      }\n\n      .rdw-editor-wrapper{\n        border: 1px solid;\n        border-color: ", ";\n      }\n\n      .rdw-editor-main{\n        height: ", ";\n        max-height: ", ";\n      }\n  "]);
+  var data = _taggedTemplateLiteralLoose(["\n  .rdw-editor-toolbar{\n    border-top-color: white;\n    border-right-color: white;\n    border-left-color: white;\n    border-bottom-color: #d9d9d9;\n    z-index: 1;\n  }\n\n  .rdw-editor-wrapper{\n    border: 1px solid;\n    border-color: ", ";\n  }\n\n  .rdw-editor-main{\n    height: ", ";\n    max-height: ", ";\n  }\n"]);
 
   _templateObject$2 = function _templateObject() {
     return data;
@@ -8392,13 +8428,13 @@ function _templateObject$2() {
 
   return data;
 }
-
-function StyledDiv(props) {
-  var Tmp = styled.div(_templateObject$2(), function (props) {
-    return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
-  }, props.editorHeight, props.maxHeight);
-  return /*#__PURE__*/React__default.createElement(Tmp, props);
-}
+var StyledDiv$2 = styled.div(_templateObject$2(), function (props) {
+  return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
+}, function (props) {
+  return props.editorHeight;
+}, function (props) {
+  return props.maxHeight;
+});
 
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HTMLTextEditor, _Component);
@@ -8493,7 +8529,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       active: loading,
       spinner: true,
       text: (localization.loading || "Loading") + "..."
-    }, /*#__PURE__*/React__default.createElement(StyledDiv, {
+    }, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
       isInvalid: error || isInvalid,
       editorHeight: editorHeight,
       maxHeight: maxHeight
@@ -8647,7 +8683,7 @@ var ImageService = /*#__PURE__*/function () {
 }();
 
 function _templateObject13() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-size: 1.5rem;\n        margin-right: 15px;\n        cursor: ", ";\n        color: ", ";\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"]);
 
   _templateObject13 = function _templateObject13() {
     return data;
@@ -8657,7 +8693,7 @@ function _templateObject13() {
 }
 
 function _templateObject12() {
-  var data = _taggedTemplateLiteralLoose(["\n        font-size: 1.5rem;\n        margin-right: 15px;\n        cursor: ", ";\n        color: ", ";\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"]);
 
   _templateObject12 = function _templateObject12() {
     return data;
@@ -8667,7 +8703,7 @@ function _templateObject12() {
 }
 
 function _templateObject11() {
-  var data = _taggedTemplateLiteralLoose(["\n        cursor: pointer;\n        font-size: 1.5rem;\n        color: grey\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    cursor: pointer;\n    font-size: 1.5rem;\n    color: grey\n"]);
 
   _templateObject11 = function _templateObject11() {
     return data;
@@ -8677,7 +8713,7 @@ function _templateObject11() {
 }
 
 function _templateObject10() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0.25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
 
   _templateObject10 = function _templateObject10() {
     return data;
@@ -8687,7 +8723,7 @@ function _templateObject10() {
 }
 
 function _templateObject9() {
-  var data = _taggedTemplateLiteralLoose(["\n        width: 104px;\n        height: 104px;\n        background-color: #fafafa;\n        text-align: center;\n        border-radius: 4px;\n        vertical-align: top;\n        border: 1px dashed;\n        border-color: ", ";\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    width: 104px;\n    height: 104px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"]);
 
   _templateObject9 = function _templateObject9() {
     return data;
@@ -8697,7 +8733,7 @@ function _templateObject9() {
 }
 
 function _templateObject8() {
-  var data = _taggedTemplateLiteralLoose(["\n        max-width: 100% !important;\n        max-height: 100%;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    max-width: 100% !important;\n    max-height: 100%;\n    cursor: pointer;\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -8707,7 +8743,7 @@ function _templateObject8() {
 }
 
 function _templateObject7() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -8717,7 +8753,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #dc3545;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -8727,7 +8763,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteralLoose(["\n        top: -10px\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    top: -10px\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -8737,7 +8773,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -8747,7 +8783,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #007bff;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -8757,7 +8793,7 @@ function _templateObject3() {
 }
 
 function _templateObject2$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        position: absolute;\n        z-index: 10;\n        top: -3px;\n        left: -17px;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"]);
 
   _templateObject2$1 = function _templateObject2() {
     return data;
@@ -8767,7 +8803,7 @@ function _templateObject2$1() {
 }
 
 function _templateObject$3() {
-  var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    position: relative;\n"]);
 
   _templateObject$3 = function _templateObject() {
     return data;
@@ -8775,23 +8811,25 @@ function _templateObject$3() {
 
   return data;
 }
+var ImageBoxDiv = styled.div(_templateObject$3());
 
 function ImageBox(props) {
-  var StyledDiv = styled.div(_templateObject$3());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(ImageBoxDiv, null, props.children);
 }
+
+var IconsBoxDiv = styled.div(_templateObject2$1());
 
 function IconsBox(props) {
-  var StyledDiv = styled.div(_templateObject2$1());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(IconsBoxDiv, null, props.children);
 }
 
+var StyledFaCircleUpdate = styled(reactFontawesome.FontAwesomeIcon)(_templateObject3());
+var StyledPencilAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject4());
+
 function UpdateImageIcon() {
-  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject3());
-  var StyledPencilAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject4());
   return /*#__PURE__*/React__default.createElement("span", {
     className: "fa-stack small"
-  }, /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+  }, /*#__PURE__*/React__default.createElement(StyledFaCircleUpdate, {
     className: "fa-stack-2x",
     icon: freeSolidSvgIcons.faCircle
   }), /*#__PURE__*/React__default.createElement(StyledPencilAlt, {
@@ -8800,13 +8838,14 @@ function UpdateImageIcon() {
   }));
 }
 
+var StyledDivDeleteImage = styled.div(_templateObject5());
+var StyledFaCircleDelete = styled(reactFontawesome.FontAwesomeIcon)(_templateObject6());
+var StyledTrashAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7());
+
 function DeleteImageIcon(props) {
-  var StyledDiv = styled.div(_templateObject5());
-  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject6());
-  var StyledTrashAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, _extends({
+  return /*#__PURE__*/React__default.createElement(StyledDivDeleteImage, _extends({
     className: "fa-stack small"
-  }, props), /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+  }, props), /*#__PURE__*/React__default.createElement(StyledFaCircleDelete, {
     className: "fa-stack-2x",
     icon: freeSolidSvgIcons.faCircle
   }), /*#__PURE__*/React__default.createElement(StyledTrashAlt, {
@@ -8815,48 +8854,54 @@ function DeleteImageIcon(props) {
   }));
 }
 
+var StyledImg = styled.img(_templateObject8());
+
 function StyledImage(props) {
-  var StyledImg = styled.img(_templateObject8());
   return /*#__PURE__*/React__default.createElement(StyledImg, props);
 }
 
+var StyledButton = styled(reactBootstrap.Button)(_templateObject9(), function (props) {
+  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+});
+
 function UploadImageButton(props) {
-  var StyledButton = styled(reactBootstrap.Button)(_templateObject9(), function (props) {
-    return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
-  });
   return /*#__PURE__*/React__default.createElement(StyledButton, props, props.children);
 }
 
+var StyledDivErrorMessage = styled.div(_templateObject10());
+
 function ErrorMessage(props) {
-  var StyledDiv = styled.div(_templateObject10());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(StyledDivErrorMessage, null, props.children);
 }
 
+var StyledFontAwesomeIconClose = styled(reactFontawesome.FontAwesomeIcon)(_templateObject11());
+
 function CloseIcon(props) {
-  var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject11());
-  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIconClose, _extends({
     icon: freeRegularSvgIcons.faTimesCircle
   }, props)));
 }
 
+var StyledFontAwesomeIconCropper = styled(reactFontawesome.FontAwesomeIcon)(_templateObject12(), function (props) {
+  return props.isError === true ? "not-allowed" : "pointer";
+}, function (props) {
+  return props.isError === true ? "#dee2e6" : "#007bff";
+});
+
 function CropperDownloadIcon(props) {
-  var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject12(), function (props) {
-    return props.isError === true ? "not-allowed" : "pointer";
-  }, function (props) {
-    return props.isError === true ? "#dee2e6" : "#007bff";
-  });
-  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIconCropper, _extends({}, props, {
     icon: freeSolidSvgIcons.faDownload
   })));
 }
 
+var StyledFontAwesomeIconSave = styled(reactFontawesome.FontAwesomeIcon)(_templateObject13(), function (props) {
+  return props.isError === true ? "not-allowed" : "pointer";
+}, function (props) {
+  return props.isError === true ? "#dee2e6" : "#007bff";
+});
+
 function CropperSaveIcon(props) {
-  var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject13(), function (props) {
-    return props.isError === true ? "not-allowed" : "pointer";
-  }, function (props) {
-    return props.isError === true ? "#dee2e6" : "#007bff";
-  });
-  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIconSave, _extends({}, props, {
     icon: freeRegularSvgIcons.faSave
   })));
 }
@@ -9473,7 +9518,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 function _templateObject10$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0.25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
 
   _templateObject10$1 = function _templateObject10() {
     return data;
@@ -9483,7 +9528,7 @@ function _templateObject10$1() {
 }
 
 function _templateObject9$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: #007bff;\n        font-size: 4rem;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 4rem;\n"]);
 
   _templateObject9$1 = function _templateObject9() {
     return data;
@@ -9493,7 +9538,7 @@ function _templateObject9$1() {
 }
 
 function _templateObject8$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
 
   _templateObject8$1 = function _templateObject8() {
     return data;
@@ -9503,7 +9548,7 @@ function _templateObject8$1() {
 }
 
 function _templateObject7$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #dc3545;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"]);
 
   _templateObject7$1 = function _templateObject7() {
     return data;
@@ -9513,7 +9558,7 @@ function _templateObject7$1() {
 }
 
 function _templateObject6$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        top: -10px\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    top: -10px\n"]);
 
   _templateObject6$1 = function _templateObject6() {
     return data;
@@ -9523,7 +9568,7 @@ function _templateObject6$1() {
 }
 
 function _templateObject5$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        color: white;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
 
   _templateObject5$1 = function _templateObject5() {
     return data;
@@ -9533,7 +9578,7 @@ function _templateObject5$1() {
 }
 
 function _templateObject4$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        opacity: 0.7;\n        color: #007bff;\n        cursor: pointer;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"]);
 
   _templateObject4$1 = function _templateObject4() {
     return data;
@@ -9543,7 +9588,7 @@ function _templateObject4$1() {
 }
 
 function _templateObject3$1() {
-  var data = _taggedTemplateLiteralLoose(["\n        position: absolute;\n        z-index: 10;\n        top: -3px;\n        left: -17px;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"]);
 
   _templateObject3$1 = function _templateObject3() {
     return data;
@@ -9553,7 +9598,7 @@ function _templateObject3$1() {
 }
 
 function _templateObject2$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        position: relative;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    position: relative;\n"]);
 
   _templateObject2$2 = function _templateObject2() {
     return data;
@@ -9563,7 +9608,7 @@ function _templateObject2$2() {
 }
 
 function _templateObject$4() {
-  var data = _taggedTemplateLiteralLoose(["\n        width: 50px;\n        height: 60px;\n        background-color: #fafafa;\n        text-align: center;\n        border-radius: 4px;\n        vertical-align: top;\n        border: 1px dashed;\n        border-color: ", ";\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"]);
 
   _templateObject$4 = function _templateObject() {
     return data;
@@ -9571,63 +9616,69 @@ function _templateObject$4() {
 
   return data;
 }
+var StyledButtonUpload = styled(reactBootstrap.Button)(_templateObject$4(), function (props) {
+  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+});
 
 function UploadImageButton$1(props) {
-  var StyledButton = styled(reactBootstrap.Button)(_templateObject$4(), function (props) {
-    return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
-  });
-  return /*#__PURE__*/React__default.createElement(StyledButton, props, props.children);
+  return /*#__PURE__*/React__default.createElement(StyledButtonUpload, props, props.children);
 }
+
+var StyledDivDocumentBox = styled.div(_templateObject2$2());
 
 function DocumentBox(props) {
-  var StyledDiv = styled.div(_templateObject2$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(StyledDivDocumentBox, null, props.children);
 }
+
+var StyledDivIconxBox = styled.div(_templateObject3$1());
 
 function IconsBox$1(props) {
-  var StyledDiv = styled.div(_templateObject3$1());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(StyledDivIconxBox, null, props.children);
 }
 
+var StyledFaCircleUpdate$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject4$1());
+var StyledPencilAlt$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject5$1());
+
 function UpdateImageIcon$1() {
-  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject4$1());
-  var StyledPencilAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject5$1());
   return /*#__PURE__*/React__default.createElement("span", {
     className: "fa-stack small"
-  }, /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+  }, /*#__PURE__*/React__default.createElement(StyledFaCircleUpdate$1, {
     className: "fa-stack-2x",
     icon: freeSolidSvgIcons.faCircle
-  }), /*#__PURE__*/React__default.createElement(StyledPencilAlt, {
+  }), /*#__PURE__*/React__default.createElement(StyledPencilAlt$1, {
     className: "fa-stack-1x",
     icon: freeSolidSvgIcons.faPencilAlt
   }));
 }
 
+var StyledDiv$3 = styled.div(_templateObject6$1());
+var StyledFaCircleDelete$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7$1());
+var StyledTrashAlt$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject8$1());
+
 function DeleteImageIcon$1(props) {
-  var StyledDiv = styled.div(_templateObject6$1());
-  var StyledFaCircle = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7$1());
-  var StyledTrashAlt = styled(reactFontawesome.FontAwesomeIcon)(_templateObject8$1());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, _extends({
+  return /*#__PURE__*/React__default.createElement(StyledDiv$3, _extends({
     className: "fa-stack small"
-  }, props), /*#__PURE__*/React__default.createElement(StyledFaCircle, {
+  }, props), /*#__PURE__*/React__default.createElement(StyledFaCircleDelete$1, {
     className: "fa-stack-2x",
     icon: freeSolidSvgIcons.faCircle
-  }), /*#__PURE__*/React__default.createElement(StyledTrashAlt, {
+  }), /*#__PURE__*/React__default.createElement(StyledTrashAlt$1, {
     className: "fa-stack-1x",
     icon: freeSolidSvgIcons.faTrashAlt
   }));
 }
 
+var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject9$1());
+
 function FileIcon(props) {
-  var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject9$1());
   return /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, {
     icon: freeRegularSvgIcons.faFileAlt
   });
 }
 
+var StyledDivErrorMessage$1 = styled.div(_templateObject10$1());
+
 function ErrorMessage$1(props) {
-  var StyledDiv = styled.div(_templateObject10$1());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
+  return /*#__PURE__*/React__default.createElement(StyledDivErrorMessage$1, null, props.children);
 }
 
 function UploadDocument(props) {
@@ -9826,12 +9877,7 @@ function _templateObject$5() {
 
   return data;
 }
-var StyledFontAwesomeIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$5());
-
-var OrbitalInfoIcon = function OrbitalInfoIcon(props) {
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon, props));
-};
-
+var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$5());
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -10114,7 +10160,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 function _templateObject8$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        &:last-child{\n            overflow-x: hidden;\n            ", "{\n                border-bottom: 0;\n            }\n        }\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n&:last-child{\n    overflow-x: hidden;\n    ", "{\n        border-bottom: 0;\n    }\n}\n"]);
 
   _templateObject8$2 = function _templateObject8() {
     return data;
@@ -10124,7 +10170,7 @@ function _templateObject8$2() {
 }
 
 function _templateObject7$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        right: 0;\n        background: #dee2e6;\n        width: 1px;\n        height: 100%;\n        position: absolute;\n        top: 0;\n        z-index: 1;\n        touch-action: none;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    right: 0;\n    background: #dee2e6;\n    width: 1px;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    z-index: 1;\n    touch-action: none;\n"]);
 
   _templateObject7$2 = function _templateObject7() {
     return data;
@@ -10134,7 +10180,7 @@ function _templateObject7$2() {
 }
 
 function _templateObject6$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 1rem;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 1rem;\n"]);
 
   _templateObject6$2 = function _templateObject6() {
     return data;
@@ -10144,7 +10190,7 @@ function _templateObject6$2() {
 }
 
 function _templateObject5$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"]);
 
   _templateObject5$2 = function _templateObject5() {
     return data;
@@ -10154,7 +10200,7 @@ function _templateObject5$2() {
 }
 
 function _templateObject4$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin: 0;\n        padding: 0.5rem;\n        border-bottom: 1px solid #dee2e6;\n        border-right: 1px solid #dee2e6;\n        position: relative;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"]);
 
   _templateObject4$2 = function _templateObject4() {
     return data;
@@ -10164,7 +10210,7 @@ function _templateObject4$2() {
 }
 
 function _templateObject3$2() {
-  var data = _taggedTemplateLiteralLoose(["\n        display: inline-block;\n        border-spacing: 0;\n        border: 1px solid #dee2e6;\n        width: 100%;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"]);
 
   _templateObject3$2 = function _templateObject3() {
     return data;
@@ -10174,7 +10220,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$3() {
-  var data = _taggedTemplateLiteralLoose(["\n        border-bottom: 1px solid #dee2e6;\n        padding: 15px;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"]);
 
   _templateObject2$3 = function _templateObject2() {
     return data;
@@ -10184,7 +10230,7 @@ function _templateObject2$3() {
 }
 
 function _templateObject$6() {
-  var data = _taggedTemplateLiteralLoose(["\n        display: block;\n        position: absolute;\n        left: 50%;\n        top: 40%;\n        z-index: 1;\n        padding: 20px;\n        background-color: white;\n        border: 1px solid #dee2e6;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"]);
 
   _templateObject$6 = function _templateObject() {
     return data;
@@ -10192,46 +10238,14 @@ function _templateObject$6() {
 
   return data;
 }
-
-function NoData(props) {
-  var StyledDiv = styled.div(_templateObject$6());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
-}
-
-function SubContentContainer(props) {
-  var StyledDiv = styled.div(_templateObject2$3());
-  return /*#__PURE__*/React__default.createElement(SubContentContainer, null, props.children);
-}
-
-function StyledTable(props) {
-  var StyledDiv = styled.div(_templateObject3$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
-}
-
-function StyledTd(props) {
-  var StyledDiv = styled.div(_templateObject4$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
-}
-
-function StyledTh(props) {
-  var StyledDiv = styled.div(_templateObject5$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
-}
-
-function PaginationRow(props) {
-  var StyledRow = styled(reactBootstrap.Row)(_templateObject6$2());
-  return /*#__PURE__*/React__default.createElement(StyledRow, props, props.children);
-}
-
-function Resizer(props) {
-  var StyledDiv = styled.div(_templateObject7$2());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
-}
-
-function StyledTr(props) {
-  var StyledDiv = styled.div(_templateObject8$2(), StyledTd);
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, props.children);
-}
+var NoData = styled.div(_templateObject$6());
+var SubContentContainer = styled.div(_templateObject2$3());
+var StyledTable = styled.div(_templateObject3$2());
+var StyledTd = styled.div(_templateObject4$2());
+var StyledTh = styled.div(_templateObject5$2());
+var PaginationRow = styled(reactBootstrap.Row)(_templateObject6$2());
+var Resizer = styled.div(_templateObject7$2());
+var StyledTr = styled.div(_templateObject8$2(), StyledTd);
 
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
   var rows = null;
@@ -10596,7 +10610,7 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
 };
 
 function _templateObject$b() {
-  var data = _taggedTemplateLiteralLoose(["\n        margin-top: 0,25rem;\n        font-size: 80%;\n        color: #dc3545;\n    "]);
+  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0,25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
 
   _templateObject$b = function _templateObject() {
     return data;
@@ -10604,11 +10618,7 @@ function _templateObject$b() {
 
   return data;
 }
-
-function OrbitalErrorDiv(props) {
-  var StyledDiv = styled.div(_templateObject$b());
-  return /*#__PURE__*/React__default.createElement(StyledDiv, null, props.children);
-}
+var OrbitalErrorDiv = styled.div(_templateObject$b());
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,

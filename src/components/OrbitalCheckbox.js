@@ -12,7 +12,6 @@ const StyledFormCheck = styled(FormCheck)`
 
 const OrbitalCheckbox = (props) => {
     var { disabled, checked, onChange, paddingTop, scale } = props;
-
     return <StyledFormCheck type="checkbox"
         {...props}>
     </StyledFormCheck>
