@@ -8388,7 +8388,7 @@ function _templateObject$2() {
 
   return data;
 }
-var Tmp = styled.div(_templateObject$2(), props && props.isInvalid === true ? "#ff4d4f" : "#d9d9d9", props.editorHeight, props.maxHeight);
+var Tmp = styled.div(_templateObject$2(), props.isInvalid === true ? "#ff4d4f" : "#d9d9d9", props.editorHeight, props.maxHeight);
 
 function StyledDiv$2(props) {
   return /*#__PURE__*/React.createElement(Tmp, props);
