@@ -8392,11 +8392,13 @@ function _templateObject$2() {
 
   return data;
 }
-var Tmp = styled.div(_templateObject$2(), props.isInvalid === true ? "#ff4d4f" : "#d9d9d9", props.editorHeight, props.maxHeight);
-
-function StyledDiv$2(props) {
-  return /*#__PURE__*/React__default.createElement(Tmp, props);
-}
+var StyledDiv$2 = styled.div(_templateObject$2(), function (props) {
+  return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
+}, function (props) {
+  return props.editorHeight;
+}, function (props) {
+  return props.maxHeight;
+});
 
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HTMLTextEditor, _Component);
