@@ -9841,12 +9841,7 @@ function _templateObject$5() {
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$5());
-
-var OrbitalInfoIcon = function OrbitalInfoIcon(props) {
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$1, props));
-};
-
+var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$5());
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -10453,7 +10448,7 @@ function _templateObject$7() {
 
   return data;
 }
-var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$7(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$7(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10468,7 +10463,7 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
       _onClick = props.onClick;
   return /*#__PURE__*/React__default.createElement(CustomTooltip, {
     tooltip: tooltip
-  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$2, {
+  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$1, {
     marginright: marginright,
     icon: freeRegularSvgIcons.faSave,
     disabled: disabled,
@@ -10536,7 +10531,7 @@ function _templateObject$9() {
 
   return data;
 }
-var StyledFontAwesomeIcon$3 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$9(), function (props) {
+var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$9(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10546,7 +10541,7 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
       _onClick = props.onClick;
   return /*#__PURE__*/React__default.createElement(CustomTooltip, {
     tooltip: tooltip
-  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$3, {
+  }, /*#__PURE__*/React__default.createElement(StyledFontAwesomeIcon$2, {
     icon: freeRegularSvgIcons.faTimesCircle,
     disabled: disabled,
     onClick: function onClick() {
@@ -10587,11 +10582,7 @@ function _templateObject$b() {
 
   return data;
 }
-var StyledDiv$4 = styled.div(_templateObject$b());
-
-function OrbitalErrorDiv(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDiv$4, null, props.children);
-}
+var OrbitalErrorDiv = styled.div(_templateObject$b());
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
