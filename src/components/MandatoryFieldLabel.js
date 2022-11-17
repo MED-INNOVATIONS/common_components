@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-font-weight: normal;
+    font-weight: normal;
 `;
 
 const StyledSpan = styled.span`
-color: #dc3545;
+    color: #dc3545;
 `;
 
 function MandatoryFieldLabel(props) {
