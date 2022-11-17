@@ -10207,53 +10207,14 @@ function _templateObject$6() {
 
   return data;
 }
-var StyledDivNoData = styled.div(_templateObject$6());
-
-function NoData(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivNoData, null, props.children);
-}
-
-var StyledDivSubContentContainer = styled.div(_templateObject2$3());
-
-function SubContentContainer(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivSubContentContainer, null, props.children);
-}
-
-var StyledDivTable = styled.div(_templateObject3$2());
-
-function StyledTable(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivTable, props, props.children);
-}
-
-var StyledDivTd = styled.div(_templateObject4$2());
-
-function StyledTd(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivTd, props, props.children);
-}
-
-var StyledDivTh = styled.div(_templateObject5$2());
-
-function StyledTh(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivTh, props, props.children);
-}
-
-var StyledRow = styled(reactBootstrap.Row)(_templateObject6$2());
-
-function PaginationRow(props) {
-  return /*#__PURE__*/React__default.createElement(StyledRow, props, props.children);
-}
-
-var StyledDivResizer = styled.div(_templateObject7$2());
-
-function Resizer(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivResizer, props, props.children);
-}
-
-var StyledDivTr = styled.div(_templateObject8$2(), StyledTd);
-
-function StyledTr(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDivTr, props, props.children);
-}
+var NoData = styled.div(_templateObject$6());
+var SubContentContainer = styled.div(_templateObject2$3());
+var StyledTable = styled.div(_templateObject3$2());
+var StyledTd = styled.div(_templateObject4$2());
+var StyledTh = styled.div(_templateObject5$2());
+var PaginationRow = styled(reactBootstrap.Row)(_templateObject6$2());
+var Resizer = styled.div(_templateObject7$2());
+var StyledTr = styled.div(_templateObject8$2(), StyledTd);
 
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
   var rows = null;
