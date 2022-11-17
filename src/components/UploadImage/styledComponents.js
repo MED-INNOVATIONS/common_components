@@ -1,10 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faSave } from '@fortawesome/free-regular-svg-icons';
 import { faDownload, faTrashAlt, faPencilAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
-
+import { faTimesCircle, faSave } from '@fortawesome/free-regular-svg-icons';
+import { Button } from 'react-bootstrap';
+import styled from "styled-components";
 
 const ImageBoxDiv = styled.div`
     position: relative;

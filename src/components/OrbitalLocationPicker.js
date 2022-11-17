@@ -8,28 +8,22 @@ import styled from "styled-components";
 import _ from "lodash";
 
 // import { MandatoryFieldLabel, NormalFieldLabel, Tooltip } from "orbital_common_components";
-
-import Tooltip  from "./Tooltip";
+import Tooltip from "./Tooltip";
 import MandatoryFieldLabel from "./MandatoryFieldLabel";
 import NormalFieldLabel from "./NormalFieldLabel";
 
 // import "./orbitalLocationPicker.css"
-
 // .info_icon{
 //     color: #007bff;
 //     font-size: 0.7rem;
 //     margin-bottom: 0.35rem;
 // }
 
-const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+const OrbitalInfoIcon = styled(FontAwesomeIcon)`
     color: #007bff;
     font-size: 0.7rem;
     margin-bottom: 0.35rem;
 `;
-
-const OrbitalInfoIcon = (props) => {
-    return <div><StyledFontAwesomeIcon {...props}></StyledFontAwesomeIcon></div>
-}
 
 const google = window.google;
 const addressComponentType = "administrative_area_level_3";
