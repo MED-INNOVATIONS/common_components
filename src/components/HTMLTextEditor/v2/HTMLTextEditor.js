@@ -11,7 +11,7 @@ import LoadingOverlay from "../../LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const Tmp = styled.div`
+const StyledDiv = styled.div`
   .rdw-editor-toolbar{
     border-top-color: white;
     border-right-color: white;
@@ -22,18 +22,14 @@ const Tmp = styled.div`
 
   .rdw-editor-wrapper{
     border: 1px solid;
-    border-color: ${props.isInvalid === true ? "#ff4d4f" : "#d9d9d9"};
+    border-color: ${props => props.isInvalid === true ? "#ff4d4f" : "#d9d9d9"};
   }
 
   .rdw-editor-main{
-    height: ${props.editorHeight};
-    max-height: ${props.maxHeight};
+    height: ${props => props.editorHeight};
+    max-height: ${props => props.maxHeight};
   }
 `;
-
-function StyledDiv(props) {
-  return <Tmp {...props}></Tmp>
-}
 
 class HTMLTextEditor extends Component {
   constructor(props) {
