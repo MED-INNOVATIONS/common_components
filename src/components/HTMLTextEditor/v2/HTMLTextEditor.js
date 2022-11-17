@@ -22,7 +22,7 @@ const Tmp = styled.div`
 
   .rdw-editor-wrapper{
     border: 1px solid;
-    border-color: ${(props) => (props.isInvalid === true ? "#ff4d4f" : "#d9d9d9")};
+    border-color: ${props => props.isInvalid === true ? "#ff4d4f" : "#d9d9d9"};
   }
 
   .rdw-editor-main{
