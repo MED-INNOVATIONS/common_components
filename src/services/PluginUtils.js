@@ -80,7 +80,7 @@ export function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, br
 export function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
     return new Promise(function (resolve, reject) {
         var p0 = SpecificAPI.getGeneralPluginLocalization(authKey, apiUrl, pluginKey);
-        var p1 = SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId);
+        var p1 = pluginActivationId ? SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId) : null;
 
         Promise.all([p0, p1])
             .then((results) => {
@@ -255,4 +255,41 @@ export function getLocalizationChannel() {
 export function getPluginVersionChannel() {
     var pluginVersionChannel = constants.pluginVersionChannel;
     return pluginVersionChannel;
+}
+
+export function initializeSystemPluginPipeline(initializationObject) {
+    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var self = this;
+    return new Promise(function (resolve, reject) {
+        var pluginVersionEvent = new Event(constants.pluginVersionChannel);
+        pluginVersionEvent.pluginVersion = pluginVersion;
+        window.dispatchEvent(pluginVersionEvent);
+
+        ClientSession.checkLogin()
+            .then(() => {
+                var auth = SessionStorageStore.getAuth();
+                auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+                return AuthStore.setAuth(auth);
+            })
+            .then(() => {
+                var p0 = self.getPluginLocalization(authKey, apiUrl, pluginKey, null);
+                var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+
+                return Promise.all([p0, p1])
+            })
+            .then((results) => {
+                var localizationObj = results[0];
+                self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
+                self.setUserLocalizationLanguage(AuthStore, localizationInstance);
+
+                var orbitalConfig = results[1];
+                OrbitalStore.setOrbitalConfig(orbitalConfig);
+
+                resolve();
+            })
+            .catch((error) => {
+                console.error("Error during plugin initalization pipeline");
+                reject(error);
+            })
+    })
 }

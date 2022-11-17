@@ -813,7 +813,7 @@ function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, 
 function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
   return new Promise(function (resolve, reject) {
     var p0 = SpecificAPI.getGeneralPluginLocalization(authKey, apiUrl, pluginKey);
-    var p1 = SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId);
+    var p1 = pluginActivationId ? SpecificAPI.getActivePluginLocalization(authKey, apiUrl, pluginActivationId) : null;
     Promise.all([p0, p1]).then(function (results) {
       var generalPluginLocalization = results[0];
       var activePluginLocalization = results[1];
@@ -969,6 +969,41 @@ function getPluginVersionChannel() {
   var pluginVersionChannel$1 = pluginVersionChannel;
   return pluginVersionChannel$1;
 }
+function initializeSystemPluginPipeline(initializationObject) {
+  var authKey = initializationObject.authKey,
+      apiUrl = initializationObject.apiUrl,
+      pluginKey = initializationObject.pluginKey,
+      pluginVersion = initializationObject.pluginVersion,
+      AuthStore = initializationObject.AuthStore,
+      OrbitalStore = initializationObject.OrbitalStore,
+      localizationInstance = initializationObject.localizationInstance,
+      callbackLocalization = initializationObject.callbackLocalization;
+  var self = this;
+  return new Promise(function (resolve, reject) {
+    var pluginVersionEvent = new Event(pluginVersionChannel);
+    pluginVersionEvent.pluginVersion = pluginVersion;
+    window.dispatchEvent(pluginVersionEvent);
+    ClientSession.checkLogin().then(function () {
+      var auth = SessionStorageStore.getAuth();
+      auth = auth && typeof auth == "string" ? JSON.parse(auth) : auth;
+      return AuthStore.setAuth(auth);
+    }).then(function () {
+      var p0 = self.getPluginLocalization(authKey, apiUrl, pluginKey, null);
+      var p1 = SpecificAPI.getOrbitalConfig(authKey, apiUrl, null);
+      return Promise.all([p0, p1]);
+    }).then(function (results) {
+      var localizationObj = results[0];
+      self.setLocalization(localizationInstance, localizationObj, callbackLocalization);
+      self.setUserLocalizationLanguage(AuthStore, localizationInstance);
+      var orbitalConfig = results[1];
+      OrbitalStore.setOrbitalConfig(orbitalConfig);
+      resolve();
+    })["catch"](function (error) {
+      console.error("Error during plugin initalization pipeline");
+      reject(error);
+    });
+  });
+}
 
 var PluginUtils = {
   __proto__: null,
@@ -983,7 +1018,8 @@ var PluginUtils = {
   initializePluginPipeline: initializePluginPipeline,
   initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation: initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation,
   getLocalizationChannel: getLocalizationChannel,
-  getPluginVersionChannel: getPluginVersionChannel
+  getPluginVersionChannel: getPluginVersionChannel,
+  initializeSystemPluginPipeline: initializeSystemPluginPipeline
 };
 
 var OrbitalStore = /*#__PURE__*/function () {
