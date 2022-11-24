@@ -8393,7 +8393,7 @@ function MandatoryFieldLabel(props) {
 }
 
 function _templateObject$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n    color:  ", ";\n"]);
 
   _templateObject$1 = function _templateObject() {
     return data;
@@ -8401,7 +8401,9 @@ function _templateObject$1() {
 
   return data;
 }
-var StyledDiv$1 = styled.div(_templateObject$1());
+var StyledDiv$1 = styled.div(_templateObject$1(), function (props) {
+  return props.isTransparent === true ? "transparent" : null;
+});
 
 function NormalFieldLabel(props) {
   return /*#__PURE__*/React__default.createElement(StyledDiv$1, props, props.value);
@@ -8600,15 +8602,20 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
     };
     var tooltip = this.props.tooltip || "";
     var children = this.props.children || /*#__PURE__*/React__default.createElement("div", null, "Error children");
-    return /*#__PURE__*/React__default.createElement(reactBootstrap.OverlayTrigger, {
-      style: this.props.style,
-      className: this.props.className,
-      placement: placement,
-      delay: {
-        delay: delay
-      },
-      overlay: /*#__PURE__*/React__default.createElement(reactBootstrap.Tooltip, null, tooltip)
-    }, children);
+
+    if (_$2.isEmpty(tooltip) === true) {
+      return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children);
+    } else {
+      return /*#__PURE__*/React__default.createElement(reactBootstrap.OverlayTrigger, {
+        style: this.props.style,
+        className: this.props.className,
+        placement: placement,
+        delay: {
+          delay: delay
+        },
+        overlay: /*#__PURE__*/React__default.createElement(reactBootstrap.Tooltip, null, tooltip)
+      }, children);
+    }
   };
 
   return CustomTooltip;
