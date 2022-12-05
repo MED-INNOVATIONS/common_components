@@ -9,6 +9,21 @@ import * as Utils from "./Utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+
+    return (
+      <input type="checkbox" ref={resolvedRef} {...rest} />
+    )
+  }
+)
+
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize
@@ -31,7 +46,8 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
     previousPage,
     setPageSize,
     visibleColumns,
-    state: { pageIndex, pageSize, expanded }
+    selectedFlatRows,
+    state: { pageIndex, pageSize, expanded, selectedRowIds }
   } = useTable(
     {
       columns,
@@ -40,7 +56,8 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
       initialState: {
         // pageIndex: 0,
         pageSize: _fixedPageSize || _defaultPageSize || 10
-      }
+      },
+      enableMultiRowSelection: true
     },
     useSortBy,
     useExpanded,
@@ -48,6 +65,29 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
     useResizeColumns,
     useFlexLayout,
     useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => [
+        // Let's make a column for selection
+        {
+          id: 'selection',
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ])
+    }
   );
 
   return (
