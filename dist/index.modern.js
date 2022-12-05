@@ -11027,10 +11027,10 @@ var IndeterminateCheckbox = React.forwardRef(function (_ref, ref) {
   React.useEffect(function () {
     resolvedRef.current.indeterminate = indeterminate;
   }, [resolvedRef, indeterminate]);
-  return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("input", _extends({
+  return /*#__PURE__*/React.createElement("input", _extends({
     type: "checkbox",
     ref: resolvedRef
-  }, rest)));
+  }, rest));
 });
 
 function ReactTable(_ref2) {
