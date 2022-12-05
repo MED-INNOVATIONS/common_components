@@ -15,13 +15,11 @@ import DateTimePicker from './components/DateComponents/DateComponentsV1/DateTim
 import RecurrenceEditor from './components/DateComponents/DateComponentsV1/RecurrenceEditor';
 import Scheduler from './components/DateComponents/DateComponentsV1/Scheduler';
 import TimePicker from './components/DateComponents/DateComponentsV1/TimePicker';
-
 import DatePickerV2 from './components/DateComponents/DateComponentsV2/DatePickerV2';
 import DateTimePickerV2 from './components/DateComponents/DateComponentsV2/DateTimePickerV2';
 import RecurrenceEditorV2 from './components/DateComponents/DateComponentsV2/RecurrenceEditorV2';
 import SchedulerV2 from './components/DateComponents/DateComponentsV2/SchedulerV2';
 import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePickerV2';
-
 
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
@@ -75,5 +73,10 @@ export {
     OrbitalErrorDiv,
     CompleteSchema,
     OrbitalJsonSchema,
-    PluginContainer
+    PluginContainer,
+    DatePickerV2,
+    DateTimePickerV2,
+    RecurrenceEditorV2,
+    SchedulerV2,
+    TimePickerV2
 }
