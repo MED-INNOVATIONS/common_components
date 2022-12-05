@@ -8381,6 +8381,592 @@ var TimePicker = /*#__PURE__*/function (_Component) {
   return TimePicker;
 }(React.Component);
 
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0,25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var OrbitalErrorDiv = styled.div(_templateObject());
+
+function getLocaleByLanguage(lang) {
+  if (lang && lang === "It") {
+    return "it-CH";
+  } else if (lang && lang === "En") {
+    return "en-US";
+  }
+}
+
+loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
+L10n.load({
+  "it-CH": {
+    'datepicker': {
+      "today": 'Oggi'
+    },
+    'datetimepicker': {
+      "today": 'Oggi'
+    },
+    "schedule": {
+      "day": "Giorno",
+      "week": "Settimana",
+      "workWeek": "Settimana lavorativa",
+      "month": "Mese",
+      "agenda": "Agenda",
+      "weekAgenda": "Agenda settimanale",
+      "workWeekAgenda": "Agenda settimana lavorativa",
+      "monthAgenda": "Agenda mensile",
+      "today": "Oggi",
+      "noEvents": "Nessun evento",
+      "emptyContainer": "Non ci sono eventi programmati in questo giorno.",
+      "allDay": "Tutto il giorno",
+      "start": "Inizio",
+      "end": "Fine",
+      "more": "altro",
+      "close": "Chiudi",
+      "cancel": "Cancella",
+      "noTitle": "(Nessun titolo)",
+      "delete": "Elimina",
+      "deleteEvent": "Elimina Evento",
+      "deleteMultipleEvent": "Elimina Più Eventi",
+      "selectedItems": "Articoli selezionati",
+      "deleteSeries": "Elimina Serie",
+      "edit": "Modifica",
+      "editSeries": "Modifica Serie",
+      "editEvent": "Modifica Evento",
+      "createEvent": "Crea",
+      "subject": "Soggetto",
+      "addTitle": "Aggiungi titolo",
+      "moreDetails": "Più Dettagli",
+      "save": "Salva",
+      "editContent": "Vuoi modificare questo evento o l'intera serie?",
+      "deleteRecurrenceContent": "Vuoi eliminare solo questo evento o l'intera serie?",
+      "deleteContent": "Si vuole davvero eliminare questo evento?",
+      "deleteMultipleContent": "Si vuole davvero eliminare questi eventi?",
+      "newEvent": "Nuovo Evento",
+      "title": "Titolo",
+      "location": "Luogo",
+      "description": "Descrizione",
+      "timezone": "Timezone",
+      "startTimezone": "Timezone Iniziale",
+      "endTimezone": "Timezone Finale",
+      "repeat": "Ripeti",
+      "saveButton": "Salva",
+      "cancelButton": "Cancella",
+      "deleteButton": "Elimina",
+      "recurrence": "Ricorrenza",
+      "wrongPattern": "Il modello della ricorrenza non è valido.",
+      "seriesChangeAlert": "Le modifiche apportate a istanze specifiche di questa serie saranno annullate e tali eventi corrisponderanno nuovamente alla serie.",
+      "createError": "La durata dell'evento deve essere inferiore alla frequenza con cui si verifica. Ridurre la durata o modificare il modello di ricorrenza nell'editor degli eventi di ricorrenza.",
+      "recurrenceDateValidation": "Alcuni mesi hanno un numero di date inferiore a quello selezionato. Per questi mesi, la ricorrenza cadrà nell'ultima data del mese. ",
+      "sameDayAlert": "Due occorrenze dello stesso evento non possono avvenire nello stesso giorno.",
+      "editRecurrence": "Modifica Ricorrenza",
+      "repeats": "Ripetizioni",
+      "alert": "Attenzione",
+      "startEndError": "La data di fine è più grande di quella di inzio.",
+      "invalidDateError": "La data inserita non è valida.",
+      "ok": "Ok",
+      "occurrence": "Occorrenza",
+      "series": "Serie",
+      "previous": "Precendente",
+      "next": "Successivo",
+      "timelineDay": "Timeline Giornaliera",
+      "timelineWeek": "Timeline Settimanale",
+      "timelineWorkWeek": "Timeline Settimana Lavorativa",
+      "timelineMonth": "Timeline Mensile",
+      "expandAllDaySection": "Espandi",
+      "collapseAllDaySection": "Collassa"
+    },
+    "recurrenceeditor": {
+      "none": "Nessuna",
+      "daily": "Giornaliera",
+      "weekly": "Settimanale",
+      "monthly": "Mensile",
+      "month": "Mese",
+      "yearly": "Annuale",
+      "never": "Mai",
+      "until": "Fino",
+      "count": "Occorrenze",
+      "first": "Primo",
+      "second": "Secondo",
+      "third": "Terzo",
+      "fourth": "Quarto",
+      "last": "Ultimo",
+      "repeat": "Ripeti",
+      "repeatEvery": "Ripeti Ogni",
+      "on": "Ripeti il",
+      "end": "Fine",
+      "onDay": "Giorno",
+      "days": "Giorno(i)",
+      "weeks": "Settimana(e)",
+      "months": "Mese(e)",
+      "years": "Anno(i)",
+      "every": "ogni",
+      "summaryTimes": "orario(i)",
+      "summaryOn": "il",
+      "summaryUntil": "fino",
+      "summaryRepeat": "Ripetizioni",
+      "summaryDay": "giorno(i)",
+      "summaryWeek": "settimana(e)",
+      "summaryMonth": "mese(i)",
+      "summaryYear": "anno(i)"
+    }
+  },
+  "en-US": {
+    'datepicker': {
+      "today": 'Today'
+    },
+    'datetimepicker': {
+      "today": 'Today'
+    },
+    "schedule": {
+      "day": "Day",
+      "week": "Week",
+      "workWeek": "Work Week",
+      "month": "Month",
+      "agenda": "Agenda",
+      "weekAgenda": "Week Agenda",
+      "workWeekAgenda": "Work Week Agenda",
+      "monthAgenda": "Month Agenda",
+      "today": "Today",
+      "noEvents": "No events",
+      "emptyContainer": "There are no events scheduled on this day.",
+      "allDay": "All day",
+      "start": "Start",
+      "end": "End",
+      "more": "more",
+      "close": "Close",
+      "cancel": "Cancel",
+      "noTitle": "(No Title)",
+      "delete": "Delete",
+      "deleteEvent": "Delete Event",
+      "deleteMultipleEvent": "Delete Multiple Events",
+      "selectedItems": "Items selected",
+      "deleteSeries": "Delete Series",
+      "edit": "Edit",
+      "editSeries": "Edit Series",
+      "editEvent": "Edit Event",
+      "createEvent": "Create",
+      "subject": "Subject",
+      "addTitle": "Add title",
+      "moreDetails": "More Details",
+      "save": "Save",
+      "editContent": "Do you want to edit only this event or entire series?",
+      "deleteRecurrenceContent": "Do you want to delete only this event or entire series?",
+      "deleteContent": "Are you sure you want to delete this event?",
+      "deleteMultipleContent": "Are you sure you want to delete the selected events?",
+      "newEvent": "New Event",
+      "title": "Title",
+      "location": "Location",
+      "description": "Description",
+      "timezone": "Timezone",
+      "startTimezone": "Start Timezone",
+      "endTimezone": "End Timezone",
+      "repeat": "Repeat",
+      "saveButton": "Save",
+      "cancelButton": "Cancel",
+      "deleteButton": "Delete",
+      "recurrence": "Recurrence",
+      "wrongPattern": "The recurrence pattern is not valid.",
+      "seriesChangeAlert": "The changes made to specific instances of this series will be cancelled and those events will match the series again.",
+      "createError": "The duration of the event must be shorter than how frequently it occurs. Shorten the duration, or change the recurrence pattern in the recurrence event editor.",
+      "recurrenceDateValidation": "Some months have fewer than the selected date. For these months, the occurrence will fall on the last date of the month.",
+      "sameDayAlert": "Two occurrences of the same event cannot occur on the same day.",
+      "editRecurrence": "Edit Recurrence",
+      "repeats": "Repeats",
+      "alert": "Alert",
+      "startEndError": "The selected end date occurs before the start date.",
+      "invalidDateError": "The entered date value is invalid.",
+      "ok": "Ok",
+      "occurrence": "Occurrence",
+      "series": "Series",
+      "previous": "Previous",
+      "next": "Next",
+      "timelineDay": "Timeline Day",
+      "timelineWeek": "Timeline Week",
+      "timelineWorkWeek": "Timeline Work Week",
+      "timelineMonth": "Timeline Month",
+      "expandAllDaySection": "Expand",
+      "collapseAllDaySection": "Collapse"
+    },
+    "recurrenceeditor": {
+      "none": "None",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "month": "Month",
+      "yearly": "Yearly",
+      "never": "Never",
+      "until": "Until",
+      "count": "Count",
+      "first": "First",
+      "second": "Second",
+      "third": "Third",
+      "fourth": "Fourth",
+      "last": "Last",
+      "repeat": "Repeat",
+      "repeatEvery": "Repeat Every",
+      "on": "Repeat On",
+      "end": "End",
+      "onDay": "Day",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)",
+      "every": "every",
+      "summaryTimes": "time(s)",
+      "summaryOn": "on",
+      "summaryUntil": "until",
+      "summaryRepeat": "Repeats",
+      "summaryDay": "day(s)",
+      "summaryWeek": "week(s)",
+      "summaryMonth": "month(s)",
+      "summaryYear": "year(s)"
+    }
+  }
+});
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledDiv = styled.div(_templateObject$1(), function (props) {
+  return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
+});
+
+function DatePickerV2(props) {
+  var enabled = props.enabled,
+      disabled = props.disabled,
+      isInvalid = props.isInvalid,
+      errorMessage = props.errorMessage,
+      format = props.format,
+      language = props.language;
+  var isEnabled = enabled === false || disabled === true ? false : true;
+  var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv, {
+    isInvalid: invalid
+  }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DatePickerComponent, _extends({}, props, {
+    enabled: isEnabled,
+    locale: getLocaleByLanguage(language),
+    format: format || "dd/MM/yyyy"
+  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
+}
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledDiv$1 = styled.div(_templateObject$2(), function (props) {
+  return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
+});
+
+function DateTimePickerV2(props) {
+  var format = props.format,
+      isInvalid = props.isInvalid,
+      errorMessage = props.errorMessage,
+      language = props.language;
+  var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$1, {
+    isInvalid: invalid
+  }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DateTimePickerComponent, _extends({}, props, {
+    locale: getLocaleByLanguage(language),
+    format: format || "dd/MM/yyyy HH:mm"
+  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
+}
+
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledDiv$2 = styled.div(_templateObject$3(), function (props) {
+  return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
+});
+
+function RecurrenceEditorv2(props) {
+  var language = props.language,
+      dateFormat = props.dateFormat,
+      isInvalid = props.isInvalid,
+      _props$firstDayOfWeek = props.firstDayOfWeek,
+      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
+  var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
+    isInvalid: invalid
+  }, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.RecurrenceEditorComponent, _extends({}, props, {
+    firstDayOfWeek: firstDayOfWeek,
+    locale: getLocaleByLanguage(language),
+    dateFormat: dateFormat || "dd/MM/yyyy"
+  }))));
+}
+
+var dateFormat = "DD/MM/YYYY";
+var scheduleObj = {};
+
+function SchedulerV2(props) {
+  var language = props.language,
+      height = props.height,
+      dayView = props.dayView,
+      weekView = props.weekView,
+      workWeekView = props.workWeekView,
+      monthView = props.monthView,
+      agendaView = props.agendaView,
+      startingCurrentView = props.currentView,
+      _props$firstDayOfWeek = props.firstDayOfWeek,
+      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek,
+      _props$closedDates = props.closedDates,
+      closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
+      events = props.events,
+      onChangeDate = props.onChangeDate,
+      onChangeView = props.onChangeView,
+      onChangeAgendaRange = props.onChangeAgendaRange;
+
+  var _useState = React.useState(moment().format(dateFormat)),
+      selectedDate = _useState[0],
+      setSelectedDate = _useState[1];
+
+  var _useState2 = React.useState(startingCurrentView || "Month"),
+      currentView = _useState2[0],
+      setCurrentView = _useState2[1];
+
+  React.useEffect(function () {
+    scheduleObj.refresh();
+  }, [language]);
+  React.useEffect(function () {
+    scheduleObj.changeCurrentView(currentView);
+    changeAgendaRange();
+  }, [currentView]);
+  React.useEffect(function () {
+    scheduleObj.refresh();
+  }, [closedDates]);
+
+  function cellClick(args) {
+    var startTime = args.startTime;
+    var parsedDate = moment(startTime).format(dateFormat);
+    setSelectedDate(parsedDate);
+    scheduleObj.refresh();
+
+    if (onChangeDate) {
+      var parsedStartTime = moment(startTime);
+      onChangeDate(parsedStartTime);
+    }
+  }
+
+  function popupOpen(args) {
+    var type = args.type;
+
+    if (type === "QuickInfo" || type === "Editor") {
+      args.cancel = true;
+    }
+  }
+
+  function actionComplete(args) {
+    var items = args.items,
+        requestType = args.requestType;
+
+    if (requestType === "toolBarItemRendered") {
+      var todayButton = _$2.find(items || [], {
+        cssClass: "e-today"
+      });
+
+      if (_$2.isEmpty(todayButton) === false) {
+        todayButton.click = function () {
+          var previousDate = new Date(2001, 1, 1);
+          var currentDate = new Date();
+          scheduleObj.navigating({
+            action: "date",
+            previousDate: previousDate,
+            currentDate: currentDate
+          });
+          setTimeout(function () {
+            cellClick({
+              startTime: currentDate
+            });
+          }, 10);
+        };
+      }
+    }
+  }
+
+  function changeAgendaRange() {
+    if (currentView === "Agenda" && onChangeAgendaRange) {
+      setTimeout(function () {
+        var first = moment(_$2.first(scheduleObj.activeView.renderDates));
+        var last = moment(_$2.last(scheduleObj.activeView.renderDates));
+        onChangeAgendaRange(first, last);
+      }, 100);
+    }
+  }
+
+  function manageViewAction(args) {
+    var currentView = args.currentView;
+    setCurrentView(currentView);
+
+    if (onChangeView) {
+      currentView = currentView;
+      onChangeView(currentView);
+    }
+  }
+
+  function manageDateAction(args) {
+    var currentDate = args.currentDate,
+        previousDate = args.previousDate,
+        currentView = args.currentView;
+    var today = moment().format(dateFormat);
+    previousDate = previousDate ? moment(previousDate).format(dateFormat) : null;
+    currentDate = currentDate ? moment(currentDate).format(dateFormat) : null;
+
+    if (currentDate && currentDate === today && previousDate !== today && currentView === "Month") {
+      scheduleObj.selectedDate = new Date();
+      cellClick({
+        startTime: new Date()
+      });
+    }
+  }
+
+  function navigating(args) {
+    var action = args.action;
+
+    switch (action) {
+      case "date":
+        manageDateAction(args);
+        break;
+
+      case "view":
+        manageViewAction(args);
+        break;
+    }
+
+    changeAgendaRange();
+  }
+
+  function checkSelectedDate(args) {
+    var date = args.date,
+        element = args.element,
+        elementType = args.elementType;
+    var parsedSelectedDate = moment(selectedDate, dateFormat).format(dateFormat);
+    var parsedCellDate = moment(date).format(dateFormat);
+
+    if (elementType === "monthCells" && parsedCellDate === parsedSelectedDate) {
+      element.setAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
+      element.classList.remove("e-current-date");
+    } else {
+      element.removeAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
+      element.classList.remove("e-current-date");
+    }
+
+    var selectedDateWeekday = moment(parsedSelectedDate, dateFormat).format("dddd");
+
+    if (elementType === "monthDay") {
+      if (element.textContent === selectedDateWeekday) {
+        element.classList.add("e-current-day");
+      } else {
+        element.classList.remove("e-current-day");
+      }
+    }
+  }
+
+  function parseClosedDates(closedDates) {
+    var parsedClosedDates = _$2.map(closedDates || [], function (date) {
+      var parsedDate = moment(date).format(dateFormat);
+      return parsedDate;
+    });
+
+    return parsedClosedDates;
+  }
+
+  function checkClosedDate(args) {
+    var date = args.date,
+        element = args.element,
+        elementType = args.elementType;
+    var parsedClosedDates = parseClosedDates(closedDates) || [];
+    var parsedCellDate = moment(date).format(dateFormat);
+
+    if (elementType === "monthCells" && _$2.indexOf(parsedClosedDates, parsedCellDate) > -1) {
+      args.element.classList.add("e-current-date");
+      var innerElement = element.getElementsByClassName("e-date-header e-navigate")[0];
+      innerElement.setAttribute("style", "background-color:#dc3545");
+    }
+  }
+
+  function renderCell(args) {
+    checkSelectedDate(args);
+    checkClosedDate(args);
+  }
+
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
+    locale: getLocaleByLanguage(language),
+    ref: function ref(schedule) {
+      scheduleObj = schedule;
+    },
+    height: height,
+    firstDayOfWeek: firstDayOfWeek,
+    editorTemplate: function editorTemplate() {
+      return /*#__PURE__*/React__default.createElement("div", null);
+    },
+    eventSettings: events || [],
+    renderCell: renderCell,
+    cellClick: cellClick,
+    popupOpen: popupOpen,
+    actionComplete: actionComplete,
+    navigating: navigating
+  }, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewsDirective, null, dayView === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewDirective, {
+    option: "Day"
+  }), weekView === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewDirective, {
+    option: "Week"
+  }), workWeekView === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewDirective, {
+    option: "WorkWeek"
+  }), monthView === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewDirective, {
+    option: "Month"
+  }), agendaView === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ViewDirective, {
+    option: "Agenda"
+  })), /*#__PURE__*/React__default.createElement(ej2ReactSchedule.Inject, {
+    services: [ej2ReactSchedule.Day, ej2ReactSchedule.Week, ej2ReactSchedule.WorkWeek, ej2ReactSchedule.Month, ej2ReactSchedule.Agenda]
+  })));
+}
+
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledDiv$3 = styled.div(_templateObject$4(), function (props) {
+  return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
+});
+
+function TimePickerv2(props) {
+  var enabled = props.enabled,
+      disabled = props.disabled,
+      isInvalid = props.isInvalid,
+      errorMessage = props.errorMessage;
+  var isEnabled = enabled === false || disabled === true ? false : true;
+  var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$3, {
+    isInvalid: invalid
+  }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.TimePickerComponent, _extends({}, props, {
+    enabled: isEnabled
+  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
+}
+
 function _templateObject2() {
   var data = _taggedTemplateLiteralLoose(["\n    color: #dc3545;\n"]);
 
@@ -8391,35 +8977,37 @@ function _templateObject2() {
   return data;
 }
 
-function _templateObject() {
+function _templateObject$5() {
   var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
 
-  _templateObject = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledDiv = styled.div(_templateObject());
+var StyledDiv$4 = styled.div(_templateObject$5());
 var StyledSpan = styled.span(_templateObject2());
 
 function MandatoryFieldLabel(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDiv, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
+  return /*#__PURE__*/React__default.createElement(StyledDiv$4, props, /*#__PURE__*/React__default.createElement(StyledSpan, null, "* "), /*#__PURE__*/React__default.createElement("span", null, props.value));
 }
 
-function _templateObject$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
+function _templateObject$6() {
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n    color:  ", ";\n"]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledDiv$1 = styled.div(_templateObject$1());
+var StyledDiv$5 = styled.div(_templateObject$6(), function (props) {
+  return props.isTransparent === true ? "transparent" : null;
+});
 
 function NormalFieldLabel(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDiv$1, props, props.value);
+  return /*#__PURE__*/React__default.createElement(StyledDiv$5, props, props.value);
 }
 
 function CustomLoadingOverlay(props) {
@@ -8434,16 +9022,16 @@ function CustomLoadingOverlay(props) {
   }), props.children);
 }
 
-function _templateObject$2() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteralLoose(["\n  .rdw-editor-toolbar{\n    border-top-color: white;\n    border-right-color: white;\n    border-left-color: white;\n    border-bottom-color: #d9d9d9;\n    z-index: 1;\n  }\n\n  .rdw-editor-wrapper{\n    border: 1px solid;\n    border-color: ", ";\n  }\n\n  .rdw-editor-main{\n    height: ", ";\n    max-height: ", ";\n  }\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledDiv$2 = styled.div(_templateObject$2(), function (props) {
+var StyledDiv$6 = styled.div(_templateObject$7(), function (props) {
   return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
 }, function (props) {
   return props.editorHeight;
@@ -8544,7 +9132,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       active: loading,
       spinner: true,
       text: (localization.loading || "Loading") + "..."
-    }, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
+    }, /*#__PURE__*/React__default.createElement(StyledDiv$6, {
       isInvalid: error || isInvalid,
       editorHeight: editorHeight,
       maxHeight: maxHeight
@@ -8615,15 +9203,20 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
     };
     var tooltip = this.props.tooltip || "";
     var children = this.props.children || /*#__PURE__*/React__default.createElement("div", null, "Error children");
-    return /*#__PURE__*/React__default.createElement(reactBootstrap.OverlayTrigger, {
-      style: this.props.style,
-      className: this.props.className,
-      placement: placement,
-      delay: {
-        delay: delay
-      },
-      overlay: /*#__PURE__*/React__default.createElement(reactBootstrap.Tooltip, null, tooltip)
-    }, children);
+
+    if (_$2.isEmpty(tooltip) === true) {
+      return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children);
+    } else {
+      return /*#__PURE__*/React__default.createElement(reactBootstrap.OverlayTrigger, {
+        style: this.props.style,
+        className: this.props.className,
+        placement: placement,
+        delay: {
+          delay: delay
+        },
+        overlay: /*#__PURE__*/React__default.createElement(reactBootstrap.Tooltip, null, tooltip)
+      }, children);
+    }
   };
 
   return CustomTooltip;
@@ -8817,16 +9410,16 @@ function _templateObject2$1() {
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteralLoose(["\n    position: relative;\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ImageBoxDiv = styled.div(_templateObject$3());
+var ImageBoxDiv = styled.div(_templateObject$8());
 
 function ImageBox(props) {
   return /*#__PURE__*/React__default.createElement(ImageBoxDiv, null, props.children);
@@ -9622,16 +10215,16 @@ function _templateObject2$2() {
   return data;
 }
 
-function _templateObject$4() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledButtonUpload = styled(reactBootstrap.Button)(_templateObject$4(), function (props) {
+var StyledButtonUpload = styled(reactBootstrap.Button)(_templateObject$9(), function (props) {
   return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
 });
 
@@ -9666,12 +10259,12 @@ function UpdateImageIcon$1() {
   }));
 }
 
-var StyledDiv$3 = styled.div(_templateObject6$1());
+var StyledDiv$7 = styled.div(_templateObject6$1());
 var StyledFaCircleDelete$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7$1());
 var StyledTrashAlt$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject8$1());
 
 function DeleteImageIcon$1(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDiv$3, _extends({
+  return /*#__PURE__*/React__default.createElement(StyledDiv$7, _extends({
     className: "fa-stack small"
   }, props), /*#__PURE__*/React__default.createElement(StyledFaCircleDelete$1, {
     className: "fa-stack-2x",
@@ -9883,16 +10476,16 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(React.Component);
 
-function _templateObject$5() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$5());
+var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$a());
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -10244,16 +10837,16 @@ function _templateObject2$3() {
   return data;
 }
 
-function _templateObject$6() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var NoData = styled.div(_templateObject$6());
+var NoData = styled.div(_templateObject$b());
 var SubContentContainer = styled.div(_templateObject2$3());
 var StyledTable = styled.div(_templateObject3$2());
 var StyledTd = styled.div(_templateObject4$2());
@@ -10438,10 +11031,10 @@ var IndeterminateCheckbox = React__default.forwardRef(function (_ref, ref) {
   React__default.useEffect(function () {
     resolvedRef.current.indeterminate = indeterminate;
   }, [resolvedRef, indeterminate]);
-  return /*#__PURE__*/React__default.createElement(Fragment, null, /*#__PURE__*/React__default.createElement("input", _extends({
+  return /*#__PURE__*/React__default.createElement("input", _extends({
     type: "checkbox",
     ref: resolvedRef
-  }, rest)));
+  }, rest));
 });
 
 function ReactTable(_ref2) {
@@ -10520,16 +11113,16 @@ function ReactTable(_ref2) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$7() {
+function _templateObject$c() {
   var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$c = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$7(), function (props) {
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$c(), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -10566,16 +11159,16 @@ function _templateObject2$4() {
   return data;
 }
 
-function _templateObject$8() {
+function _templateObject$d() {
   var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$d = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Container = styled.div(_templateObject$8(), function (props) {
+var Container = styled.div(_templateObject$d(), function (props) {
   return props["float"];
 });
 var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$4(), function (props) {
@@ -10603,16 +11196,16 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$9() {
+function _templateObject$e() {
   var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$e = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$9(), function (props) {
+var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$e(), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 
@@ -10633,16 +11226,16 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$a() {
+function _templateObject$f() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$f = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$a(), function (props) {
+var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$f(), function (props) {
   return props.paddingTop ? props.paddingTop : "0.5rem";
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -10653,17 +11246,6 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
     type: "checkbox"
   }, props));
 };
-
-function _templateObject$b() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0,25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
-
-  _templateObject$b = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var OrbitalErrorDiv = styled.div(_templateObject$b());
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
@@ -11579,16 +12161,16 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-function _templateObject$c() {
+function _templateObject$g() {
   var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n"]);
 
-  _templateObject$c = function _templateObject() {
+  _templateObject$g = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var PluginContainer = styled.div(_templateObject$c(), function (props) {
+var PluginContainer = styled.div(_templateObject$g(), function (props) {
   return props.paddingLeft || "15px";
 }, function (props) {
   return props.paddingTop || "15px";
@@ -11605,7 +12187,9 @@ exports.ClientSession = ClientSession;
 exports.CommonUtils = PluginUtils;
 exports.CompleteSchema = CompleteSchema;
 exports.DatePicker = DatePicker;
+exports.DatePickerV2 = DatePickerV2;
 exports.DateTimePicker = DatePicker$1;
+exports.DateTimePickerV2 = DateTimePickerV2;
 exports.HTMLTextEditorV2 = HTMLTextEditor;
 exports.LoadingOverlay = CustomLoadingOverlay;
 exports.MandatoryFieldLabel = MandatoryFieldLabel;
@@ -11624,9 +12208,12 @@ exports.PluginContainer = PluginContainer;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
+exports.RecurrenceEditorV2 = RecurrenceEditorv2;
 exports.Scheduler = ReservationScheduler;
+exports.SchedulerV2 = SchedulerV2;
 exports.SessionStorageStore = SessionStorageStore;
 exports.TimePicker = TimePicker;
+exports.TimePickerV2 = TimePickerv2;
 exports.Tooltip = CustomTooltip;
 exports.UploadDocument = UploadDocument;
 exports.UploadImage = UploadImage;
