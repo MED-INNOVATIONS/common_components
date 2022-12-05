@@ -8719,7 +8719,8 @@ var dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-  var language = props.language,
+  var _props$language = props.language,
+      language = _props$language === void 0 ? "En" : _props$language,
       height = props.height,
       dayView = props.dayView,
       weekView = props.weekView,
