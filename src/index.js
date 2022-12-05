@@ -10,11 +10,19 @@ import BrandStore from './stores/BrandStore';
 import PluginStore from './stores/PluginStore';
 import SessionStorageStore from "./stores/SessionStorageStore"
 
-import DatePicker from './components/DateComponents/DatePicker';
-import DateTimePicker from './components/DateComponents/DateTimePicker';
-import RecurrenceEditor from './components/DateComponents/RecurrenceEditor';
-import Scheduler from './components/DateComponents/Scheduler';
-import TimePicker from './components/DateComponents/TimePicker';
+import DatePicker from './components/DateComponents/DateComponentsV1/DatePicker';
+import DateTimePicker from './components/DateComponents/DateComponentsV1/DateTimePicker';
+import RecurrenceEditor from './components/DateComponents/DateComponentsV1/RecurrenceEditor';
+import Scheduler from './components/DateComponents/DateComponentsV1/Scheduler';
+import TimePicker from './components/DateComponents/DateComponentsV1/TimePicker';
+
+import DatePickerV2 from './components/DateComponents/DateComponentsV2/DatePickerV2';
+import DateTimePickerV2 from './components/DateComponents/DateComponentsV2/DateTimePickerV2';
+import RecurrenceEditorV2 from './components/DateComponents/DateComponentsV2/RecurrenceEditorV2';
+import SchedulerV2 from './components/DateComponents/DateComponentsV2/SchedulerV2';
+import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePickerV2';
+
+
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
 import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";

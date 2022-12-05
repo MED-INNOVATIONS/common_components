@@ -1,10 +1,8 @@
 import React from "react";
-import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-// import { OrbitalErrorDiv } from "orbital_common_components";
+import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
 import styled from "styled-components";
 import _ from "lodash";
 
-import OrbitalErrorDiv from "./../../OrbitalErrorDiv";
 import * as CustomLocale from "./localizedText";
 
 const StyledDiv = styled.div`
@@ -34,23 +32,21 @@ const StyledDiv = styled.div`
     }
 `;
 
-function DateTimePicker(props) {
-    const { format, isInvalid, errorMessage, language } = props;
+function RecurrenceEditorv2(props) {
+    const { language, dateFormat, isInvalid, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     return (
         <React.Fragment>
             <StyledDiv isInvalid={invalid}>
-                <DateTimePickerComponent
+                <RecurrenceEditorComponent
                     {...props}
+                    firstDayOfWeek={firstDayOfWeek}
                     locale={CustomLocale.getLocaleByLanguage(language)}
-                    format={format || "dd/MM/yyyy HH:mm"}>
-                </DateTimePickerComponent>
+                    dateFormat={dateFormat || "dd/MM/yyyy"}>
+                </RecurrenceEditorComponent>
             </StyledDiv>
-            {isInvalid &&
-                <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>
-            }
         </React.Fragment>
     )
 }
-export default DateTimePicker;
+export default RecurrenceEditorv2;

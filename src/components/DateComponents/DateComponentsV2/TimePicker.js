@@ -33,7 +33,7 @@ const StyledDiv = styled.div`
     }
 `;
 
-function TimePicker(props) {
+function TimePickerv2(props) {
     const { enabled, disabled, isInvalid, errorMessage } = props;
     const isEnabled = enabled === false || disabled === true ? false : true;
     const invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
@@ -48,4 +48,4 @@ function TimePicker(props) {
     </React.Fragment>
 
 }
-export default TimePicker;
+export default TimePickerv2;
