@@ -6,6 +6,7 @@ import SessionStorageStore from "../stores/SessionStorageStore";
 import AuthStore from "../stores/AuthStore";
 
 import * as constants from "../constants";
+import syncfusionLocalization from "./syncfusionLocalization.json";
 
 function getBrowserLang() {
     function capitalizeFirstLetter(string) {
@@ -137,9 +138,15 @@ export function checkPermission(AuthStore, pluginKey) {
     })
 }
 
-// export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
+export function checkSyncfusionLocalization(syncfusionLocalization) {
+    debugger
+    if (_.isEmpty(syncfusionLocalization) === false) {
+        var { L10n, loadCldr } = syncfusionLocalization;
+    }
+}
+
 export function initializePluginPipeline(initializationObject) {
-    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization, syncfusionLocalization } = initializationObject;
     var self = this;
     return new Promise(function (resolve, reject) {
 
