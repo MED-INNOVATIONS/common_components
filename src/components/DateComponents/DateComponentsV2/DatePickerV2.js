@@ -5,7 +5,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import OrbitalErrorDiv from "./../../OrbitalErrorDiv";
-import * as CustomLocale from "./localizedText";
+import * as GlobalizationUtils from "./GlobalizationUtils.js";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{
@@ -46,7 +46,7 @@ function DatePickerV2(props) {
                 <DatePickerComponent
                     {...props}
                     enabled={isEnabled}
-                    locale={CustomLocale.getLocaleByLanguage(language)}
+                    locale={GlobalizationUtils.getLocaleByLanguage(language)}
                     format={format || "dd/MM/yyyy"}>
                 </DatePickerComponent>
             </StyledDiv>
