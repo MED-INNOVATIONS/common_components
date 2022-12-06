@@ -8714,6 +8714,242 @@ function RecurrenceEditorv2(props) {
 var dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
+function getLocaleByLanguage$1(lang) {
+  if (lang && lang === "It") {
+    return "it-CH";
+  } else if (lang && lang === "En") {
+    return "en-US";
+  }
+}
+
+loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
+L10n.load({
+  "it-CH": {
+    'datepicker': {
+      "today": 'Oggi'
+    },
+    'datetimepicker': {
+      "today": 'Oggi'
+    },
+    "schedule": {
+      "day": "Giorno",
+      "week": "Settimana",
+      "workWeek": "Settimana lavorativa",
+      "month": "Mese",
+      "agenda": "Agenda",
+      "weekAgenda": "Agenda settimanale",
+      "workWeekAgenda": "Agenda settimana lavorativa",
+      "monthAgenda": "Agenda mensile",
+      "today": "Oggi",
+      "noEvents": "Nessun evento",
+      "emptyContainer": "Non ci sono eventi programmati in questo giorno.",
+      "allDay": "Tutto il giorno",
+      "start": "Inizio",
+      "end": "Fine",
+      "more": "altro",
+      "close": "Chiudi",
+      "cancel": "Cancella",
+      "noTitle": "(Nessun titolo)",
+      "delete": "Elimina",
+      "deleteEvent": "Elimina Evento",
+      "deleteMultipleEvent": "Elimina Più Eventi",
+      "selectedItems": "Articoli selezionati",
+      "deleteSeries": "Elimina Serie",
+      "edit": "Modifica",
+      "editSeries": "Modifica Serie",
+      "editEvent": "Modifica Evento",
+      "createEvent": "Crea",
+      "subject": "Soggetto",
+      "addTitle": "Aggiungi titolo",
+      "moreDetails": "Più Dettagli",
+      "save": "Salva",
+      "editContent": "Vuoi modificare questo evento o l'intera serie?",
+      "deleteRecurrenceContent": "Vuoi eliminare solo questo evento o l'intera serie?",
+      "deleteContent": "Si vuole davvero eliminare questo evento?",
+      "deleteMultipleContent": "Si vuole davvero eliminare questi eventi?",
+      "newEvent": "Nuovo Evento",
+      "title": "Titolo",
+      "location": "Luogo",
+      "description": "Descrizione",
+      "timezone": "Timezone",
+      "startTimezone": "Timezone Iniziale",
+      "endTimezone": "Timezone Finale",
+      "repeat": "Ripeti",
+      "saveButton": "Salva",
+      "cancelButton": "Cancella",
+      "deleteButton": "Elimina",
+      "recurrence": "Ricorrenza",
+      "wrongPattern": "Il modello della ricorrenza non è valido.",
+      "seriesChangeAlert": "Le modifiche apportate a istanze specifiche di questa serie saranno annullate e tali eventi corrisponderanno nuovamente alla serie.",
+      "createError": "La durata dell'evento deve essere inferiore alla frequenza con cui si verifica. Ridurre la durata o modificare il modello di ricorrenza nell'editor degli eventi di ricorrenza.",
+      "recurrenceDateValidation": "Alcuni mesi hanno un numero di date inferiore a quello selezionato. Per questi mesi, la ricorrenza cadrà nell'ultima data del mese. ",
+      "sameDayAlert": "Due occorrenze dello stesso evento non possono avvenire nello stesso giorno.",
+      "editRecurrence": "Modifica Ricorrenza",
+      "repeats": "Ripetizioni",
+      "alert": "Attenzione",
+      "startEndError": "La data di fine è più grande di quella di inzio.",
+      "invalidDateError": "La data inserita non è valida.",
+      "ok": "Ok",
+      "occurrence": "Occorrenza",
+      "series": "Serie",
+      "previous": "Precendente",
+      "next": "Successivo",
+      "timelineDay": "Timeline Giornaliera",
+      "timelineWeek": "Timeline Settimanale",
+      "timelineWorkWeek": "Timeline Settimana Lavorativa",
+      "timelineMonth": "Timeline Mensile",
+      "expandAllDaySection": "Espandi",
+      "collapseAllDaySection": "Collassa"
+    },
+    "recurrenceeditor": {
+      "none": "Nessuna",
+      "daily": "Giornaliera",
+      "weekly": "Settimanale",
+      "monthly": "Mensile",
+      "month": "Mese",
+      "yearly": "Annuale",
+      "never": "Mai",
+      "until": "Fino",
+      "count": "Occorrenze",
+      "first": "Primo",
+      "second": "Secondo",
+      "third": "Terzo",
+      "fourth": "Quarto",
+      "last": "Ultimo",
+      "repeat": "Ripeti",
+      "repeatEvery": "Ripeti Ogni",
+      "on": "Ripeti il",
+      "end": "Fine",
+      "onDay": "Giorno",
+      "days": "Giorno(i)",
+      "weeks": "Settimana(e)",
+      "months": "Mese(e)",
+      "years": "Anno(i)",
+      "every": "ogni",
+      "summaryTimes": "orario(i)",
+      "summaryOn": "il",
+      "summaryUntil": "fino",
+      "summaryRepeat": "Ripetizioni",
+      "summaryDay": "giorno(i)",
+      "summaryWeek": "settimana(e)",
+      "summaryMonth": "mese(i)",
+      "summaryYear": "anno(i)"
+    }
+  },
+  "en-US": {
+    'datepicker': {
+      "today": 'Today'
+    },
+    'datetimepicker': {
+      "today": 'Today'
+    },
+    "schedule": {
+      "day": "Day",
+      "week": "Week",
+      "workWeek": "Work Week",
+      "month": "Month",
+      "agenda": "Agenda",
+      "weekAgenda": "Week Agenda",
+      "workWeekAgenda": "Work Week Agenda",
+      "monthAgenda": "Month Agenda",
+      "today": "Today",
+      "noEvents": "No events",
+      "emptyContainer": "There are no events scheduled on this day.",
+      "allDay": "All day",
+      "start": "Start",
+      "end": "End",
+      "more": "more",
+      "close": "Close",
+      "cancel": "Cancel",
+      "noTitle": "(No Title)",
+      "delete": "Delete",
+      "deleteEvent": "Delete Event",
+      "deleteMultipleEvent": "Delete Multiple Events",
+      "selectedItems": "Items selected",
+      "deleteSeries": "Delete Series",
+      "edit": "Edit",
+      "editSeries": "Edit Series",
+      "editEvent": "Edit Event",
+      "createEvent": "Create",
+      "subject": "Subject",
+      "addTitle": "Add title",
+      "moreDetails": "More Details",
+      "save": "Save",
+      "editContent": "Do you want to edit only this event or entire series?",
+      "deleteRecurrenceContent": "Do you want to delete only this event or entire series?",
+      "deleteContent": "Are you sure you want to delete this event?",
+      "deleteMultipleContent": "Are you sure you want to delete the selected events?",
+      "newEvent": "New Event",
+      "title": "Title",
+      "location": "Location",
+      "description": "Description",
+      "timezone": "Timezone",
+      "startTimezone": "Start Timezone",
+      "endTimezone": "End Timezone",
+      "repeat": "Repeat",
+      "saveButton": "Save",
+      "cancelButton": "Cancel",
+      "deleteButton": "Delete",
+      "recurrence": "Recurrence",
+      "wrongPattern": "The recurrence pattern is not valid.",
+      "seriesChangeAlert": "The changes made to specific instances of this series will be cancelled and those events will match the series again.",
+      "createError": "The duration of the event must be shorter than how frequently it occurs. Shorten the duration, or change the recurrence pattern in the recurrence event editor.",
+      "recurrenceDateValidation": "Some months have fewer than the selected date. For these months, the occurrence will fall on the last date of the month.",
+      "sameDayAlert": "Two occurrences of the same event cannot occur on the same day.",
+      "editRecurrence": "Edit Recurrence",
+      "repeats": "Repeats",
+      "alert": "Alert",
+      "startEndError": "The selected end date occurs before the start date.",
+      "invalidDateError": "The entered date value is invalid.",
+      "ok": "Ok",
+      "occurrence": "Occurrence",
+      "series": "Series",
+      "previous": "Previous",
+      "next": "Next",
+      "timelineDay": "Timeline Day",
+      "timelineWeek": "Timeline Week",
+      "timelineWorkWeek": "Timeline Work Week",
+      "timelineMonth": "Timeline Month",
+      "expandAllDaySection": "Expand",
+      "collapseAllDaySection": "Collapse"
+    },
+    "recurrenceeditor": {
+      "none": "None",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "month": "Month",
+      "yearly": "Yearly",
+      "never": "Never",
+      "until": "Until",
+      "count": "Count",
+      "first": "First",
+      "second": "Second",
+      "third": "Third",
+      "fourth": "Fourth",
+      "last": "Last",
+      "repeat": "Repeat",
+      "repeatEvery": "Repeat Every",
+      "on": "Repeat On",
+      "end": "End",
+      "onDay": "Day",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)",
+      "every": "every",
+      "summaryTimes": "time(s)",
+      "summaryOn": "on",
+      "summaryUntil": "until",
+      "summaryRepeat": "Repeats",
+      "summaryDay": "day(s)",
+      "summaryWeek": "week(s)",
+      "summaryMonth": "month(s)",
+      "summaryYear": "year(s)"
+    }
+  }
+});
+
 function SchedulerV2(props) {
   var _props$language = props.language,
       language = _props$language === void 0 ? "En" : _props$language,
@@ -8742,9 +8978,7 @@ function SchedulerV2(props) {
       setCurrentView = _useState2[1];
 
   useEffect(function () {
-    setTimeout(function () {
-      scheduleObj.refresh();
-    }, 500);
+    scheduleObj.refresh();
   }, [language]);
   useEffect(function () {
     scheduleObj.changeCurrentView(currentView);
@@ -8909,7 +9143,7 @@ function SchedulerV2(props) {
   }
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ScheduleComponent, {
-    locale: getLocaleByLanguage(language),
+    locale: getLocaleByLanguage$1(language),
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
