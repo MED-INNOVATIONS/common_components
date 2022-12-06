@@ -22,8 +22,10 @@ function SchedulerV2(props) {
     }, [language, closedDates])
 
     useEffect(() => {
-        scheduleObj.changeCurrentView(currentView);
-        changeAgendaRange();
+        if (_.isEmpty(scheduleObj) === false) {
+            scheduleObj.changeCurrentView(currentView);
+            changeAgendaRange();
+        }
     }, [currentView])
 
     /*************************************************************************/
