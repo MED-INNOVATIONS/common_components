@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 import moment from "moment";
 import _ from "lodash";
-import { getLocaleByLanguage } from "./GlobalizationUtils";
+import { getLocaleByLanguage } from "./SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
