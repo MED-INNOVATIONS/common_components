@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 import moment from "moment";
 import _ from "lodash";
-import { L10n, loadCldr, getLocaleByLanguage } from "./localizedText";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeView, onChangeAgendaRange } = props;
+    const { L10n, loadCldr, getLocaleByLanguage, language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeView, onChangeAgendaRange } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 

@@ -8715,7 +8715,8 @@ var dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-  var _props$language = props.language,
+  var getLocaleByLanguage = props.getLocaleByLanguage,
+      _props$language = props.language,
       language = _props$language === void 0 ? "En" : _props$language,
       height = props.height,
       dayView = props.dayView,
@@ -8747,8 +8748,10 @@ function SchedulerV2(props) {
     }
   }, [language, closedDates]);
   useEffect(function () {
-    scheduleObj.changeCurrentView(currentView);
-    changeAgendaRange();
+    if (_$2.isEmpty(scheduleObj) === false) {
+      scheduleObj.changeCurrentView(currentView);
+      changeAgendaRange();
+    }
   }, [currentView]);
 
   function cellClick(args) {
