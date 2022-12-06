@@ -20,7 +20,7 @@ import DateTimePickerV2 from './components/DateComponents/DateComponentsV2/DateT
 import RecurrenceEditorV2 from './components/DateComponents/DateComponentsV2/RecurrenceEditorV2';
 import SchedulerV2 from './components/DateComponents/DateComponentsV2/SchedulerV2';
 import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePickerV2';
-import * as GlobalizationUtils from "./components/DateComponents/DateComponentsV2/GlobalizationUtils";
+import syncfusionLocalization from "./components/DateComponents/DateComponentsV2/syncfusionLocalization";
 
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
@@ -80,5 +80,5 @@ export {
     RecurrenceEditorV2,
     SchedulerV2,
     TimePickerV2,
-    GlobalizationUtils
+    syncfusionLocalization
 }

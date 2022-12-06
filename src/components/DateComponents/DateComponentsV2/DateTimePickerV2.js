@@ -35,7 +35,7 @@ const StyledDiv = styled.div`
 `;
 
 function DateTimePickerV2(props) {
-    const { format, isInvalid, errorMessage, language } = props;
+    const { format, isInvalid, errorMessage, language, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     return (
@@ -43,6 +43,7 @@ function DateTimePickerV2(props) {
             <StyledDiv isInvalid={invalid}>
                 <DateTimePickerComponent
                     {...props}
+                    firstDayOfWeek={firstDayOfWeek}
                     locale={GlobalizationUtils.getLocaleByLanguage(language)}
                     format={format || "dd/MM/yyyy HH:mm"}>
                 </DateTimePickerComponent>
