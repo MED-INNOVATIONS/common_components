@@ -16,7 +16,9 @@ function SchedulerV2(props) {
     /*************************** STANDARD ************************************/
     /*************************************************************************/
     useEffect(() => {
-        scheduleObj.refresh();
+        setTimeout(() => {
+            scheduleObj.refresh();
+        }, 500)
     }, [language])
 
     useEffect(() => {

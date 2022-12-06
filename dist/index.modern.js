@@ -8742,7 +8742,9 @@ function SchedulerV2(props) {
       setCurrentView = _useState2[1];
 
   useEffect(function () {
-    scheduleObj.refresh();
+    setTimeout(function () {
+      scheduleObj.refresh();
+    }, 500);
   }, [language]);
   useEffect(function () {
     scheduleObj.changeCurrentView(currentView);
