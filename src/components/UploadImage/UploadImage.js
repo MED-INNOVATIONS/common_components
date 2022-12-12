@@ -288,7 +288,7 @@ class UploadImage extends Component {
                                             multiple={false}
                                             onChange={this.handleFileUpload} />
                                     </div>
-                                    <DeleteImageIcon onClick={this.onRemove}></DeleteImageIcon>
+                                    <DeleteImageIcon onClick={() => this.onRemove()}></DeleteImageIcon>
                                 </IconsBox>
                                 <StyledImage style={imageStyle} src={image} alt="img" onClick={() => { this.setState({ showPreviewImage: true }) }}></StyledImage>
                             </ImageBox>

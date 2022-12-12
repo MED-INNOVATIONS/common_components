@@ -3,7 +3,6 @@ import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResiz
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
-
 import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./styledComponents";
 import * as Utils from "./Utils";
 
@@ -25,6 +24,7 @@ const IndeterminateCheckbox = React.forwardRef(
     )
   }
 )
+
 
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {
@@ -66,30 +66,7 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
     usePagination,
     useResizeColumns,
     useFlexLayout,
-    useRowSelect,
-    hooks => {
-      hooks.visibleColumns.push(columns => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-    }
+    useRowSelect
   );
 
   return (
