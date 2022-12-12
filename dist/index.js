@@ -8662,13 +8662,16 @@ function DatePickerV2(props) {
       isInvalid = props.isInvalid,
       errorMessage = props.errorMessage,
       format = props.format,
-      language = props.language;
+      language = props.language,
+      _props$firstDayOfWeek = props.firstDayOfWeek,
+      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DatePickerComponent, _extends({}, props, {
     enabled: isEnabled,
+    firstDayOfWeek: firstDayOfWeek,
     locale: getLocaleByLanguage(language),
     format: format || "dd/MM/yyyy"
   }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
@@ -10073,7 +10076,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       multiple: false,
       onChange: this.handleFileUpload
     })), /*#__PURE__*/React__default.createElement(DeleteImageIcon, {
-      onClick: this.onRemove
+      onClick: function onClick() {
+        return _this3.onRemove();
+      }
     })), /*#__PURE__*/React__default.createElement(StyledImage, {
       style: imageStyle,
       src: image,
@@ -11079,21 +11084,7 @@ function ReactTable(_ref2) {
       pageSize: _fixedPageSize || _defaultPageSize || 10
     },
     enableMultiRowSelection: true
-  }, reactTable.useSortBy, reactTable.useExpanded, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect, function (hooks) {
-    hooks.visibleColumns.push(function (columns) {
-      return [{
-        id: 'selection',
-        Header: function Header(_ref3) {
-          var getToggleAllRowsSelectedProps = _ref3.getToggleAllRowsSelectedProps;
-          return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps()));
-        },
-        Cell: function Cell(_ref4) {
-          var row = _ref4.row;
-          return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, row.getToggleRowSelectedProps()));
-        }
-      }].concat(columns);
-    });
-  }),
+  }, reactTable.useSortBy, reactTable.useExpanded, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
       headerGroups = _useTable.headerGroups,
