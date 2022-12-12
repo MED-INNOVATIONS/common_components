@@ -25,6 +25,7 @@ import * as SyncfusionUtils from "./components/DateComponents/DateComponentsV2/S
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
 import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";
+import HTMLTextEditorV3 from "./components/HTMLTextEditor/v3/HTMLEditor";
 import UploadImage from './components/UploadImage/UploadImage';
 import UploadDocument from './components/UploadDocument/UploadDocument';
 import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponentsPicker";
@@ -62,6 +63,7 @@ export {
     MandatoryFieldLabel,
     NormalFieldLabel,
     HTMLTextEditorV2,
+    HTMLTextEditorV3,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage,

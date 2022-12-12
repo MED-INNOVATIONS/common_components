@@ -11,7 +11,8 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import LoadingOverlay from 'react-loading-overlay';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$1, Modal, FormGroup, FormControl, Form, FormCheck, InputGroup, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
+import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, FormCheck, InputGroup, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -8498,6 +8499,162 @@ var it = {
 		summaryWeek: "settimana(e)",
 		summaryMonth: "mese(i)",
 		summaryYear: "anno(i)"
+	},
+	richtexteditor: {
+		alignments: "Alignments",
+		justifyLeft: "Align Left",
+		justifyCenter: "Align Center",
+		justifyRight: "Align Right",
+		justifyFull: "Align Justify",
+		fontName: "Font Name",
+		fontSize: "Font Size",
+		fontColor: "Font Color",
+		backgroundColor: "Background Color",
+		bold: "Grassetto",
+		italic: "Italic",
+		underline: "Underline",
+		strikethrough: "Strikethrough",
+		clearFormat: "Clear Format",
+		clearAll: "Clear All",
+		cut: "Cut",
+		copy: "Copy",
+		paste: "Paste",
+		unorderedList: "Bulleted List",
+		orderedList: "Numbered List",
+		indent: "Increase Indent",
+		outdent: "Decrease Indent",
+		undo: "Undo",
+		redo: "Redo",
+		superscript: "Superscript",
+		subscript: "Subscript",
+		createLink: "Insert Link",
+		openLink: "Open Link",
+		editLink: "Edit Link",
+		removeLink: "Remove Link",
+		image: "Insert Image",
+		replace: "Replace",
+		align: "Align",
+		caption: "Image Caption",
+		remove: "Remove",
+		insertLink: "Insert Link",
+		display: "Display",
+		altText: "Alternative Text",
+		dimension: "Change Size",
+		fullscreen: "Maximize",
+		maximize: "Maximize",
+		minimize: "Minimize",
+		lowerCase: "Lower Case",
+		upperCase: "Upper Case",
+		print: "Print",
+		formats: "Formats",
+		sourcecode: "Code View",
+		preview: "Preview",
+		viewside: "ViewSide",
+		insertCode: "Insert Code",
+		linkText: "Display Text",
+		linkTooltipLabel: "Title",
+		linkWebUrl: "Web Address",
+		linkTitle: "Enter a title",
+		linkurl: "http://example.com",
+		linkOpenInNewWindow: "Open Link in New Window",
+		linkHeader: "Insert Link",
+		dialogInsert: "Insert",
+		dialogCancel: "Cancel",
+		dialogUpdate: "Update",
+		imageHeader: "Insert Image",
+		imageLinkHeader: "You can also provide a link from the web",
+		mdimageLink: "Please provide a URL for your image",
+		imageUploadMessage: "Drop image here or browse to upload",
+		imageDeviceUploadMessage: "Click here to upload",
+		imageAlternateText: "Alternate Text",
+		alternateHeader: "Alternative Text",
+		browse: "Browse",
+		imageUrl: "http://example.com/image.png",
+		imageCaption: "Caption",
+		imageSizeHeader: "Image Size",
+		imageHeight: "Height",
+		imageWidth: "Width",
+		textPlaceholder: "Enter Text",
+		inserttablebtn: "Insert Table",
+		tabledialogHeader: "Insert Table",
+		tableWidth: "Width",
+		cellpadding: "Cell Padding",
+		cellspacing: "Cell Spacing",
+		columns: "Number of columns",
+		rows: "Number of rows",
+		tableRows: "Table Rows",
+		tableColumns: "Table Columns",
+		tableCellHorizontalAlign: "Table Cell Horizontal Align",
+		tableCellVerticalAlign: "Table Cell Vertical Align",
+		createTable: "Create Table",
+		removeTable: "Remove Table",
+		tableHeader: "Table Header",
+		tableRemove: "Table Remove",
+		tableCellBackground: "Table Cell Background",
+		tableEditProperties: "Table Edit Properties",
+		styles: "Styles",
+		insertColumnLeft: "Insert Column Left",
+		insertColumnRight: "Insert Column Right",
+		deleteColumn: "Delete Column",
+		insertRowBefore: "Insert Row Before",
+		insertRowAfter: "Insert Row After",
+		deleteRow: "Delete Row",
+		tableEditHeader: "Edit Table",
+		TableHeadingText: "Heading",
+		TableColText: "Col",
+		imageInsertLinkHeader: "Insert Link",
+		editImageHeader: "Edit Image",
+		alignmentsDropDownLeft: "Align Left",
+		alignmentsDropDownCenter: "Align Center",
+		alignmentsDropDownRight: "Align Right",
+		alignmentsDropDownJustify: "Align Justify",
+		imageDisplayDropDownInline: "Inline",
+		imageDisplayDropDownBreak: "Break",
+		tableInsertRowDropDownBefore: "Insert row before",
+		tableInsertRowDropDownAfter: "Insert row after",
+		tableInsertRowDropDownDelete: "Delete row",
+		tableInsertColumnDropDownLeft: "Insert column left",
+		tableInsertColumnDropDownRight: "Insert column right",
+		tableInsertColumnDropDownDelete: "Delete column",
+		tableVerticalAlignDropDownTop: "Align Top",
+		tableVerticalAlignDropDownMiddle: "Align Middle",
+		tableVerticalAlignDropDownBottom: "Align Bottom",
+		tableStylesDropDownDashedBorder: "Dashed Borders",
+		tableStylesDropDownAlternateRows: "Alternate Rows",
+		pasteFormat: "Paste Format",
+		pasteFormatContent: "Choose the formatting action",
+		plainText: "Plain Text",
+		cleanFormat: "Clean",
+		keepFormat: "Keep",
+		pasteDialogOk: "OK",
+		pasteDialogCancel: "Cancel",
+		fileManager: "File Manager",
+		fileDialogHeader: "File Browser",
+		formatsDropDownParagraph: "Paragraph",
+		formatsDropDownCode: "Code",
+		formatsDropDownQuotation: "Quotation",
+		formatsDropDownHeading1: "Heading 1",
+		formatsDropDownHeading2: "Heading 2",
+		formatsDropDownHeading3: "Heading 3",
+		formatsDropDownHeading4: "Heading 4",
+		fontNameSegoeUI: "Segoe UI",
+		fontNameArial: "Arial",
+		fontNameGeorgia: "Georgia",
+		fontNameImpact: "Impact",
+		fontNameTahoma: "Tahoma",
+		fontNameTimesNewRoman: "Times New Roman",
+		fontNameVerdana: "Verdana",
+		numberFormatListNumber: "Number",
+		numberFormatListLowerAlpha: "LowerAlpha",
+		numberFormatListUpperAlpha: "UpperAlpha",
+		numberFormatListLowerRoman: "LowerRoman",
+		numberFormatListUpperRoman: "UpperRoman",
+		numberFormatListLowerGreek: "LowerGreek",
+		bulletFormatListDisc: "Disc",
+		bulletFormatListCircle: "Circle",
+		bulletFormatListSquare: "Square",
+		numberFormatListNone: "None",
+		bulletFormatListNone: "None"
 	}
 };
 var syncfusionLocalization = {
@@ -8612,6 +8769,162 @@ var syncfusionLocalization = {
 		summaryWeek: "week(s)",
 		summaryMonth: "month(s)",
 		summaryYear: "year(s)"
+	},
+	richtexteditor: {
+		alignments: "Alignments",
+		justifyLeft: "Align Left",
+		justifyCenter: "Align Center",
+		justifyRight: "Align Right",
+		justifyFull: "Align Justify",
+		fontName: "Font Name",
+		fontSize: "Font Size",
+		fontColor: "Font Color",
+		backgroundColor: "Background Color",
+		bold: "Bold",
+		italic: "Italic",
+		underline: "Underline",
+		strikethrough: "Strikethrough",
+		clearFormat: "Clear Format",
+		clearAll: "Clear All",
+		cut: "Cut",
+		copy: "Copy",
+		paste: "Paste",
+		unorderedList: "Bulleted List",
+		orderedList: "Numbered List",
+		indent: "Increase Indent",
+		outdent: "Decrease Indent",
+		undo: "Undo",
+		redo: "Redo",
+		superscript: "Superscript",
+		subscript: "Subscript",
+		createLink: "Insert Link",
+		openLink: "Open Link",
+		editLink: "Edit Link",
+		removeLink: "Remove Link",
+		image: "Insert Image",
+		replace: "Replace",
+		align: "Align",
+		caption: "Image Caption",
+		remove: "Remove",
+		insertLink: "Insert Link",
+		display: "Display",
+		altText: "Alternative Text",
+		dimension: "Change Size",
+		fullscreen: "Maximize",
+		maximize: "Maximize",
+		minimize: "Minimize",
+		lowerCase: "Lower Case",
+		upperCase: "Upper Case",
+		print: "Print",
+		formats: "Formats",
+		sourcecode: "Code View",
+		preview: "Preview",
+		viewside: "ViewSide",
+		insertCode: "Insert Code",
+		linkText: "Display Text",
+		linkTooltipLabel: "Title",
+		linkWebUrl: "Web Address",
+		linkTitle: "Enter a title",
+		linkurl: "http://example.com",
+		linkOpenInNewWindow: "Open Link in New Window",
+		linkHeader: "Insert Link",
+		dialogInsert: "Insert",
+		dialogCancel: "Cancel",
+		dialogUpdate: "Update",
+		imageHeader: "Insert Image",
+		imageLinkHeader: "You can also provide a link from the web",
+		mdimageLink: "Please provide a URL for your image",
+		imageUploadMessage: "Drop image here or browse to upload",
+		imageDeviceUploadMessage: "Click here to upload",
+		imageAlternateText: "Alternate Text",
+		alternateHeader: "Alternative Text",
+		browse: "Browse",
+		imageUrl: "http://example.com/image.png",
+		imageCaption: "Caption",
+		imageSizeHeader: "Image Size",
+		imageHeight: "Height",
+		imageWidth: "Width",
+		textPlaceholder: "Enter Text",
+		inserttablebtn: "Insert Table",
+		tabledialogHeader: "Insert Table",
+		tableWidth: "Width",
+		cellpadding: "Cell Padding",
+		cellspacing: "Cell Spacing",
+		columns: "Number of columns",
+		rows: "Number of rows",
+		tableRows: "Table Rows",
+		tableColumns: "Table Columns",
+		tableCellHorizontalAlign: "Table Cell Horizontal Align",
+		tableCellVerticalAlign: "Table Cell Vertical Align",
+		createTable: "Create Table",
+		removeTable: "Remove Table",
+		tableHeader: "Table Header",
+		tableRemove: "Table Remove",
+		tableCellBackground: "Table Cell Background",
+		tableEditProperties: "Table Edit Properties",
+		styles: "Styles",
+		insertColumnLeft: "Insert Column Left",
+		insertColumnRight: "Insert Column Right",
+		deleteColumn: "Delete Column",
+		insertRowBefore: "Insert Row Before",
+		insertRowAfter: "Insert Row After",
+		deleteRow: "Delete Row",
+		tableEditHeader: "Edit Table",
+		TableHeadingText: "Heading",
+		TableColText: "Col",
+		imageInsertLinkHeader: "Insert Link",
+		editImageHeader: "Edit Image",
+		alignmentsDropDownLeft: "Align Left",
+		alignmentsDropDownCenter: "Align Center",
+		alignmentsDropDownRight: "Align Right",
+		alignmentsDropDownJustify: "Align Justify",
+		imageDisplayDropDownInline: "Inline",
+		imageDisplayDropDownBreak: "Break",
+		tableInsertRowDropDownBefore: "Insert row before",
+		tableInsertRowDropDownAfter: "Insert row after",
+		tableInsertRowDropDownDelete: "Delete row",
+		tableInsertColumnDropDownLeft: "Insert column left",
+		tableInsertColumnDropDownRight: "Insert column right",
+		tableInsertColumnDropDownDelete: "Delete column",
+		tableVerticalAlignDropDownTop: "Align Top",
+		tableVerticalAlignDropDownMiddle: "Align Middle",
+		tableVerticalAlignDropDownBottom: "Align Bottom",
+		tableStylesDropDownDashedBorder: "Dashed Borders",
+		tableStylesDropDownAlternateRows: "Alternate Rows",
+		pasteFormat: "Paste Format",
+		pasteFormatContent: "Choose the formatting action",
+		plainText: "Plain Text",
+		cleanFormat: "Clean",
+		keepFormat: "Keep",
+		pasteDialogOk: "OK",
+		pasteDialogCancel: "Cancel",
+		fileManager: "File Manager",
+		fileDialogHeader: "File Browser",
+		formatsDropDownParagraph: "Paragraph",
+		formatsDropDownCode: "Code",
+		formatsDropDownQuotation: "Quotation",
+		formatsDropDownHeading1: "Heading 1",
+		formatsDropDownHeading2: "Heading 2",
+		formatsDropDownHeading3: "Heading 3",
+		formatsDropDownHeading4: "Heading 4",
+		fontNameSegoeUI: "Segoe UI",
+		fontNameArial: "Arial",
+		fontNameGeorgia: "Georgia",
+		fontNameImpact: "Impact",
+		fontNameTahoma: "Tahoma",
+		fontNameTimesNewRoman: "Times New Roman",
+		fontNameVerdana: "Verdana",
+		numberFormatListNumber: "Number",
+		numberFormatListLowerAlpha: "LowerAlpha",
+		numberFormatListUpperAlpha: "UpperAlpha",
+		numberFormatListLowerRoman: "LowerRoman",
+		numberFormatListUpperRoman: "UpperRoman",
+		numberFormatListLowerGreek: "LowerGreek",
+		bulletFormatListDisc: "Disc",
+		bulletFormatListCircle: "Circle",
+		bulletFormatListSquare: "Square",
+		numberFormatListNone: "None",
+		bulletFormatListNone: "None"
 	}
 }
 };
@@ -9201,6 +9514,58 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   return HTMLTextEditor;
 }(Component$1);
 
+var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'FontColor', 'BackgroundColor', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'NumberFormatList', 'BulletFormatList', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
+var tableItems = ['TableHeader', 'TableRows', 'TableColumns', 'TableCell', '-', 'BackgroundColor', 'TableRemove', 'TableCellVerticalAlign', 'Styles'];
+var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImageLink', 'RemoveImageLink', 'Display', 'AltText', 'Dimension'];
+
+function HTMLEditor(props) {
+  var enabled = props.enabled,
+      disabled = props.disabled,
+      value = props.value,
+      onChange = props.onChange;
+  var isEnabled = enabled === false || disabled === true ? false : true;
+  useEffect(function () {
+    try {
+      document.getElementById("js-licensing").remove();
+    } catch (e) {}
+  }, []);
+  var quickToolbarSettings = {
+    table: tableItems,
+    image: imageItems
+  };
+  var toolbarSettings = {
+    items: items
+  };
+  return /*#__PURE__*/React.createElement(RichTextEditorComponent, {
+    id: "toolsRTE",
+    ref: function ref(richtexteditor) {
+    },
+    enabled: isEnabled,
+    value: value,
+    toolbarSettings: toolbarSettings,
+    pasteCleanupSettings: {
+      prompt: true,
+      plainText: false,
+      keepFormat: false
+    },
+    insertImageSettings: {
+      allowedTypes: [".png", ".png"],
+      display: "inline",
+      width: "auto",
+      height: "auto",
+      saveFormat: "Base64"
+    },
+    quickToolbarSettings: quickToolbarSettings,
+    showCharCount: true,
+    change: function change(e) {
+      console.error("change", e);
+      onChange(e.value);
+    }
+  }, /*#__PURE__*/React.createElement(Inject$1, {
+    services: [Toolbar, Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup]
+  }));
+}
+
 var CustomTooltip = /*#__PURE__*/function (_Component) {
   _inheritsLoose(CustomTooltip, _Component);
 
@@ -9750,7 +10115,7 @@ var CropImage = /*#__PURE__*/function (_Component) {
       }
     }, /*#__PURE__*/React.createElement(Col, {
       sm: 5
-    }, /*#__PURE__*/React.createElement(Image$1, {
+    }, /*#__PURE__*/React.createElement(Image$2, {
       src: src,
       id: "image",
       fluid: true
@@ -9758,7 +10123,7 @@ var CropImage = /*#__PURE__*/function (_Component) {
       sm: 2
     }), /*#__PURE__*/React.createElement(Col, {
       sm: 5
-    }, croppedImageUrl == null && /*#__PURE__*/React.createElement("div", null, localization.crop_message || "Crop the image by creating or moving the 'cropping window'!"), croppedImageUrl && /*#__PURE__*/React.createElement(Image$1, {
+    }, croppedImageUrl == null && /*#__PURE__*/React.createElement("div", null, localization.crop_message || "Crop the image by creating or moving the 'cropping window'!"), croppedImageUrl && /*#__PURE__*/React.createElement(Image$2, {
       src: croppedImageUrl,
       fluid: true
     })))));
@@ -10119,7 +10484,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
           showPreviewImage: false
         });
       }
-    })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Image$1, {
+    })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Image$2, {
       src: image,
       fluid: true
     }))))), /*#__PURE__*/React.createElement(Modal, {
@@ -12187,5 +12552,5 @@ var PluginContainer = styled.div(_templateObject$g(), function (props) {
   return props.height || "95vh";
 });
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage };
 //# sourceMappingURL=index.modern.js.map
