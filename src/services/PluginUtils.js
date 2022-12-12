@@ -137,12 +137,10 @@ export function checkPermission(AuthStore, pluginKey) {
     })
 }
 
-// export function initializePluginPipeline(authKey, apiUrl, pluginTarget, pluginKey, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization) {
 export function initializePluginPipeline(initializationObject) {
-    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization } = initializationObject;
+    var { authKey, apiUrl, pluginTarget, pluginKey, pluginVersion, AuthStore, OrbitalStore, BrandStore, PluginStore, localizationInstance, callbackLocalization, syncfusionLocalization } = initializationObject;
     var self = this;
     return new Promise(function (resolve, reject) {
-
         var pluginVersionEvent = new Event(constants.pluginVersionChannel);
         pluginVersionEvent.pluginVersion = pluginVersion;
         window.dispatchEvent(pluginVersionEvent);

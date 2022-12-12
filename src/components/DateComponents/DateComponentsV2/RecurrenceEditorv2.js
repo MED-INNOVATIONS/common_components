@@ -3,7 +3,7 @@ import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
 import styled from "styled-components";
 import _ from "lodash";
 
-import * as CustomLocale from "./localizedText";
+import * as SyncfusionUtils from "./SyncfusionUtils.js";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{
@@ -42,7 +42,7 @@ function RecurrenceEditorv2(props) {
                 <RecurrenceEditorComponent
                     {...props}
                     firstDayOfWeek={firstDayOfWeek}
-                    locale={CustomLocale.getLocaleByLanguage(language)}
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     dateFormat={dateFormat || "dd/MM/yyyy"}>
                 </RecurrenceEditorComponent>
             </StyledDiv>

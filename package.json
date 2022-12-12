@@ -1,6 +1,6 @@
 {
   "name": "orbital_common_components",
-  "version": "1.5.0",
+  "version": "1.5.1-twentyone",
   "description": "Orbital common components",
   "author": "MED-INNOVATIONS",
   "license": "MIT",
@@ -55,6 +55,7 @@
     "formik": "^2.2.9",
     "gh-pages": "^2.2.0",
     "html-to-draftjs": "^1.5.0",
+    "cldr-data": "^36.0.1",
     "lodash": "^4.17.21",
     "microbundle-crl": "^0.13.10",
     "moment": "^2.24.0",

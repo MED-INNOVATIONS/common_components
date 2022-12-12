@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 import moment from "moment";
 import _ from "lodash";
-
-import * as CustomLocale from "./localizedText";
+import { getLocaleByLanguage } from "./SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language, height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeView, onChangeAgendaRange } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeView, onChangeAgendaRange } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
@@ -17,17 +16,17 @@ function SchedulerV2(props) {
     /*************************** STANDARD ************************************/
     /*************************************************************************/
     useEffect(() => {
-        scheduleObj.refresh();
-    }, [language])
+        if (_.isEmpty(scheduleObj) === false) {
+            scheduleObj.refresh();
+        }
+    }, [language, closedDates])
 
     useEffect(() => {
-        scheduleObj.changeCurrentView(currentView);
-        changeAgendaRange();
+        if (_.isEmpty(scheduleObj) === false) {
+            scheduleObj.changeCurrentView(currentView);
+            changeAgendaRange();
+        }
     }, [currentView])
-
-    useEffect(() => {
-        scheduleObj.refresh();
-    }, [closedDates])
 
     /*************************************************************************/
     /*************************** FUNCTIONS ***********************************/
@@ -179,7 +178,7 @@ function SchedulerV2(props) {
     return (
         <React.Fragment>
             <ScheduleComponent
-                locale={CustomLocale.getLocaleByLanguage(language)}
+                locale={getLocaleByLanguage(language)}
                 ref={(schedule) => { scheduleObj = schedule }}
                 height={height}
                 firstDayOfWeek={firstDayOfWeek}
