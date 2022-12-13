@@ -9523,7 +9523,9 @@ var tableItems = ['TableHeader', 'TableRows', 'TableColumns', 'TableCell', '-', 
 var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImageLink', 'RemoveImageLink', 'Display', 'AltText', 'Dimension'];
 
 function HTMLEditor(props) {
-  var enabled = props.enabled,
+  var _props$language = props.language,
+      language = _props$language === void 0 ? "En" : _props$language,
+      enabled = props.enabled,
       disabled = props.disabled,
       value = props.value,
       onChange = props.onChange;
@@ -9542,6 +9544,7 @@ function HTMLEditor(props) {
   };
   return /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
+    locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
     },
     enabled: isEnabled,

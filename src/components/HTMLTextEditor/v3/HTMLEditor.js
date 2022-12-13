@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { RichTextEditorComponent, Toolbar, Inject, Image, Link, HtmlEditor, Count, QuickToolbar, Table, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { FileManager } from '@syncfusion/ej2-react-richtexteditor';
+import { getLocaleByLanguage } from "../../../components/DateComponents/DateComponentsV2/SyncfusionUtils";
 
 import { items, tableItems, imageItems } from "./HtmlEditorItems";
 
 function HTMLEditor(props) {
-    const { enabled, disabled, value, onChange } = props;
+    const { language = "En", enabled, disabled, value, onChange } = props;
     const isEnabled = enabled === false || disabled === true ? false : true;
     var rteObj;
 
@@ -31,6 +32,7 @@ function HTMLEditor(props) {
     return (
         <RichTextEditorComponent
             id="toolsRTE"
+            locale={getLocaleByLanguage(language)}
             ref={(richtexteditor) => { rteObj = richtexteditor; }}
             enabled={isEnabled}
             value={value}
