@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 import moment from "moment";
 import _ from "lodash";
-import { getLocaleByLanguage } from "./SyncfusionUtils";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
@@ -178,7 +178,7 @@ function SchedulerV2(props) {
     return (
         <React.Fragment>
             <ScheduleComponent
-                locale={getLocaleByLanguage(language)}
+                locale={SyncfusionUtils.getLocaleByLanguage(language)}
                 ref={(schedule) => { scheduleObj = schedule }}
                 height={height}
                 firstDayOfWeek={firstDayOfWeek}

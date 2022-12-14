@@ -5,7 +5,7 @@ import { RichTextEditorComponent, Toolbar, Inject, Image, Link, HtmlEditor, Coun
 import { FileManager } from '@syncfusion/ej2-react-richtexteditor';
 import _ from "lodash";
 
-import { getLocaleByLanguage } from "./../../DateComponents/DateComponentsV2/SyncfusionUtils";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 import { items, tableItems, imageItems } from "./HtmlEditorItems";
 
 function HTMLEditor(props) {
@@ -35,7 +35,7 @@ function HTMLEditor(props) {
     return (
         <RichTextEditorComponent
             id="toolsRTE"
-            locale={getLocaleByLanguage(language)}
+            locale={SyncfusionUtils.getLocaleByLanguage(language)}
             ref={(richtexteditor) => { rteObj = richtexteditor; }}
             enabled={isEnabled}
             value={value}

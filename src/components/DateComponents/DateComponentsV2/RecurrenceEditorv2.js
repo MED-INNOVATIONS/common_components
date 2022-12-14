@@ -3,7 +3,7 @@ import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
 import styled from "styled-components";
 import _ from "lodash";
 
-import * as SyncfusionUtils from "./SyncfusionUtils.js";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils.js";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{

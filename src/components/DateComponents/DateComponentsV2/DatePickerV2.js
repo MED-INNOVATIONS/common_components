@@ -5,7 +5,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import OrbitalErrorDiv from "./../../OrbitalErrorDiv";
-import * as SyncfusionUtils from "./SyncfusionUtils.js";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{
@@ -47,7 +47,6 @@ function DatePickerV2(props) {
                     {...props}
                     enabled={isEnabled}
                     firstDayOfWeek={firstDayOfWeek}
-
                     locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     format={format || "dd/MM/yyyy"}>
                 </DatePickerComponent>

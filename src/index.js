@@ -3,6 +3,7 @@ import './styles.module.css';
 import APISb from './services/Apisb';
 import ClientSession from './services/ClientSession';
 import * as CommonUtils from "./services/PluginUtils"
+import * as SyncfusionUtils from "./services/SyncfusionUtils";
 
 import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
@@ -20,7 +21,6 @@ import DateTimePickerV2 from './components/DateComponents/DateComponentsV2/DateT
 import RecurrenceEditorV2 from './components/DateComponents/DateComponentsV2/RecurrenceEditorV2';
 import SchedulerV2 from './components/DateComponents/DateComponentsV2/SchedulerV2';
 import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePickerV2';
-import * as SyncfusionUtils from "./components/DateComponents/DateComponentsV2/SyncfusionUtils";
 
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
