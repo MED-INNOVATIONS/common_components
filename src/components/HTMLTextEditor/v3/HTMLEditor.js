@@ -1,3 +1,5 @@
+// @import url("https://cdn.syncfusion.com/ej2/20.3.60/bootstrap4.css");
+
 import React, { useEffect } from "react";
 import { RichTextEditorComponent, Toolbar, Inject, Image, Link, HtmlEditor, Count, QuickToolbar, Table, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { FileManager } from '@syncfusion/ej2-react-richtexteditor';
