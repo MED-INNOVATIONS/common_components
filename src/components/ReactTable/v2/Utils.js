@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useRef, forwardRef, useEffect } from "react";
 import { Col, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 
 import { StyledTd, StyledTh, PaginationRow, Resizer, StyledTr } from "./styledComponents";
+
+export const IndeterminateCheckbox = forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+        const defaultRef = useRef();
+        const resolvedRef = ref || defaultRef;
+
+        useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+            <input type="checkbox" ref={resolvedRef} {...rest} />
+        );
+    }
+);
 
 export function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
     var rows = null;

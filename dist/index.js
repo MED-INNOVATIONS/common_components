@@ -59,6 +59,21 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -4468,6 +4483,20 @@ var PaginationRow = styled(reactBootstrap.Row)(_templateObject6$2());
 var Resizer = styled.div(_templateObject7$2());
 var StyledTr = styled.div(_templateObject8$2(), StyledTd);
 
+var IndeterminateCheckbox = React.forwardRef(function (_ref, ref) {
+  var indeterminate = _ref.indeterminate,
+      rest = _objectWithoutPropertiesLoose(_ref, ["indeterminate"]);
+
+  var defaultRef = React.useRef();
+  var resolvedRef = ref || defaultRef;
+  React.useEffect(function () {
+    resolvedRef.current.indeterminate = indeterminate;
+  }, [resolvedRef, indeterminate]);
+  return /*#__PURE__*/React__default.createElement("input", _extends({
+    type: "checkbox",
+    ref: resolvedRef
+  }, rest));
+});
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
   var rows = null;
 
@@ -4635,15 +4664,17 @@ function getPaginationSection(localization, gotoPage, canPreviousPage, previousP
   }, setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
 }
 
-function ReactTable(_ref) {
-  var localization = _ref.localization,
-      columns = _ref.columns,
-      data = _ref.data,
-      _defaultPageSize = _ref._defaultPageSize,
-      _fixedPageSize = _ref._fixedPageSize,
-      _noDataMessage = _ref._noDataMessage,
-      skipPageReset = _ref.skipPageReset,
-      hidePagination = _ref.hidePagination;
+function ReactTable(props) {
+  var localization = props.localization,
+      columns = props.columns,
+      data = props.data,
+      _defaultPageSize = props._defaultPageSize,
+      _fixedPageSize = props._fixedPageSize,
+      _noDataMessage = props._noDataMessage,
+      skipPageReset = props.skipPageReset,
+      hidePagination = props.hidePagination,
+      _props$showRowSelecti = props.showRowSelection,
+      showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti;
   React.useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
@@ -4657,7 +4688,24 @@ function ReactTable(_ref) {
       pageSize: _fixedPageSize || _defaultPageSize || 10
     },
     enableMultiRowSelection: true
-  }, reactTable.useSortBy, reactTable.useExpanded, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect),
+  }, reactTable.useSortBy, reactTable.useExpanded, reactTable.usePagination, reactTable.useResizeColumns, reactTable.useFlexLayout, reactTable.useRowSelect, function (hooks) {
+    if (showRowSelection === true) {
+      hooks.visibleColumns.push(function (columns) {
+        return [{
+          id: "selection",
+          disableSortBy: true,
+          Header: function Header(_ref) {
+            var getToggleAllRowsSelectedProps = _ref.getToggleAllRowsSelectedProps;
+            return /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps());
+          },
+          Cell: function Cell(_ref2) {
+            var row = _ref2.row;
+            return /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, row.getToggleRowSelectedProps());
+          }
+        }].concat(columns);
+      });
+    }
+  }),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
       headerGroups = _useTable.headerGroups,
