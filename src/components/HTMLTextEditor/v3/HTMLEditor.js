@@ -3,11 +3,8 @@ import { RichTextEditorComponent, Toolbar, Inject, Image, Link, HtmlEditor, Coun
 import { FileManager } from '@syncfusion/ej2-react-richtexteditor';
 import _ from "lodash";
 
-
+import { getLocaleByLanguage } from "./../../DateComponents/DateComponentsV2/SyncfusionUtils";
 import { items, tableItems, imageItems } from "./HtmlEditorItems";
-
-
-
 
 function HTMLEditor(props) {
     const { language = "En", enabled, disabled, value, onChange } = props;
@@ -20,16 +17,6 @@ function HTMLEditor(props) {
     useEffect(() => {
         try { document.getElementById("js-licensing").remove(); } catch (e) { }
     }, [])
-
-    useEffect(() => {
-        if (_.isEmpty(rteObj) === false) {
-            // rteObj.localeObj.setLocale("de-DE");
-            // rteObj.refresh();
-            // setCulture("de-DE")
-            // console.error("ffff", rteObj)
-            // console.error("ffff", L10n)
-        }
-    }, [language])
 
     /*************************************************************************/
     /************************ RENDER ***************************************/
@@ -46,7 +33,7 @@ function HTMLEditor(props) {
     return (
         <RichTextEditorComponent
             id="toolsRTE"
-            locale={'it'}
+            locale={getLocaleByLanguage(language)}
             ref={(richtexteditor) => { rteObj = richtexteditor; }}
             enabled={isEnabled}
             value={value}

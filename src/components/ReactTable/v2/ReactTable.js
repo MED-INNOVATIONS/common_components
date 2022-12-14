@@ -3,26 +3,9 @@ import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResiz
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
+
 import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./styledComponents";
 import * as Utils from "./Utils";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-
-    return (
-      <input type="checkbox" ref={resolvedRef} {...rest} />
-    )
-  }
-)
-
 
 function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {

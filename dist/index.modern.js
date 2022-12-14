@@ -25,7 +25,6 @@ import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 import ReactPlayer from 'react-player/lazy';
@@ -54,21 +53,6 @@ function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
   subClass.__proto__ = superClass;
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
 }
 
 function _assertThisInitialized(self) {
@@ -2751,7 +2735,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   return HTMLTextEditor;
 }(Component);
 
-var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'FontColor', 'BackgroundColor', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'NumberFormatList', 'BulletFormatList', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
+var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'NumberFormatList', 'BulletFormatList', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
 var tableItems = ['TableHeader', 'TableRows', 'TableColumns', 'TableCell', '-', 'BackgroundColor', 'TableRemove', 'TableCellVerticalAlign', 'Styles'];
 var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImageLink', 'RemoveImageLink', 'Display', 'AltText', 'Dimension'];
 
@@ -2763,15 +2747,11 @@ function HTMLEditor(props) {
       value = props.value,
       onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
-  var rteObj;
   useEffect(function () {
     try {
       document.getElementById("js-licensing").remove();
     } catch (e) {}
   }, []);
-  useEffect(function () {
-    if (_$2.isEmpty(rteObj) === false) ;
-  }, [language]);
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
@@ -2781,9 +2761,8 @@ function HTMLEditor(props) {
   };
   return /*#__PURE__*/React.createElement(RichTextEditorComponent, {
     id: "toolsRTE",
-    locale: 'it',
+    locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
-      rteObj = richtexteditor;
     },
     enabled: isEnabled,
     value: value,
@@ -4652,30 +4631,15 @@ function getPaginationSection(localization, gotoPage, canPreviousPage, previousP
   }, setPageSizeOptions(_defaultPageSize, _fixedPageSize))));
 }
 
-var IndeterminateCheckbox = React.forwardRef(function (_ref, ref) {
-  var indeterminate = _ref.indeterminate,
-      rest = _objectWithoutPropertiesLoose(_ref, ["indeterminate"]);
-
-  var defaultRef = React.useRef();
-  var resolvedRef = ref || defaultRef;
-  React.useEffect(function () {
-    resolvedRef.current.indeterminate = indeterminate;
-  }, [resolvedRef, indeterminate]);
-  return /*#__PURE__*/React.createElement("input", _extends({
-    type: "checkbox",
-    ref: resolvedRef
-  }, rest));
-});
-
-function ReactTable(_ref2) {
-  var localization = _ref2.localization,
-      columns = _ref2.columns,
-      data = _ref2.data,
-      _defaultPageSize = _ref2._defaultPageSize,
-      _fixedPageSize = _ref2._fixedPageSize,
-      _noDataMessage = _ref2._noDataMessage,
-      skipPageReset = _ref2.skipPageReset,
-      hidePagination = _ref2.hidePagination;
+function ReactTable(_ref) {
+  var localization = _ref.localization,
+      columns = _ref.columns,
+      data = _ref.data,
+      _defaultPageSize = _ref._defaultPageSize,
+      _fixedPageSize = _ref._fixedPageSize,
+      _noDataMessage = _ref._noDataMessage,
+      skipPageReset = _ref.skipPageReset,
+      hidePagination = _ref.hidePagination;
   useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
