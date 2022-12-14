@@ -104,6 +104,12 @@ class CropImage extends Component {
                         width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
                         height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
                     });
+                    // var data = self.cropper.getData();
+
+                    // data.width = Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width));
+                    // data.height = Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height));
+
+                    // self.cropper.setData(data);
                 }
             },
             cropend(event) {
