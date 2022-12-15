@@ -10049,7 +10049,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       multiple: false,
       onChange: this.handleFileUpload
     })), /*#__PURE__*/React.createElement(DeleteImageIcon, {
-      onClick: this.onRemove
+      onClick: function onClick() {
+        return _this3.onRemove();
+      }
     })), /*#__PURE__*/React.createElement(StyledImage, {
       style: imageStyle,
       src: image,
@@ -10356,7 +10358,8 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
     _this = _Component.call(this, props) || this;
     _this.state = {
       autoCompleteLocation: _this.props.location,
-      location: _this.props.location
+      location: _this.props.location,
+      disabled: _this.props.disabled
     };
     _this.placeAutocomplete = React.createRef();
     _this.onSelectCity = _this.onSelectCity.bind(_assertThisInitialized(_this));
@@ -10371,6 +10374,12 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       this.setState({
         location: nextProps.location,
         autoCompleteLocation: nextProps.location
+      });
+    }
+
+    if (nextProps.disabled != this.state.disabled) {
+      this.setState({
+        disabled: nextProps.disabled
       });
     }
   };
@@ -10426,7 +10435,9 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
 
   _proto.render = function render() {
     var self = this;
-    var autoCompleteLocation = this.state.autoCompleteLocation;
+    var _this$state = this.state,
+        autoCompleteLocation = _this$state.autoCompleteLocation,
+        disabled = _this$state.disabled;
     var _this$props = this.props,
         localization = _this$props.localization,
         error = _this$props.error;
@@ -10449,7 +10460,8 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
         placeholder: localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
-        }
+        },
+        disabled: disabled
       }), {
         value: autoCompleteLocation || ""
       })), /*#__PURE__*/React.createElement(Form.Control.Feedback, {
@@ -11055,21 +11067,7 @@ function ReactTable(_ref2) {
       pageSize: _fixedPageSize || _defaultPageSize || 10
     },
     enableMultiRowSelection: true
-  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, function (hooks) {
-    hooks.visibleColumns.push(function (columns) {
-      return [{
-        id: 'selection',
-        Header: function Header(_ref3) {
-          var getToggleAllRowsSelectedProps = _ref3.getToggleAllRowsSelectedProps;
-          return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps()));
-        },
-        Cell: function Cell(_ref4) {
-          var row = _ref4.row;
-          return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IndeterminateCheckbox, row.getToggleRowSelectedProps()));
-        }
-      }].concat(columns);
-    });
-  }),
+  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
       headerGroups = _useTable.headerGroups,
