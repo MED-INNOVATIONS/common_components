@@ -1,30 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
+
 import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./styledComponents";
 import * as Utils from "./Utils";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+function ReactTable(props) {
+  const { localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination, showRowSelection = false } = props;
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-
-    return (
-      <input type="checkbox" ref={resolvedRef} {...rest} />
-    )
-  }
-)
-
-
-function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination }) {
   useEffect(() => {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize
     setPageSize(tableSize)
@@ -64,7 +49,25 @@ function ReactTable({ localization, columns, data, _defaultPageSize, _fixedPageS
     usePagination,
     useResizeColumns,
     useFlexLayout,
-    useRowSelect
+    useRowSelect,
+    (hooks) => {
+      if (showRowSelection === true) {
+        hooks.visibleColumns.push((columns) => [
+          {
+            id: "selection",
+            disableSortBy: true,
+
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <Utils.IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            ),
+            Cell: ({ row }) => (
+              <Utils.IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            )
+          },
+          ...columns
+        ]);
+      }
+    }
   );
 
   return (

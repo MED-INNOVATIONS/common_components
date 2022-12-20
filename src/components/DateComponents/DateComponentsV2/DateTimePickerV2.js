@@ -5,7 +5,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import OrbitalErrorDiv from "./../../OrbitalErrorDiv";
-import * as CustomLocale from "./localizedText";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{
@@ -35,7 +35,7 @@ const StyledDiv = styled.div`
 `;
 
 function DateTimePickerV2(props) {
-    const { format, isInvalid, errorMessage, language } = props;
+    const { format, isInvalid, errorMessage, language, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     return (
@@ -43,7 +43,8 @@ function DateTimePickerV2(props) {
             <StyledDiv isInvalid={invalid}>
                 <DateTimePickerComponent
                     {...props}
-                    locale={CustomLocale.getLocaleByLanguage(language)}
+                    firstDayOfWeek={firstDayOfWeek}
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     format={format || "dd/MM/yyyy HH:mm"}>
                 </DateTimePickerComponent>
             </StyledDiv>

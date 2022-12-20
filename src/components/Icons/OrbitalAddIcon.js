@@ -11,14 +11,14 @@ const Container = styled.div`
 const StyledBsPlusCircle = styled(BsPlusCircle)`
     color: ${(props) => (props.disabled === true ? "grey" : "#007bff")};
     cursor: ${(props) => (props.disabled === true ? "not-allowed" : "pointer")};
-    font-size: 1.5rem;
+    font-size:  ${(props) => (props.fontsize)};
 `;
 
 const OrbitalAddIcon = (props) => {
-    var { float, tooltip, disabled, onClick } = props;
+    var { float, tooltip, disabled, fontsize, onClick } = props;
     return <Container float={float}>
         <Tooltip tooltip={tooltip}>
-            <StyledBsPlusCircle disabled={disabled} onClick={() => { if (disabled !== true) { onClick() } }}></StyledBsPlusCircle>
+            <StyledBsPlusCircle fontsize={fontsize || "1.5rem"} disabled={disabled} onClick={() => { if (disabled !== true) { onClick() } }}></StyledBsPlusCircle>
         </Tooltip>
     </Container>
 }

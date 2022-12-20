@@ -3,6 +3,7 @@ import './styles.module.css';
 import APISb from './services/Apisb';
 import ClientSession from './services/ClientSession';
 import * as CommonUtils from "./services/PluginUtils"
+import * as SyncfusionUtils from "./services/SyncfusionUtils";
 
 import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
@@ -24,6 +25,7 @@ import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePicke
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
 import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";
+import HTMLTextEditorV3 from "./components/HTMLTextEditor/v3/HTMLEditor";
 import UploadImage from './components/UploadImage/UploadImage';
 import UploadDocument from './components/UploadDocument/UploadDocument';
 import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponentsPicker";
@@ -61,6 +63,7 @@ export {
     MandatoryFieldLabel,
     NormalFieldLabel,
     HTMLTextEditorV2,
+    HTMLTextEditorV3,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage,
@@ -78,5 +81,6 @@ export {
     DateTimePickerV2,
     RecurrenceEditorV2,
     SchedulerV2,
-    TimePickerV2
+    TimePickerV2,
+    SyncfusionUtils
 }
