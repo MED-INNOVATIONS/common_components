@@ -4778,7 +4778,7 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
 };
 
 function _templateObject2$4() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size: 1.5rem;\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"]);
 
   _templateObject2$4 = function _templateObject2() {
     return data;
@@ -4803,18 +4803,22 @@ var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4(), function (pr
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
+}, function (props) {
+  return props.fontsize;
 });
 
 var OrbitalAddIcon = function OrbitalAddIcon(props) {
   var _float = props["float"],
       tooltip = props.tooltip,
       disabled = props.disabled,
+      fontsize = props.fontsize,
       _onClick = props.onClick;
   return /*#__PURE__*/React.createElement(Container, {
     "float": _float
   }, /*#__PURE__*/React.createElement(CustomTooltip, {
     tooltip: tooltip
   }, /*#__PURE__*/React.createElement(StyledBsPlusCircle, {
+    fontsize: fontsize || "1.5rem",
     disabled: disabled,
     onClick: function onClick() {
       if (disabled !== true) {
