@@ -18,6 +18,16 @@ function HTMLEditor(props) {
     /*************************************************************************/
     useEffect(() => {
         try { document.getElementById("js-licensing").remove(); } catch (e) { }
+        try {
+            var aTags = document.getElementsByTagName("a");
+            var searchText = "Claim your free account";
+            _.each(aTags, (tag) => {
+                if (tag.textContent == searchText) {
+                    var parentElement = tag.parentElement;
+                    parentElement.remove();
+                }
+            })
+        } catch (e) { }
     }, [])
 
     /*************************************************************************/

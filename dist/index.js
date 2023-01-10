@@ -2770,6 +2770,18 @@ function HTMLEditor(props) {
     try {
       document.getElementById("js-licensing").remove();
     } catch (e) {}
+
+    try {
+      var aTags = document.getElementsByTagName("a");
+      var searchText = "Claim your free account";
+
+      _$2.each(aTags, function (tag) {
+        if (tag.textContent == searchText) {
+          var parentElement = tag.parentElement;
+          parentElement.remove();
+        }
+      });
+    } catch (e) {}
   }, []);
   var quickToolbarSettings = {
     table: tableItems,
@@ -4818,7 +4830,7 @@ var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$4(), function 
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 }, function (props) {
-  return props.fontsize;
+  return props.fontSize;
 });
 
 var OrbitalAddIcon = function OrbitalAddIcon(props) {
@@ -4826,13 +4838,14 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
       tooltip = props.tooltip,
       disabled = props.disabled,
       fontsize = props.fontsize,
+      fontSize = props.fontSize,
       _onClick = props.onClick;
   return /*#__PURE__*/React__default.createElement(Container, {
     "float": _float
   }, /*#__PURE__*/React__default.createElement(CustomTooltip, {
     tooltip: tooltip
   }, /*#__PURE__*/React__default.createElement(StyledBsPlusCircle, {
-    fontsize: fontsize || "1.5rem",
+    fontSize: fontSize || fontsize || "1.5rem",
     disabled: disabled,
     onClick: function onClick() {
       if (disabled !== true) {
