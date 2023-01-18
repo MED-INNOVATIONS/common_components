@@ -2761,6 +2761,7 @@ var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenIm
 function HTMLEditor(props) {
   var _props$language = props.language,
       language = _props$language === void 0 ? "En" : _props$language,
+      height = props.height,
       enabled = props.enabled,
       disabled = props.disabled,
       value = props.value,
@@ -2792,6 +2793,7 @@ function HTMLEditor(props) {
   };
   return /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
+    height: height,
     locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
     },
