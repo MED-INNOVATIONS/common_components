@@ -742,6 +742,12 @@ var AuthStore = /*#__PURE__*/function () {
     return referrerId;
   };
 
+  AuthStore.getOrbitalId = function getOrbitalId() {
+    var user = this.auth.user || {};
+    var orbitalId = user.orbitalIdId;
+    return orbitalId;
+  };
+
   AuthStore.getOwnerId = function getOwnerId() {
     var user = this.auth && this.auth.user ? this.auth.user : null;
 
