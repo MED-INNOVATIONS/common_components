@@ -31,6 +31,7 @@ var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
 var bs = require('react-icons/bs');
 var Select = _interopDefault(require('react-select'));
+var CreatableSelect = _interopDefault(require('react-select/creatable'));
 var ReactPlayer = _interopDefault(require('react-player/lazy'));
 var formik = require('formik');
 var yup = require('yup');
@@ -4895,7 +4896,9 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
-      errorMsg = props.errorMsg;
+      errorMsg = props.errorMsg,
+      _props$showCreatable = props.showCreatable,
+      showCreatable = _props$showCreatable === void 0 ? false : _props$showCreatable;
 
   function getTypeSelectStyles(isInvalid) {
     var typeBorder = isInvalid ? {
@@ -4913,7 +4916,9 @@ function OrbitalSelect(props) {
     return typeStyles;
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Select, _extends({
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showCreatable == false ? /*#__PURE__*/React__default.createElement(Select, _extends({
+    styles: getTypeSelectStyles(isInvalid)
+  }, props)) : /*#__PURE__*/React__default.createElement(CreatableSelect, _extends({
     styles: getTypeSelectStyles(isInvalid)
   }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMsg));
 }

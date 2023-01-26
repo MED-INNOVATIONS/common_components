@@ -27,6 +27,7 @@ import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import ReactPlayer from 'react-player/lazy';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
@@ -4891,7 +4892,9 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
-      errorMsg = props.errorMsg;
+      errorMsg = props.errorMsg,
+      _props$showCreatable = props.showCreatable,
+      showCreatable = _props$showCreatable === void 0 ? false : _props$showCreatable;
 
   function getTypeSelectStyles(isInvalid) {
     var typeBorder = isInvalid ? {
@@ -4909,7 +4912,9 @@ function OrbitalSelect(props) {
     return typeStyles;
   }
 
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Select, _extends({
+  return /*#__PURE__*/React.createElement(React.Fragment, null, showCreatable == false ? /*#__PURE__*/React.createElement(Select, _extends({
+    styles: getTypeSelectStyles(isInvalid)
+  }, props)) : /*#__PURE__*/React.createElement(CreatableSelect, _extends({
     styles: getTypeSelectStyles(isInvalid)
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMsg));
 }
