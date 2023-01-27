@@ -9,7 +9,7 @@ import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 import { items, tableItems, imageItems } from "./HtmlEditorItems";
 
 function HTMLEditor(props) {
-    const { language = "En", enabled, disabled, value, onChange } = props;
+    const { language = "En", height, enabled, disabled, value, onChange } = props;
     const isEnabled = enabled === false || disabled === true ? false : true;
     var rteObj;
 
@@ -18,6 +18,16 @@ function HTMLEditor(props) {
     /*************************************************************************/
     useEffect(() => {
         try { document.getElementById("js-licensing").remove(); } catch (e) { }
+        try {
+            var aTags = document.getElementsByTagName("a");
+            var searchText = "Claim your free account";
+            _.each(aTags, (tag) => {
+                if (tag.textContent == searchText) {
+                    var parentElement = tag.parentElement;
+                    parentElement.remove();
+                }
+            })
+        } catch (e) { }
     }, [])
 
     /*************************************************************************/
@@ -35,6 +45,7 @@ function HTMLEditor(props) {
     return (
         <RichTextEditorComponent
             id="toolsRTE"
+            height={height}
             locale={SyncfusionUtils.getLocaleByLanguage(language)}
             ref={(richtexteditor) => { rteObj = richtexteditor; }}
             enabled={isEnabled}
