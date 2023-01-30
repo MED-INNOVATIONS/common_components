@@ -99,6 +99,12 @@ export default class AuthStore {
         return referrerId
     }
 
+    static getOrbitalId(){
+        var user = this.auth.user || {};
+        var orbitalId = user.orbitalIdId;
+        return orbitalId 
+    }
+
     static getOwnerId() {
         var user = this.auth && this.auth.user ? this.auth.user : null;
         if (user.role == "Owner" && user.subRole == "Sub Owner") {

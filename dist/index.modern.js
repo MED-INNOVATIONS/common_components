@@ -27,6 +27,7 @@ import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import ReactPlayer from 'react-player/lazy';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
@@ -740,6 +741,12 @@ var AuthStore = /*#__PURE__*/function () {
     var user = this.auth.user || {};
     var referrerId = user.referrerId;
     return referrerId;
+  };
+
+  AuthStore.getOrbitalId = function getOrbitalId() {
+    var user = this.auth.user || {};
+    var orbitalId = user.orbitalIdId;
+    return orbitalId;
   };
 
   AuthStore.getOwnerId = function getOwnerId() {
@@ -2757,6 +2764,7 @@ var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenIm
 function HTMLEditor(props) {
   var _props$language = props.language,
       language = _props$language === void 0 ? "En" : _props$language,
+      height = props.height,
       enabled = props.enabled,
       disabled = props.disabled,
       value = props.value,
@@ -2764,9 +2772,53 @@ function HTMLEditor(props) {
   var isEnabled = enabled === false || disabled === true ? false : true;
   useEffect(function () {
     try {
-      document.getElementById("js-licensing").remove();
-    } catch (e) {}
-  }, []);
+      var element = document.getElementById("js-licensing");
+
+      if (element) {
+        element.remove();
+      }
+
+      var aTags = document.getElementsByTagName("a");
+      var searchText = "Claim your free account";
+
+      _$2.each(aTags, function (tag) {
+        if (tag && tag.textContent.toLowerCase() == searchText.toLowerCase()) {
+          var parentElement = tag.parentElement;
+          parentElement.remove();
+          var secondParentElement = parentElement.parentElement;
+
+          if (secondParentElement) {
+            secondParentElement.remove();
+            var thirdParentElement = secondParentElement.parentElement;
+
+            if (thirdParentElement) {
+              thirdParentElement.remove();
+              var fourthParentElement = thirdParentElement.parentElement;
+
+              if (fourthParentElement) {
+                fourthParentElement.remove();
+              }
+            }
+          }
+
+          var divTags = document.getElementsByTagName("div");
+
+          _$2.each(divTags, function (tag) {
+            if (tag) {
+              var style = tag.style;
+
+              if (style.position === "fixed" && style.width == "100%" && style.height == "100%" && style.zIndex == "99999" && style.backgroundColor == "rgba(0, 0, 0, 0.5)") {
+                tag.remove();
+                return;
+              }
+            }
+          });
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  });
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
@@ -2776,6 +2828,7 @@ function HTMLEditor(props) {
   };
   return /*#__PURE__*/React.createElement(RichTextEditorComponent, {
     id: "toolsRTE",
+    height: height,
     locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
     },
@@ -4814,7 +4867,7 @@ var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4(), function (pr
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 }, function (props) {
-  return props.fontsize;
+  return props.fontSize;
 });
 
 var OrbitalAddIcon = function OrbitalAddIcon(props) {
@@ -4822,13 +4875,14 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
       tooltip = props.tooltip,
       disabled = props.disabled,
       fontsize = props.fontsize,
+      fontSize = props.fontSize,
       _onClick = props.onClick;
   return /*#__PURE__*/React.createElement(Container, {
     "float": _float
   }, /*#__PURE__*/React.createElement(CustomTooltip, {
     tooltip: tooltip
   }, /*#__PURE__*/React.createElement(StyledBsPlusCircle, {
-    fontsize: fontsize || "1.5rem",
+    fontSize: fontSize || fontsize || "1.5rem",
     disabled: disabled,
     onClick: function onClick() {
       if (disabled !== true) {
@@ -4891,7 +4945,9 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
-      errorMsg = props.errorMsg;
+      errorMsg = props.errorMsg,
+      _props$showCreatable = props.showCreatable,
+      showCreatable = _props$showCreatable === void 0 ? false : _props$showCreatable;
 
   function getTypeSelectStyles(isInvalid) {
     var typeBorder = isInvalid ? {
@@ -4909,7 +4965,9 @@ function OrbitalSelect(props) {
     return typeStyles;
   }
 
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Select, _extends({
+  return /*#__PURE__*/React.createElement(React.Fragment, null, showCreatable == false ? /*#__PURE__*/React.createElement(Select, _extends({
+    styles: getTypeSelectStyles(isInvalid)
+  }, props)) : /*#__PURE__*/React.createElement(CreatableSelect, _extends({
     styles: getTypeSelectStyles(isInvalid)
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMsg));
 }
