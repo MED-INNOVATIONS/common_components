@@ -4758,6 +4758,7 @@ function ReactTable(props) {
         return [{
           id: "selection",
           disableSortBy: true,
+          width: 30,
           Header: function Header(_ref) {
             var getToggleAllRowsSelectedProps = _ref.getToggleAllRowsSelectedProps;
             return /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps());
@@ -4789,9 +4790,11 @@ function ReactTable(props) {
       pageSize = _useTable$state.pageSize;
 
   React.useEffect(function () {
-    onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
-      return row.original;
-    }) : []);
+    if (onRowSelect) {
+      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+        return row.original;
+      }) : []);
+    }
   }, [onRowSelect, selectedFlatRows]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledTable, getTableProps(), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React__default.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
