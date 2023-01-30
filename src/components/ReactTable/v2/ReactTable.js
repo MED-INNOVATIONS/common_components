@@ -8,7 +8,7 @@ import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./
 import * as Utils from "./Utils";
 
 function ReactTable(props) {
-  const { localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination, showRowSelection = false } = props;
+  const { localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination, showRowSelection = false, onRowSelect } = props;
 
   useEffect(() => {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize
@@ -69,6 +69,10 @@ function ReactTable(props) {
       }
     }
   );
+
+  useEffect(() => {
+    onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map((row) => row.original) : []);
+  }, [onRowSelect, selectedFlatRows]);
 
   return (
     <React.Fragment>
