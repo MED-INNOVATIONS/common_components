@@ -56,7 +56,7 @@ function ReactTable(props) {
           {
             id: "selection",
             disableSortBy: true,
-
+            width: 30,
             Header: ({ getToggleAllRowsSelectedProps }) => (
               <Utils.IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
             ),
@@ -71,7 +71,9 @@ function ReactTable(props) {
   );
 
   useEffect(() => {
-    onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map((row) => row.original) : []);
+    if (onRowSelect) {
+      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map((row) => row.original) : []);
+    }
   }, [onRowSelect, selectedFlatRows]);
 
   return (
