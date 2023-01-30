@@ -17,18 +17,54 @@ function HTMLEditor(props) {
     /************************ STANDARD ***************************************/
     /*************************************************************************/
     useEffect(() => {
-        try { document.getElementById("js-licensing").remove(); } catch (e) { }
         try {
+            var element = document.getElementById("js-licensing");
+            if (element) {
+                element.remove();
+            }
+
             var aTags = document.getElementsByTagName("a");
             var searchText = "Claim your free account";
             _.each(aTags, (tag) => {
-                if (tag.textContent == searchText) {
+                if (tag && tag.textContent.toLowerCase() == searchText.toLowerCase()) {
                     var parentElement = tag.parentElement;
                     parentElement.remove();
+
+                    var secondParentElement = parentElement.parentElement;
+                    if (secondParentElement) {
+                        secondParentElement.remove();
+
+                        var thirdParentElement = secondParentElement.parentElement;
+                        if (thirdParentElement) {
+                            thirdParentElement.remove();
+
+                            var fourthParentElement = thirdParentElement.parentElement;
+                            if (fourthParentElement) {
+                                fourthParentElement.remove();
+                            }
+                        }
+                    }
+
+                    var divTags = document.getElementsByTagName("div");
+                    _.each(divTags, (tag) => {
+                        if (tag) {
+                            var style = tag.style;
+                            if (style.position === "fixed" &&
+                                style.width == "100%" &&
+                                style.height == "100%" &&
+                                style.zIndex == "99999" &&
+                                style.backgroundColor == "rgba(0, 0, 0, 0.5)") {
+                                tag.remove();
+                                return;
+                            }
+                        }
+                    })
                 }
             })
-        } catch (e) { }
-    }, [])
+        } catch (e) {
+            console.error(e)
+        }
+    })
 
     /*************************************************************************/
     /************************ RENDER ***************************************/

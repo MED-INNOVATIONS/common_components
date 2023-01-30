@@ -2772,21 +2772,53 @@ function HTMLEditor(props) {
   var isEnabled = enabled === false || disabled === true ? false : true;
   useEffect(function () {
     try {
-      document.getElementById("js-licensing").remove();
-    } catch (e) {}
+      var element = document.getElementById("js-licensing");
 
-    try {
+      if (element) {
+        element.remove();
+      }
+
       var aTags = document.getElementsByTagName("a");
       var searchText = "Claim your free account";
 
       _$2.each(aTags, function (tag) {
-        if (tag.textContent == searchText) {
+        if (tag && tag.textContent.toLowerCase() == searchText.toLowerCase()) {
           var parentElement = tag.parentElement;
           parentElement.remove();
+          var secondParentElement = parentElement.parentElement;
+
+          if (secondParentElement) {
+            secondParentElement.remove();
+            var thirdParentElement = secondParentElement.parentElement;
+
+            if (thirdParentElement) {
+              thirdParentElement.remove();
+              var fourthParentElement = thirdParentElement.parentElement;
+
+              if (fourthParentElement) {
+                fourthParentElement.remove();
+              }
+            }
+          }
+
+          var divTags = document.getElementsByTagName("div");
+
+          _$2.each(divTags, function (tag) {
+            if (tag) {
+              var style = tag.style;
+
+              if (style.position === "fixed" && style.width == "100%" && style.height == "100%" && style.zIndex == "99999" && style.backgroundColor == "rgba(0, 0, 0, 0.5)") {
+                tag.remove();
+                return;
+              }
+            }
+          });
         }
       });
-    } catch (e) {}
-  }, []);
+    } catch (e) {
+      console.error(e);
+    }
+  });
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
