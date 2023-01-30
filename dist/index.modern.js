@@ -4733,7 +4733,8 @@ function ReactTable(props) {
       skipPageReset = props.skipPageReset,
       hidePagination = props.hidePagination,
       _props$showRowSelecti = props.showRowSelection,
-      showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti;
+      showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
+      onRowSelect = props.onRowSelect;
   useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
@@ -4778,10 +4779,16 @@ function ReactTable(props) {
       nextPage = _useTable.nextPage,
       previousPage = _useTable.previousPage,
       setPageSize = _useTable.setPageSize,
+      selectedFlatRows = _useTable.selectedFlatRows,
       _useTable$state = _useTable.state,
       pageIndex = _useTable$state.pageIndex,
       pageSize = _useTable$state.pageSize;
 
+  useEffect(function () {
+    onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+      return row.original;
+    }) : []);
+  }, [onRowSelect, selectedFlatRows]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledTable, getTableProps(), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React.createElement(StyledTh, column.getHeaderProps(), column.render("Header"), setSortIcon(column), setResize(column));
