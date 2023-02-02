@@ -8,7 +8,7 @@ const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeView, onChangeAgendaRange } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
@@ -24,7 +24,7 @@ function SchedulerV2(props) {
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
             scheduleObj.changeCurrentView(currentView);
-            changeAgendaRange();
+            changeDateRange();
         }
     }, [currentView])
 
@@ -62,21 +62,22 @@ function SchedulerV2(props) {
                         previousDate: previousDate,
                         currentDate: currentDate,
                     });
-                    setTimeout(() => {
-                        cellClick({ startTime: currentDate })
-                    }, 10)
+                    // setTimeout(() => {
+                    //     cellClick({ startTime: currentDate })
+                    // }, 10)
                 };
             }
         }
     }
 
-    function changeAgendaRange() {
-        if (currentView === "Agenda" && onChangeAgendaRange) {
-            setTimeout(() => {
-                var first = moment(_.first(scheduleObj.activeView.renderDates));
-                var last = moment(_.last(scheduleObj.activeView.renderDates));
-                onChangeAgendaRange(first, last);
-            }, 100)
+    function changeDateRange() {
+        var first = moment(_.first(scheduleObj.activeView.renderDates));
+        var last = moment(_.last(scheduleObj.activeView.renderDates));
+        if (onChangeAgendaRange) {
+            onChangeAgendaRange(first, last);
+        }
+        if (onChangeDateRange) {
+            onChangeDateRange(first, last);
         }
     }
 
@@ -98,8 +99,8 @@ function SchedulerV2(props) {
         if (
             currentDate &&
             currentDate === today &&
-            previousDate !== today &&
-            currentView === "Month"
+            previousDate !== today
+            // && currentView === "Month"
         ) {
             scheduleObj.selectedDate = new Date();
             cellClick({ startTime: new Date() })
@@ -120,7 +121,7 @@ function SchedulerV2(props) {
                 break;
         }
 
-        changeAgendaRange();
+        changeDateRange();
     }
 
     /*************************************************************************/

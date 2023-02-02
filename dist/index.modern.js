@@ -2307,6 +2307,7 @@ function SchedulerV2(props) {
       closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
       events = props.events,
       onChangeDate = props.onChangeDate,
+      onChangeDateRange = props.onChangeDateRange,
       onChangeView = props.onChangeView,
       onChangeAgendaRange = props.onChangeAgendaRange;
 
@@ -2326,7 +2327,7 @@ function SchedulerV2(props) {
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
-      changeAgendaRange();
+      changeDateRange();
     }
   }, [currentView]);
 
@@ -2368,23 +2369,21 @@ function SchedulerV2(props) {
             previousDate: previousDate,
             currentDate: currentDate
           });
-          setTimeout(function () {
-            cellClick({
-              startTime: currentDate
-            });
-          }, 10);
         };
       }
     }
   }
 
-  function changeAgendaRange() {
-    if (currentView === "Agenda" && onChangeAgendaRange) {
-      setTimeout(function () {
-        var first = moment(_$2.first(scheduleObj.activeView.renderDates));
-        var last = moment(_$2.last(scheduleObj.activeView.renderDates));
-        onChangeAgendaRange(first, last);
-      }, 100);
+  function changeDateRange() {
+    var first = moment(_$2.first(scheduleObj.activeView.renderDates));
+    var last = moment(_$2.last(scheduleObj.activeView.renderDates));
+
+    if (onChangeAgendaRange) {
+      onChangeAgendaRange(first, last);
+    }
+
+    if (onChangeDateRange) {
+      onChangeDateRange(first, last);
     }
   }
 
@@ -2400,18 +2399,17 @@ function SchedulerV2(props) {
 
   function manageDateAction(args) {
     var currentDate = args.currentDate,
-        previousDate = args.previousDate,
-        currentView = args.currentView;
+        previousDate = args.previousDate;
     var today = moment().format(dateFormat);
     previousDate = previousDate ? moment(previousDate).format(dateFormat) : null;
     currentDate = currentDate ? moment(currentDate).format(dateFormat) : null;
 
-    if (currentDate && currentDate === today && previousDate !== today && currentView === "Month") {
-      scheduleObj.selectedDate = new Date();
-      cellClick({
-        startTime: new Date()
-      });
-    }
+    if (currentDate && currentDate === today && previousDate !== today) {
+        scheduleObj.selectedDate = new Date();
+        cellClick({
+          startTime: new Date()
+        });
+      }
   }
 
   function navigating(args) {
@@ -2427,7 +2425,7 @@ function SchedulerV2(props) {
         break;
     }
 
-    changeAgendaRange();
+    changeDateRange();
   }
 
   function checkSelectedDate(args) {
