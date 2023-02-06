@@ -260,7 +260,7 @@ class UploadImage extends Component {
     }
 
     render() {
-        var { disabled, localization, cropProperties, error, isInvalid, errorMessage, ratio, viewImgHeight, viewImgWidth, viewImgMaxHeight } = this.props;
+        var { disabled, localization, cropProperties, error, isInvalid, isinvalid, errorMessage, ratio, viewImgHeight, viewImgWidth, viewImgMaxHeight } = this.props;
         var { image, showPreviewImage, showCropModal } = this.state;
         var { imageToCropSrc, imageToCrop } = this.state;
         cropProperties = cropProperties || {};
@@ -303,14 +303,14 @@ class UploadImage extends Component {
                                     style={{ display: "none" }}
                                     multiple={false}>
                                 </input>
-                                <UploadImageButton disabled={disabled} variant="outline-secondary" isInvalid={error || isInvalid} onClick={() => this.refs.fileInput.click()}>
+                                <UploadImageButton disabled={disabled} variant="outline-secondary" isInvalid={error || isInvalid || isinvalid} onClick={() => this.refs.fileInput.click()}>
                                     <FontAwesomeIcon icon={faUpload} onClick={this.props.onCancel} />
                                 </UploadImageButton>
                             </React.Fragment>
                         }
                     </Col>
                 </Row>
-                {(error === true || isInvalid === true) &&
+                {(error === true || isInvalid === true || isinvalid) &&
                     <Row>
                         <Col>
                             <ErrorMessage>{errorMessage || "Error"}</ErrorMessage>

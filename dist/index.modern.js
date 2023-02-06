@@ -4319,7 +4319,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     var _this$props = this.props,
         localization = _this$props.localization,
         error = _this$props.error,
-        mandatory = _this$props.mandatory;
+        mandatory = _this$props.mandatory,
+        halfbold = _this$props.halfbold;
 
     var _ref = position || {},
         lat = _ref.lat,
@@ -4334,26 +4335,34 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 3
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.city || "City"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: cityLabel
     }))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5
