@@ -2557,7 +2557,7 @@ function _templateObject2() {
 }
 
 function _templateObject$5() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n"]);
 
   _templateObject$5 = function _templateObject() {
     return data;
@@ -2565,7 +2565,9 @@ function _templateObject$5() {
 
   return data;
 }
-var StyledDiv$4 = styled.div(_templateObject$5());
+var StyledDiv$4 = styled.div(_templateObject$5(), function (props) {
+  return props.halfbold === true ? "500" : "normal";
+});
 var StyledSpan = styled.span(_templateObject2());
 
 function MandatoryFieldLabel(props) {
@@ -2573,7 +2575,7 @@ function MandatoryFieldLabel(props) {
 }
 
 function _templateObject$6() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight: normal;\n    color:  ", ";\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n    color:  ", ";\n"]);
 
   _templateObject$6 = function _templateObject() {
     return data;
@@ -2582,7 +2584,9 @@ function _templateObject$6() {
   return data;
 }
 var StyledDiv$5 = styled.div(_templateObject$6(), function (props) {
-  return props.isTransparent === true ? "transparent" : null;
+  return props.halfbold === true ? "500" : "normal";
+}, function (props) {
+  return (props.isTransparent || props.istransparent) === true ? "transparent" : null;
 });
 
 function NormalFieldLabel(props) {
@@ -4758,6 +4762,7 @@ function ReactTable(props) {
         return [{
           id: "selection",
           disableSortBy: true,
+          width: 30,
           Header: function Header(_ref) {
             var getToggleAllRowsSelectedProps = _ref.getToggleAllRowsSelectedProps;
             return /*#__PURE__*/React__default.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps());
@@ -4789,9 +4794,11 @@ function ReactTable(props) {
       pageSize = _useTable$state.pageSize;
 
   React.useEffect(function () {
-    onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
-      return row.original;
-    }) : []);
+    if (onRowSelect) {
+      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+        return row.original;
+      }) : []);
+    }
   }, [onRowSelect, selectedFlatRows]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledTable, getTableProps(), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React__default.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
@@ -4934,7 +4941,7 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
 };
 
 function _templateObject$f() {
-  var data = _taggedTemplateLiteralLoose(["\n    padding-top:  ", ";\n    input{\n        transform: ", ";\n    }\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"]);
 
   _templateObject$f = function _templateObject() {
     return data;
@@ -4943,14 +4950,18 @@ function _templateObject$f() {
   return data;
 }
 var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$f(), function (props) {
-  return props.paddingTop ? props.paddingTop : "0.5rem";
+  return props.paddingtop;
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
 });
 
 var OrbitalCheckbox = function OrbitalCheckbox(props) {
+  var paddingTop = props.paddingTop,
+      paddingtop = props.paddingtop;
+  var pT = paddingtop || paddingTop;
   return /*#__PURE__*/React__default.createElement(StyledFormCheck, _extends({
-    type: "checkbox"
+    type: "checkbox",
+    paddingtop: pT
   }, props));
 };
 
@@ -5873,7 +5884,7 @@ function OrbitalJsonSchema(props) {
 }
 
 function _templateObject$g() {
-  var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"]);
 
   _templateObject$g = function _templateObject() {
     return data;
@@ -5888,7 +5899,9 @@ var PluginContainer = styled.div(_templateObject$g(), function (props) {
 }, function (props) {
   return props.paddingRight || "15px";
 }, function (props) {
-  return props.height || "95vh";
+  return props.height;
+}, function (props) {
+  return props.minheight || "95vh";
 });
 
 exports.APISb = APISb;
