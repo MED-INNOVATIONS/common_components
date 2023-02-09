@@ -81,7 +81,7 @@ const StyledButton = styled(Button)`
     border-radius: 4px;
     vertical-align: top;
     border: 1px dashed;
-    border-color: ${(props) => ((props.error === true || props.isInvalid === true) ? "#dc3545" : "#d9d9d9")};
+    border-color: ${(props) => ((props.error === true || props.isinvalid === true) ? "#dc3545" : "#d9d9d9")};
 `;
 function UploadImageButton(props) {
     return <StyledButton {...props}>{props.children}</StyledButton>

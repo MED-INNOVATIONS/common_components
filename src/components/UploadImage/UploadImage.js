@@ -303,7 +303,7 @@ class UploadImage extends Component {
                                     style={{ display: "none" }}
                                     multiple={false}>
                                 </input>
-                                <UploadImageButton disabled={disabled} variant="outline-secondary" isInvalid={error || isInvalid || isinvalid} onClick={() => this.refs.fileInput.click()}>
+                                <UploadImageButton disabled={disabled} variant="outline-secondary" isinvalid={error || isInvalid || isinvalid} onClick={() => this.refs.fileInput.click()}>
                                     <FontAwesomeIcon icon={faUpload} onClick={this.props.onCancel} />
                                 </UploadImageButton>
                             </React.Fragment>

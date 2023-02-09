@@ -3146,7 +3146,7 @@ function StyledImage(props) {
 }
 
 var StyledButton = styled(Button)(_templateObject9(), function (props) {
-  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+  return props.error === true || props.isinvalid === true ? "#dc3545" : "#d9d9d9";
 });
 
 function UploadImageButton(props) {
@@ -3696,6 +3696,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         cropProperties = _this$props2.cropProperties,
         error = _this$props2.error,
         isInvalid = _this$props2.isInvalid,
+        isinvalid = _this$props2.isinvalid,
         errorMessage = _this$props2.errorMessage,
         ratio = _this$props2.ratio,
         viewImgHeight = _this$props2.viewImgHeight,
@@ -3754,14 +3755,14 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     }), /*#__PURE__*/React.createElement(UploadImageButton, {
       disabled: disabled,
       variant: "outline-secondary",
-      isInvalid: error || isInvalid,
+      isinvalid: error || isInvalid || isinvalid,
       onClick: function onClick() {
         return _this3.refs.fileInput.click();
       }
     }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faUpload,
       onClick: this.props.onCancel
-    }))))), (error === true || isInvalid === true) && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
+    }))))), (error === true || isInvalid === true || isinvalid) && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
       onHide: function onHide() {},
       size: "xl",
       show: showPreviewImage
