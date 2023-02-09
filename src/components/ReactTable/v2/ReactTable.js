@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout } from "react-table";
+import { useTable, useExpanded, usePagination, useSortBy, useRowSelect, useResizeColumns, useFlexLayout, useMountedLayoutEffect } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
@@ -8,7 +8,7 @@ import { NoData, SubContentContainer, StyledTable, StyledTh, StyledTr } from "./
 import * as Utils from "./Utils";
 
 function ReactTable(props) {
-  const { localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination, showRowSelection = false, onRowSelect } = props;
+  const { localization, columns, data, _defaultPageSize, _fixedPageSize, _noDataMessage, skipPageReset, hidePagination, showRowSelection = false, setSelectedRows } = props;
 
   useEffect(() => {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize
@@ -70,11 +70,12 @@ function ReactTable(props) {
     }
   );
 
-  useEffect(() => {
-    if (onRowSelect) {
-      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map((row) => row.original) : []);
+  useMountedLayoutEffect(() => {
+    if (showRowSelection && setSelectedRows) {
+      setSelectedRows(selectedFlatRows.map((row) => row.original))
     }
-  }, [onRowSelect, selectedFlatRows]);
+
+  }, [setSelectedRows, selectedRowIds]);
 
   return (
     <React.Fragment>

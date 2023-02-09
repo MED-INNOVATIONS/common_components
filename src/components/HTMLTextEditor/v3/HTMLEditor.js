@@ -66,6 +66,9 @@ function HTMLEditor(props) {
         }
     })
 
+    function created() {
+        rteObj.refreshUI();
+    }
     /*************************************************************************/
     /************************ RENDER ***************************************/
     /*************************************************************************/
@@ -75,7 +78,8 @@ function HTMLEditor(props) {
     };
 
     const toolbarSettings = {
-        items: items
+        items: items,
+        type: 'Expand'
     };
 
     return (
@@ -87,6 +91,7 @@ function HTMLEditor(props) {
             enabled={isEnabled}
             value={value}
             toolbarSettings={toolbarSettings}
+            created={created}
             pasteCleanupSettings={{
                 prompt: true,
                 plainText: false,
