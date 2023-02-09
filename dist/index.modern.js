@@ -2307,6 +2307,7 @@ function SchedulerV2(props) {
       closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
       events = props.events,
       onChangeDate = props.onChangeDate,
+      onChangeDateRange = props.onChangeDateRange,
       onChangeView = props.onChangeView,
       onChangeAgendaRange = props.onChangeAgendaRange;
 
@@ -2326,7 +2327,7 @@ function SchedulerV2(props) {
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
-      changeAgendaRange();
+      changeDateRange();
     }
   }, [currentView]);
 
@@ -2368,23 +2369,21 @@ function SchedulerV2(props) {
             previousDate: previousDate,
             currentDate: currentDate
           });
-          setTimeout(function () {
-            cellClick({
-              startTime: currentDate
-            });
-          }, 10);
         };
       }
     }
   }
 
-  function changeAgendaRange() {
-    if (currentView === "Agenda" && onChangeAgendaRange) {
-      setTimeout(function () {
-        var first = moment(_$2.first(scheduleObj.activeView.renderDates));
-        var last = moment(_$2.last(scheduleObj.activeView.renderDates));
-        onChangeAgendaRange(first, last);
-      }, 100);
+  function changeDateRange() {
+    var first = moment(_$2.first(scheduleObj.activeView.renderDates));
+    var last = moment(_$2.last(scheduleObj.activeView.renderDates));
+
+    if (onChangeAgendaRange) {
+      onChangeAgendaRange(first, last);
+    }
+
+    if (onChangeDateRange) {
+      onChangeDateRange(first, last);
     }
   }
 
@@ -2400,18 +2399,17 @@ function SchedulerV2(props) {
 
   function manageDateAction(args) {
     var currentDate = args.currentDate,
-        previousDate = args.previousDate,
-        currentView = args.currentView;
+        previousDate = args.previousDate;
     var today = moment().format(dateFormat);
     previousDate = previousDate ? moment(previousDate).format(dateFormat) : null;
     currentDate = currentDate ? moment(currentDate).format(dateFormat) : null;
 
-    if (currentDate && currentDate === today && previousDate !== today && currentView === "Month") {
-      scheduleObj.selectedDate = new Date();
-      cellClick({
-        startTime: new Date()
-      });
-    }
+    if (currentDate && currentDate === today && previousDate !== today) {
+        scheduleObj.selectedDate = new Date();
+        cellClick({
+          startTime: new Date()
+        });
+      }
   }
 
   function navigating(args) {
@@ -2427,7 +2425,7 @@ function SchedulerV2(props) {
         break;
     }
 
-    changeAgendaRange();
+    changeDateRange();
   }
 
   function checkSelectedDate(args) {
@@ -3148,7 +3146,7 @@ function StyledImage(props) {
 }
 
 var StyledButton = styled(Button)(_templateObject9(), function (props) {
-  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+  return props.error === true || props.isinvalid === true ? "#dc3545" : "#d9d9d9";
 });
 
 function UploadImageButton(props) {
@@ -3698,6 +3696,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         cropProperties = _this$props2.cropProperties,
         error = _this$props2.error,
         isInvalid = _this$props2.isInvalid,
+        isinvalid = _this$props2.isinvalid,
         errorMessage = _this$props2.errorMessage,
         ratio = _this$props2.ratio,
         viewImgHeight = _this$props2.viewImgHeight,
@@ -3756,14 +3755,14 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     }), /*#__PURE__*/React.createElement(UploadImageButton, {
       disabled: disabled,
       variant: "outline-secondary",
-      isInvalid: error || isInvalid,
+      isinvalid: error || isInvalid || isinvalid,
       onClick: function onClick() {
         return _this3.refs.fileInput.click();
       }
     }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
       icon: faUpload,
       onClick: this.props.onCancel
-    }))))), (error === true || isInvalid === true) && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
+    }))))), (error === true || isInvalid === true || isinvalid) && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
       onHide: function onHide() {},
       size: "xl",
       show: showPreviewImage
@@ -4321,7 +4320,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     var _this$props = this.props,
         localization = _this$props.localization,
         error = _this$props.error,
-        mandatory = _this$props.mandatory;
+        mandatory = _this$props.mandatory,
+        halfbold = _this$props.halfbold;
 
     var _ref = position || {},
         lat = _ref.lat,
@@ -4336,26 +4336,34 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 3
     }, mandatory == false && /*#__PURE__*/React.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.city || "City"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: cityLabel
     }))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
       sm: 5

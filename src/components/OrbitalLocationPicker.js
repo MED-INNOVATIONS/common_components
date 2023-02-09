@@ -155,7 +155,7 @@ class OrbitalLocationPicker extends Component {
     render() {
         var self = this;
         var { position, autoCompleteAddress, city } = this.state;
-        var { localization, error, mandatory } = this.props;
+        var { localization, error, mandatory, halfbold } = this.props;
         var { lat, lng } = position || {};
 
         var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
@@ -167,34 +167,34 @@ class OrbitalLocationPicker extends Component {
                 <Row>
                     <Col sm={5}>
                         {mandatory == false &&
-                            <NormalFieldLabel value={localization.address || "Address"}></NormalFieldLabel>
+                            <NormalFieldLabel halfbold={halfbold} value={localization.address || "Address"}></NormalFieldLabel>
                         }
                         {(mandatory == null || mandatory == true) &&
-                            <MandatoryFieldLabel value={localization.address || "Address"}></MandatoryFieldLabel>
+                            <MandatoryFieldLabel halfbold={halfbold} value={localization.address || "Address"}></MandatoryFieldLabel>
                         }
                     </Col>
                     <Col sm={2}>
                         {mandatory == false &&
-                            <NormalFieldLabel value={localization.lat || "Lat"}></NormalFieldLabel>
+                            <NormalFieldLabel halfbold={halfbold} value={localization.lat || "Lat"}></NormalFieldLabel>
                         }
                         {(mandatory == null || mandatory == true) &&
-                            <MandatoryFieldLabel value={localization.lat || "Lat"}></MandatoryFieldLabel>
+                            <MandatoryFieldLabel halfbold={halfbold} value={localization.lat || "Lat"}></MandatoryFieldLabel>
                         }
                     </Col>
                     <Col sm={2}>
                         {mandatory == false &&
-                            <NormalFieldLabel value={localization.lon || "Lon"}></NormalFieldLabel>
+                            <NormalFieldLabel halfbold={halfbold} value={localization.lon || "Lon"}></NormalFieldLabel>
                         }
                         {(mandatory == null || mandatory == true) &&
-                            <MandatoryFieldLabel value={localization.lon || "Lon"}></MandatoryFieldLabel>
+                            <MandatoryFieldLabel halfbold={halfbold} value={localization.lon || "Lon"}></MandatoryFieldLabel>
                         }
                     </Col>
                     <Col sm={3}>
                         {mandatory == false &&
-                            <NormalFieldLabel value={localization.city || "City"}></NormalFieldLabel>
+                            <NormalFieldLabel halfbold={halfbold} value={localization.city || "City"}></NormalFieldLabel>
                         }
                         {(mandatory == null || mandatory == true) &&
-                            <MandatoryFieldLabel value={cityLabel}></MandatoryFieldLabel>
+                            <MandatoryFieldLabel halfbold={halfbold} value={cityLabel}></MandatoryFieldLabel>
                         }
                     </Col>
                 </Row>
