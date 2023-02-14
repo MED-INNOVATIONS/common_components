@@ -24,7 +24,7 @@ import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-
 import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
-import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect } from 'react-table';
+import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, useMountedLayoutEffect } from 'react-table';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -2772,6 +2772,7 @@ function HTMLEditor(props) {
       value = props.value,
       onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
+  var rteObj;
   useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2821,22 +2822,30 @@ function HTMLEditor(props) {
       console.error(e);
     }
   });
+
+  function created() {
+    rteObj.refreshUI();
+  }
+
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
   };
   var toolbarSettings = {
-    items: items
+    items: items,
+    type: 'Expand'
   };
   return /*#__PURE__*/React.createElement(RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
     locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
+      rteObj = richtexteditor;
     },
     enabled: isEnabled,
     value: value,
     toolbarSettings: toolbarSettings,
+    created: created,
     pasteCleanupSettings: {
       prompt: true,
       plainText: false,
@@ -4746,7 +4755,7 @@ function ReactTable(props) {
       hidePagination = props.hidePagination,
       _props$showRowSelecti = props.showRowSelection,
       showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
-      onRowSelect = props.onRowSelect;
+      setSelectedRows = props.setSelectedRows;
   useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
@@ -4795,15 +4804,16 @@ function ReactTable(props) {
       selectedFlatRows = _useTable.selectedFlatRows,
       _useTable$state = _useTable.state,
       pageIndex = _useTable$state.pageIndex,
-      pageSize = _useTable$state.pageSize;
+      pageSize = _useTable$state.pageSize,
+      selectedRowIds = _useTable$state.selectedRowIds;
 
-  useEffect(function () {
-    if (onRowSelect) {
-      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+  useMountedLayoutEffect(function () {
+    if (showRowSelection && setSelectedRows) {
+      setSelectedRows(selectedFlatRows.map(function (row) {
         return row.original;
-      }) : []);
+      }));
     }
-  }, [onRowSelect, selectedFlatRows]);
+  }, [setSelectedRows, selectedRowIds]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledTable, getTableProps(), /*#__PURE__*/React.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React.createElement(StyledTh, column.getHeaderProps(), column.render("Header"), setSortIcon(column), setResize(column));
@@ -4986,15 +4996,22 @@ function OrbitalSelect(props) {
     var typeStyles = {
       control: function control(styles) {
         return _extends({}, styles, typeBorder);
+      },
+      menuPortal: function menuPortal(base) {
+        return _extends({}, base, {
+          zIndex: 9999
+        });
       }
     };
     return typeStyles;
   }
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, showCreatable == false ? /*#__PURE__*/React.createElement(Select, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)) : /*#__PURE__*/React.createElement(CreatableSelect, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMsg));
 }
 

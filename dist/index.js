@@ -2776,6 +2776,7 @@ function HTMLEditor(props) {
       value = props.value,
       onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
+  var rteObj;
   React.useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2825,22 +2826,30 @@ function HTMLEditor(props) {
       console.error(e);
     }
   });
+
+  function created() {
+    rteObj.refreshUI();
+  }
+
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
   };
   var toolbarSettings = {
-    items: items
+    items: items,
+    type: 'Expand'
   };
   return /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
     locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
+      rteObj = richtexteditor;
     },
     enabled: isEnabled,
     value: value,
     toolbarSettings: toolbarSettings,
+    created: created,
     pasteCleanupSettings: {
       prompt: true,
       plainText: false,
@@ -4750,7 +4759,7 @@ function ReactTable(props) {
       hidePagination = props.hidePagination,
       _props$showRowSelecti = props.showRowSelection,
       showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
-      onRowSelect = props.onRowSelect;
+      setSelectedRows = props.setSelectedRows;
   React.useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
@@ -4799,15 +4808,16 @@ function ReactTable(props) {
       selectedFlatRows = _useTable.selectedFlatRows,
       _useTable$state = _useTable.state,
       pageIndex = _useTable$state.pageIndex,
-      pageSize = _useTable$state.pageSize;
+      pageSize = _useTable$state.pageSize,
+      selectedRowIds = _useTable$state.selectedRowIds;
 
-  React.useEffect(function () {
-    if (onRowSelect) {
-      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+  reactTable.useMountedLayoutEffect(function () {
+    if (showRowSelection && setSelectedRows) {
+      setSelectedRows(selectedFlatRows.map(function (row) {
         return row.original;
-      }) : []);
+      }));
     }
-  }, [onRowSelect, selectedFlatRows]);
+  }, [setSelectedRows, selectedRowIds]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledTable, getTableProps(), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React__default.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React__default.createElement(StyledTh, column.getHeaderProps(), column.render("Header"), setSortIcon(column), setResize(column));
@@ -4990,15 +5000,22 @@ function OrbitalSelect(props) {
     var typeStyles = {
       control: function control(styles) {
         return _extends({}, styles, typeBorder);
+      },
+      menuPortal: function menuPortal(base) {
+        return _extends({}, base, {
+          zIndex: 9999
+        });
       }
     };
     return typeStyles;
   }
 
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showCreatable == false ? /*#__PURE__*/React__default.createElement(Select, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)) : /*#__PURE__*/React__default.createElement(CreatableSelect, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMsg));
 }
 
