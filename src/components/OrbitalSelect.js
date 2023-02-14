@@ -9,7 +9,7 @@ function OrbitalSelect(props) {
 
     function getTypeSelectStyles(isInvalid) {
         var typeBorder = isInvalid ? { borderColor: "#dc3545", boxShadow: "#dc3545", "&:hover": { borderColor: "#dc3545" } } : {};
-        var typeStyles = { control: styles => ({ ...styles, ...typeBorder }) };
+        var typeStyles = { control: styles => ({ ...styles, ...typeBorder }), menuPortal: base => ({ ...base, zIndex: 9999 }) };
         return typeStyles;
     }
 
@@ -18,10 +18,12 @@ function OrbitalSelect(props) {
             {showCreatable == false ?
                 <Select
                     styles={getTypeSelectStyles(isInvalid)}
+                    menuPortalTarget={document.body}
                     {...props}>
                 </Select> :
                 <CreatableSelect
                     styles={getTypeSelectStyles(isInvalid)}
+                    menuPortalTarget={document.body}
                     {...props}
                 >
                 </CreatableSelect>
