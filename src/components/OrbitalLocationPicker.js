@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, FormGroup, FormControl, Form } from 'react-bootstrap';
+import { Row, Col, FormGroup, Form, InputGroup } from 'react-bootstrap';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -155,7 +155,7 @@ class OrbitalLocationPicker extends Component {
     render() {
         var self = this;
         var { position, autoCompleteAddress, city } = this.state;
-        var { localization, error, mandatory, halfbold } = this.props;
+        var { localization, errorAddress, errorCity, mandatory, halfbold } = this.props;
         var { lat, lng } = position || {};
 
         var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
@@ -207,19 +207,17 @@ class OrbitalLocationPicker extends Component {
                             onSelect={this.onSelectAddress}>
                             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                                 <div>
-                                    <FormGroup style={{ width: "100%" }}>
-                                        <FormControl
-                                            isInvalid={error}
+                                    <InputGroup style={{ width: "100%" }}>
+                                        <Form.Control
+                                            isInvalid={errorAddress}
                                             {...getInputProps({
                                                 placeholder: localization.searchPlaces || "Search places",
-                                                style: { marginBottom: 10 }
+                                                // style: { marginBottom: 10 }
                                             })}
                                             value={autoCompleteAddress || ""}>
-                                        </FormControl>
-                                        <Form.Control.Feedback type="invalid">
-                                            {localization.completeField || "Please complete the field"}
-                                        </Form.Control.Feedback>
-                                    </FormGroup>
+                                        </Form.Control>
+                                        <Form.Control.Feedback type="invalid">{errorAddress} </Form.Control.Feedback>
+                                    </InputGroup>
                                     <div className="autocomplete-dropdown-container">
                                         {suggestions.map((suggestion, index) => {
                                             var className = self.getAutoCompleteClassname(suggestion);
@@ -241,34 +239,38 @@ class OrbitalLocationPicker extends Component {
                         </PlacesAutocomplete>
                     </Col>
                     <Col sm={2}>
-                        <FormControl
+                        <Form.Control
                             placeholder={localization.lat || "Lat"}
                             value={lat || ""}
                             disabled={true}>
-                        </FormControl>
+                        </Form.Control>
                     </Col>
                     <Col sm={2}>
-                        <FormControl
+                        <Form.Control
                             placeholder={localization.lon || "Lon"}
                             value={lng || ""}
                             disabled={true}>
-                        </FormControl>
+                        </Form.Control>
                     </Col>
                     <Col sm={3}>
-                        <FormControl
-                            placeholder={localization.city || "City"}
-                            value={city || ""}
-                            onChange={(e) => {
-                                var value = e.target.value;
-                                this.setState({ city: value })
-                                if (this.props.onChangeCity) {
-                                    this.props.onChangeCity(value);
-                                }
-                            }}>
-                        </FormControl>
+                        <InputGroup>
+                            <Form.Control
+                                placeholder={localization.city || "City"}
+                                isInvalid={errorCity}
+                                value={city || ""}
+                                onChange={(e) => {
+                                    var value = e.target.value;
+                                    this.setState({ city: value })
+                                    if (this.props.onChangeCity) {
+                                        this.props.onChangeCity(value);
+                                    }
+                                }}>
+                            </Form.Control>
+                            <Form.Control.Feedback type="invalid">{errorCity}</Form.Control.Feedback>
+                        </InputGroup>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginTop: "1rem" }}>
                     <Col sm={12}>
                         <LocationPicker
                             zoom={15}

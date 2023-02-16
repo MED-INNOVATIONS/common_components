@@ -13,7 +13,7 @@ import htmlToDraft from 'html-to-draftjs';
 import LoadingOverlay from 'react-loading-overlay';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
-import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, FormCheck, InputGroup, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, InputGroup, FormCheck, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -4328,7 +4328,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
         city = _this$state.city;
     var _this$props = this.props,
         localization = _this$props.localization,
-        error = _this$props.error,
+        errorAddress = _this$props.errorAddress,
+        errorCity = _this$props.errorCity,
         mandatory = _this$props.mandatory,
         halfbold = _this$props.halfbold;
 
@@ -4385,22 +4386,19 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       var getInputProps = _ref2.getInputProps,
           suggestions = _ref2.suggestions,
           getSuggestionItemProps = _ref2.getSuggestionItemProps;
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FormGroup, {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(InputGroup, {
         style: {
           width: "100%"
         }
-      }, /*#__PURE__*/React.createElement(FormControl, _extends({
-        isInvalid: error
+      }, /*#__PURE__*/React.createElement(Form.Control, _extends({
+        isInvalid: errorAddress
       }, getInputProps({
-        placeholder: localization.searchPlaces || "Search places",
-        style: {
-          marginBottom: 10
-        }
+        placeholder: localization.searchPlaces || "Search places"
       }), {
         value: autoCompleteAddress || ""
       })), /*#__PURE__*/React.createElement(Form.Control.Feedback, {
         type: "invalid"
-      }, localization.completeField || "Please complete the field")), /*#__PURE__*/React.createElement("div", {
+      }, errorAddress, " ")), /*#__PURE__*/React.createElement("div", {
         className: "autocomplete-dropdown-container"
       }, suggestions.map(function (suggestion, index) {
         var className = self.getAutoCompleteClassname(suggestion);
@@ -4416,20 +4414,21 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       })));
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
-    }, /*#__PURE__*/React.createElement(FormControl, {
+    }, /*#__PURE__*/React.createElement(Form.Control, {
       placeholder: localization.lat || "Lat",
       value: lat || "",
       disabled: true
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 2
-    }, /*#__PURE__*/React.createElement(FormControl, {
+    }, /*#__PURE__*/React.createElement(Form.Control, {
       placeholder: localization.lon || "Lon",
       value: lng || "",
       disabled: true
     })), /*#__PURE__*/React.createElement(Col, {
       sm: 3
-    }, /*#__PURE__*/React.createElement(FormControl, {
+    }, /*#__PURE__*/React.createElement(InputGroup, null, /*#__PURE__*/React.createElement(Form.Control, {
       placeholder: localization.city || "City",
+      isInvalid: errorCity,
       value: city || "",
       onChange: function onChange(e) {
         var value = e.target.value;
@@ -4442,7 +4441,13 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
           _this3.props.onChangeCity(value);
         }
       }
-    }))), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
+    }), /*#__PURE__*/React.createElement(Form.Control.Feedback, {
+      type: "invalid"
+    }, errorCity)))), /*#__PURE__*/React.createElement(Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React.createElement(Col, {
       sm: 12
     }, /*#__PURE__*/React.createElement(LocationPicker, {
       zoom: 15,
