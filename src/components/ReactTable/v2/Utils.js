@@ -30,8 +30,9 @@ export function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
             return page[0];
         });
         rows = page_tmp.map((row, i) => {
-            var new_id = data.length + i;
-            row.id = new_id;
+            // var new_id = data.length + i;
+            // row.id = new_id;
+
             prepareRow(row);
             return (
                 <StyledTr {...row.getRowProps()}>
