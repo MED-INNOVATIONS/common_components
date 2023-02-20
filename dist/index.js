@@ -2311,6 +2311,7 @@ function SchedulerV2(props) {
       closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
       events = props.events,
       onChangeDate = props.onChangeDate,
+      onChangeDateRange = props.onChangeDateRange,
       onChangeView = props.onChangeView,
       onChangeAgendaRange = props.onChangeAgendaRange;
 
@@ -2330,7 +2331,7 @@ function SchedulerV2(props) {
   React.useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
-      changeAgendaRange();
+      changeDateRange();
     }
   }, [currentView]);
 
@@ -2372,23 +2373,21 @@ function SchedulerV2(props) {
             previousDate: previousDate,
             currentDate: currentDate
           });
-          setTimeout(function () {
-            cellClick({
-              startTime: currentDate
-            });
-          }, 10);
         };
       }
     }
   }
 
-  function changeAgendaRange() {
-    if (currentView === "Agenda" && onChangeAgendaRange) {
-      setTimeout(function () {
-        var first = moment(_$2.first(scheduleObj.activeView.renderDates));
-        var last = moment(_$2.last(scheduleObj.activeView.renderDates));
-        onChangeAgendaRange(first, last);
-      }, 100);
+  function changeDateRange() {
+    var first = moment(_$2.first(scheduleObj.activeView.renderDates));
+    var last = moment(_$2.last(scheduleObj.activeView.renderDates));
+
+    if (onChangeAgendaRange) {
+      onChangeAgendaRange(first, last);
+    }
+
+    if (onChangeDateRange) {
+      onChangeDateRange(first, last);
     }
   }
 
@@ -2404,18 +2403,17 @@ function SchedulerV2(props) {
 
   function manageDateAction(args) {
     var currentDate = args.currentDate,
-        previousDate = args.previousDate,
-        currentView = args.currentView;
+        previousDate = args.previousDate;
     var today = moment().format(dateFormat);
     previousDate = previousDate ? moment(previousDate).format(dateFormat) : null;
     currentDate = currentDate ? moment(currentDate).format(dateFormat) : null;
 
-    if (currentDate && currentDate === today && previousDate !== today && currentView === "Month") {
-      scheduleObj.selectedDate = new Date();
-      cellClick({
-        startTime: new Date()
-      });
-    }
+    if (currentDate && currentDate === today && previousDate !== today) {
+        scheduleObj.selectedDate = new Date();
+        cellClick({
+          startTime: new Date()
+        });
+      }
   }
 
   function navigating(args) {
@@ -2431,7 +2429,7 @@ function SchedulerV2(props) {
         break;
     }
 
-    changeAgendaRange();
+    changeDateRange();
   }
 
   function checkSelectedDate(args) {
@@ -2778,6 +2776,7 @@ function HTMLEditor(props) {
       value = props.value,
       onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
+  var rteObj;
   React.useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2827,22 +2826,30 @@ function HTMLEditor(props) {
       console.error(e);
     }
   });
+
+  function created() {
+    rteObj.refreshUI();
+  }
+
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
   };
   var toolbarSettings = {
-    items: items
+    items: items,
+    type: 'Expand'
   };
   return /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
     locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
+      rteObj = richtexteditor;
     },
     enabled: isEnabled,
     value: value,
     toolbarSettings: toolbarSettings,
+    created: created,
     pasteCleanupSettings: {
       prompt: true,
       plainText: false,
@@ -3152,7 +3159,7 @@ function StyledImage(props) {
 }
 
 var StyledButton = styled(reactBootstrap.Button)(_templateObject9(), function (props) {
-  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+  return props.error === true || props.isinvalid === true ? "#dc3545" : "#d9d9d9";
 });
 
 function UploadImageButton(props) {
@@ -3702,6 +3709,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
         cropProperties = _this$props2.cropProperties,
         error = _this$props2.error,
         isInvalid = _this$props2.isInvalid,
+        isinvalid = _this$props2.isinvalid,
         errorMessage = _this$props2.errorMessage,
         ratio = _this$props2.ratio,
         viewImgHeight = _this$props2.viewImgHeight,
@@ -3760,14 +3768,14 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     }), /*#__PURE__*/React__default.createElement(UploadImageButton, {
       disabled: disabled,
       variant: "outline-secondary",
-      isInvalid: error || isInvalid,
+      isinvalid: error || isInvalid || isinvalid,
       onClick: function onClick() {
         return _this3.refs.fileInput.click();
       }
     }, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
       icon: freeSolidSvgIcons.faUpload,
       onClick: this.props.onCancel
-    }))))), (error === true || isInvalid === true) && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
+    }))))), (error === true || isInvalid === true || isinvalid) && /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, null, /*#__PURE__*/React__default.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React__default.createElement(reactBootstrap.Modal, {
       onHide: function onHide() {},
       size: "xl",
       show: showPreviewImage
@@ -4324,8 +4332,10 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
         city = _this$state.city;
     var _this$props = this.props,
         localization = _this$props.localization,
-        error = _this$props.error,
-        mandatory = _this$props.mandatory;
+        errorAddress = _this$props.errorAddress,
+        errorCity = _this$props.errorCity,
+        mandatory = _this$props.mandatory,
+        halfbold = _this$props.halfbold;
 
     var _ref = position || {},
         lat = _ref.lat,
@@ -4340,26 +4350,34 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 5
     }, mandatory == false && /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.address || "Address"
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lat || "Lat"
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2
     }, mandatory == false && /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: localization.lon || "Lon"
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 3
     }, mandatory == false && /*#__PURE__*/React__default.createElement(NormalFieldLabel, {
+      halfbold: halfbold,
       value: localization.city || "City"
     }), (mandatory == null || mandatory == true) && /*#__PURE__*/React__default.createElement(MandatoryFieldLabel, {
+      halfbold: halfbold,
       value: cityLabel
     }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 5
@@ -4372,22 +4390,19 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       var getInputProps = _ref2.getInputProps,
           suggestions = _ref2.suggestions,
           getSuggestionItemProps = _ref2.getSuggestionItemProps;
-      return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactBootstrap.FormGroup, {
+      return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup, {
         style: {
           width: "100%"
         }
-      }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, _extends({
-        isInvalid: error
+      }, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, _extends({
+        isInvalid: errorAddress
       }, getInputProps({
-        placeholder: localization.searchPlaces || "Search places",
-        style: {
-          marginBottom: 10
-        }
+        placeholder: localization.searchPlaces || "Search places"
       }), {
         value: autoCompleteAddress || ""
       })), /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, localization.completeField || "Please complete the field")), /*#__PURE__*/React__default.createElement("div", {
+      }, errorAddress, " ")), /*#__PURE__*/React__default.createElement("div", {
         className: "autocomplete-dropdown-container"
       }, suggestions.map(function (suggestion, index) {
         var className = self.getAutoCompleteClassname(suggestion);
@@ -4403,20 +4418,21 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       })));
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2
-    }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, {
       placeholder: localization.lat || "Lat",
       value: lat || "",
       disabled: true
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 2
-    }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, {
       placeholder: localization.lon || "Lon",
       value: lng || "",
       disabled: true
     })), /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 3
-    }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, {
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.InputGroup, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, {
       placeholder: localization.city || "City",
+      isInvalid: errorCity,
       value: city || "",
       onChange: function onChange(e) {
         var value = e.target.value;
@@ -4429,7 +4445,13 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
           _this3.props.onChangeCity(value);
         }
       }
-    }))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, null, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
+    }), /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control.Feedback, {
+      type: "invalid"
+    }, errorCity)))), /*#__PURE__*/React__default.createElement(reactBootstrap.Row, {
+      style: {
+        marginTop: "1rem"
+      }
+    }, /*#__PURE__*/React__default.createElement(reactBootstrap.Col, {
       sm: 12
     }, /*#__PURE__*/React__default.createElement(LocationPicker, {
       zoom: 15,
@@ -4742,7 +4764,7 @@ function ReactTable(props) {
       hidePagination = props.hidePagination,
       _props$showRowSelecti = props.showRowSelection,
       showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
-      onRowSelect = props.onRowSelect;
+      setSelectedRows = props.setSelectedRows;
   React.useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
@@ -4791,15 +4813,16 @@ function ReactTable(props) {
       selectedFlatRows = _useTable.selectedFlatRows,
       _useTable$state = _useTable.state,
       pageIndex = _useTable$state.pageIndex,
-      pageSize = _useTable$state.pageSize;
+      pageSize = _useTable$state.pageSize,
+      selectedRowIds = _useTable$state.selectedRowIds;
 
-  React.useEffect(function () {
-    if (onRowSelect) {
-      onRowSelect(showRowSelection && selectedFlatRows ? selectedFlatRows.map(function (row) {
+  reactTable.useMountedLayoutEffect(function () {
+    if (showRowSelection && setSelectedRows) {
+      setSelectedRows(selectedFlatRows.map(function (row) {
         return row.original;
-      }) : []);
+      }));
     }
-  }, [onRowSelect, selectedFlatRows]);
+  }, [setSelectedRows, selectedRowIds]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledTable, getTableProps(), /*#__PURE__*/React__default.createElement("div", null, headerGroups.map(function (headerGroup) {
     return /*#__PURE__*/React__default.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
       return /*#__PURE__*/React__default.createElement(StyledTh, column.getHeaderProps(), column.render("Header"), setSortIcon(column), setResize(column));
@@ -4982,15 +5005,22 @@ function OrbitalSelect(props) {
     var typeStyles = {
       control: function control(styles) {
         return _extends({}, styles, typeBorder);
+      },
+      menuPortal: function menuPortal(base) {
+        return _extends({}, base, {
+          zIndex: 9999
+        });
       }
     };
     return typeStyles;
   }
 
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showCreatable == false ? /*#__PURE__*/React__default.createElement(Select, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)) : /*#__PURE__*/React__default.createElement(CreatableSelect, _extends({
-    styles: getTypeSelectStyles(isInvalid)
+    styles: getTypeSelectStyles(isInvalid),
+    menuPortalTarget: document.body
   }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMsg));
 }
 
