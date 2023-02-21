@@ -113,7 +113,7 @@ function ReactTable(props) {
               {row.isExpanded ? <SubContentContainer>{row.original.subContent}</SubContentContainer> : null}
             </React.Fragment>
           })}
-          {data.length > 0 && <span>{Utils.setEmptyRows(prepareRow, canNextPage, page, pageSize, data)}</span>}
+          {data.length > 0 && <span>{Utils.setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroups)}</span>}
         </div>
         {data.length === 0 && (
           <NoData>

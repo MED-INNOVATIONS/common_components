@@ -21,7 +21,7 @@ export const IndeterminateCheckbox = forwardRef(
     }
 );
 
-export function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
+export function setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroups) {
     var rows = null;
     if (canNextPage === false && page.length < pageSize && page[0]) {
         var new_filling_rows = pageSize - page.length;
@@ -29,22 +29,16 @@ export function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
         var page_tmp = _.map(new_filling_rows, f => {
             return page[0];
         });
-        rows = page_tmp.map((row, i) => {
-            // var new_id = data.length + i;
-            // row.id = new_id;
-
-            prepareRow(row);
-            return (
-                <StyledTr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
-                        return (
-                            <StyledTd {...cell.getCellProps()}>
-                                <div style={{ color: "#66000000" }}>.</div>
-                            </StyledTd>
-                        );
-                    })}
+        rows = _.map(new_filling_rows, () => {
+            return headerGroups.map(headerGroup => (
+                <StyledTr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                        <StyledTh {...column.getHeaderProps()}>
+                            <div style={{ color: "#66000000" }}>.</div>
+                        </StyledTh>
+                    ))}
                 </StyledTr>
-            );
+            ));
         });
     }
     return rows;
