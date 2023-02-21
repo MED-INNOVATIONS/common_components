@@ -4582,7 +4582,7 @@ var IndeterminateCheckbox = forwardRef(function (_ref, ref) {
     ref: resolvedRef
   }, rest));
 });
-function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
+function setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroups) {
   var rows = null;
 
   if (canNextPage === false && page.length < pageSize && page[0]) {
@@ -4593,17 +4593,16 @@ function setEmptyRows(prepareRow, canNextPage, page, pageSize, data) {
       return page[0];
     });
 
-    rows = page_tmp.map(function (row, i) {
-      var new_id = data.length + i;
-      row.id = new_id;
-      prepareRow(row);
-      return /*#__PURE__*/React.createElement(StyledTr, row.getRowProps(), row.cells.map(function (cell) {
-        return /*#__PURE__*/React.createElement(StyledTd, cell.getCellProps(), /*#__PURE__*/React.createElement("div", {
-          style: {
-            color: "#66000000"
-          }
-        }, "."));
-      }));
+    rows = _$2.map(new_filling_rows, function () {
+      return headerGroups.map(function (headerGroup) {
+        return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
+          return /*#__PURE__*/React.createElement(StyledTh, column.getHeaderProps(), /*#__PURE__*/React.createElement("div", {
+            style: {
+              color: "#66000000"
+            }
+          }, "."));
+        }));
+      });
     });
   }
 
@@ -4836,7 +4835,7 @@ function ReactTable(props) {
         key: index
       }, cell.getCellProps()), cell.render("Cell"));
     })), row.isExpanded ? /*#__PURE__*/React.createElement(SubContentContainer, null, row.original.subContent) : null);
-  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data))), data.length === 0 && /*#__PURE__*/React.createElement(NoData, null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+  }), data.length > 0 && /*#__PURE__*/React.createElement("span", null, setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroups))), data.length === 0 && /*#__PURE__*/React.createElement(NoData, null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faInfoCircle
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
