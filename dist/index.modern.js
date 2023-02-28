@@ -33,70 +33,64 @@ import { Formik } from 'formik';
 import { object, string } from 'yup';
 
 function _extends() {
-  _extends = Object.assign || function (target) {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
-
   return _extends.apply(this, arguments);
 }
-
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+  _setPrototypeOf(subClass, superClass);
 }
-
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
   var key, i;
-
   for (i = 0; i < sourceKeys.length; i++) {
     key = sourceKeys[i];
     if (excluded.indexOf(key) >= 0) continue;
     target[key] = source[key];
   }
-
   return target;
 }
-
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return self;
 }
-
 function _taggedTemplateLiteralLoose(strings, raw) {
   if (!raw) {
     raw = strings.slice(0);
   }
-
   strings.raw = raw;
   return strings;
 }
 
 var APISb = /*#__PURE__*/function () {
   function APISb() {}
-
   APISb.cleanToken = function cleanToken(token) {
     token = "Bearer " + token;
     token = token.replaceAll('"', "");
     return token;
   };
-
   APISb.get = function get(token, baseUrl, endpoint, params, customHeaders) {
     var url = baseUrl + endpoint;
     token = this.cleanToken(token);
@@ -120,7 +114,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb.post = function post(token, baseUrl, endpoint, params, data, customHeaders) {
     var url = baseUrl + endpoint;
     token = this.cleanToken(token);
@@ -145,7 +138,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb.put = function put(token, baseUrl, endpoint, params, data, customHeaders) {
     var url = baseUrl + endpoint;
     token = this.cleanToken(token);
@@ -170,7 +162,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb["delete"] = function _delete(token, baseUrl, endpoint, params, customHeaders) {
     var url = baseUrl + endpoint;
     token = this.cleanToken(token);
@@ -194,7 +185,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb.get_plain = function get_plain(baseUrl, endpoint, params, customHeaders) {
     var url = baseUrl + endpoint;
     var defaultHeaders = {
@@ -216,7 +206,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb.post_plain = function post_plain(baseUrl, endpoint, params, data, customHeaders) {
     var url = baseUrl + endpoint;
     var defaultHeaders = {
@@ -239,7 +228,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   APISb.put_plain = function put_plain(baseUrl, endpoint, params, data, customHeaders) {
     var url = baseUrl + endpoint;
     var defaultHeaders = {
@@ -262,7 +250,6 @@ var APISb = /*#__PURE__*/function () {
       });
     });
   };
-
   return APISb;
 }();
 
@@ -275,7 +262,6 @@ var localizationChannel = "setLocalizationEvent";
 var pluginVersionChannel = "pluginVersionEvent";
 
 var MySessionStorage = require('browser-session-store');
-
 MySessionStorage.setItem = function (key) {
   if (key == currentLang) {
     var localizationChannel$1 = localizationChannel;
@@ -284,24 +270,19 @@ MySessionStorage.setItem = function (key) {
     window.dispatchEvent(setLocalizationEvent);
   }
 };
-
 var SessionStorageStore = /*#__PURE__*/function () {
   function SessionStorageStore() {}
-
   SessionStorageStore.cleanKey = function cleanKey(value) {
     if (value != null) {
       value = value.replaceAll('"', "");
     }
-
     return value;
   };
-
   SessionStorageStore.getCurrentLang = function getCurrentLang() {
     var currentLang$1 = sessionStorage.getItem(currentLang);
     currentLang$1 = this.cleanKey(currentLang$1);
     return currentLang$1;
   };
-
   SessionStorageStore.setCurrentLang = function setCurrentLang(currentLang$1) {
     return new Promise(function (resolve, reject) {
       MySessionStorage.put(currentLang, currentLang$1, function (error) {
@@ -314,7 +295,6 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.removeCurrentLang = function removeCurrentLang() {
     return new Promise(function (resolve, reject) {
       MySessionStorage.remove(currentLang, function (error) {
@@ -326,13 +306,11 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.getDashboardAuthKey = function getDashboardAuthKey() {
     var SBDashboardAuthkey$1 = sessionStorage.getItem(SBDashboardAuthkey);
     SBDashboardAuthkey$1 = this.cleanKey(SBDashboardAuthkey$1);
     return SBDashboardAuthkey$1;
   };
-
   SessionStorageStore.setDashboardAuthKey = function setDashboardAuthKey(dashboardAuthKey) {
     return new Promise(function (resolve, reject) {
       MySessionStorage.put(SBDashboardAuthkey, dashboardAuthKey, function (error) {
@@ -344,7 +322,6 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.removeDashboardAuthKey = function removeDashboardAuthKey() {
     return new Promise(function (resolve, reject) {
       MySessionStorage.remove(SBDashboardAuthkey, function (error) {
@@ -356,13 +333,11 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.getUserAuthKey = function getUserAuthKey() {
     var SBUserAuthkey$1 = sessionStorage.getItem(SBUserAuthkey);
     SBUserAuthkey$1 = this.cleanKey(SBUserAuthkey$1);
     return SBUserAuthkey$1;
   };
-
   SessionStorageStore.setUserAuthKey = function setUserAuthKey(userAuthKey) {
     return new Promise(function (resolve, reject) {
       MySessionStorage.put(SBUserAuthkey, userAuthKey, function (error) {
@@ -374,7 +349,6 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.removeUserAuthKey = function removeUserAuthKey() {
     return new Promise(function (resolve, reject) {
       MySessionStorage.remove(SBUserAuthkey, function (error) {
@@ -386,12 +360,10 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.getAuth = function getAuth() {
     var authkey$1 = sessionStorage.getItem(authkey);
     return authkey$1;
   };
-
   SessionStorageStore.setAuth = function setAuth(authkey$1) {
     return new Promise(function (resolve, reject) {
       MySessionStorage.put(authkey, authkey$1, function (error) {
@@ -403,7 +375,6 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.removeAuth = function removeAuth() {
     return new Promise(function (resolve, reject) {
       MySessionStorage.remove(authkey, function (error) {
@@ -415,13 +386,11 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.getSBAPIUrl = function getSBAPIUrl() {
     var SBAPI_URL$1 = sessionStorage.getItem(SBAPI_URL);
     SBAPI_URL$1 = this.cleanKey(SBAPI_URL$1);
     return SBAPI_URL$1;
   };
-
   SessionStorageStore.setSBAPIUrl = function setSBAPIUrl(SBAPIUrl) {
     return new Promise(function (resolve, reject) {
       MySessionStorage.put(SBAPI_URL, SBAPIUrl, function (error) {
@@ -433,7 +402,6 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   SessionStorageStore.removeSBAPIUrl = function removeSBAPIUrl() {
     return new Promise(function (resolve, reject) {
       MySessionStorage.remove(SBAPI_URL, function (error) {
@@ -445,17 +413,14 @@ var SessionStorageStore = /*#__PURE__*/function () {
       });
     });
   };
-
   return SessionStorageStore;
 }();
 
 var ClientSession = /*#__PURE__*/function () {
   function ClientSession() {}
-
   ClientSession.isLoggedIn = function isLoggedIn() {
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
-
       if (_$2.isEmpty(auth) == true) {
         resolve(false);
       } else {
@@ -463,7 +428,6 @@ var ClientSession = /*#__PURE__*/function () {
       }
     });
   };
-
   ClientSession.checkLogin = function checkLogin() {
     var self = this;
     return new Promise(function (resolve, reject) {
@@ -478,11 +442,9 @@ var ClientSession = /*#__PURE__*/function () {
       });
     });
   };
-
   ClientSession.getAuth = function getAuth() {
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
-
       if (_$2.isEmpty(auth) == true) {
         reject(null);
       } else {
@@ -490,13 +452,11 @@ var ClientSession = /*#__PURE__*/function () {
       }
     });
   };
-
   return ClientSession;
 }();
 
 var SpecificAPI = /*#__PURE__*/function () {
   function SpecificAPI() {}
-
   SpecificAPI.getAvailablePlugin = function getAvailablePlugin(authKey, apiUrl, pluginKey) {
     return new Promise(function (resolve, reject) {
       var url = "/PluginAvailableListMo/search/findByPluginKey";
@@ -511,7 +471,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getPluginActivationForAll = function getPluginActivationForAll(authKey, apiUrl, pluginKey, brandId, userId) {
     return new Promise(function (resolve, reject) {
       var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnableAndBuyForAll";
@@ -531,7 +490,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getPluginActivation = function getPluginActivation(authKey, apiUrl, pluginKey, brandId, userId) {
     return new Promise(function (resolve, reject) {
       var url = "/PluginActivationMo/search/findByPluginKeyAndBrandIdAndIdRelAndPluginActiveAndPluginEnable";
@@ -550,7 +508,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getPluginConfiguration = function getPluginConfiguration(authKey, apiUrl, pluginId) {
     return new Promise(function (resolve, reject) {
       var url = "/BrandPluginConfigMo/search/findByPluginId";
@@ -567,7 +524,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getBrandById = function getBrandById(authKey, apiUrl, brandId) {
     return new Promise(function (resolve, reject) {
       var url = "/BrandsMo/" + brandId;
@@ -579,7 +535,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getBrandConfig = function getBrandConfig(authKey, apiUrl, brandId) {
     return new Promise(function (resolve, reject) {
       var url = "/BrandConfigurationMo/search/findByBrandId";
@@ -595,7 +550,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getOrbitalConfig = function getOrbitalConfig(authKey, apiUrl, key) {
     return new Promise(function (resolve, reject) {
       var url = "/ConfigMo/search/findByKey";
@@ -611,7 +565,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getGeneralPluginLocalization = function getGeneralPluginLocalization(authKey, apiUrl, pluginKey) {
     return new Promise(function (resolve, reject) {
       var url = "/LocalizationAvailablePluginsMo/search/findByPluginKey";
@@ -627,7 +580,6 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   SpecificAPI.getActivePluginLocalization = function getActivePluginLocalization(authKey, apiUrl, pluginActivationId) {
     return new Promise(function (resolve, reject) {
       var url = "/LocalizationActivePluginsMo/search/findByPluginActivationId";
@@ -643,18 +595,15 @@ var SpecificAPI = /*#__PURE__*/function () {
       });
     });
   };
-
   return SpecificAPI;
 }();
 
 var AuthStore = /*#__PURE__*/function () {
   function AuthStore() {}
-
   AuthStore.setAuthStore = function setAuthStore() {
     var self = this;
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
-
       if (_.isEmpty(auth) == true) {
         reject("'Auth' is null");
       } else {
@@ -663,52 +612,42 @@ var AuthStore = /*#__PURE__*/function () {
       }
     });
   };
-
   AuthStore.setAuth = function setAuth(auth) {
     this.auth = auth;
   };
-
   AuthStore.getAuth = function getAuth() {
     return this.auth;
   };
-
   AuthStore.getUser = function getUser() {
     var user = this.auth.user || {};
     return user;
   };
-
   AuthStore.getUserId = function getUserId() {
     var user = this.auth.user || {};
     var userId = user.id;
     return userId;
   };
-
   AuthStore.getUserRole = function getUserRole() {
     var user = this.auth.user || {};
     var role = user.role;
     return role;
   };
-
   AuthStore.getUserSubRole = function getUserSubRole() {
     var user = this.auth.user || {};
     var subRole = user.subRole;
     return subRole;
   };
-
   AuthStore.getDefautlLang = function getDefautlLang() {
     var auth = this.auth || {};
     var lang = auth.lang;
     return lang;
   };
-
   AuthStore.getCurrentLang = function getCurrentLang() {
     return this.getDefautlLang();
   };
-
   AuthStore.getUserLang = function getUserLang() {
     return this.getDefautlLang();
   };
-
   AuthStore.getPreferedLanguages = function getPreferedLanguages() {
     var auth = this.auth || {};
     var user = auth.user || {};
@@ -717,41 +656,34 @@ var AuthStore = /*#__PURE__*/function () {
     var languages = brandConfiguration.preferedLang || [];
     return languages;
   };
-
   AuthStore.getUserPluginPermission = function getUserPluginPermission() {
     var user = this.auth.user || {};
     var permissions = user._permission || {};
     return permissions;
   };
-
   AuthStore.checkPermissionKey = function checkPermissionKey(permission_key) {
     var user = this.auth.user || {};
     var permissions = user._permission || {};
     var permitted = permissions[permission_key] || "D";
     return permitted;
   };
-
   AuthStore.getBrandId = function getBrandId() {
     var user = this.auth.user || {};
     var brandId = user.brandId;
     return brandId;
   };
-
   AuthStore.getReferrerId = function getReferrerId() {
     var user = this.auth.user || {};
     var referrerId = user.referrerId;
     return referrerId;
   };
-
   AuthStore.getOrbitalId = function getOrbitalId() {
     var user = this.auth.user || {};
     var orbitalId = user.orbitalIdId;
     return orbitalId;
   };
-
   AuthStore.getOwnerId = function getOwnerId() {
     var user = this.auth && this.auth.user ? this.auth.user : null;
-
     if (user.role == "Owner" && user.subRole == "Sub Owner") {
       return user.referrerId;
     } else if (user.role == "Owner") {
@@ -762,14 +694,11 @@ var AuthStore = /*#__PURE__*/function () {
       return user.id;
     }
   };
-
   AuthStore.getParentId = function getParentId() {
     return this.getOwnerId();
   };
-
   return AuthStore;
 }();
-
 AuthStore.defaultLang = "En";
 AuthStore.auth = {};
 
@@ -777,7 +706,6 @@ function getBrowserLang() {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
   try {
     var browserLang = navigator.language || navigator.userLanguage;
     browserLang = browserLang.substring(0, 2).toLowerCase();
@@ -788,7 +716,6 @@ function getBrowserLang() {
     return null;
   }
 }
-
 function getInitialLocalizationLanguage() {
   var browserLang = getBrowserLang();
   var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || browserLang || "En";
@@ -816,7 +743,6 @@ function getPluginActivation(authKey, apiUrl, pluginTarget, pluginKey, brandId, 
   return new Promise(function (resolve, reject) {
     SpecificAPI.getAvailablePlugin(authKey, apiUrl, pluginKey).then(function (availablePlugin) {
       PluginStore.setAvailablePlugin(availablePlugin);
-
       if (pluginTarget == "brand") {
         return self.getBrandPluginActivationInstance(authKey, apiUrl, pluginKey, brandId);
       } else if (pluginTarget == "owner") {
@@ -840,9 +766,7 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
     Promise.all([p0, p1]).then(function (results) {
       var generalPluginLocalization = results[0];
       var activePluginLocalization = results[1];
-
       var localization = _extends({}, generalPluginLocalization, activePluginLocalization);
-
       resolve(localization);
     })["catch"](function (error) {
       reject("Error getting localization");
@@ -851,19 +775,15 @@ function getPluginLocalization(authKey, apiUrl, pluginKey, pluginActivationId) {
 }
 function setLocalization(localizationInstance, localizationObj, callbackLocalization) {
   var newLocalizationObject = {};
-
   _$2.each(localizationObj, function (obj, key) {
     var languages = Object.keys(obj);
-
     _$2.each(languages, function (language) {
       if (newLocalizationObject[language] == null) {
         newLocalizationObject[language] = {};
       }
-
       newLocalizationObject[language][key] = obj[language];
     });
   });
-
   newLocalizationObject.En = newLocalizationObject.En || {};
   newLocalizationObject.It = newLocalizationObject.It || {};
   newLocalizationObject.En = _extends({}, callbackLocalization.En, newLocalizationObject.En);
@@ -878,7 +798,6 @@ function checkPermission(AuthStore, pluginKey) {
   return new Promise(function (resolve, reject) {
     var userPluginPermission = AuthStore.getUserPluginPermission();
     var pluginPermission = userPluginPermission[pluginKey];
-
     if (pluginPermission === null || pluginPermission === "D") {
       reject("The user is not allowed to access the '" + pluginKey + "' plugin");
     } else {
@@ -888,16 +807,16 @@ function checkPermission(AuthStore, pluginKey) {
 }
 function initializePluginPipeline(initializationObject) {
   var authKey = initializationObject.authKey,
-      apiUrl = initializationObject.apiUrl,
-      pluginTarget = initializationObject.pluginTarget,
-      pluginKey = initializationObject.pluginKey,
-      pluginVersion = initializationObject.pluginVersion,
-      AuthStore = initializationObject.AuthStore,
-      OrbitalStore = initializationObject.OrbitalStore,
-      BrandStore = initializationObject.BrandStore,
-      PluginStore = initializationObject.PluginStore,
-      localizationInstance = initializationObject.localizationInstance,
-      callbackLocalization = initializationObject.callbackLocalization;
+    apiUrl = initializationObject.apiUrl,
+    pluginTarget = initializationObject.pluginTarget,
+    pluginKey = initializationObject.pluginKey,
+    pluginVersion = initializationObject.pluginVersion,
+    AuthStore = initializationObject.AuthStore,
+    OrbitalStore = initializationObject.OrbitalStore,
+    BrandStore = initializationObject.BrandStore,
+    PluginStore = initializationObject.PluginStore,
+    localizationInstance = initializationObject.localizationInstance,
+    callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
     var pluginVersionEvent = new Event(pluginVersionChannel);
@@ -941,15 +860,15 @@ function initializePluginPipeline(initializationObject) {
 }
 function initializePluginPipeline_WITHOUT_pluginAvailable_pluginActivation(initializationObject) {
   var authKey = initializationObject.authKey,
-      apiUrl = initializationObject.apiUrl,
-      pluginKey = initializationObject.pluginKey,
-      pluginVersion = initializationObject.pluginVersion,
-      AuthStore = initializationObject.AuthStore,
-      OrbitalStore = initializationObject.OrbitalStore,
-      BrandStore = initializationObject.BrandStore,
-      PluginStore = initializationObject.PluginStore,
-      localizationInstance = initializationObject.localizationInstance,
-      callbackLocalization = initializationObject.callbackLocalization;
+    apiUrl = initializationObject.apiUrl,
+    pluginKey = initializationObject.pluginKey,
+    pluginVersion = initializationObject.pluginVersion,
+    AuthStore = initializationObject.AuthStore,
+    OrbitalStore = initializationObject.OrbitalStore,
+    BrandStore = initializationObject.BrandStore,
+    PluginStore = initializationObject.PluginStore,
+    localizationInstance = initializationObject.localizationInstance,
+    callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
     var pluginVersionEvent = new Event(pluginVersionChannel);
@@ -994,13 +913,13 @@ function getPluginVersionChannel() {
 }
 function initializeSystemPluginPipeline(initializationObject) {
   var authKey = initializationObject.authKey,
-      apiUrl = initializationObject.apiUrl,
-      pluginKey = initializationObject.pluginKey,
-      pluginVersion = initializationObject.pluginVersion,
-      AuthStore = initializationObject.AuthStore,
-      OrbitalStore = initializationObject.OrbitalStore,
-      localizationInstance = initializationObject.localizationInstance,
-      callbackLocalization = initializationObject.callbackLocalization;
+    apiUrl = initializationObject.apiUrl,
+    pluginKey = initializationObject.pluginKey,
+    pluginVersion = initializationObject.pluginVersion,
+    AuthStore = initializationObject.AuthStore,
+    OrbitalStore = initializationObject.OrbitalStore,
+    localizationInstance = initializationObject.localizationInstance,
+    callbackLocalization = initializationObject.callbackLocalization;
   var self = this;
   return new Promise(function (resolve, reject) {
     var pluginVersionEvent = new Event(pluginVersionChannel);
@@ -1610,166 +1529,129 @@ var SyncfusionUtils = {
 
 var OrbitalStore = /*#__PURE__*/function () {
   function OrbitalStore() {}
-
   OrbitalStore.setOrbitalConfig = function setOrbitalConfig(orbitalConfig) {
     this.orbitalConfig = orbitalConfig || {};
   };
-
   OrbitalStore.getOrbitalConfig = function getOrbitalConfig() {
     return this.orbitalConfig;
   };
-
   OrbitalStore.getDefaultImage = function getDefaultImage() {
     var image = this.orbitalConfig && this.orbitalConfig.image ? this.orbitalConfig.image : null;
     return image;
   };
-
   OrbitalStore.getDefaultLang = function getDefaultLang() {
     var defaultLang = this.orbitalConfig && this.orbitalConfig.defaultLang ? this.orbitalConfig.defaultLang : null;
     return defaultLang;
   };
-
   return OrbitalStore;
 }();
-
 OrbitalStore.orbitalConfig = {};
 
 var EventEmitter = require('events');
-
 var BrandStore = /*#__PURE__*/function () {
   function BrandStore() {}
-
   BrandStore.emit = function emit(channel, data) {
     this.eventEmitter.emit(channel, data);
   };
-
   BrandStore.on = function on(channel, callback) {
     return this.eventEmitter.on(channel, callback);
   };
-
   BrandStore.removeListener = function removeListener(channel, callback) {
     return this.eventEmitter.removeListener(channel, callback);
   };
-
   BrandStore.setBrand = function setBrand(brand) {
     this.brand = brand || {};
   };
-
   BrandStore.getBrand = function getBrand() {
     return this.brand;
   };
-
   BrandStore.setBrandConfiguration = function setBrandConfiguration(brandConfiguration) {
     this.brandConfiguration = brandConfiguration || {};
   };
-
   BrandStore.getBrandConfiguration = function getBrandConfiguration() {
     return this.brandConfiguration;
   };
-
   BrandStore.getBrandId = function getBrandId() {
     var brandId = this.brand.id;
     return brandId;
   };
-
   BrandStore.getPreferedLanguages = function getPreferedLanguages() {
     var preferedLang = this.brandConfiguration.preferedLang;
     return preferedLang;
   };
-
   BrandStore.getDefaultLang = function getDefaultLang() {
     var defaultLang = this.brandConfiguration.defaultLang;
     return defaultLang;
   };
-
   BrandStore.getCurrency = function getCurrency() {
     var currency = this.brandConfiguration.currency;
     return currency;
   };
-
   BrandStore.getCustomerIsolation = function getCustomerIsolation() {
     var customerIsolation = this.brandConfiguration.customerIsolation;
     return customerIsolation;
   };
-
   BrandStore.getPermissionGroups = function getPermissionGroups() {
     var pluginPermissionGroups = this.brandConfiguration != null ? this.brandConfiguration.pluginPermissionGroups : null;
     return pluginPermissionGroups;
   };
-
   BrandStore.setPermissionGroups = function setPermissionGroups(pluginPermissionGroups) {
     var brandConfiguration = this.brandConfiguration ? this.brandConfiguration : {};
     brandConfiguration.pluginPermissionGroups = pluginPermissionGroups;
     this.brandConfiguration = brandConfiguration;
   };
-
   return BrandStore;
 }();
-
 BrandStore.eventEmitter = new EventEmitter();
 BrandStore.brand = null;
 BrandStore.brandConfiguration = null;
 
 var PluginStore = /*#__PURE__*/function () {
   function PluginStore() {}
-
   PluginStore.setAvailablePlugin = function setAvailablePlugin(availablePlugin) {
     this.availablePlugin = availablePlugin;
   };
-
   PluginStore.getAvailablePlugin = function getAvailablePlugin() {
     return this.availablePlugin;
   };
-
   PluginStore.setPluginActivation = function setPluginActivation(pluginActivation) {
     this.pluginActivation = pluginActivation;
   };
-
   PluginStore.getPluginActivation = function getPluginActivation() {
     return this.pluginActivation;
   };
-
   PluginStore.getPluginConfiguration = function getPluginConfiguration() {
     var pluginConfiguration = this.pluginActivation && this.pluginActivation.config ? this.pluginActivation.config : null;
     return pluginConfiguration;
   };
-
   PluginStore.getPluginDefaultData = function getPluginDefaultData() {
     var pluginDefaultData = this.pluginActivation && this.pluginActivation.defaultData ? this.pluginActivation.defaultData : null;
     return pluginDefaultData;
   };
-
   return PluginStore;
 }();
-
 PluginStore.availablePlugin = null;
 PluginStore.pluginActivation = null;
 
 var DatePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
-
   function DatePicker(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       value: _this.props.value
     };
     return _this;
   }
-
   var _proto = DatePicker.prototype;
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
-
     setTimeout(function () {
       _this2.setState({
         value: nextProps.value
       });
     }, 100);
   };
-
   _proto.render = function render() {
     var format = this.props.format;
     return /*#__PURE__*/React.createElement(DatePickerComponent, _extends({}, this.props, {
@@ -1777,30 +1659,24 @@ var DatePicker = /*#__PURE__*/function (_Component) {
       format: format || "dd/MM/yyyy"
     }));
   };
-
   return DatePicker;
 }(Component);
 
 var DatePicker$1 = /*#__PURE__*/function (_Component) {
   _inheritsLoose(DatePicker, _Component);
-
   function DatePicker(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
-
   var _proto = DatePicker.prototype;
-
   _proto.render = function render() {
     var format = this.props.format;
     return /*#__PURE__*/React.createElement(DateTimePickerComponent, _extends({}, this.props, {
       format: format || "dd/MM/yyyy HH:mm"
     }));
   };
-
   return DatePicker;
 }(Component);
 
@@ -1879,32 +1755,25 @@ L10n.load({
     }
   }
 });
-
 var RecurrenceEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(RecurrenceEditor, _Component);
-
   function RecurrenceEditor(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       locale: _this.props.locale
     };
     return _this;
   }
-
   var _proto = RecurrenceEditor.prototype;
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
-
     setTimeout(function () {
       _this2.setState({
         locale: nextProps.locale
       });
     }, 100);
   };
-
   _proto.render = function render() {
     var dateFormat = this.props.dateFormat;
     var locale = this.state.locale || "en-US";
@@ -1913,19 +1782,15 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
       locale: locale
     }, this.props));
   };
-
   return RecurrenceEditor;
 }(Component);
 
 var _$1 = require("lodash");
-
 var date_format = "DD/MM/YYYY";
 var ReservationScheduler = /*#__PURE__*/function (_Component) {
   _inheritsLoose(ReservationScheduler, _Component);
-
   function ReservationScheduler() {
     var _this;
-
     _this = _Component.apply(this, arguments) || this;
     _this.state = {
       closedDates: _this.props.closedDates ? _this.props.closedDates : [],
@@ -1941,20 +1806,15 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     _this.changeAgendaRange = _this.changeAgendaRange.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = ReservationScheduler.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     this.currentView = this.props.currentView || "Month";
   };
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
-
     var closedDates = nextProps.closedDates,
-        currentView = nextProps.currentView,
-        events = nextProps.events;
-
+      currentView = nextProps.currentView,
+      events = nextProps.events;
     if (this.scheduleObj != null) {
       if (closedDates && closedDates.toString() !== this.state.closedDates.toString()) {
         this.setState({
@@ -1963,12 +1823,10 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
           _this2.scheduleObj.refresh();
         });
       }
-
       if (currentView != null) {
         this.scheduleObj.changeCurrentView(currentView);
         this.currentView = currentView;
       }
-
       var new_events = events || [];
       var dataSource = {
         dataSource: new_events
@@ -1978,11 +1836,9 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.checkSelectedDate = function checkSelectedDate(args) {
     var selected_date = moment(this.selectedDate, date_format).format(date_format);
     var date = moment(args.date).format(date_format);
-
     if (args.elementType == "monthCells" && date == selected_date) {
       args.element.setAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
       args.element.classList.remove("e-current-date");
@@ -1990,9 +1846,7 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       args.element.removeAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
       args.element.classList.remove("e-current-date");
     }
-
     var weekday = moment(selected_date, date_format).format("dddd");
-
     if (args.elementType == "monthDay") {
       if (args.element.textContent == weekday) {
         args.element.classList.add("e-current-day");
@@ -2001,7 +1855,6 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       }
     }
   };
-
   _proto.parseClosedDates = function parseClosedDates(closedDates) {
     var closed_day = closedDates.length ? _$1.map(this.state.closedDates, function (el) {
       var se = new Date(el);
@@ -2010,71 +1863,55 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     }) : [];
     return closed_day;
   };
-
   _proto.checkClosedDate = function checkClosedDate(args) {
     var closed_day = this.parseClosedDates(this.state.closedDates);
-
     if (args.date) {
       var date = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate()).getTime();
-
       if (args.elementType == "monthCells" && closed_day.indexOf(date) > -1) {
         args.element.classList.add("e-current-date");
       }
     }
   };
-
   _proto.changeAgendaRange = function changeAgendaRange() {
     var _this3 = this;
-
     if (this.currentView == "Agenda") {
       setTimeout(function () {
         if (_this3.props.onChangeAgendaRange) {
           var first = _$1.first(_this3.scheduleObj.activeView.renderDates);
-
           var last = _$1.last(_this3.scheduleObj.activeView.renderDates);
-
           _this3.props.onChangeAgendaRange(first, last);
         }
       }, 100);
     }
   };
-
   _proto.render = function render() {
     var _this4 = this;
-
     var self = this;
-
     function renderCell(args) {
       self.checkSelectedDate(args);
       self.checkClosedDate(args);
     }
-
     function cellClick(args) {
       var tmp = moment(args.startTime).format(date_format);
       self.selectedDate = tmp;
       self.scheduleObj.refresh();
-
       if (self.props.onChangeDate) {
         self.props.onChangeDate(moment(args.startTime));
       }
     }
-
     function popupOpen(args) {
       if (args.type == "QuickInfo") {
         args.cancel = true;
       }
-
       if (args.type == "Editor") {
         args.cancel = true;
       }
     }
-
     function actionComplete(props) {
       if (props.requestType == "toolBarItemRendered") {
         var todayButton = _$1.find(props.items || [], {
           cssClass: "e-today"
         });
-
         if (todayButton) {
           todayButton.click = function (a, b, c) {
             var previousDate = new Date(2001, 1, 1);
@@ -2088,34 +1925,28 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
         }
       }
     }
-
     function navigating(props) {
       var previousDate = props.previousDate,
-          currentDate = props.currentDate,
-          action = props.action,
-          currentView = props.currentView;
+        currentDate = props.currentDate,
+        action = props.action,
+        currentView = props.currentView;
       var today = moment().format(date_format);
       previousDate = previousDate ? moment(previousDate).format(date_format) : null;
       currentDate = currentDate ? moment(currentDate).format(date_format) : null;
-
       if (action == "date" && currentDate && currentDate == today && previousDate != today && currentView == "Month") {
         self.scheduleObj.selectedDate = new Date();
         self.selectedDate = moment().format(date_format);
         self.scheduleObj.refresh();
-
         if (self.props.onChangeDate) {
           self.props.onChangeDate(moment());
         }
       }
-
       if (action == "view" && self.props.onChangeView) {
         self.currentView = currentView;
         self.props.onChangeView(currentView);
       }
-
       self.changeAgendaRange();
     }
-
     return /*#__PURE__*/React.createElement(ScheduleComponent, {
       ref: function ref(schedule) {
         return _this4.scheduleObj = schedule;
@@ -2144,35 +1975,28 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
       services: [Day, Week, WorkWeek, Month, Agenda]
     }));
   };
-
   return ReservationScheduler;
 }(Component);
 
 var TimePicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(TimePicker, _Component);
-
   function TimePicker(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       value: _this.props.value
     };
     return _this;
   }
-
   var _proto = TimePicker.prototype;
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
-
     setTimeout(function () {
       _this2.setState({
         value: nextProps.value
       });
     }, 100);
   };
-
   _proto.render = function render() {
     var format = this.props.format;
     return /*#__PURE__*/React.createElement(TimePickerComponent, _extends({}, this.props, {
@@ -2180,43 +2004,25 @@ var TimePicker = /*#__PURE__*/function (_Component) {
       format: format || "HH:mm"
     }));
   };
-
   return TimePicker;
 }(Component);
 
-function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0,25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
+var _templateObject;
+var OrbitalErrorDiv = styled.div(_templateObject || (_templateObject = _taggedTemplateLiteralLoose(["\n    margin-top: 0,25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
 
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var OrbitalErrorDiv = styled.div(_templateObject());
-
-function _templateObject$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
-
-  _templateObject$1 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv = styled.div(_templateObject$1(), function (props) {
+var _templateObject$1;
+var StyledDiv = styled.div(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"])), function (props) {
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
-
 function DatePickerV2(props) {
   var enabled = props.enabled,
-      disabled = props.disabled,
-      isInvalid = props.isInvalid,
-      errorMessage = props.errorMessage,
-      format = props.format,
-      language = props.language,
-      _props$firstDayOfWeek = props.firstDayOfWeek,
-      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
+    disabled = props.disabled,
+    isInvalid = props.isInvalid,
+    errorMessage = props.errorMessage,
+    format = props.format,
+    language = props.language,
+    _props$firstDayOfWeek = props.firstDayOfWeek,
+    firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv, {
@@ -2229,26 +2035,17 @@ function DatePickerV2(props) {
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage));
 }
 
-function _templateObject$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
-
-  _templateObject$2 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$1 = styled.div(_templateObject$2(), function (props) {
+var _templateObject$2;
+var StyledDiv$1 = styled.div(_templateObject$2 || (_templateObject$2 = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"])), function (props) {
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
-
 function DateTimePickerV2(props) {
   var format = props.format,
-      isInvalid = props.isInvalid,
-      errorMessage = props.errorMessage,
-      language = props.language,
-      _props$firstDayOfWeek = props.firstDayOfWeek,
-      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
+    isInvalid = props.isInvalid,
+    errorMessage = props.errorMessage,
+    language = props.language,
+    _props$firstDayOfWeek = props.firstDayOfWeek,
+    firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$1, {
     isInvalid: invalid
@@ -2259,25 +2056,16 @@ function DateTimePickerV2(props) {
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage));
 }
 
-function _templateObject$3() {
-  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
-
-  _templateObject$3 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$2 = styled.div(_templateObject$3(), function (props) {
+var _templateObject$3;
+var StyledDiv$2 = styled.div(_templateObject$3 || (_templateObject$3 = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"])), function (props) {
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
-
 function RecurrenceEditorv2(props) {
   var language = props.language,
-      dateFormat = props.dateFormat,
-      isInvalid = props.isInvalid,
-      _props$firstDayOfWeek = props.firstDayOfWeek,
-      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
+    dateFormat = props.dateFormat,
+    isInvalid = props.isInvalid,
+    _props$firstDayOfWeek = props.firstDayOfWeek,
+    firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$2, {
     isInvalid: invalid
@@ -2290,35 +2078,31 @@ function RecurrenceEditorv2(props) {
 
 var dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
-
 function SchedulerV2(props) {
   var _props$language = props.language,
-      language = _props$language === void 0 ? "En" : _props$language,
-      height = props.height,
-      dayView = props.dayView,
-      weekView = props.weekView,
-      workWeekView = props.workWeekView,
-      monthView = props.monthView,
-      agendaView = props.agendaView,
-      startingCurrentView = props.currentView,
-      _props$firstDayOfWeek = props.firstDayOfWeek,
-      firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek,
-      _props$closedDates = props.closedDates,
-      closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
-      events = props.events,
-      onChangeDate = props.onChangeDate,
-      onChangeDateRange = props.onChangeDateRange,
-      onChangeView = props.onChangeView,
-      onChangeAgendaRange = props.onChangeAgendaRange;
-
+    language = _props$language === void 0 ? "En" : _props$language,
+    height = props.height,
+    dayView = props.dayView,
+    weekView = props.weekView,
+    workWeekView = props.workWeekView,
+    monthView = props.monthView,
+    agendaView = props.agendaView,
+    startingCurrentView = props.currentView,
+    _props$firstDayOfWeek = props.firstDayOfWeek,
+    firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek,
+    _props$closedDates = props.closedDates,
+    closedDates = _props$closedDates === void 0 ? [] : _props$closedDates,
+    events = props.events,
+    onChangeDate = props.onChangeDate,
+    onChangeDateRange = props.onChangeDateRange,
+    onChangeView = props.onChangeView,
+    onChangeAgendaRange = props.onChangeAgendaRange;
   var _useState = useState(moment().format(dateFormat)),
-      selectedDate = _useState[0],
-      setSelectedDate = _useState[1];
-
+    selectedDate = _useState[0],
+    setSelectedDate = _useState[1];
   var _useState2 = useState(startingCurrentView || "Month"),
-      currentView = _useState2[0],
-      setCurrentView = _useState2[1];
-
+    currentView = _useState2[0],
+    setCurrentView = _useState2[1];
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2330,36 +2114,29 @@ function SchedulerV2(props) {
       changeDateRange();
     }
   }, [currentView]);
-
   function cellClick(args) {
     var startTime = args.startTime;
     var parsedDate = moment(startTime).format(dateFormat);
     setSelectedDate(parsedDate);
     scheduleObj.refresh();
-
     if (onChangeDate) {
       var parsedStartTime = moment(startTime);
       onChangeDate(parsedStartTime);
     }
   }
-
   function popupOpen(args) {
     var type = args.type;
-
     if (type === "QuickInfo" || type === "Editor") {
       args.cancel = true;
     }
   }
-
   function actionComplete(args) {
     var items = args.items,
-        requestType = args.requestType;
-
+      requestType = args.requestType;
     if (requestType === "toolBarItemRendered") {
       var todayButton = _$2.find(items || [], {
         cssClass: "e-today"
       });
-
       if (_$2.isEmpty(todayButton) === false) {
         todayButton.click = function () {
           var previousDate = new Date(2001, 1, 1);
@@ -2373,68 +2150,55 @@ function SchedulerV2(props) {
       }
     }
   }
-
   function changeDateRange() {
     var first = moment(_$2.first(scheduleObj.activeView.renderDates));
     var last = moment(_$2.last(scheduleObj.activeView.renderDates));
-
     if (onChangeAgendaRange) {
       onChangeAgendaRange(first, last);
     }
-
     if (onChangeDateRange) {
       onChangeDateRange(first, last);
     }
   }
-
   function manageViewAction(args) {
     var currentView = args.currentView;
     setCurrentView(currentView);
-
     if (onChangeView) {
       currentView = currentView;
       onChangeView(currentView);
     }
   }
-
   function manageDateAction(args) {
     var currentDate = args.currentDate,
-        previousDate = args.previousDate;
+      previousDate = args.previousDate;
     var today = moment().format(dateFormat);
     previousDate = previousDate ? moment(previousDate).format(dateFormat) : null;
     currentDate = currentDate ? moment(currentDate).format(dateFormat) : null;
-
     if (currentDate && currentDate === today && previousDate !== today) {
-        scheduleObj.selectedDate = new Date();
-        cellClick({
-          startTime: new Date()
-        });
-      }
+      scheduleObj.selectedDate = new Date();
+      cellClick({
+        startTime: new Date()
+      });
+    }
   }
-
   function navigating(args) {
     var action = args.action;
-
     switch (action) {
       case "date":
         manageDateAction(args);
         break;
-
       case "view":
         manageViewAction(args);
         break;
     }
-
     changeDateRange();
   }
-
   function checkSelectedDate(args) {
     var date = args.date,
-        element = args.element,
-        elementType = args.elementType;
+      element = args.element,
+      elementType = args.elementType;
     var parsedSelectedDate = moment(selectedDate, dateFormat).format(dateFormat);
     var parsedCellDate = moment(date).format(dateFormat);
-
     if (elementType === "monthCells" && parsedCellDate === parsedSelectedDate) {
       element.setAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
       element.classList.remove("e-current-date");
@@ -2442,9 +2206,7 @@ function SchedulerV2(props) {
       element.removeAttribute("style", "background-color:rgb(0, 123, 255, 0.2)");
       element.classList.remove("e-current-date");
     }
-
     var selectedDateWeekday = moment(parsedSelectedDate, dateFormat).format("dddd");
-
     if (elementType === "monthDay") {
       if (element.textContent === selectedDateWeekday) {
         element.classList.add("e-current-day");
@@ -2453,35 +2215,29 @@ function SchedulerV2(props) {
       }
     }
   }
-
   function parseClosedDates(closedDates) {
     var parsedClosedDates = _$2.map(closedDates || [], function (date) {
       var parsedDate = moment(date).format(dateFormat);
       return parsedDate;
     });
-
     return parsedClosedDates;
   }
-
   function checkClosedDate(args) {
     var date = args.date,
-        element = args.element,
-        elementType = args.elementType;
+      element = args.element,
+      elementType = args.elementType;
     var parsedClosedDates = parseClosedDates(closedDates) || [];
     var parsedCellDate = moment(date).format(dateFormat);
-
     if (elementType === "monthCells" && _$2.indexOf(parsedClosedDates, parsedCellDate) > -1) {
       args.element.classList.add("e-current-date");
       var innerElement = element.getElementsByClassName("e-date-header e-navigate")[0];
       innerElement.setAttribute("style", "background-color:#dc3545");
     }
   }
-
   function renderCell(args) {
     checkSelectedDate(args);
     checkClosedDate(args);
   }
-
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ScheduleComponent, {
     locale: getLocaleByLanguage(language),
     ref: function ref(schedule) {
@@ -2513,24 +2269,15 @@ function SchedulerV2(props) {
   })));
 }
 
-function _templateObject$4() {
-  var data = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"]);
-
-  _templateObject$4 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$3 = styled.div(_templateObject$4(), function (props) {
+var _templateObject$4;
+var StyledDiv$3 = styled.div(_templateObject$4 || (_templateObject$4 = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n    \n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"])), function (props) {
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
-
 function TimePickerv2(props) {
   var enabled = props.enabled,
-      disabled = props.disabled,
-      isInvalid = props.isInvalid,
-      errorMessage = props.errorMessage;
+    disabled = props.disabled,
+    isInvalid = props.isInvalid,
+    errorMessage = props.errorMessage;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$3, {
@@ -2540,49 +2287,21 @@ function TimePickerv2(props) {
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage));
 }
 
-function _templateObject2() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: #dc3545;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$5() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n"]);
-
-  _templateObject$5 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$4 = styled.div(_templateObject$5(), function (props) {
+var _templateObject$5, _templateObject2;
+var StyledDiv$4 = styled.div(_templateObject$5 || (_templateObject$5 = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n"])), function (props) {
   return props.halfbold === true ? "500" : "normal";
 });
-var StyledSpan = styled.span(_templateObject2());
-
+var StyledSpan = styled.span(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n    color: #dc3545;\n"])));
 function MandatoryFieldLabel(props) {
   return /*#__PURE__*/React.createElement(StyledDiv$4, props, /*#__PURE__*/React.createElement(StyledSpan, null, "* "), /*#__PURE__*/React.createElement("span", null, props.value));
 }
 
-function _templateObject$6() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n    color:  ", ";\n"]);
-
-  _templateObject$6 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$5 = styled.div(_templateObject$6(), function (props) {
+var _templateObject$6;
+var StyledDiv$5 = styled.div(_templateObject$6 || (_templateObject$6 = _taggedTemplateLiteralLoose(["\n    font-weight:  ", ";;\n    color:  ", ";\n"])), function (props) {
   return props.halfbold === true ? "500" : "normal";
 }, function (props) {
   return (props.isTransparent || props.istransparent) === true ? "transparent" : null;
 });
-
 function NormalFieldLabel(props) {
   return /*#__PURE__*/React.createElement(StyledDiv$5, props, props.value);
 }
@@ -2599,29 +2318,18 @@ function CustomLoadingOverlay(props) {
   }), props.children);
 }
 
-function _templateObject$7() {
-  var data = _taggedTemplateLiteralLoose(["\n  .rdw-editor-toolbar{\n    border-top-color: white;\n    border-right-color: white;\n    border-left-color: white;\n    border-bottom-color: #d9d9d9;\n    z-index: 1;\n  }\n\n  .rdw-editor-wrapper{\n    border: 1px solid;\n    border-color: ", ";\n  }\n\n  .rdw-editor-main{\n    height: ", ";\n    max-height: ", ";\n  }\n"]);
-
-  _templateObject$7 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledDiv$6 = styled.div(_templateObject$7(), function (props) {
+var _templateObject$7;
+var StyledDiv$6 = styled.div(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n  .rdw-editor-toolbar{\n    border-top-color: white;\n    border-right-color: white;\n    border-left-color: white;\n    border-bottom-color: #d9d9d9;\n    z-index: 1;\n  }\n\n  .rdw-editor-wrapper{\n    border: 1px solid;\n    border-color: ", ";\n  }\n\n  .rdw-editor-main{\n    height: ", ";\n    max-height: ", ";\n  }\n"])), function (props) {
   return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
 }, function (props) {
   return props.editorHeight;
 }, function (props) {
   return props.maxHeight;
 });
-
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HTMLTextEditor, _Component);
-
   function HTMLTextEditor(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       loading: false,
@@ -2632,13 +2340,10 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
     _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = HTMLTextEditor.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     this.parseData(this.props.data);
   };
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     if (this.props.data != nextProps.data && this.state.init == 0) {
       this.setState({
@@ -2649,11 +2354,9 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       this.parseData(nextProps.data);
     }
   };
-
   _proto.parseData = function parseData(data) {
     data = _$2.isEmpty(data) === false ? data : "";
     var contentBlock = htmlToDraft(data);
-
     if (contentBlock) {
       var contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
       var editorState = EditorState.createWithContent(contentState);
@@ -2662,7 +2365,6 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.uploadImageCallBack = function uploadImageCallBack(file) {
     var self = this;
     return new Promise(function (resolve, reject) {
@@ -2686,25 +2388,23 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       });
     });
   };
-
   _proto.onEditorStateChange = function onEditorStateChange(editorState) {
     this.props.onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     this.setState({
       editorState: editorState
     });
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        localization = _this$props.localization,
-        disabled = _this$props.disabled,
-        error = _this$props.error,
-        isInvalid = _this$props.isInvalid,
-        editorHeight = _this$props.editorHeight,
-        maxHeight = _this$props.maxHeight;
+      localization = _this$props.localization,
+      disabled = _this$props.disabled,
+      error = _this$props.error,
+      isInvalid = _this$props.isInvalid,
+      editorHeight = _this$props.editorHeight,
+      maxHeight = _this$props.maxHeight;
     var _this$state = this.state,
-        editorState = _this$state.editorState,
-        loading = _this$state.loading;
+      editorState = _this$state.editorState,
+      loading = _this$state.loading;
     return /*#__PURE__*/React.createElement(CustomLoadingOverlay, {
       active: loading,
       spinner: true,
@@ -2755,7 +2455,6 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       value: draftToHtml(convertToRaw(editorState.getCurrentContent()))
     }))));
   };
-
   return HTMLTextEditor;
 }(Component);
 
@@ -2765,51 +2464,42 @@ var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenIm
 
 function HTMLEditor(props) {
   var _props$language = props.language,
-      language = _props$language === void 0 ? "En" : _props$language,
-      height = props.height,
-      enabled = props.enabled,
-      disabled = props.disabled,
-      value = props.value,
-      onChange = props.onChange;
+    language = _props$language === void 0 ? "En" : _props$language,
+    height = props.height,
+    enabled = props.enabled,
+    disabled = props.disabled,
+    value = props.value,
+    onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var rteObj;
   useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
-
       if (element) {
         element.remove();
       }
-
       var aTags = document.getElementsByTagName("a");
       var searchText = "Claim your free account";
-
       _$2.each(aTags, function (tag) {
         if (tag && tag.textContent.toLowerCase() == searchText.toLowerCase()) {
           var parentElement = tag.parentElement;
           parentElement.remove();
           var secondParentElement = parentElement.parentElement;
-
           if (secondParentElement) {
             secondParentElement.remove();
             var thirdParentElement = secondParentElement.parentElement;
-
             if (thirdParentElement) {
               thirdParentElement.remove();
               var fourthParentElement = thirdParentElement.parentElement;
-
               if (fourthParentElement) {
                 fourthParentElement.remove();
               }
             }
           }
-
           var divTags = document.getElementsByTagName("div");
-
           _$2.each(divTags, function (tag) {
             if (tag) {
               var style = tag.style;
-
               if (style.position === "fixed" && style.width == "100%" && style.height == "100%" && style.zIndex == "99999" && style.backgroundColor == "rgba(0, 0, 0, 0.5)") {
                 tag.remove();
                 return;
@@ -2822,11 +2512,9 @@ function HTMLEditor(props) {
       console.error(e);
     }
   });
-
   function created() {
     rteObj.refreshUI();
   }
-
   var quickToolbarSettings = {
     table: tableItems,
     image: imageItems
@@ -2870,17 +2558,13 @@ function HTMLEditor(props) {
 
 var CustomTooltip = /*#__PURE__*/function (_Component) {
   _inheritsLoose(CustomTooltip, _Component);
-
   function CustomTooltip(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
-
   var _proto = CustomTooltip.prototype;
-
   _proto.render = function render() {
     var placement = this.props.placement || "top";
     var delay = this.props.delay || {
@@ -2889,7 +2573,6 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
     };
     var tooltip = this.props.tooltip || "";
     var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-
     if (_$2.isEmpty(tooltip) === true) {
       return /*#__PURE__*/React.createElement(React.Fragment, null, children);
     } else {
@@ -2904,25 +2587,21 @@ var CustomTooltip = /*#__PURE__*/function (_Component) {
       }, children);
     }
   };
-
   return CustomTooltip;
 }(Component);
 
 var ImageService = /*#__PURE__*/function () {
   function ImageService() {}
-
   ImageService.compress = function compress(_ref) {
     var file = _ref.file,
-        divider = _ref.divider;
+      divider = _ref.divider;
     return new Promise(function (resolve, reject) {
       var fileName = file.name;
       var reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = function (event) {
         var img = new Image();
         img.src = event.target.result;
-
         img.onload = function () {
           var elem = document.createElement("canvas");
           elem.width = img.width / divider;
@@ -2937,14 +2616,12 @@ var ImageService = /*#__PURE__*/function () {
             resolve(newFile);
           }, file.type, 1);
         };
-
         reader.onerror = function (error) {
           return reject(error);
         };
       };
     });
   };
-
   ImageService.batchCompress = function batchCompress(file) {
     var dividers = [{
       file: file,
@@ -2963,7 +2640,6 @@ var ImageService = /*#__PURE__*/function () {
     var results = Promise.all(actions);
     return results;
   };
-
   ImageService.getResizedCanvas = function getResizedCanvas(canvas, newWidth, newHeight) {
     var tmpCanvas = document.createElement("canvas");
     tmpCanvas.width = newWidth;
@@ -2972,154 +2648,20 @@ var ImageService = /*#__PURE__*/function () {
     ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
     return tmpCanvas;
   };
-
   return ImageService;
 }();
 
-function _templateObject13() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"]);
-
-  _templateObject13 = function _templateObject13() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject12() {
-  var data = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"]);
-
-  _templateObject12 = function _templateObject12() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject11() {
-  var data = _taggedTemplateLiteralLoose(["\n    cursor: pointer;\n    font-size: 1.5rem;\n    color: grey\n"]);
-
-  _templateObject11 = function _templateObject11() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject10() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
-
-  _templateObject10 = function _templateObject10() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject9() {
-  var data = _taggedTemplateLiteralLoose(["\n    width: 104px;\n    height: 104px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"]);
-
-  _templateObject9 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8() {
-  var data = _taggedTemplateLiteralLoose(["\n    max-width: 100% !important;\n    max-height: 100%;\n    cursor: pointer;\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
-
-  _templateObject7 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6() {
-  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteralLoose(["\n    top: -10px\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"]);
-
-  _templateObject2$1 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$8() {
-  var data = _taggedTemplateLiteralLoose(["\n    position: relative;\n"]);
-
-  _templateObject$8 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var ImageBoxDiv = styled.div(_templateObject$8());
-
+var _templateObject$8, _templateObject2$1, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13;
+var ImageBoxDiv = styled.div(_templateObject$8 || (_templateObject$8 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
 function ImageBox(props) {
   return /*#__PURE__*/React.createElement(ImageBoxDiv, null, props.children);
 }
-
-var IconsBoxDiv = styled.div(_templateObject2$1());
-
+var IconsBoxDiv = styled.div(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"])));
 function IconsBox(props) {
   return /*#__PURE__*/React.createElement(IconsBoxDiv, null, props.children);
 }
-
-var StyledFaCircleUpdate = styled(FontAwesomeIcon)(_templateObject3());
-var StyledPencilAlt = styled(FontAwesomeIcon)(_templateObject4());
-
+var StyledFaCircleUpdate = styled(FontAwesomeIcon)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"])));
+var StyledPencilAlt = styled(FontAwesomeIcon)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function UpdateImageIcon() {
   return /*#__PURE__*/React.createElement("span", {
     className: "fa-stack small"
@@ -3131,11 +2673,9 @@ function UpdateImageIcon() {
     icon: faPencilAlt
   }));
 }
-
-var StyledDivDeleteImage = styled.div(_templateObject5());
-var StyledFaCircleDelete = styled(FontAwesomeIcon)(_templateObject6());
-var StyledTrashAlt = styled(FontAwesomeIcon)(_templateObject7());
-
+var StyledDivDeleteImage = styled.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
+var StyledFaCircleDelete = styled(FontAwesomeIcon)(_templateObject6 || (_templateObject6 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
+var StyledTrashAlt = styled(FontAwesomeIcon)(_templateObject7 || (_templateObject7 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function DeleteImageIcon(props) {
   return /*#__PURE__*/React.createElement(StyledDivDeleteImage, _extends({
     className: "fa-stack small"
@@ -3147,53 +2687,41 @@ function DeleteImageIcon(props) {
     icon: faTrashAlt
   }));
 }
-
-var StyledImg = styled.img(_templateObject8());
-
+var StyledImg = styled.img(_templateObject8 || (_templateObject8 = _taggedTemplateLiteralLoose(["\n    max-width: 100% !important;\n    max-height: 100%;\n    cursor: pointer;\n"])));
 function StyledImage(props) {
   return /*#__PURE__*/React.createElement(StyledImg, props);
 }
-
-var StyledButton = styled(Button)(_templateObject9(), function (props) {
+var StyledButton = styled(Button)(_templateObject9 || (_templateObject9 = _taggedTemplateLiteralLoose(["\n    width: 104px;\n    height: 104px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
   return props.error === true || props.isinvalid === true ? "#dc3545" : "#d9d9d9";
 });
-
 function UploadImageButton(props) {
   return /*#__PURE__*/React.createElement(StyledButton, props, props.children);
 }
-
-var StyledDivErrorMessage = styled.div(_templateObject10());
-
+var StyledDivErrorMessage = styled.div(_templateObject10 || (_templateObject10 = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
 function ErrorMessage(props) {
   return /*#__PURE__*/React.createElement(StyledDivErrorMessage, null, props.children);
 }
-
-var StyledFontAwesomeIconClose = styled(FontAwesomeIcon)(_templateObject11());
-
+var StyledFontAwesomeIconClose = styled(FontAwesomeIcon)(_templateObject11 || (_templateObject11 = _taggedTemplateLiteralLoose(["\n    cursor: pointer;\n    font-size: 1.5rem;\n    color: grey\n"])));
 function CloseIcon(props) {
   return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconClose, _extends({
     icon: faTimesCircle
   }, props)));
 }
-
-var StyledFontAwesomeIconCropper = styled(FontAwesomeIcon)(_templateObject12(), function (props) {
+var StyledFontAwesomeIconCropper = styled(FontAwesomeIcon)(_templateObject12 || (_templateObject12 = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"])), function (props) {
   return props.isError === true ? "not-allowed" : "pointer";
 }, function (props) {
   return props.isError === true ? "#dee2e6" : "#007bff";
 });
-
 function CropperDownloadIcon(props) {
   return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconCropper, _extends({}, props, {
     icon: faDownload
   })));
 }
-
-var StyledFontAwesomeIconSave = styled(FontAwesomeIcon)(_templateObject13(), function (props) {
+var StyledFontAwesomeIconSave = styled(FontAwesomeIcon)(_templateObject13 || (_templateObject13 = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"])), function (props) {
   return props.isError === true ? "not-allowed" : "pointer";
 }, function (props) {
   return props.isError === true ? "#dee2e6" : "#007bff";
 });
-
 function CropperSaveIcon(props) {
   return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconSave, _extends({}, props, {
     icon: faSave
@@ -3202,10 +2730,8 @@ function CropperSaveIcon(props) {
 
 var CropImage = /*#__PURE__*/function (_Component) {
   _inheritsLoose(CropImage, _Component);
-
   function CropImage(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       src: null,
@@ -3217,71 +2743,55 @@ var CropImage = /*#__PURE__*/function (_Component) {
     _this.start = _this.start.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = CropImage.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     var _this2 = this;
-
     this.setState({
       src: this.props.src
     }, function () {
       _this2.start();
     });
   };
-
   _proto.checkCroppedDimensionsErrors = function checkCroppedDimensionsErrors(props, croppedWidth, croppedHeight, showMessage) {
     var minCroppedWidth = props.minCroppedWidth,
-        maxCroppedWidth = props.maxCroppedWidth,
-        minCroppedHeight = props.minCroppedHeight,
-        maxCroppedHeight = props.maxCroppedHeight,
-        localization = props.localization;
+      maxCroppedWidth = props.maxCroppedWidth,
+      minCroppedHeight = props.minCroppedHeight,
+      maxCroppedHeight = props.maxCroppedHeight,
+      localization = props.localization;
     var isError = false;
-
     if (minCroppedWidth != null && croppedWidth < minCroppedWidth) {
       isError = true;
-
       if (showMessage == true) {
         toast.warn(localization.minCroppedWidth || "minCroppedWidth");
       }
     }
-
     if (maxCroppedWidth != null && croppedWidth > maxCroppedWidth) {
       isError = true;
-
       if (showMessage == true) {
         toast.warn(localization.maxCroppedWidth || "maxCroppedWidth");
       }
     }
-
     if (minCroppedHeight != null && croppedHeight < minCroppedHeight) {
       isError = true;
-
       if (showMessage == true) {
         toast.warn(localization.minCroppedHeight || "minCroppedHeight");
       }
     }
-
     if (maxCroppedHeight != null && croppedHeight > maxCroppedHeight) {
       isError = true;
-
       if (showMessage == true) {
         toast.warn(localization.maxCroppedHeight || "maxCroppedHeight");
       }
     }
-
     return isError;
   };
-
   _proto.start = function start() {
     var self = this;
     var aspectRatio = null;
-
     if (self.props.aspectRatio) {
       aspectRatio = self.props.aspectRatio.split(":");
       aspectRatio = parseInt(aspectRatio[0]) / parseInt(aspectRatio[1]);
     }
-
     var image = document.getElementById('image');
     self.cropper = new Cropper(image, {
       zoomable: false,
@@ -3298,12 +2808,11 @@ var CropImage = /*#__PURE__*/function (_Component) {
         var width = event.detail.width;
         var height = event.detail.height;
         var _self$props = self.props,
-            minCroppedWidth = _self$props.minCroppedWidth,
-            maxCroppedWidth = _self$props.maxCroppedWidth,
-            minCroppedHeight = _self$props.minCroppedHeight,
-            maxCroppedHeight = _self$props.maxCroppedHeight;
+          minCroppedWidth = _self$props.minCroppedWidth,
+          maxCroppedWidth = _self$props.maxCroppedWidth,
+          minCroppedHeight = _self$props.minCroppedHeight,
+          maxCroppedHeight = _self$props.maxCroppedHeight;
         var isError = self.checkCroppedDimensionsErrors(self.props, width, height);
-
         if (isError == false) {
           self.cropper.setData({
             width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
@@ -3324,12 +2833,10 @@ var CropImage = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.downloadCroppedImg = function downloadCroppedImg() {
     var _this$state = this.state,
-        croppedImageUrl = _this$state.croppedImageUrl,
-        isError = _this$state.isError;
-
+      croppedImageUrl = _this$state.croppedImageUrl,
+      isError = _this$state.isError;
     if (croppedImageUrl != null && isError == false) {
       fetch(this.state.croppedImageUrl, {
         method: "GET",
@@ -3348,13 +2855,11 @@ var CropImage = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.parseCroppedImage = function parseCroppedImage() {
     var self = this;
     var _this$state2 = this.state,
-        croppedImageUrl = _this$state2.croppedImageUrl,
-        isError = _this$state2.isError;
-
+      croppedImageUrl = _this$state2.croppedImageUrl,
+      isError = _this$state2.isError;
     if (isError == false && croppedImageUrl != null) {
       fetch(croppedImageUrl).then(function (result) {
         return result.blob();
@@ -3375,15 +2880,13 @@ var CropImage = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.render = function render() {
     var _this3 = this;
-
     var localization = this.props.localization;
     var _this$state3 = this.state,
-        src = _this$state3.src,
-        croppedImageUrl = _this$state3.croppedImageUrl,
-        isError = _this$state3.isError;
+      src = _this$state3.src,
+      croppedImageUrl = _this$state3.croppedImageUrl,
+      isError = _this$state3.isError;
     return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Card.Header, null, /*#__PURE__*/React.createElement("span", {
       style: {
         "float": "right"
@@ -3430,16 +2933,13 @@ var CropImage = /*#__PURE__*/function (_Component) {
       fluid: true
     })))));
   };
-
   return CropImage;
 }(Component);
 
 var UploadImage = /*#__PURE__*/function (_Component) {
   _inheritsLoose(UploadImage, _Component);
-
   function UploadImage(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       showPreviewImage: false,
@@ -3458,9 +2958,7 @@ var UploadImage = /*#__PURE__*/function (_Component) {
     _this.saveCrop = _this.saveCrop.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = UploadImage.prototype;
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     if (nextProps.image != this.state.image) {
       this.setState({
@@ -3468,68 +2966,54 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.handleFileUpload = function handleFileUpload(e) {
     var self = this;
     var files = e.target.files;
-
     if (files.length > 0) {
       var fileSrc = files[0];
       var reader = new FileReader();
-
       reader.onload = function () {
         var data = reader.result;
         self.manageUploadedFile(data, fileSrc);
       };
-
       reader.readAsDataURL(fileSrc);
     }
   };
-
   _proto.checkImageRatioAndDimensions = function checkImageRatioAndDimensions(uploadedImage) {
     var self = this;
     return new Promise(function (resolve, reject) {
       var _self$props = self.props,
-          localization = _self$props.localization,
-          sizeConstraints = _self$props.sizeConstraints,
-          ratio = _self$props.ratio,
-          imageSize = _self$props.imageSize,
-          cropProperties = _self$props.cropProperties;
-
+        localization = _self$props.localization,
+        sizeConstraints = _self$props.sizeConstraints,
+        ratio = _self$props.ratio,
+        imageSize = _self$props.imageSize,
+        cropProperties = _self$props.cropProperties;
       var _ref = sizeConstraints || {},
-          constraints = _ref.constraints,
-          minHeight = _ref.minHeight,
-          maxHeight = _ref.maxHeight,
-          minWidth = _ref.minWidth,
-          maxWidth = _ref.maxWidth;
-
+        constraints = _ref.constraints,
+        minHeight = _ref.minHeight,
+        maxHeight = _ref.maxHeight,
+        minWidth = _ref.minWidth,
+        maxWidth = _ref.maxWidth;
       var _ref2 = cropProperties || {},
-          cropImage = _ref2.cropImage;
-
+        cropImage = _ref2.cropImage;
       var isError = false;
-
       try {
         var currentImageSize = uploadedImage.length * (3 / 4) - 1;
         currentImageSize = currentImageSize / 1048576;
-
         if (cropImage != true && imageSize != null && currentImageSize > imageSize) {
           var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
           toast.warn(message);
           resolve(true);
           return;
         }
-
         var image = new Image();
-
         image.onload = function () {
           var imageWidth = this.width;
           var imageHeight = this.height;
-
           if (ratio && cropImage != true) {
             var imageRatio = imageWidth / imageHeight;
             var tmpRatio = ratio.split(":");
             var tmpRatio = tmpRatio[0] / tmpRatio[1];
-
             if (imageRatio != tmpRatio) {
               isError = true;
               var message = (localization.errorAspectRatio || "Aspect ratio must be") + " " + ratio;
@@ -3538,7 +3022,6 @@ var UploadImage = /*#__PURE__*/function (_Component) {
               return;
             }
           }
-
           if (constraints === true) {
             if (imageWidth < minWidth) {
               isError = true;
@@ -3564,7 +3047,6 @@ var UploadImage = /*#__PURE__*/function (_Component) {
               ;
               toast.warn(message);
             }
-
             if (isError === true) {
               reject();
             } else {
@@ -3572,11 +3054,9 @@ var UploadImage = /*#__PURE__*/function (_Component) {
               return;
             }
           }
-
           resolve();
           return;
         };
-
         image.src = uploadedImage;
       } catch (e) {
         reject(e);
@@ -3585,22 +3065,18 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.manageUploadedFile = function manageUploadedFile(uploadedImage, fileSrc) {
     var self = this;
     var _this$props = this.props,
-        localization = _this$props.localization,
-        resizeProperties = _this$props.resizeProperties,
-        cropProperties = _this$props.cropProperties;
-
+      localization = _this$props.localization,
+      resizeProperties = _this$props.resizeProperties,
+      cropProperties = _this$props.cropProperties;
     var _ref3 = resizeProperties || {},
-        resizeImage = _ref3.resizeImage,
-        resizeHeight = _ref3.resizeHeight,
-        resizeWidth = _ref3.resizeWidth;
-
+      resizeImage = _ref3.resizeImage,
+      resizeHeight = _ref3.resizeHeight,
+      resizeWidth = _ref3.resizeWidth;
     var _ref4 = cropProperties || {},
-        cropImage = _ref4.cropImage;
-
+      cropImage = _ref4.cropImage;
     var fileName = fileSrc.name;
     var fileType = fileSrc.type;
     var fileExtension = uploadedImage.split(';')[0].split('/')[1];
@@ -3637,7 +3113,6 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       }
     })["catch"](function (e) {});
   };
-
   _proto.fileChangedHandler = function fileChangedHandler(input, newWidth, newHeight) {
     return new Promise(function (resolve, reject) {
       try {
@@ -3652,24 +3127,21 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.saveCrop = function saveCrop(data) {
     var self = this;
     var _self$state = self.state,
-        fileName = _self$state.fileName,
-        fileType = _self$state.fileType,
-        fileExtension = _self$state.fileExtension;
-
+      fileName = _self$state.fileName,
+      fileType = _self$state.fileType,
+      fileExtension = _self$state.fileExtension;
     if (this.props.onChange) {
       this.setState({
         showCropModal: false
       }, function () {
         var _self$props2 = self.props,
-            localization = _self$props2.localization,
-            imageSize = _self$props2.imageSize;
+          localization = _self$props2.localization,
+          imageSize = _self$props2.imageSize;
         var currentImageSize = data.length * (3 / 4) - 1;
         currentImageSize = currentImageSize / 1048576;
-
         if (imageSize != null && currentImageSize > imageSize) {
           var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
           toast.warn(message);
@@ -3679,10 +3151,8 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.onRemove = function onRemove() {
     var _this2 = this;
-
     if (this.props.onRemove) {
       this.setState({
         showCropModal: false
@@ -3695,29 +3165,27 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       });
     }
   };
-
   _proto.render = function render() {
     var _this3 = this;
-
     var _this$props2 = this.props,
-        disabled = _this$props2.disabled,
-        localization = _this$props2.localization,
-        cropProperties = _this$props2.cropProperties,
-        error = _this$props2.error,
-        isInvalid = _this$props2.isInvalid,
-        isinvalid = _this$props2.isinvalid,
-        errorMessage = _this$props2.errorMessage,
-        ratio = _this$props2.ratio,
-        viewImgHeight = _this$props2.viewImgHeight,
-        viewImgWidth = _this$props2.viewImgWidth,
-        viewImgMaxHeight = _this$props2.viewImgMaxHeight;
+      disabled = _this$props2.disabled,
+      localization = _this$props2.localization,
+      cropProperties = _this$props2.cropProperties,
+      error = _this$props2.error,
+      isInvalid = _this$props2.isInvalid,
+      isinvalid = _this$props2.isinvalid,
+      errorMessage = _this$props2.errorMessage,
+      ratio = _this$props2.ratio,
+      viewImgHeight = _this$props2.viewImgHeight,
+      viewImgWidth = _this$props2.viewImgWidth,
+      viewImgMaxHeight = _this$props2.viewImgMaxHeight;
     var _this$state = this.state,
-        image = _this$state.image,
-        showPreviewImage = _this$state.showPreviewImage,
-        showCropModal = _this$state.showCropModal;
+      image = _this$state.image,
+      showPreviewImage = _this$state.showPreviewImage,
+      showCropModal = _this$state.showCropModal;
     var _this$state2 = this.state,
-        imageToCropSrc = _this$state2.imageToCropSrc,
-        imageToCrop = _this$state2.imageToCrop;
+      imageToCropSrc = _this$state2.imageToCropSrc,
+      imageToCrop = _this$state2.imageToCrop;
     cropProperties = cropProperties || {};
     viewImgHeight = viewImgHeight || "auto";
     viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
@@ -3810,132 +3278,26 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       onClose: this.onRemove
     })));
   };
-
   return UploadImage;
 }(Component);
 
-function _templateObject10$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"]);
-
-  _templateObject10$1 = function _templateObject10() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject9$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 4rem;\n"]);
-
-  _templateObject9$1 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
-
-  _templateObject8$1 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"]);
-
-  _templateObject7$1 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    top: -10px\n"]);
-
-  _templateObject6$1 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"]);
-
-  _templateObject5$1 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"]);
-
-  _templateObject4$1 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$1() {
-  var data = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"]);
-
-  _templateObject3$1 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    position: relative;\n"]);
-
-  _templateObject2$2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$9() {
-  var data = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"]);
-
-  _templateObject$9 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledButtonUpload = styled(Button)(_templateObject$9(), function (props) {
+var _templateObject$9, _templateObject2$2, _templateObject3$1, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject10$1;
+var StyledButtonUpload = styled(Button)(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
   return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
 });
-
 function UploadImageButton$1(props) {
   return /*#__PURE__*/React.createElement(StyledButtonUpload, props, props.children);
 }
-
-var StyledDivDocumentBox = styled.div(_templateObject2$2());
-
+var StyledDivDocumentBox = styled.div(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
 function DocumentBox(props) {
   return /*#__PURE__*/React.createElement(StyledDivDocumentBox, null, props.children);
 }
-
-var StyledDivIconxBox = styled.div(_templateObject3$1());
-
+var StyledDivIconxBox = styled.div(_templateObject3$1 || (_templateObject3$1 = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"])));
 function IconsBox$1(props) {
   return /*#__PURE__*/React.createElement(StyledDivIconxBox, null, props.children);
 }
-
-var StyledFaCircleUpdate$1 = styled(FontAwesomeIcon)(_templateObject4$1());
-var StyledPencilAlt$1 = styled(FontAwesomeIcon)(_templateObject5$1());
-
+var StyledFaCircleUpdate$1 = styled(FontAwesomeIcon)(_templateObject4$1 || (_templateObject4$1 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"])));
+var StyledPencilAlt$1 = styled(FontAwesomeIcon)(_templateObject5$1 || (_templateObject5$1 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function UpdateImageIcon$1() {
   return /*#__PURE__*/React.createElement("span", {
     className: "fa-stack small"
@@ -3947,11 +3309,9 @@ function UpdateImageIcon$1() {
     icon: faPencilAlt
   }));
 }
-
-var StyledDiv$7 = styled.div(_templateObject6$1());
-var StyledFaCircleDelete$1 = styled(FontAwesomeIcon)(_templateObject7$1());
-var StyledTrashAlt$1 = styled(FontAwesomeIcon)(_templateObject8$1());
-
+var StyledDiv$7 = styled.div(_templateObject6$1 || (_templateObject6$1 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
+var StyledFaCircleDelete$1 = styled(FontAwesomeIcon)(_templateObject7$1 || (_templateObject7$1 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
+var StyledTrashAlt$1 = styled(FontAwesomeIcon)(_templateObject8$1 || (_templateObject8$1 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function DeleteImageIcon$1(props) {
   return /*#__PURE__*/React.createElement(StyledDiv$7, _extends({
     className: "fa-stack small"
@@ -3963,37 +3323,30 @@ function DeleteImageIcon$1(props) {
     icon: faTrashAlt
   }));
 }
-
-var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject9$1());
-
+var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject9$1 || (_templateObject9$1 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 4rem;\n"])));
 function FileIcon(props) {
   return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, {
     icon: faFileAlt
   });
 }
-
-var StyledDivErrorMessage$1 = styled.div(_templateObject10$1());
-
+var StyledDivErrorMessage$1 = styled.div(_templateObject10$1 || (_templateObject10$1 = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
 function ErrorMessage$1(props) {
   return /*#__PURE__*/React.createElement(StyledDivErrorMessage$1, null, props.children);
 }
 
 function UploadDocument(props) {
   var document = props.document,
-      onChange = props.onChange,
-      onRemove = props.onRemove,
-      disabled = props.disabled,
-      isInvalid = props.isInvalid,
-      errorMessage = props.errorMessage;
+    onChange = props.onChange,
+    onRemove = props.onRemove,
+    disabled = props.disabled,
+    isInvalid = props.isInvalid,
+    errorMessage = props.errorMessage;
   var inputRef = useRef(null);
-
   function handleFileUpload(e) {
     var files = e.target.files;
-
     if (files.length > 0) {
       var fileSrc = files[0];
       var reader = new FileReader();
-
       reader.onload = function () {
         var data = reader.result;
         var fileName = fileSrc.name;
@@ -4001,11 +3354,9 @@ function UploadDocument(props) {
         var fileExtension = data.split(';')[0].split('/')[1];
         onChange(data, fileName, fileExtension, fileType);
       };
-
       reader.readAsDataURL(fileSrc);
     }
   }
-
   return /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, _$2.isEmpty(document) === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("input", {
     ref: inputRef,
     onChange: handleFileUpload,
@@ -4042,10 +3393,8 @@ function UploadDocument(props) {
 
 var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(OrbitalAddressComponentsPicker, _Component);
-
   function OrbitalAddressComponentsPicker(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       autoCompleteLocation: _this.props.location,
@@ -4057,9 +3406,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
     _this.changeCity = _this.changeCity.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = OrbitalAddressComponentsPicker.prototype;
-
   _proto.componentDidUpdate = function componentDidUpdate(nextProps) {
     if (nextProps.location != this.state.location) {
       this.setState({
@@ -4067,20 +3414,17 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
         autoCompleteLocation: nextProps.location
       });
     }
-
     if (nextProps.disabled != this.state.disabled) {
       this.setState({
         disabled: nextProps.disabled
       });
     }
   };
-
   _proto.onSelectCity = function onSelectCity(location, placeId) {
     var self = this;
     var localization = this.props.localization;
     geocodeByPlaceId(placeId).then(function (results) {
       var data = results[0];
-
       if (data) {
         var address_components = data.address_components;
         self.setState({
@@ -4097,10 +3441,8 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       toast.error(localization.error || "Error");
     });
   };
-
   _proto.changeCity = function changeCity(autoCompleteLocation) {
     var _this2 = this;
-
     this.setState({
       autoCompleteLocation: autoCompleteLocation
     }, function () {
@@ -4109,12 +3451,10 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.getAutoCompleteClassname = function getAutoCompleteClassname(suggestion) {
     var className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
     return className;
   };
-
   _proto.getAutoCompleteStyle = function getAutoCompleteStyle(suggestion) {
     var backgroundColor = suggestion.active ? "#fafafa" : "#ffffff";
     var style = {
@@ -4123,15 +3463,14 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
     };
     return style;
   };
-
   _proto.render = function render() {
     var self = this;
     var _this$state = this.state,
-        autoCompleteLocation = _this$state.autoCompleteLocation,
-        disabled = _this$state.disabled;
+      autoCompleteLocation = _this$state.autoCompleteLocation,
+      disabled = _this$state.disabled;
     var _this$props = this.props,
-        localization = _this$props.localization,
-        error = _this$props.error;
+      localization = _this$props.localization,
+      error = _this$props.error;
     return /*#__PURE__*/React.createElement(PlacesAutocomplete, {
       ref: this.placeAutocomplete,
       value: autoCompleteLocation || "",
@@ -4139,8 +3478,8 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       onSelect: this.onSelectCity
     }, function (_ref) {
       var getInputProps = _ref.getInputProps,
-          suggestions = _ref.suggestions,
-          getSuggestionItemProps = _ref.getSuggestionItemProps;
+        suggestions = _ref.suggestions,
+        getSuggestionItemProps = _ref.getSuggestionItemProps;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FormGroup, {
         style: {
           width: "100%"
@@ -4171,20 +3510,11 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       })));
     });
   };
-
   return OrbitalAddressComponentsPicker;
 }(Component);
 
-function _templateObject$a() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"]);
-
-  _templateObject$a = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var OrbitalInfoIcon = styled(FontAwesomeIcon)(_templateObject$a());
+var _templateObject$a;
+var OrbitalInfoIcon = styled(FontAwesomeIcon)(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"])));
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -4198,13 +3528,10 @@ var defaultLatLong = {
   lat: 41.9028,
   lng: 12.4964
 };
-
 var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   _inheritsLoose(OrbitalLocationPicker, _Component);
-
   function OrbitalLocationPicker(props) {
     var _this;
-
     _this = _Component.call(this, props) || this;
     _this.state = {
       position: _this.props.position || defaultLatLong,
@@ -4218,9 +3545,7 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     _this.onSelectAddress = _this.onSelectAddress.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   var _proto = OrbitalLocationPicker.prototype;
-
   _proto.getCity = function getCity(coordinates) {
     return new Promise(function (resolve, reject) {
       try {
@@ -4234,15 +3559,12 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
           if (status == "OK") {
             var firstResult = results[0];
             var address_components = firstResult.address_components;
-
             var addressComponent = _$2.find(address_components, function (component) {
               var types = component.types;
-
               if (types.indexOf(addressComponentType) != -1) {
                 return component;
               }
             });
-
             var city = addressComponent.long_name;
             resolve(city);
           } else {
@@ -4255,10 +3577,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.changeAddress = function changeAddress(autoCompleteAddress) {
     var _this2 = this;
-
     this.setState({
       autoCompleteAddress: autoCompleteAddress
     }, function () {
@@ -4271,14 +3591,12 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       }
     });
   };
-
   _proto.onSelectAddress = function onSelectAddress(address) {
     var self = this;
     var city = null;
     var position = null;
     geocodeByAddress(address).then(function (results) {
       var data = results[0];
-
       if (data) {
         return getLatLng(data);
       }
@@ -4303,12 +3621,10 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       console.error(error);
     });
   };
-
   _proto.getAutoCompleteClassname = function getAutoCompleteClassname(suggestion) {
     var className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
     return className;
   };
-
   _proto.getAutoCompleteStyle = function getAutoCompleteStyle(suggestion) {
     var backgroundColor = suggestion.active ? "#fafafa" : "#ffffff";
     var style = {
@@ -4317,26 +3633,22 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     };
     return style;
   };
-
   _proto.render = function render() {
     var _this3 = this;
-
     var self = this;
     var _this$state = this.state,
-        position = _this$state.position,
-        autoCompleteAddress = _this$state.autoCompleteAddress,
-        city = _this$state.city;
+      position = _this$state.position,
+      autoCompleteAddress = _this$state.autoCompleteAddress,
+      city = _this$state.city;
     var _this$props = this.props,
-        localization = _this$props.localization,
-        errorAddress = _this$props.errorAddress,
-        errorCity = _this$props.errorCity,
-        mandatory = _this$props.mandatory,
-        halfbold = _this$props.halfbold;
-
+      localization = _this$props.localization,
+      errorAddress = _this$props.errorAddress,
+      errorCity = _this$props.errorCity,
+      mandatory = _this$props.mandatory,
+      halfbold = _this$props.halfbold;
     var _ref = position || {},
-        lat = _ref.lat,
-        lng = _ref.lng;
-
+      lat = _ref.lat,
+      lng = _ref.lng;
     var tooltip = localization.cityDoesNotModifyAddress || "Changing the city does not affect the address; viceversa the city will change";
     var cityLabel = /*#__PURE__*/React.createElement("span", null, " ", localization.city || "City", " ", /*#__PURE__*/React.createElement(CustomTooltip, {
       tooltip: tooltip
@@ -4384,8 +3696,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       onSelect: this.onSelectAddress
     }, function (_ref2) {
       var getInputProps = _ref2.getInputProps,
-          suggestions = _ref2.suggestions,
-          getSuggestionItemProps = _ref2.getSuggestionItemProps;
+        suggestions = _ref2.suggestions,
+        getSuggestionItemProps = _ref2.getSuggestionItemProps;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(InputGroup, {
         style: {
           width: "100%"
@@ -4432,11 +3744,9 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       value: city || "",
       onChange: function onChange(e) {
         var value = e.target.value;
-
         _this3.setState({
           city: value
         });
-
         if (_this3.props.onChangeCity) {
           _this3.props.onChangeCity(value);
         }
@@ -4468,7 +3778,6 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       defaultPosition: position || defaultLatLong,
       onChange: function onChange(locationPicker) {
         var address = locationPicker.address;
-
         _this3.onSelectAddress(address);
       },
       options: {
@@ -4476,102 +3785,23 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
       }
     }))));
   };
-
   return OrbitalLocationPicker;
 }(Component);
 
-function _templateObject8$2() {
-  var data = _taggedTemplateLiteralLoose(["\n&:last-child{\n    overflow-x: hidden;\n    ", "{\n        border-bottom: 0;\n    }\n}\n"]);
+var _templateObject$b, _templateObject2$3, _templateObject3$2, _templateObject4$2, _templateObject5$2, _templateObject6$2, _templateObject7$2, _templateObject8$2;
+var NoData = styled.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"])));
+var SubContentContainer = styled.div(_templateObject2$3 || (_templateObject2$3 = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"])));
+var StyledTable = styled.div(_templateObject3$2 || (_templateObject3$2 = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"])));
+var StyledTd = styled.div(_templateObject4$2 || (_templateObject4$2 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
+var StyledTh = styled.div(_templateObject5$2 || (_templateObject5$2 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
+var PaginationRow = styled(Row)(_templateObject6$2 || (_templateObject6$2 = _taggedTemplateLiteralLoose(["\n    margin-top: 1rem;\n"])));
+var Resizer = styled.div(_templateObject7$2 || (_templateObject7$2 = _taggedTemplateLiteralLoose(["\n    right: 0;\n    background: #dee2e6;\n    width: 1px;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    z-index: 1;\n    touch-action: none;\n"])));
+var StyledTr = styled.div(_templateObject8$2 || (_templateObject8$2 = _taggedTemplateLiteralLoose(["\n&:last-child{\n    overflow-x: hidden;\n    ", "{\n        border-bottom: 0;\n    }\n}\n"])), StyledTd);
 
-  _templateObject8$2 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    right: 0;\n    background: #dee2e6;\n    width: 1px;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    z-index: 1;\n    touch-action: none;\n"]);
-
-  _templateObject7$2 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin-top: 1rem;\n"]);
-
-  _templateObject6$2 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"]);
-
-  _templateObject5$2 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"]);
-
-  _templateObject4$2 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$2() {
-  var data = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"]);
-
-  _templateObject3$2 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$3() {
-  var data = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"]);
-
-  _templateObject2$3 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$b() {
-  var data = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"]);
-
-  _templateObject$b = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var NoData = styled.div(_templateObject$b());
-var SubContentContainer = styled.div(_templateObject2$3());
-var StyledTable = styled.div(_templateObject3$2());
-var StyledTd = styled.div(_templateObject4$2());
-var StyledTh = styled.div(_templateObject5$2());
-var PaginationRow = styled(Row)(_templateObject6$2());
-var Resizer = styled.div(_templateObject7$2());
-var StyledTr = styled.div(_templateObject8$2(), StyledTd);
-
+var _excluded = ["indeterminate"];
 var IndeterminateCheckbox = forwardRef(function (_ref, ref) {
   var indeterminate = _ref.indeterminate,
-      rest = _objectWithoutPropertiesLoose(_ref, ["indeterminate"]);
-
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
   var defaultRef = useRef();
   var resolvedRef = ref || defaultRef;
   useEffect(function () {
@@ -4584,15 +3814,12 @@ var IndeterminateCheckbox = forwardRef(function (_ref, ref) {
 });
 function setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroups) {
   var rows = null;
-
   if (canNextPage === false && page.length < pageSize && page[0]) {
     var new_filling_rows = pageSize - page.length;
     new_filling_rows = new Array(new_filling_rows);
-
     var page_tmp = _$2.map(new_filling_rows, function (f) {
       return page[0];
     });
-
     rows = _$2.map(new_filling_rows, function () {
       return headerGroups.map(function (headerGroup) {
         return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
@@ -4605,12 +3832,10 @@ function setEmptyRows(prepareRow, canNextPage, page, pageSize, data, headerGroup
       });
     });
   }
-
   return rows;
 }
 function setEmptyHeaders(pageSize, headerGroups) {
   var new_filling_rows = new Array(pageSize);
-
   var rows = _$2.map(new_filling_rows, function () {
     return headerGroups.map(function (headerGroup) {
       return /*#__PURE__*/React.createElement(StyledTr, headerGroup.getHeaderGroupProps(), headerGroup.headers.map(function (column) {
@@ -4622,7 +3847,6 @@ function setEmptyHeaders(pageSize, headerGroups) {
       }));
     });
   });
-
   return rows;
 }
 function setSortIcon(column) {
@@ -4657,30 +3881,24 @@ function setResize(column) {
     className: "" + (column.isResizing ? "isResizing" : "")
   })));
 }
-
 function setPageSizeOptions(_defaultPageSize, _fixedPageSize) {
   var base_values = [5, 10, 20, 30, 40, 50];
-
   if (_$2.includes(base_values, _defaultPageSize) === false) {
     base_values.push(_defaultPageSize);
     base_values = _$2.sortBy(base_values);
   }
-
   if (_$2.includes(base_values, _fixedPageSize) === false) {
     base_values.push(_fixedPageSize);
     base_values = _$2.sortBy(base_values);
   }
-
   var options = _$2.map(base_values, function (value, index) {
     return /*#__PURE__*/React.createElement("option", {
       key: index,
       value: value
     }, value);
   });
-
   return options;
 }
-
 function getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination) {
   return /*#__PURE__*/React.createElement(PaginationRow, {
     className: "pagination",
@@ -4750,67 +3968,65 @@ function getPaginationSection(localization, gotoPage, canPreviousPage, previousP
 
 function ReactTable(props) {
   var localization = props.localization,
-      columns = props.columns,
-      data = props.data,
-      _defaultPageSize = props._defaultPageSize,
-      _fixedPageSize = props._fixedPageSize,
-      _noDataMessage = props._noDataMessage,
-      skipPageReset = props.skipPageReset,
-      hidePagination = props.hidePagination,
-      _props$showRowSelecti = props.showRowSelection,
-      showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
-      setSelectedRows = props.setSelectedRows;
+    columns = props.columns,
+    data = props.data,
+    _defaultPageSize = props._defaultPageSize,
+    _fixedPageSize = props._fixedPageSize,
+    _noDataMessage = props._noDataMessage,
+    skipPageReset = props.skipPageReset,
+    hidePagination = props.hidePagination,
+    _props$showRowSelecti = props.showRowSelection,
+    showRowSelection = _props$showRowSelecti === void 0 ? false : _props$showRowSelecti,
+    setSelectedRows = props.setSelectedRows;
   useEffect(function () {
     var tableSize = _fixedPageSize || _defaultPageSize || pageSize;
     setPageSize(tableSize);
   }, [_fixedPageSize, _defaultPageSize]);
-
   var _useTable = useTable({
-    columns: columns,
-    data: data,
-    autoResetPage: !skipPageReset,
-    initialState: {
-      pageSize: _fixedPageSize || _defaultPageSize || 10
-    },
-    enableMultiRowSelection: true
-  }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, function (hooks) {
-    if (showRowSelection === true) {
-      hooks.visibleColumns.push(function (columns) {
-        return [{
-          id: "selection",
-          disableSortBy: true,
-          width: 30,
-          Header: function Header(_ref) {
-            var getToggleAllRowsSelectedProps = _ref.getToggleAllRowsSelectedProps;
-            return /*#__PURE__*/React.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps());
-          },
-          Cell: function Cell(_ref2) {
-            var row = _ref2.row;
-            return /*#__PURE__*/React.createElement(IndeterminateCheckbox, row.getToggleRowSelectedProps());
-          }
-        }].concat(columns);
-      });
-    }
-  }),
-      getTableProps = _useTable.getTableProps,
-      getTableBodyProps = _useTable.getTableBodyProps,
-      headerGroups = _useTable.headerGroups,
-      prepareRow = _useTable.prepareRow,
-      page = _useTable.page,
-      canPreviousPage = _useTable.canPreviousPage,
-      canNextPage = _useTable.canNextPage,
-      pageOptions = _useTable.pageOptions,
-      pageCount = _useTable.pageCount,
-      gotoPage = _useTable.gotoPage,
-      nextPage = _useTable.nextPage,
-      previousPage = _useTable.previousPage,
-      setPageSize = _useTable.setPageSize,
-      selectedFlatRows = _useTable.selectedFlatRows,
-      _useTable$state = _useTable.state,
-      pageIndex = _useTable$state.pageIndex,
-      pageSize = _useTable$state.pageSize,
-      selectedRowIds = _useTable$state.selectedRowIds;
-
+      columns: columns,
+      data: data,
+      autoResetPage: !skipPageReset,
+      initialState: {
+        pageSize: _fixedPageSize || _defaultPageSize || 10
+      },
+      enableMultiRowSelection: true
+    }, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, function (hooks) {
+      if (showRowSelection === true) {
+        hooks.visibleColumns.push(function (columns) {
+          return [{
+            id: "selection",
+            disableSortBy: true,
+            width: 30,
+            Header: function Header(_ref) {
+              var getToggleAllRowsSelectedProps = _ref.getToggleAllRowsSelectedProps;
+              return /*#__PURE__*/React.createElement(IndeterminateCheckbox, getToggleAllRowsSelectedProps());
+            },
+            Cell: function Cell(_ref2) {
+              var row = _ref2.row;
+              return /*#__PURE__*/React.createElement(IndeterminateCheckbox, row.getToggleRowSelectedProps());
+            }
+          }].concat(columns);
+        });
+      }
+    }),
+    getTableProps = _useTable.getTableProps,
+    getTableBodyProps = _useTable.getTableBodyProps,
+    headerGroups = _useTable.headerGroups,
+    prepareRow = _useTable.prepareRow,
+    page = _useTable.page,
+    canPreviousPage = _useTable.canPreviousPage,
+    canNextPage = _useTable.canNextPage,
+    pageOptions = _useTable.pageOptions,
+    pageCount = _useTable.pageCount,
+    gotoPage = _useTable.gotoPage,
+    nextPage = _useTable.nextPage,
+    previousPage = _useTable.previousPage,
+    setPageSize = _useTable.setPageSize,
+    selectedFlatRows = _useTable.selectedFlatRows,
+    _useTable$state = _useTable.state,
+    pageIndex = _useTable$state.pageIndex,
+    pageSize = _useTable$state.pageSize,
+    selectedRowIds = _useTable$state.selectedRowIds;
   useMountedLayoutEffect(function () {
     if (showRowSelection && setSelectedRows) {
       setSelectedRows(selectedFlatRows.map(function (row) {
@@ -4826,7 +4042,6 @@ function ReactTable(props) {
     if (row.original && row.original.subContent && _$2.isEmpty(row.original.subContent) === false) {
       row.canExpand = true;
     }
-
     prepareRow(row);
     return /*#__PURE__*/React.createElement(React.Fragment, {
       key: i
@@ -4840,28 +4055,19 @@ function ReactTable(props) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-function _templateObject$c() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"]);
-
-  _templateObject$c = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$c(), function (props) {
+var _templateObject$c;
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$c || (_templateObject$c = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 }, function (props) {
   return props.marginright;
 });
-
 var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   var tooltip = props.tooltip,
-      disabled = props.disabled,
-      marginright = props.marginright,
-      _onClick = props.onClick;
+    disabled = props.disabled,
+    marginright = props.marginright,
+    _onClick = props.onClick;
   return /*#__PURE__*/React.createElement(CustomTooltip, {
     tooltip: tooltip
   }, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon$1, {
@@ -4876,43 +4082,24 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-function _templateObject2$4() {
-  var data = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"]);
-
-  _templateObject2$4 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$d() {
-  var data = _taggedTemplateLiteralLoose(["\n    float: ", "\n"]);
-
-  _templateObject$d = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Container = styled.div(_templateObject$d(), function (props) {
+var _templateObject$d, _templateObject2$4;
+var Container = styled.div(_templateObject$d || (_templateObject$d = _taggedTemplateLiteralLoose(["\n    float: ", "\n"])), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4(), function (props) {
+var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4 || (_templateObject2$4 = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"])), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 }, function (props) {
   return props.fontSize;
 });
-
 var OrbitalAddIcon = function OrbitalAddIcon(props) {
   var _float = props["float"],
-      tooltip = props.tooltip,
-      disabled = props.disabled,
-      fontsize = props.fontsize,
-      fontSize = props.fontSize,
-      _onClick = props.onClick;
+    tooltip = props.tooltip,
+    disabled = props.disabled,
+    fontsize = props.fontsize,
+    fontSize = props.fontSize,
+    _onClick = props.onClick;
   return /*#__PURE__*/React.createElement(Container, {
     "float": _float
   }, /*#__PURE__*/React.createElement(CustomTooltip, {
@@ -4928,23 +4115,14 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-function _templateObject$e() {
-  var data = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"]);
-
-  _templateObject$e = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledFontAwesomeIcon$2 = styled(FontAwesomeIcon)(_templateObject$e(), function (props) {
+var _templateObject$e;
+var StyledFontAwesomeIcon$2 = styled(FontAwesomeIcon)(_templateObject$e || (_templateObject$e = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
-
 var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   var tooltip = props.tooltip,
-      disabled = props.disabled,
-      _onClick = props.onClick;
+    disabled = props.disabled,
+    _onClick = props.onClick;
   return /*#__PURE__*/React.createElement(CustomTooltip, {
     tooltip: tooltip
   }, /*#__PURE__*/React.createElement(StyledFontAwesomeIcon$2, {
@@ -4958,24 +4136,15 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-function _templateObject$f() {
-  var data = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"]);
-
-  _templateObject$f = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyledFormCheck = styled(FormCheck)(_templateObject$f(), function (props) {
+var _templateObject$f;
+var StyledFormCheck = styled(FormCheck)(_templateObject$f || (_templateObject$f = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"])), function (props) {
   return props.paddingtop;
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
 });
-
 var OrbitalCheckbox = function OrbitalCheckbox(props) {
   var paddingTop = props.paddingTop,
-      paddingtop = props.paddingtop;
+    paddingtop = props.paddingtop;
   var pT = paddingtop || paddingTop;
   return /*#__PURE__*/React.createElement(StyledFormCheck, _extends({
     type: "checkbox",
@@ -4985,10 +4154,9 @@ var OrbitalCheckbox = function OrbitalCheckbox(props) {
 
 function OrbitalSelect(props) {
   var isInvalid = props.isInvalid,
-      errorMsg = props.errorMsg,
-      _props$showCreatable = props.showCreatable,
-      showCreatable = _props$showCreatable === void 0 ? false : _props$showCreatable;
-
+    errorMsg = props.errorMsg,
+    _props$showCreatable = props.showCreatable,
+    showCreatable = _props$showCreatable === void 0 ? false : _props$showCreatable;
   function getTypeSelectStyles(isInvalid) {
     var typeBorder = isInvalid ? {
       borderColor: "#dc3545",
@@ -5009,7 +4177,6 @@ function OrbitalSelect(props) {
     };
     return typeStyles;
   }
-
   return /*#__PURE__*/React.createElement(React.Fragment, null, showCreatable == false ? /*#__PURE__*/React.createElement(Select, _extends({
     styles: getTypeSelectStyles(isInvalid),
     menuPortalTarget: document.body
@@ -5021,105 +4188,82 @@ function OrbitalSelect(props) {
 
 function CompleteSchema(props) {
   var localization = props.localization,
-      jsonSchema = props.jsonSchema,
-      customFields = props.customFields,
-      lang = props.lang,
-      onLoadImage = props.onLoadImage,
-      onLoadDocument = props.onLoadDocument,
-      onChange = props.onChange;
-
+    jsonSchema = props.jsonSchema,
+    customFields = props.customFields,
+    lang = props.lang,
+    onLoadImage = props.onLoadImage,
+    onLoadDocument = props.onLoadDocument,
+    onChange = props.onChange;
   var _useState = useState(false),
-      playing = _useState[0],
-      setPlaying = _useState[1];
-
+    playing = _useState[0],
+    setPlaying = _useState[1];
   var _useState2 = useState(false),
-      enablePlay = _useState2[0],
-      setEnablePlay = _useState2[1];
-
+    enablePlay = _useState2[0],
+    setEnablePlay = _useState2[1];
   function onChangeBoolean(fieldName) {
     var tmp = _$2.cloneDeep(customFields);
-
     tmp[fieldName] = !tmp[fieldName];
     onChange(tmp);
   }
-
   function onChangeNumber(fieldName, e) {
     var value = e.target.value;
     value = Number(value);
-
     var tmp = _$2.cloneDeep(customFields);
-
     tmp[fieldName] = value;
     onChange(tmp);
   }
-
   function onChangeObject(fieldName, e) {
     var value = e.target.value;
     value = _$2.isEmpty(value) === true ? null : JSON.stringify(JSON.parse(value));
-
     var tmp = _$2.cloneDeep(customFields);
-
     tmp[fieldName] = value;
     onChange(tmp);
   }
-
   function onChangeString(fieldName, e) {
     var value = e.target.value;
     value = _$2.isEmpty(value) === true ? null : value;
-
     var tmp = _$2.cloneDeep(customFields);
-
     tmp[fieldName] = value;
     onChange(tmp);
   }
-
   function onChangeSelect(fieldName, value) {
     var tmp = _$2.cloneDeep(customFields);
-
     tmp[fieldName] = value;
     onChange(tmp);
   }
-
   function parseObject(value) {
     value = JSON.parse(value);
     value = JSON.stringify(value, undefined, 4);
     return value;
   }
-
   function getSelectOptions(options) {
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
-
     var selectOptions = _$2.map(options, function (option) {
       var value = option.value,
-          label = option.label;
+        label = option.label;
       var localizedLabel = label[lang] || value;
       return {
         "value": value,
         "label": localizedLabel
       };
     });
-
     selectOptions = _$2.sortBy(selectOptions, "label");
     return selectOptions;
   }
-
   function getSelectValue(options, value) {
     var selectOptions = getSelectOptions(options);
-
     var option = _$2.find(selectOptions, {
       "value": value
     });
-
     return option;
   }
-
   return /*#__PURE__*/React.createElement(React.Fragment, null, _$2.map(jsonSchema, function (entry) {
     var fieldName = entry.fieldName,
-        label = entry.label,
-        type = entry.type,
-        required = entry.required,
-        step = entry.step,
-        options = entry.options;
+      label = entry.label,
+      type = entry.type,
+      required = entry.required,
+      step = entry.step,
+      options = entry.options;
     label = entry.label[lang];
     var value = customFields[fieldName];
     return /*#__PURE__*/React.createElement(Row, {
@@ -5241,26 +4385,21 @@ var newOption = {
   value: null,
   label: {}
 };
-
 function getLocalizedField(editingLanguage) {
   return "label." + editingLanguage;
 }
-
 function parseLocalLocalizedField(field, editingLanguage) {
   field = field && field[editingLanguage] ? field[editingLanguage] : null;
   return field;
 }
-
 function DeleteOption(props) {
   var localization = props.localization,
-      option = props.option,
-      onCancel = props.onCancel,
-      onDelete = props.onDelete;
-
+    option = props.option,
+    onCancel = props.onCancel,
+    onDelete = props.onDelete;
   var _useState = useState(""),
-      cardTitle = _useState[0],
-      setCardTitle = _useState[1];
-
+    cardTitle = _useState[0],
+    setCardTitle = _useState[1];
   useEffect(function () {
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
     var cardTitle = _$2.isEmpty(option) === true ? localization.newOption || "New option" : option.label[lang] || option.value;
@@ -5288,45 +4427,37 @@ function DeleteOption(props) {
     }
   }, localization["delete"] || "Delete"))));
 }
-
 function AddEditOption(props) {
   var _yup$object$shape;
-
   var languageOptions = props.languageOptions,
-      localization = props.localization,
-      option = props.option,
-      onSave = props.onSave,
-      onUpdate = props.onUpdate,
-      onCancel = props.onCancel;
+    localization = props.localization,
+    option = props.option,
+    onSave = props.onSave,
+    onUpdate = props.onUpdate,
+    onCancel = props.onCancel;
   var defaultLang = AuthStore.getDefautlLang();
   var validationSchema = object().shape({
     value: string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").matches("^[a-zA-Z0-9]*$", localization.onlyLettersAndNumberAllowed || "Only letters and numbers allowed"),
     label: object().shape((_yup$object$shape = {}, _yup$object$shape[defaultLang] = string().typeError((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang).required((localization.completeFieldForDefaultLang || "Complete the field for the default lang") + ": " + defaultLang), _yup$object$shape))
   });
-
   var _useState2 = useState(AuthStore.getUserLang() || "En"),
-      editingLanguage = _useState2[0],
-      setEditingLanguage = _useState2[1];
-
+    editingLanguage = _useState2[0],
+    setEditingLanguage = _useState2[1];
   var _useState3 = useState(""),
-      cardTitle = _useState3[0],
-      setCardTitle = _useState3[1];
-
+    cardTitle = _useState3[0],
+    setCardTitle = _useState3[1];
   useEffect(function () {
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
     var cardTitle = _$2.isEmpty(option) === true ? localization.newOption || "New option" : option.label[lang] || option.value;
     setCardTitle(cardTitle);
   }, []);
-
   function setInitialValues() {
     var initialValues = _$2.isEmpty(option) === true ? newOption : option;
     return initialValues;
   }
-
   var parsedLang = _$2.find(languageOptions, {
     "value": editingLanguage
   });
-
   return /*#__PURE__*/React.createElement(Formik, {
     validationSchema: validationSchema,
     onSubmit: function onSubmit(values, actions) {
@@ -5339,9 +4470,9 @@ function AddEditOption(props) {
     initialValues: setInitialValues()
   }, function (_ref) {
     var handleSubmit = _ref.handleSubmit,
-        handleChange = _ref.handleChange,
-        values = _ref.values,
-        errors = _ref.errors;
+      handleChange = _ref.handleChange,
+      values = _ref.values,
+      errors = _ref.errors;
     return /*#__PURE__*/React.createElement(Card, {
       style: {
         marginTop: "1rem"
@@ -5403,14 +4534,12 @@ function AddEditOption(props) {
     }, errors.label && errors.label[defaultLang] ? errors.label[defaultLang] : ""))))));
   });
 }
-
 function AddEditProperty(props) {
   var _yup$object$shape2;
-
   var localization = props.localization,
-      onSave = props.onSave,
-      onCancel = props.onCancel,
-      property = props.property;
+    onSave = props.onSave,
+    onCancel = props.onCancel,
+    property = props.property;
   var defaultLang = AuthStore.getDefautlLang();
   var validationSchema = object().shape({
     fieldName: string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").min(2, localization.atLeastTwoCharacters || "At least two caracthers").matches("^([a-z])([A-Za-z])+$", localization.onlyLettersAllowedTheFirstLowerCase || "The first letter must be lowercase and only letters are allowed"),
@@ -5421,47 +4550,37 @@ function AddEditProperty(props) {
       then: string().typeError(localization.completeField || "Please complete the field").required(localization.completeField || "Please complete the field").matches("^[0-9.]+$", localization.onlyDecimelNumbersAllowed || "Only decimal numbers allowed")
     })
   });
-
   var _useState4 = useState(null),
-      cardTitle = _useState4[0],
-      setCardTitle = _useState4[1];
-
+    cardTitle = _useState4[0],
+    setCardTitle = _useState4[1];
   var _useState5 = useState([]),
-      languageOptions = _useState5[0],
-      setLanguageOptions = _useState5[1];
-
+    languageOptions = _useState5[0],
+    setLanguageOptions = _useState5[1];
   var _useState6 = useState(AuthStore.getUserLang() || "En"),
-      editingLanguage = _useState6[0],
-      setEditingLanguage = _useState6[1];
-
+    editingLanguage = _useState6[0],
+    setEditingLanguage = _useState6[1];
   var _useState7 = useState([]),
-      typeOptions = _useState7[0],
-      setTypeOptions = _useState7[1];
-
+    typeOptions = _useState7[0],
+    setTypeOptions = _useState7[1];
   var _useState8 = useState(false),
-      showAddEditOption = _useState8[0],
-      setShowAddEditOption = _useState8[1];
-
+    showAddEditOption = _useState8[0],
+    setShowAddEditOption = _useState8[1];
   var _useState9 = useState(false),
-      showDeleteOption = _useState9[0],
-      setShowDeleteOption = _useState9[1];
-
+    showDeleteOption = _useState9[0],
+    setShowDeleteOption = _useState9[1];
   var _useState10 = useState({}),
-      selectedOption = _useState10[0],
-      setSelectedOption = _useState10[1];
-
+    selectedOption = _useState10[0],
+    setSelectedOption = _useState10[1];
   useEffect(function () {
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
     var cardTitle = _$2.isEmpty(property) === true ? localization.newProperty || "New property" : property.label[lang] || property.fieldName;
     var languages = AuthStore.getPreferedLanguages() || ["En"];
-
     var languageOptions = _$2.map(languages, function (lang) {
       return {
         "value": lang,
         "label": lang
       };
     });
-
     var typeOptions = _$2.map(types, function (type) {
       var label = localization[type] || type;
       return {
@@ -5469,20 +4588,16 @@ function AddEditProperty(props) {
         "label": label
       };
     });
-
     typeOptions = _$2.sortBy(typeOptions, "label");
     setCardTitle(cardTitle);
     setLanguageOptions(languageOptions);
     setTypeOptions(typeOptions);
   }, []);
-
   function addOption(values, setFieldValue, newOption) {
     var options = _$2.cloneDeep(values).options || [];
-
     var tmp = _$2.find(options, {
       "value": newOption.value
     });
-
     if (tmp) {
       toast.warn(localization.optionWithSameValueAlreadyPresent || "An option with the same value is already present");
     } else {
@@ -5491,36 +4606,27 @@ function AddEditProperty(props) {
       setShowAddEditOption(false);
     }
   }
-
   function updateOption(values, setFieldValue, option) {
     var options = _$2.cloneDeep(values).options || [];
-
     var idx = _$2.findIndex(options, ['value', option.value]);
-
     options.splice(idx, 1, option);
     setFieldValue("options", options);
     setShowAddEditOption(false);
   }
-
   function deleteOption(values, setFieldValue, option) {
     var options = _$2.cloneDeep(values).options || [];
-
     var idx = _$2.findIndex(options, ['value', option.value]);
-
     options.splice(idx, 1);
     setFieldValue("options", options);
     setShowDeleteOption(false);
   }
-
   function setInitialValues() {
     var initialValues = _$2.isEmpty(property) === true ? newProperty : property;
     return initialValues;
   }
-
   var parsedLang = _$2.find(languageOptions, {
     "value": editingLanguage
   });
-
   return /*#__PURE__*/React.createElement(Formik, {
     validationSchema: validationSchema,
     onSubmit: function onSubmit(values, actions) {
@@ -5529,11 +4635,11 @@ function AddEditProperty(props) {
     initialValues: setInitialValues()
   }, function (_ref2) {
     var handleSubmit = _ref2.handleSubmit,
-        handleChange = _ref2.handleChange,
-        values = _ref2.values,
-        errors = _ref2.errors,
-        setFieldValue = _ref2.setFieldValue,
-        setValues = _ref2.setValues;
+      handleChange = _ref2.handleChange,
+      values = _ref2.values,
+      errors = _ref2.errors,
+      setFieldValue = _ref2.setFieldValue,
+      setValues = _ref2.setValues;
     return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Card.Header, null, /*#__PURE__*/React.createElement("b", null, cardTitle), /*#__PURE__*/React.createElement("span", {
       style: {
         "float": "right"
@@ -5712,9 +4818,9 @@ function AddEditProperty(props) {
 
 function DeleteProperty(props) {
   var localization = props.localization,
-      onDelete = props.onDelete,
-      onCancel = props.onCancel,
-      property = props.property;
+    onDelete = props.onDelete,
+    onCancel = props.onCancel,
+    property = props.property;
   var fieldName = property && property.fieldName ? property.fieldName : null;
   var elements = property && property._elements ? property._elements : [];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Modal.Header, null, /*#__PURE__*/React.createElement(Modal.Title, null, localization["delete"] || "Delete", " ", "\"", fieldName, "\"")), /*#__PURE__*/React.createElement(Modal.Body, null, elements.length === 0 && /*#__PURE__*/React.createElement("div", null, localization.confirmDeleteProperty || "Do you really want to delete the property", " ", /*#__PURE__*/React.createElement("b", null, fieldName), "?"), elements.length > 0 && /*#__PURE__*/React.createElement("div", null, localization.cannotDeletePropertyInUse || "Impossible to delete the property because it's currently in use")), /*#__PURE__*/React.createElement(Modal.Footer, null, /*#__PURE__*/React.createElement(Button, {
@@ -5730,38 +4836,31 @@ function DeleteProperty(props) {
 
 function OrbitalJsonSchema(props) {
   var localization = props.localization,
-      title = props.title,
-      onChange = props.onChange,
-      orbitalJsonSchema = props.orbitalJsonSchema;
-
+    title = props.title,
+    onChange = props.onChange,
+    orbitalJsonSchema = props.orbitalJsonSchema;
   var _useState = useState([]),
-      body = _useState[0],
-      setBody = _useState[1];
-
+    body = _useState[0],
+    setBody = _useState[1];
   var _useState2 = useState(false),
-      showEditModal = _useState2[0],
-      setShowEditModal = _useState2[1];
-
+    showEditModal = _useState2[0],
+    setShowEditModal = _useState2[1];
   var _useState3 = useState(false),
-      showDeleteModal = _useState3[0],
-      setShowDeleteModal = _useState3[1];
-
+    showDeleteModal = _useState3[0],
+    setShowDeleteModal = _useState3[1];
   var _useState4 = useState(null),
-      selectedProperty = _useState4[0],
-      setSelectedProperty = _useState4[1];
-
+    selectedProperty = _useState4[0],
+    setSelectedProperty = _useState4[1];
   useEffect(function () {
     var schema = _$2.isEmpty(orbitalJsonSchema) === true ? [] : orbitalJsonSchema;
     var body = parseBody(schema);
     setBody(body);
   }, [orbitalJsonSchema]);
-
   function parseLabel(label) {
     var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
     label = label && label[lang] ? label[lang] : null;
     return label;
   }
-
   function parseActions(property) {
     return /*#__PURE__*/React.createElement(ButtonToolbar, null, /*#__PURE__*/React.createElement(ButtonGroup, null, /*#__PURE__*/React.createElement(CustomTooltip, {
       key: "edit_property",
@@ -5787,10 +4886,8 @@ function OrbitalJsonSchema(props) {
       icon: faTrashAlt
     })))));
   }
-
   function parseBody(schema) {
     var body = [];
-
     _$2.each(schema, function (property) {
       var label = parseLabel(property.label);
       var type = property.type;
@@ -5802,17 +4899,13 @@ function OrbitalJsonSchema(props) {
         actions: actions
       });
     });
-
     return body;
   }
-
   function changeProperty(property) {
     var tmpSchema = _$2.cloneDeep(orbitalJsonSchema) || [];
-
     var idx = _$2.findIndex(tmpSchema, {
       "fieldName": property.fieldName
     });
-
     if (_$2.isEmpty(selectedProperty) === true && idx !== -1) {
       toast.warn(localization.propertyWithSameNameExisting || "A property with the same 'name' is already present");
     } else if (_$2.isEmpty(selectedProperty) === true && idx === -1) {
@@ -5820,23 +4913,18 @@ function OrbitalJsonSchema(props) {
     } else if (_$2.isEmpty(selectedProperty) === false && idx !== -1) {
       tmpSchema.splice(idx, 1, property);
     }
-
     setShowEditModal(false);
     onChange(tmpSchema);
   }
-
   function deleteProperty(property) {
     var tmpSchema = _$2.cloneDeep(orbitalJsonSchema);
-
     var idx = _$2.findIndex(tmpSchema, {
       "name": property.name
     });
-
     tmpSchema.splice(idx, 1);
     setShowDeleteModal(false);
     onChange(tmpSchema);
   }
-
   function getColumns() {
     return [{
       Header: localization.propertyName || "Property name",
@@ -5856,7 +4944,6 @@ function OrbitalJsonSchema(props) {
       disableSortBy: true
     }];
   }
-
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, null, title && /*#__PURE__*/React.createElement(Col, {
     sm: 8
   }, title), /*#__PURE__*/React.createElement(Col, {
@@ -5908,16 +4995,8 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-function _templateObject$g() {
-  var data = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"]);
-
-  _templateObject$g = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var PluginContainer = styled.div(_templateObject$g(), function (props) {
+var _templateObject$g;
+var PluginContainer = styled.div(_templateObject$g || (_templateObject$g = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"])), function (props) {
   return props.paddingLeft || "15px";
 }, function (props) {
   return props.paddingTop || "15px";
