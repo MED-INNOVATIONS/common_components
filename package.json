@@ -1,6 +1,6 @@
 {
   "name": "orbital_common_components",
-  "version": "1.5.5-diciannove",
+  "version": "1.5.5-venti",
   "description": "Orbital common components",
   "author": "MED-INNOVATIONS",
   "license": "MIT",
@@ -86,7 +86,8 @@
     "uuid": "^3.4.0",
     "yup": "^0.32.11",
     "currency-symbol-map": "^5.0.1",
-    "rrule": "^2.6.8"
+    "rrule": "^2.6.8",
+    "bootstrap": "^4.6.0"
   },
   "files": [
     "dist"
@@ -135,6 +136,7 @@
     "uuid": "^3.4.0",
     "yup": "^0.32.11",
     "currency-symbol-map": "^5.0.1",
-    "rrule": "^2.6.8"
+    "rrule": "^2.6.8",
+    "bootstrap": "^4.6.0"
   }
 }
