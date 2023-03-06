@@ -42,6 +42,7 @@ import OrbitalErrorDiv from './components/OrbitalErrorDiv';
 import CompleteSchema from "./components/CustomFields/CompleteSchema";
 import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 import PluginContainer from "./components/PluginContainer";
+import OrbitalToastContainer from './components/OrbitalToastContainer';
 
 export {
     APISb,
@@ -82,5 +83,6 @@ export {
     RecurrenceEditorV2,
     SchedulerV2,
     TimePickerV2,
-    SyncfusionUtils
+    SyncfusionUtils,
+    OrbitalToastContainer
 }

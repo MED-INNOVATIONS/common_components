@@ -1,6 +1,6 @@
 {
   "name": "orbital_common_components",
-  "version": "1.5.5-venti",
+  "version": "1.5.5-ventisei",
   "description": "Orbital common components",
   "author": "MED-INNOVATIONS",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "@syncfusion/ej2-react-richtexteditor": "^20.3.60",
     "@syncfusion/ej2-react-schedule": "^18.4.45",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@progress/kendo-react-pdf": "^4.6.0",
+    "@progress/kendo-react-pdf": "^4.13.0",
     "axios": "^0.21.4",
     "babel-eslint": "^10.0.3",
     "browser-session-store": "^2.0.2",
@@ -87,7 +87,11 @@
     "yup": "^0.32.11",
     "currency-symbol-map": "^5.0.1",
     "rrule": "^2.6.8",
-    "bootstrap": "^4.6.0"
+    "bootstrap": "^4.6.0",
+    "moment-timezone": "^0.5.33",
+    "react-phone-input-2": "^2.12.0",
+    "react-html-parser": "^2.0.2",
+    "qrcode.react": "^1.0.1"
   },
   "files": [
     "dist"
@@ -102,7 +106,7 @@
     "@syncfusion/ej2-react-richtexteditor": "^20.3.60",
     "@syncfusion/ej2-react-schedule": "^18.4.45",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@progress/kendo-react-pdf": "^4.6.0",
+    "@progress/kendo-react-pdf": "^4.13.0",
     "axios": "^0.21.4",
     "browser-session-store": "^2.0.2",
     "browser-store": "^2.0.2",
@@ -137,6 +141,10 @@
     "yup": "^0.32.11",
     "currency-symbol-map": "^5.0.1",
     "rrule": "^2.6.8",
-    "bootstrap": "^4.6.0"
+    "bootstrap": "^4.6.0",
+    "moment-timezone": "^0.5.33",
+    "react-phone-input-2": "^2.12.0",
+    "react-html-parser": "^2.0.2",
+    "qrcode.react": "^1.0.1"
   }
 }
