@@ -5012,6 +5012,23 @@ var PluginContainer = styled.div(_templateObject$g || (_templateObject$g = _tagg
   return props.minheight || "95vh";
 });
 
+function OrbitalToastContainer(props) {
+  var position = props.position,
+    closeButton = props.closeButton,
+    draggable = props.draggable,
+    pauseOnHover = props.pauseOnHover,
+    autoClose = props.autoClose,
+    newestOnTop = props.newestOnTop;
+  return /*#__PURE__*/React__default.createElement(reactToastify.ToastContainer, {
+    position: position || "top-center",
+    closeButton: closeButton || false,
+    draggable: draggable || false,
+    pauseOnHover: pauseOnHover || false,
+    autoClose: autoClose || 3000,
+    newestOnTop: newestOnTop || true
+  });
+}
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -5037,6 +5054,7 @@ exports.OrbitalLocationPicker = OrbitalLocationPicker;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalSelect = OrbitalSelect;
 exports.OrbitalStore = OrbitalStore;
+exports.OrbitalToastContainer = OrbitalToastContainer;
 exports.PluginContainer = PluginContainer;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;

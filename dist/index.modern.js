@@ -14,7 +14,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, InputGroup, FormCheck, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import Resizer$1 from 'react-image-file-resizer';
@@ -5008,5 +5008,22 @@ var PluginContainer = styled.div(_templateObject$g || (_templateObject$g = _tagg
   return props.minheight || "95vh";
 });
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage };
+function OrbitalToastContainer(props) {
+  var position = props.position,
+    closeButton = props.closeButton,
+    draggable = props.draggable,
+    pauseOnHover = props.pauseOnHover,
+    autoClose = props.autoClose,
+    newestOnTop = props.newestOnTop;
+  return /*#__PURE__*/React.createElement(ToastContainer, {
+    position: position || "top-center",
+    closeButton: closeButton || false,
+    draggable: draggable || false,
+    pauseOnHover: pauseOnHover || false,
+    autoClose: autoClose || 3000,
+    newestOnTop: newestOnTop || true
+  });
+}
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage };
 //# sourceMappingURL=index.modern.js.map
