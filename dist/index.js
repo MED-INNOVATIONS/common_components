@@ -2,6 +2,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var axios = _interopDefault(require('axios'));
 var _$2 = _interopDefault(require('lodash'));
+var LocalizedStrings = _interopDefault(require('react-localization'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
@@ -1530,6 +1531,25 @@ var SyncfusionUtils = {
   getLocaleByLanguage: getLocaleByLanguage,
   setSyncfusionLocalization: setSyncfusionLocalization
 };
+
+var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+var en = {
+  "noData": "No data",
+  "loading": "Loading"
+};
+var it$1 = {
+  "noData": "Nessun dato",
+  "loading": "Caricamento"
+};
+var SingletonStrings = function SingletonStrings() {
+  this.instance = new LocalizedStrings({
+    En: en,
+    It: it$1
+  });
+  return this.instance;
+};
+var ex = new SingletonStrings();
+ex.setLanguage(lang);
 
 var OrbitalStore = /*#__PURE__*/function () {
   function OrbitalStore() {}
@@ -5069,4 +5089,5 @@ exports.TimePickerV2 = TimePickerv2;
 exports.Tooltip = CustomTooltip;
 exports.UploadDocument = UploadDocument;
 exports.UploadImage = UploadImage;
+exports.localization = ex;
 //# sourceMappingURL=index.js.map

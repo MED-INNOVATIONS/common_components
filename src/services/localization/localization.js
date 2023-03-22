@@ -4,9 +4,16 @@ import LocalizedStrings from "react-localization";
 import SessionStorageStore from "../../stores/SessionStorageStore";
 import AuthStore from "../../stores/AuthStore";
 
-const en = require("./languages/en.json")
-const it = require("./languages/it.json")
 const lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+
+const en = {
+  "noData": "No data",
+  "loading": "Loading"
+}
+const it = {
+  "noData": "Nessun dato",
+  "loading": "Caricamento"
+}
 
 class SingletonStrings {
   constructor() {
