@@ -4,7 +4,7 @@ import APISb from './services/Apisb';
 import ClientSession from './services/ClientSession';
 import * as CommonUtils from "./services/PluginUtils"
 import * as SyncfusionUtils from "./services/SyncfusionUtils";
-import localization from "./services/localization/localization";
+import localization from "./services/localization";
 
 import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
