@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _$2 from 'lodash';
+import LocalizedStrings from 'react-localization';
 import React, { Component, useState, useEffect, useRef, forwardRef } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
@@ -1526,6 +1527,57 @@ var SyncfusionUtils = {
   getLocaleByLanguage: getLocaleByLanguage,
   setSyncfusionLocalization: setSyncfusionLocalization
 };
+
+var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
+var en = {
+  noData: "No data",
+  loading: "Loading",
+  imageDimensionsConstraintsAtLeast: "Le dimensioni dell'immagine devono essere almeno",
+  imageDimensionsConstraintsAtMost: "Le dimensioni dell'immagine devono essere al massimo",
+  errorAspectRatio: "Il rapporto deve essere",
+  errorResizingImage: "Errore nel ridimensionamento dell'immagine",
+  errorUploadingImage: "Errore nel caricamento dell'immagine",
+  imageSizeMustBeAtMost: "L'immagine deve essere al massimo",
+  loaded_image_to_crop: "Immagine da ritagliare caricata",
+  cropped_image: "Immagine ritagliata",
+  crop_message: "Ritaglia l'immagine creando o muovendo la 'finestra di ritaglio'",
+  cancel: "Annulla",
+  save: "Save",
+  download: "Scarica",
+  minCroppedWidth: "",
+  maxCroppedWidth: "",
+  minCroppedHeight: "",
+  maxCroppedHeight: ""
+};
+var it$1 = {
+  noData: "Nessun dato",
+  loading: "Caricamento",
+  imageDimensionsConstraintsAtLeast: "Image dimensions must be at least",
+  imageDimensionsConstraintsAtMost: "Image dimensions must be at most",
+  errorAspectRatio: "Aspect ratio must be",
+  errorResizingImage: "Error resizing image",
+  errorUploadingImage: "Error uploading image",
+  imageSizeMustBeAtMost: "Image size must be at most",
+  loaded_image_to_crop: "Loaded image to crop",
+  cropped_image: "Cropped image",
+  crop_message: "Crop the image by creating or moving the 'cropping window'",
+  cancel: "Cancel",
+  save: "Save",
+  download: "Download",
+  minCroppedWidth: "",
+  maxCroppedWidth: "",
+  minCroppedHeight: "",
+  maxCroppedHeight: ""
+};
+var SingletonStrings = function SingletonStrings() {
+  this.instance = new LocalizedStrings({
+    En: en,
+    It: it$1
+  });
+  return this.instance;
+};
+var ex = new SingletonStrings();
+ex.setLanguage(lang);
 
 var OrbitalStore = /*#__PURE__*/function () {
   function OrbitalStore() {}
@@ -5025,5 +5077,5 @@ function OrbitalToastContainer(props) {
   });
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
 //# sourceMappingURL=index.modern.js.map
