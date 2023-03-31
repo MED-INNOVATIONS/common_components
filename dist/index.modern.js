@@ -5086,13 +5086,15 @@ function OrbitalReactPhoneInput(props) {
     errorMsg = props.errorMsg,
     errorMessage = props.errorMessage,
     disabled = props.disabled;
-  function getPhoneStyleButton(error) {
+  function getPhoneStyleButton(isInvalid) {
+    var error = _$2.isEmpty(isInvalid) === false ? true : false;
     var phoneStyleButton = error === true ? {
       borderColor: "#dc3545"
     } : null;
     return phoneStyleButton;
   }
-  function getPhoneStyleInput(disabled, error) {
+  function getPhoneStyleInput(disabled, isInvalid) {
+    var error = _$2.isEmpty(isInvalid) === false ? true : false;
     var phoneStyleInput = null;
     if (disabled === true && error === true) {
       phoneStyleInput = {

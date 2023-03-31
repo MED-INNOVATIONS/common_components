@@ -12,12 +12,14 @@ import "react-phone-input-2/lib/style.css";
 export default function OrbitalReactPhoneInput(props) {
     const { isInvalid, errorMsg, errorMessage, disabled } = props;
 
-    function getPhoneStyleButton(error) {
+    function getPhoneStyleButton(isInvalid) {
+        var error = _.isEmpty(isInvalid) === false ? true : false;
         var phoneStyleButton = error === true ? { borderColor: "#dc3545" } : null;
         return phoneStyleButton;
     }
 
-    function getPhoneStyleInput(disabled, error) {
+    function getPhoneStyleInput(disabled, isInvalid) {
+        var error = _.isEmpty(isInvalid) === false ? true : false;
         var phoneStyleInput = null;
         if (disabled === true && error === true) {
             phoneStyleInput = { width: "100%", backgroundColor: "#e9ecef", opacity: "1", borderColor: "#dc3545" };
