@@ -24,7 +24,8 @@ const en = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: ""
 }
 
 const it = {
