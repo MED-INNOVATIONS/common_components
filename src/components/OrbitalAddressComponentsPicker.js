@@ -105,7 +105,7 @@ class OrbitalAddressComponentsPicker extends Component {
                             <FormControl
                                 isInvalid={error}
                                 {...getInputProps({
-                                    placeholder: props.placeholder || (localization.searchPlaces || "Search places"),
+                                    placeholder: self.props.placeholder || (localization.searchPlaces || "Search places"),
                                     style: { marginBottom: 10 },
                                     disabled: disabled
                                 })}

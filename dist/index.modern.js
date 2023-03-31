@@ -3543,7 +3543,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React.createElement(FormControl, _extends({
         isInvalid: error
       }, getInputProps({
-        placeholder: props.placeholder || localization.searchPlaces || "Search places",
+        placeholder: self.props.placeholder || localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
         },
