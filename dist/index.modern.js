@@ -32,6 +32,8 @@ import CreatableSelect from 'react-select/creatable';
 import ReactPlayer from 'react-player/lazy';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
+import ReactPhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1547,7 +1549,8 @@ var en = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Cerca località"
 };
 var it$1 = {
   noData: "Nessun dato",
@@ -1567,7 +1570,8 @@ var it$1 = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Search places"
 };
 var SingletonStrings = function SingletonStrings() {
   this.instance = new LocalizedStrings({
@@ -3539,7 +3543,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React.createElement(FormControl, _extends({
         isInvalid: error
       }, getInputProps({
-        placeholder: localization.searchPlaces || "Search places",
+        placeholder: props.placeholder || localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
         },
@@ -5077,5 +5081,52 @@ function OrbitalToastContainer(props) {
   });
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
+function OrbitalReactPhoneInput(props) {
+  var isInvalid = props.isInvalid,
+    errorMsg = props.errorMsg,
+    errorMessage = props.errorMessage,
+    disabled = props.disabled;
+  function getPhoneStyleButton(error) {
+    var phoneStyleButton = error === true ? {
+      borderColor: "#dc3545"
+    } : null;
+    return phoneStyleButton;
+  }
+  function getPhoneStyleInput(disabled, error) {
+    var phoneStyleInput = null;
+    if (disabled === true && error === true) {
+      phoneStyleInput = {
+        width: "100%",
+        backgroundColor: "#e9ecef",
+        opacity: "1",
+        borderColor: "#dc3545"
+      };
+    } else if (disabled === true) {
+      phoneStyleInput = {
+        width: "100%",
+        backgroundColor: "#e9ecef",
+        opacity: "1"
+      };
+    } else if (error === true) {
+      phoneStyleInput = {
+        width: "100%",
+        borderColor: "#dc3545"
+      };
+    } else {
+      phoneStyleInput = {
+        width: "100%"
+      };
+    }
+    return phoneStyleInput;
+  }
+  var phoneStyleInput = getPhoneStyleInput(disabled, isInvalid);
+  var phoneStyleButton = getPhoneStyleButton(isInvalid);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ReactPhoneInput, _extends({
+    buttonStyle: phoneStyleButton,
+    inputStyle: phoneStyleInput,
+    disableDropdown: disabled
+  }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
+}
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalReactPhoneInput, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
 //# sourceMappingURL=index.modern.js.map
