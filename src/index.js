@@ -45,6 +45,7 @@ import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 import PluginContainer from "./components/PluginContainer";
 import OrbitalToastContainer from './components/OrbitalToastContainer';
 import OrbitalReactPhoneInput from "./components/OrbitalReactPhoneInput";
+import OrbitalAsyncTypeahead from "./components/OrbitalAsyncTypeahead";
 
 export {
     APISb,
@@ -88,5 +89,6 @@ export {
     SyncfusionUtils,
     OrbitalToastContainer,
     localization,
-    OrbitalReactPhoneInput
+    OrbitalReactPhoneInput,
+    OrbitalAsyncTypeahead
 }

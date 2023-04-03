@@ -34,6 +34,7 @@ import { Formik } from 'formik';
 import { object, string } from 'yup';
 import ReactPhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -5130,5 +5131,29 @@ function OrbitalReactPhoneInput(props) {
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalReactPhoneInput, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
+var _excluded$1 = ["inputRef", "referenceElementRef"];
+function OrbitalAsyncTypeahead(props) {
+  var isInvalid = props.isInvalid,
+    disabled = props.disabled,
+    errorMessage = props.errorMessage,
+    errorMsg = props.errorMsg;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AsyncTypeahead, _extends({
+    renderInput: function renderInput(_ref) {
+      var inputRef = _ref.inputRef,
+        referenceElementRef = _ref.referenceElementRef,
+        inputProps = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      return /*#__PURE__*/React.createElement(Form.Control, _extends({
+        isInvalid: isInvalid,
+        disabled: disabled
+      }, inputProps, {
+        ref: function ref(input) {
+          inputRef(input);
+          referenceElementRef(input);
+        }
+      }));
+    }
+  }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
+}
+
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLTextEditor as HTMLTextEditorV2, HTMLEditor as HTMLTextEditorV3, CustomLoadingOverlay as LoadingOverlay, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalAsyncTypeahead, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalReactPhoneInput, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorv2 as RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
 //# sourceMappingURL=index.modern.js.map

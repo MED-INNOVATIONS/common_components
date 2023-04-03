@@ -38,6 +38,7 @@ var formik = require('formik');
 var yup = require('yup');
 var ReactPhoneInput = _interopDefault(require('react-phone-input-2'));
 require('react-phone-input-2/lib/style.css');
+var reactBootstrapTypeahead = require('react-bootstrap-typeahead');
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -5134,6 +5135,30 @@ function OrbitalReactPhoneInput(props) {
   }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
 }
 
+var _excluded$1 = ["inputRef", "referenceElementRef"];
+function OrbitalAsyncTypeahead(props) {
+  var isInvalid = props.isInvalid,
+    disabled = props.disabled,
+    errorMessage = props.errorMessage,
+    errorMsg = props.errorMsg;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrapTypeahead.AsyncTypeahead, _extends({
+    renderInput: function renderInput(_ref) {
+      var inputRef = _ref.inputRef,
+        referenceElementRef = _ref.referenceElementRef,
+        inputProps = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      return /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, _extends({
+        isInvalid: isInvalid,
+        disabled: disabled
+      }, inputProps, {
+        ref: function ref(input) {
+          inputRef(input);
+          referenceElementRef(input);
+        }
+      }));
+    }
+  }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
+}
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -5151,6 +5176,7 @@ exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddIcon = OrbitalAddIcon;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
+exports.OrbitalAsyncTypeahead = OrbitalAsyncTypeahead;
 exports.OrbitalCancelIcon = OrbitalCancelIcon;
 exports.OrbitalCheckbox = OrbitalCheckbox;
 exports.OrbitalErrorDiv = OrbitalErrorDiv;
