@@ -36,6 +36,9 @@ var CreatableSelect = _interopDefault(require('react-select/creatable'));
 var ReactPlayer = _interopDefault(require('react-player/lazy'));
 var formik = require('formik');
 var yup = require('yup');
+var ReactPhoneInput = _interopDefault(require('react-phone-input-2'));
+require('react-phone-input-2/lib/style.css');
+var reactBootstrapTypeahead = require('react-bootstrap-typeahead');
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1551,7 +1554,8 @@ var en = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Cerca località"
 };
 var it$1 = {
   noData: "Nessun dato",
@@ -1571,7 +1575,8 @@ var it$1 = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Search places"
 };
 var SingletonStrings = function SingletonStrings() {
   this.instance = new LocalizedStrings({
@@ -3543,7 +3548,7 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React__default.createElement(reactBootstrap.FormControl, _extends({
         isInvalid: error
       }, getInputProps({
-        placeholder: localization.searchPlaces || "Search places",
+        placeholder: self.props.placeholder || localization.searchPlaces || "Search places",
         style: {
           marginBottom: 10
         },
@@ -5081,6 +5086,79 @@ function OrbitalToastContainer(props) {
   });
 }
 
+function OrbitalReactPhoneInput(props) {
+  var isInvalid = props.isInvalid,
+    errorMsg = props.errorMsg,
+    errorMessage = props.errorMessage,
+    disabled = props.disabled;
+  function getPhoneStyleButton(isInvalid) {
+    var error = _$2.isEmpty(isInvalid) === false ? true : false;
+    var phoneStyleButton = error === true ? {
+      borderColor: "#dc3545"
+    } : null;
+    return phoneStyleButton;
+  }
+  function getPhoneStyleInput(disabled, isInvalid) {
+    var error = _$2.isEmpty(isInvalid) === false ? true : false;
+    var phoneStyleInput = null;
+    if (disabled === true && error === true) {
+      phoneStyleInput = {
+        width: "100%",
+        backgroundColor: "#e9ecef",
+        opacity: "1",
+        borderColor: "#dc3545"
+      };
+    } else if (disabled === true) {
+      phoneStyleInput = {
+        width: "100%",
+        backgroundColor: "#e9ecef",
+        opacity: "1"
+      };
+    } else if (error === true) {
+      phoneStyleInput = {
+        width: "100%",
+        borderColor: "#dc3545"
+      };
+    } else {
+      phoneStyleInput = {
+        width: "100%"
+      };
+    }
+    return phoneStyleInput;
+  }
+  var phoneStyleInput = getPhoneStyleInput(disabled, isInvalid);
+  var phoneStyleButton = getPhoneStyleButton(isInvalid);
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ReactPhoneInput, _extends({
+    buttonStyle: phoneStyleButton,
+    inputStyle: phoneStyleInput,
+    disableDropdown: disabled
+  }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
+}
+
+var _excluded$1 = ["inputRef", "referenceElementRef"];
+function OrbitalAsyncTypeahead(props) {
+  var isInvalid = props.isInvalid,
+    disabled = props.disabled,
+    errorMessage = props.errorMessage,
+    errorMsg = props.errorMsg;
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(reactBootstrapTypeahead.AsyncTypeahead, _extends({
+    renderInput: function renderInput(_ref) {
+      var inputRef = _ref.inputRef,
+        referenceElementRef = _ref.referenceElementRef,
+        inputProps = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      return /*#__PURE__*/React__default.createElement(reactBootstrap.Form.Control, _extends({
+        isInvalid: isInvalid,
+        disabled: disabled
+      }, inputProps, {
+        ref: function ref(input) {
+          inputRef(input);
+          referenceElementRef(input);
+        }
+      }));
+    }
+  }, props)), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
+}
+
 exports.APISb = APISb;
 exports.AuthStore = AuthStore;
 exports.BrandStore = BrandStore;
@@ -5098,11 +5176,13 @@ exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddIcon = OrbitalAddIcon;
 exports.OrbitalAddressComponentsPicker = OrbitalAddressComponentsPicker;
+exports.OrbitalAsyncTypeahead = OrbitalAsyncTypeahead;
 exports.OrbitalCancelIcon = OrbitalCancelIcon;
 exports.OrbitalCheckbox = OrbitalCheckbox;
 exports.OrbitalErrorDiv = OrbitalErrorDiv;
 exports.OrbitalJsonSchema = OrbitalJsonSchema;
 exports.OrbitalLocationPicker = OrbitalLocationPicker;
+exports.OrbitalReactPhoneInput = OrbitalReactPhoneInput;
 exports.OrbitalSaveIcon = OrbitalSaveIcon;
 exports.OrbitalSelect = OrbitalSelect;
 exports.OrbitalStore = OrbitalStore;

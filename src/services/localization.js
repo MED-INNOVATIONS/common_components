@@ -24,7 +24,8 @@ const en = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Cerca località"
 }
 
 const it = {
@@ -45,7 +46,8 @@ const it = {
   minCroppedWidth: "",
   maxCroppedWidth: "",
   minCroppedHeight: "",
-  maxCroppedHeight: ""
+  maxCroppedHeight: "",
+  searchPlaces: "Search places"
 }
 
 class SingletonStrings {

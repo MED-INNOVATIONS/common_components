@@ -10,7 +10,7 @@ class OrbitalAddressComponentsPicker extends Component {
         this.state = {
             autoCompleteLocation: this.props.location,
             location: this.props.location,
-            disabled:this.props.disabled
+            disabled: this.props.disabled
         }
         this.placeAutocomplete = React.createRef();
 
@@ -35,7 +35,7 @@ class OrbitalAddressComponentsPicker extends Component {
                 disabled: nextProps.disabled
             });
         }
-        
+
     }
 
     /*************************************************************************/
@@ -90,7 +90,7 @@ class OrbitalAddressComponentsPicker extends Component {
 
     render() {
         var self = this;
-        var { autoCompleteLocation,disabled } = this.state;
+        var { autoCompleteLocation, disabled } = this.state;
         var { localization, error } = this.props;
 
         return (
@@ -105,9 +105,9 @@ class OrbitalAddressComponentsPicker extends Component {
                             <FormControl
                                 isInvalid={error}
                                 {...getInputProps({
-                                    placeholder: localization.searchPlaces || "Search places",
+                                    placeholder: self.props.placeholder || (localization.searchPlaces || "Search places"),
                                     style: { marginBottom: 10 },
-                                    disabled:disabled
+                                    disabled: disabled
                                 })}
                                 value={autoCompleteLocation || ""}>
                             </FormControl>

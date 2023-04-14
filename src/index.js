@@ -10,7 +10,7 @@ import AuthStore from './stores/AuthStore';
 import OrbitalStore from './stores/OrbitalStore';
 import BrandStore from './stores/BrandStore';
 import PluginStore from './stores/PluginStore';
-import SessionStorageStore from "./stores/SessionStorageStore"
+import SessionStorageStore from "./stores/SessionStorageStore";
 
 import DatePicker from './components/DateComponents/DateComponentsV1/DatePicker';
 import DateTimePicker from './components/DateComponents/DateComponentsV1/DateTimePicker';
@@ -44,6 +44,8 @@ import CompleteSchema from "./components/CustomFields/CompleteSchema";
 import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 import PluginContainer from "./components/PluginContainer";
 import OrbitalToastContainer from './components/OrbitalToastContainer';
+import OrbitalReactPhoneInput from "./components/OrbitalReactPhoneInput";
+import OrbitalAsyncTypeahead from "./components/OrbitalAsyncTypeahead";
 
 export {
     APISb,
@@ -86,5 +88,7 @@ export {
     TimePickerV2,
     SyncfusionUtils,
     OrbitalToastContainer,
-    localization
+    localization,
+    OrbitalReactPhoneInput,
+    OrbitalAsyncTypeahead
 }
