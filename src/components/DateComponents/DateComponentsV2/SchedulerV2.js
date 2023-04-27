@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
+
 import moment from "moment";
 import _ from "lodash";
+
 import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
@@ -12,9 +14,16 @@ function SchedulerV2(props) {
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
+    const [initialization, setInitialization] = useState(false);
+
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
+
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
             scheduleObj.refresh();
@@ -176,14 +185,38 @@ function SchedulerV2(props) {
         checkClosedDate(args);
     }
 
+    /*************************************************************************/
+    /***************************** RENDER ************************************/
+    /*************************************************************************/
     return (
         <React.Fragment>
-            <ScheduleComponent
-                locale={SyncfusionUtils.getLocaleByLanguage(language)}
+            {initialization === true &&
+                <ScheduleComponent
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                    ref={(schedule) => { scheduleObj = schedule }}
+                    height={height}
+                    firstDayOfWeek={firstDayOfWeek}
+                    // editorTemplate={() => { return <div></div> }}
+                    eventSettings={events || []}
+                    renderCell={renderCell}
+                    cellClick={cellClick}
+                    popupOpen={popupOpen}
+                    actionComplete={actionComplete}
+                    navigating={navigating}>
+                    <ViewsDirective>
+                        {dayView === true && <ViewDirective option='Day' />}
+                        {weekView === true && <ViewDirective option='Week' />}
+                        {workWeekView === true && <ViewDirective option='WorkWeek' />}
+                        {monthView === true && <ViewDirective option="Month" />}
+                        {agendaView === true && <ViewDirective option="Agenda" />}
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
+                </ScheduleComponent>
+            }
+            {/* <ScheduleComponent
                 ref={(schedule) => { scheduleObj = schedule }}
                 height={height}
                 firstDayOfWeek={firstDayOfWeek}
-                editorTemplate={() => { return <div></div> }}
                 eventSettings={events || []}
                 renderCell={renderCell}
                 cellClick={cellClick}
@@ -198,7 +231,8 @@ function SchedulerV2(props) {
                     {agendaView === true && <ViewDirective option="Agenda" />}
                 </ViewsDirective>
                 <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-            </ScheduleComponent>
+            </ScheduleComponent> */}
+
         </React.Fragment>
     )
 }

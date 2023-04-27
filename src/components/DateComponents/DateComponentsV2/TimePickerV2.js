@@ -40,7 +40,7 @@ function TimePickerv2(props) {
 
     return <React.Fragment>
         <StyledDiv isInvalid={invalid}>
-            <TimePickerComponent {...props} enabled={isEnabled} ></TimePickerComponent>
+            <TimePickerComponent {...props} enabled={isEnabled}></TimePickerComponent>
         </StyledDiv>
         {isInvalid &&
             <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>

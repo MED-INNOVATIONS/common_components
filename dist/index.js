@@ -973,6 +973,9 @@ var PluginUtils = {
 };
 
 var it = {
+	calendar: {
+		today: "Oggi"
+	},
 	datepicker: {
 		today: "Oggi"
 	},
@@ -1243,6 +1246,9 @@ var it = {
 var syncfusionLocalization = {
 	it: it,
 	"en-US": {
+	calendar: {
+		today: "Today"
+	},
 	datepicker: {
 		today: "Today"
 	},
@@ -1523,16 +1529,19 @@ function getLocaleByLanguage(lang) {
 }
 function setSyncfusionLocalization(L10n, loadCldr) {
   return new Promise(function (resolve, reject) {
-    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
-    L10n.load(syncfusionLocalization);
     resolve();
   });
+}
+function setSyncfusionLocalizationV2() {
+  loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
+  L10n.load(syncfusionLocalization);
 }
 
 var SyncfusionUtils = {
   __proto__: null,
   getLocaleByLanguage: getLocaleByLanguage,
-  setSyncfusionLocalization: setSyncfusionLocalization
+  setSyncfusionLocalization: setSyncfusionLocalization,
+  setSyncfusionLocalizationV2: setSyncfusionLocalizationV2
 };
 
 var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
@@ -2086,14 +2095,21 @@ function DatePickerV2(props) {
     firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv, {
+  var _useState = React.useState(false),
+    initialization = _useState[0],
+    setInitialization = _useState[1];
+  React.useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DatePickerComponent, _extends({}, props, {
     enabled: isEnabled,
     firstDayOfWeek: firstDayOfWeek,
     locale: getLocaleByLanguage(language),
     format: format || "dd/MM/yyyy"
-  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
+  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
 
 var _templateObject$2;
@@ -2108,33 +2124,47 @@ function DateTimePickerV2(props) {
     _props$firstDayOfWeek = props.firstDayOfWeek,
     firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$1, {
+  var _useState = React.useState(false),
+    initialization = _useState[0],
+    setInitialization = _useState[1];
+  React.useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$1, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DateTimePickerComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
     locale: getLocaleByLanguage(language),
     format: format || "dd/MM/yyyy HH:mm"
-  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage));
+  }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
 
 var _templateObject$3;
 var StyledDiv$2 = styled.div(_templateObject$3 || (_templateObject$3 = _taggedTemplateLiteralLoose(["\n    .e-input-group, .e-input-group.e-control-wrapper{\n        height: calc(1.5em + 0.75rem + 2px);\n        line-height: 1.5;\n        font-size: 1rem;\n        font-weight: 400;\n        color: #495057;\n        background-color: #fff;\n        background-clip: padding-box;\n        border: 1px solid;\n        border-color: ", ";\n        border-radius: 0.25rem;\n    } \n\n    .e-input-group.e-error, .e-input-group.e-control-wrapper.e-error, .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {\n        border-color: #ced4da;\n    }\n\n    .e-input-group.e-error .e-input-group-icon, .e-input-group.e-control-wrapper.e-error .e-input-group-icon{\n        border-color: #ced4da;\n    }\n    \n    .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {\n        margin-top: 0.225rem;\n    }\n"])), function (props) {
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
-function RecurrenceEditorv2(props) {
+function RecurrenceEditorV2(props) {
   var language = props.language,
     dateFormat = props.dateFormat,
     isInvalid = props.isInvalid,
     _props$firstDayOfWeek = props.firstDayOfWeek,
     firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
+  var _useState = React.useState(false),
+    initialization = _useState[0],
+    setInitialization = _useState[1];
+  React.useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.RecurrenceEditorComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
     locale: getLocaleByLanguage(language),
     dateFormat: dateFormat || "dd/MM/yyyy"
-  }))));
+  })))));
 }
 
 var dateFormat = "DD/MM/YYYY";
@@ -2164,6 +2194,13 @@ function SchedulerV2(props) {
   var _useState2 = React.useState(startingCurrentView || "Month"),
     currentView = _useState2[0],
     setCurrentView = _useState2[1];
+  var _useState3 = React.useState(false),
+    initialization = _useState3[0],
+    setInitialization = _useState3[1];
+  React.useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
   React.useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2299,16 +2336,13 @@ function SchedulerV2(props) {
     checkSelectedDate(args);
     checkClosedDate(args);
   }
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
     locale: getLocaleByLanguage(language),
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
     height: height,
     firstDayOfWeek: firstDayOfWeek,
-    editorTemplate: function editorTemplate() {
-      return /*#__PURE__*/React__default.createElement("div", null);
-    },
     eventSettings: events || [],
     renderCell: renderCell,
     cellClick: cellClick,
@@ -2533,6 +2567,13 @@ function HTMLEditor(props) {
     onChange = props.onChange;
   var isEnabled = enabled === false || disabled === true ? false : true;
   var rteObj;
+  var _useState = React.useState(false),
+    initialization = _useState[0],
+    setInitialization = _useState[1];
+  React.useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
   React.useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2572,7 +2613,7 @@ function HTMLEditor(props) {
     } catch (e) {
       console.error(e);
     }
-  });
+  }, [initialization]);
   function created() {
     rteObj.refreshUI();
   }
@@ -2584,7 +2625,7 @@ function HTMLEditor(props) {
     items: items,
     type: 'Expand'
   };
-  return /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
     locale: getLocaleByLanguage(language),
@@ -2614,7 +2655,7 @@ function HTMLEditor(props) {
     }
   }, /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.Inject, {
     services: [ej2ReactRichtexteditor.Toolbar, ej2ReactRichtexteditor.Image, ej2ReactRichtexteditor.Link, ej2ReactRichtexteditor.HtmlEditor, ej2ReactRichtexteditor.Count, ej2ReactRichtexteditor.QuickToolbar, ej2ReactRichtexteditor.Table, ej2ReactRichtexteditor.FileManager, ej2ReactRichtexteditor.PasteCleanup]
-  }));
+  })));
 }
 
 var CustomTooltip = /*#__PURE__*/function (_Component) {
@@ -5191,7 +5232,7 @@ exports.PluginContainer = PluginContainer;
 exports.PluginStore = PluginStore;
 exports.ReactTable = ReactTable;
 exports.RecurrenceEditor = RecurrenceEditor;
-exports.RecurrenceEditorV2 = RecurrenceEditorv2;
+exports.RecurrenceEditorV2 = RecurrenceEditorV2;
 exports.Scheduler = ReservationScheduler;
 exports.SchedulerV2 = SchedulerV2;
 exports.SessionStorageStore = SessionStorageStore;

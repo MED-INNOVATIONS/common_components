@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { RecurrenceEditorComponent } from "@syncfusion/ej2-react-schedule";
 import styled from "styled-components";
 import _ from "lodash";
 
-import * as SyncfusionUtils from "./../../../services/SyncfusionUtils.js";
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const StyledDiv = styled.div`
     .e-input-group, .e-input-group.e-control-wrapper{
@@ -32,21 +32,38 @@ const StyledDiv = styled.div`
     }
 `;
 
-function RecurrenceEditorv2(props) {
+function RecurrenceEditorV2(props) {
     const { language, dateFormat, isInvalid, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
+    const [initialization, setInitialization] = useState(false);
+
+    /*************************************************************************/
+    /*************************** STANDARD ************************************/
+    /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
+
+    /*************************************************************************/
+    /***************************** RENDER ************************************/
+    /*************************************************************************/
     return (
         <React.Fragment>
-            <StyledDiv isInvalid={invalid}>
-                <RecurrenceEditorComponent
-                    {...props}
-                    firstDayOfWeek={firstDayOfWeek}
-                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
-                    dateFormat={dateFormat || "dd/MM/yyyy"}>
-                </RecurrenceEditorComponent>
-            </StyledDiv>
+            {initialization === true &&
+                <React.Fragment>
+                    <StyledDiv isInvalid={invalid}>
+                        <RecurrenceEditorComponent
+                            {...props}
+                            firstDayOfWeek={firstDayOfWeek}
+                            locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                            dateFormat={dateFormat || "dd/MM/yyyy"}>
+                        </RecurrenceEditorComponent>
+                    </StyledDiv>
+                </React.Fragment>
+            }
         </React.Fragment>
     )
 }
-export default RecurrenceEditorv2;
+export default RecurrenceEditorV2;
