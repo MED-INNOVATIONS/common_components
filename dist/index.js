@@ -2,12 +2,12 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var axios = _interopDefault(require('axios'));
 var _$2 = _interopDefault(require('lodash'));
+var ej2Base = require('@syncfusion/ej2-base');
 var LocalizedStrings = _interopDefault(require('react-localization'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
 var ej2ReactSchedule = require('@syncfusion/ej2-react-schedule');
-var ej2Base = require('@syncfusion/ej2-base');
 var moment = _interopDefault(require('moment'));
 var styled = _interopDefault(require('styled-components'));
 var reactDraftWysiwyg = require('react-draft-wysiwyg');
@@ -1533,8 +1533,8 @@ function setSyncfusionLocalization(L10n, loadCldr) {
   });
 }
 function setSyncfusionLocalizationV2() {
-  loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
-  L10n.load(syncfusionLocalization);
+  ej2Base.loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
+  ej2Base.L10n.load(syncfusionLocalization);
 }
 
 var SyncfusionUtils = {

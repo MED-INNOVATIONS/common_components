@@ -1,4 +1,5 @@
 import syncfusionLocalization from "./syncfusionLocalization.json";
+import { L10n, loadCldr } from '@syncfusion/ej2-base';
 
 export function getLocaleByLanguage(lang) {
     if (lang && lang === "It") {
