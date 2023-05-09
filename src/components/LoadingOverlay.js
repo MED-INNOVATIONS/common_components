@@ -1,11 +1,11 @@
-import React from 'react';
-import LoadingOverlay from 'react-loading-overlay';
+// import React from 'react';
+// import LoadingOverlay from 'react-loading-overlay';
 
-function CustomLoadingOverlay(props) {
-    return <LoadingOverlay {...props}
+// function CustomLoadingOverlay(props) {
+//     return <LoadingOverlay {...props}
        
-        >
-        {props.children}
-    </LoadingOverlay>
-}
-export default CustomLoadingOverlay;
+//         >
+//         {props.children}
+//     </LoadingOverlay>
+// }
+// export default CustomLoadingOverlay;

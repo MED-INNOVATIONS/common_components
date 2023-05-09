@@ -7,7 +7,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 // import { LoadingOverlay } from "orbital_common_components";
-import LoadingOverlay from "../../LoadingOverlay";
+// import LoadingOverlay from "../../LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -106,7 +106,7 @@ class HTMLTextEditor extends Component {
     var { editorState, loading } = this.state;
 
     return (
-      <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
+      // <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
         <StyledDiv isInvalid={error || isInvalid} editorHeight={editorHeight} maxHeight={maxHeight}>
           <Editor
             readOnly={disabled}
@@ -132,7 +132,7 @@ class HTMLTextEditor extends Component {
             <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
           </Editor>
         </StyledDiv>
-      </LoadingOverlay>
+      // </LoadingOverlay>
     );
   }
 }

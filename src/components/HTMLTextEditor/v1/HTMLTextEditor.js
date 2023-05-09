@@ -4,7 +4,7 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 
-import LoadingOverlay from "../../LoadingOverlay";
+// import LoadingOverlay from "../../LoadingOverlay";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -125,7 +125,7 @@ class HTMLTextEditor extends Component {
     var wrapperClassName = error == true ? "wrapper_style_error" : "wrapper_style_normal";
 
     return (
-      <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
+      // <LoadingOverlay active={loading} spinner text={(localization.loading || "Loading") + "..."}>
         <Editor
           readOnly={disabled}
           toolbarHidden={disabled}
@@ -150,7 +150,7 @@ class HTMLTextEditor extends Component {
           editorState={editorState}
           onEditorStateChange={this.onEditorStateChange}
         ></Editor>
-      </LoadingOverlay>
+      // </LoadingOverlay>
     );
   }
 }

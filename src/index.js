@@ -25,7 +25,7 @@ import TimePickerV2 from './components/DateComponents/DateComponentsV2/TimePicke
 
 import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
-import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";
+
 import HTMLTextEditorV3 from "./components/HTMLTextEditor/v3/HTMLEditor";
 import UploadImage from './components/UploadImage/UploadImage';
 import UploadDocument from './components/UploadDocument/UploadDocument';
@@ -33,7 +33,7 @@ import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponent
 import OrbitalLocationPicker from './components/OrbitalLocationPicker';
 import Tooltip from './components/Tooltip';
 import ReactTable from './components/ReactTable/v2/ReactTable';
-import LoadingOverlay from './components/LoadingOverlay';
+
 import OrbitalSaveIcon from './components/Icons/OrbitalSaveIcon';
 import OrbitalAddIcon from './components/Icons/OrbitalAddIcon';
 import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
@@ -63,10 +63,10 @@ export {
     TimePicker,
     Tooltip,
     ReactTable,
-    LoadingOverlay,
+
     MandatoryFieldLabel,
     NormalFieldLabel,
-    HTMLTextEditorV2,
+
     HTMLTextEditorV3,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,

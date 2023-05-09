@@ -10,12 +10,6 @@ var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
 var ej2ReactSchedule = require('@syncfusion/ej2-react-schedule');
 var moment = _interopDefault(require('moment'));
 var styled = _interopDefault(require('styled-components'));
-var reactDraftWysiwyg = require('react-draft-wysiwyg');
-var draftJs = require('draft-js');
-var draftToHtml = _interopDefault(require('draftjs-to-html'));
-var htmlToDraft = _interopDefault(require('html-to-draftjs'));
-var LoadingOverlay = _interopDefault(require('react-loading-overlay'));
-require('react-draft-wysiwyg/dist/react-draft-wysiwyg.css');
 var ej2ReactRichtexteditor = require('@syncfusion/ej2-react-richtexteditor');
 var reactBootstrap = require('react-bootstrap');
 var reactToastify = require('react-toastify');
@@ -2401,150 +2395,6 @@ function NormalFieldLabel(props) {
   return /*#__PURE__*/React__default.createElement(StyledDiv$5, props, props.value);
 }
 
-function CustomLoadingOverlay(props) {
-  return /*#__PURE__*/React__default.createElement(LoadingOverlay, props, props.children);
-}
-
-var _templateObject$7;
-var StyledDiv$6 = styled.div(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n  .rdw-editor-toolbar{\n    border-top-color: white;\n    border-right-color: white;\n    border-left-color: white;\n    border-bottom-color: #d9d9d9;\n    z-index: 1;\n  }\n\n  .rdw-editor-wrapper{\n    border: 1px solid;\n    border-color: ", ";\n  }\n\n  .rdw-editor-main{\n    height: ", ";\n    max-height: ", ";\n  }\n"])), function (props) {
-  return props.isInvalid === true ? "#ff4d4f" : "#d9d9d9";
-}, function (props) {
-  return props.editorHeight;
-}, function (props) {
-  return props.maxHeight;
-});
-var HTMLTextEditor = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(HTMLTextEditor, _Component);
-  function HTMLTextEditor(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    _this.state = {
-      loading: false,
-      init: 0,
-      editorState: draftJs.EditorState.createEmpty()
-    };
-    _this.onEditorStateChange = _this.onEditorStateChange.bind(_assertThisInitialized(_this));
-    _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  var _proto = HTMLTextEditor.prototype;
-  _proto.componentDidMount = function componentDidMount() {
-    this.parseData(this.props.data);
-  };
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (this.props.data != nextProps.data && this.state.init == 0) {
-      this.setState({
-        init: 1
-      });
-      this.parseData(nextProps.data);
-    } else if (this.props.data != nextProps.data && this.props.lang != nextProps.lang) {
-      this.parseData(nextProps.data);
-    }
-  };
-  _proto.parseData = function parseData(data) {
-    data = _$2.isEmpty(data) === false ? data : "";
-    var contentBlock = htmlToDraft(data);
-    if (contentBlock) {
-      var contentState = draftJs.ContentState.createFromBlockArray(contentBlock.contentBlocks);
-      var editorState = draftJs.EditorState.createWithContent(contentState);
-      this.setState({
-        editorState: editorState
-      });
-    }
-  };
-  _proto.uploadImageCallBack = function uploadImageCallBack(file) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      self.setState({
-        loading: true
-      }, function () {
-        self.props.onUploadImage(file).then(function (imageUrl) {
-          var uploadResponse = {
-            data: {
-              link: imageUrl
-            }
-          };
-          resolve(uploadResponse);
-        })["catch"](function (error) {
-          reject(error);
-        })["finally"](function () {
-          self.setState({
-            loading: false
-          });
-        });
-      });
-    });
-  };
-  _proto.onEditorStateChange = function onEditorStateChange(editorState) {
-    this.props.onChange(draftToHtml(draftJs.convertToRaw(editorState.getCurrentContent())));
-    this.setState({
-      editorState: editorState
-    });
-  };
-  _proto.render = function render() {
-    var _this$props = this.props,
-      localization = _this$props.localization,
-      disabled = _this$props.disabled,
-      error = _this$props.error,
-      isInvalid = _this$props.isInvalid,
-      editorHeight = _this$props.editorHeight,
-      maxHeight = _this$props.maxHeight;
-    var _this$state = this.state,
-      editorState = _this$state.editorState,
-      loading = _this$state.loading;
-    return /*#__PURE__*/React__default.createElement(CustomLoadingOverlay, {
-      active: loading,
-      spinner: true,
-      text: (localization.loading || "Loading") + "..."
-    }, /*#__PURE__*/React__default.createElement(StyledDiv$6, {
-      isInvalid: error || isInvalid,
-      editorHeight: editorHeight,
-      maxHeight: maxHeight
-    }, /*#__PURE__*/React__default.createElement(reactDraftWysiwyg.Editor, {
-      readOnly: disabled,
-      toolbarHidden: disabled,
-      editorClassName: "editor_style",
-      toolbar: {
-        options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
-        inline: {
-          inDropdown: true
-        },
-        list: {
-          inDropdown: true
-        },
-        textAlign: {
-          inDropdown: true
-        },
-        link: {
-          inDropdown: true
-        },
-        history: {
-          inDropdown: true
-        },
-        image: {
-          uploadCallback: this.uploadImageCallBack,
-          previewImage: true,
-          inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
-          alt: {
-            present: true,
-            mandatory: false
-          },
-          defaultSize: {
-            width: "100%",
-            height: "100%"
-          }
-        }
-      },
-      editorState: editorState,
-      onEditorStateChange: this.onEditorStateChange
-    }, /*#__PURE__*/React__default.createElement("textarea", {
-      disabled: true,
-      value: draftToHtml(draftJs.convertToRaw(editorState.getCurrentContent()))
-    }))));
-  };
-  return HTMLTextEditor;
-}(React.Component);
-
 var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'NumberFormatList', 'BulletFormatList', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
 var tableItems = ['TableHeader', 'TableRows', 'TableColumns', 'TableCell', '-', 'BackgroundColor', 'TableRemove', 'TableCellVerticalAlign', 'Styles'];
 var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImageLink', 'RemoveImageLink', 'Display', 'AltText', 'Dimension'];
@@ -2745,8 +2595,8 @@ var ImageService = /*#__PURE__*/function () {
   return ImageService;
 }();
 
-var _templateObject$8, _templateObject2$1, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13;
-var ImageBoxDiv = styled.div(_templateObject$8 || (_templateObject$8 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
+var _templateObject$7, _templateObject2$1, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13;
+var ImageBoxDiv = styled.div(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
 function ImageBox(props) {
   return /*#__PURE__*/React__default.createElement(ImageBoxDiv, null, props.children);
 }
@@ -3375,8 +3225,8 @@ var UploadImage = /*#__PURE__*/function (_Component) {
   return UploadImage;
 }(React.Component);
 
-var _templateObject$9, _templateObject2$2, _templateObject3$1, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject10$1;
-var StyledButtonUpload = styled(reactBootstrap.Button)(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
+var _templateObject$8, _templateObject2$2, _templateObject3$1, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject10$1;
+var StyledButtonUpload = styled(reactBootstrap.Button)(_templateObject$8 || (_templateObject$8 = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
   return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
 });
 function UploadImageButton$1(props) {
@@ -3403,11 +3253,11 @@ function UpdateImageIcon$1() {
     icon: freeSolidSvgIcons.faPencilAlt
   }));
 }
-var StyledDiv$7 = styled.div(_templateObject6$1 || (_templateObject6$1 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
+var StyledDiv$6 = styled.div(_templateObject6$1 || (_templateObject6$1 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
 var StyledFaCircleDelete$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject7$1 || (_templateObject7$1 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
 var StyledTrashAlt$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject8$1 || (_templateObject8$1 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function DeleteImageIcon$1(props) {
-  return /*#__PURE__*/React__default.createElement(StyledDiv$7, _extends({
+  return /*#__PURE__*/React__default.createElement(StyledDiv$6, _extends({
     className: "fa-stack small"
   }, props), /*#__PURE__*/React__default.createElement(StyledFaCircleDelete$1, {
     className: "fa-stack-2x",
@@ -3607,8 +3457,8 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(React.Component);
 
-var _templateObject$a;
-var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"])));
+var _templateObject$9;
+var OrbitalInfoIcon = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"])));
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -3882,8 +3732,8 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(React.Component);
 
-var _templateObject$b, _templateObject2$3, _templateObject3$2, _templateObject4$2, _templateObject5$2, _templateObject6$2, _templateObject7$2, _templateObject8$2;
-var NoData = styled.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"])));
+var _templateObject$a, _templateObject2$3, _templateObject3$2, _templateObject4$2, _templateObject5$2, _templateObject6$2, _templateObject7$2, _templateObject8$2;
+var NoData = styled.div(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"])));
 var SubContentContainer = styled.div(_templateObject2$3 || (_templateObject2$3 = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"])));
 var StyledTable = styled.div(_templateObject3$2 || (_templateObject3$2 = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"])));
 var StyledTd = styled.div(_templateObject4$2 || (_templateObject4$2 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
@@ -4149,8 +3999,8 @@ function ReactTable(props) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-var _templateObject$c;
-var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$c || (_templateObject$c = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"])), function (props) {
+var _templateObject$b;
+var StyledFontAwesomeIcon$1 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -4176,8 +4026,8 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-var _templateObject$d, _templateObject2$4;
-var Container = styled.div(_templateObject$d || (_templateObject$d = _taggedTemplateLiteralLoose(["\n    float: ", "\n"])), function (props) {
+var _templateObject$c, _templateObject2$4;
+var Container = styled.div(_templateObject$c || (_templateObject$c = _taggedTemplateLiteralLoose(["\n    float: ", "\n"])), function (props) {
   return props["float"];
 });
 var StyledBsPlusCircle = styled(bs.BsPlusCircle)(_templateObject2$4 || (_templateObject2$4 = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"])), function (props) {
@@ -4209,8 +4059,8 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-var _templateObject$e;
-var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$e || (_templateObject$e = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"])), function (props) {
+var _templateObject$d;
+var StyledFontAwesomeIcon$2 = styled(reactFontawesome.FontAwesomeIcon)(_templateObject$d || (_templateObject$d = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
@@ -4230,8 +4080,8 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-var _templateObject$f;
-var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$f || (_templateObject$f = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"])), function (props) {
+var _templateObject$e;
+var StyledFormCheck = styled(reactBootstrap.FormCheck)(_templateObject$e || (_templateObject$e = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"])), function (props) {
   return props.paddingtop;
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -5089,8 +4939,8 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-var _templateObject$g;
-var PluginContainer = styled.div(_templateObject$g || (_templateObject$g = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"])), function (props) {
+var _templateObject$f;
+var PluginContainer = styled.div(_templateObject$f || (_templateObject$f = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"])), function (props) {
   return props.paddingLeft || "15px";
 }, function (props) {
   return props.paddingTop || "15px";
@@ -5202,9 +5052,7 @@ exports.DatePicker = DatePicker;
 exports.DatePickerV2 = DatePickerV2;
 exports.DateTimePicker = DatePicker$1;
 exports.DateTimePickerV2 = DateTimePickerV2;
-exports.HTMLTextEditorV2 = HTMLTextEditor;
 exports.HTMLTextEditorV3 = HTMLEditor;
-exports.LoadingOverlay = CustomLoadingOverlay;
 exports.MandatoryFieldLabel = MandatoryFieldLabel;
 exports.NormalFieldLabel = NormalFieldLabel;
 exports.OrbitalAddIcon = OrbitalAddIcon;
