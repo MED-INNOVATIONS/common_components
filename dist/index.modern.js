@@ -2398,15 +2398,7 @@ function NormalFieldLabel(props) {
 }
 
 function CustomLoadingOverlay(props) {
-  return /*#__PURE__*/React.createElement(LoadingOverlay, _extends({}, props, {
-    styles: {
-      overlay: function overlay(base) {
-        return _extends({}, base, {
-          background: 'rgba(24, 144, 255, 0.5)'
-        });
-      }
-    }
-  }), props.children);
+  return /*#__PURE__*/React.createElement(LoadingOverlay, props, props.children);
 }
 
 var _templateObject$7;
