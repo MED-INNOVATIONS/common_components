@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 // import { OrbitalErrorDiv } from "orbital_common_components";
 import styled from "styled-components";
@@ -38,18 +38,35 @@ function DateTimePickerV2(props) {
     const { format, isInvalid, errorMessage, language, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
+    const [initialization, setInitialization] = useState(false);
+
+    /*************************************************************************/
+    /*************************** STANDARD ************************************/
+    /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
+
+    /*************************************************************************/
+    /*************************** STANDARD ************************************/
+    /*************************************************************************/
     return (
         <React.Fragment>
-            <StyledDiv isInvalid={invalid}>
-                <DateTimePickerComponent
-                    {...props}
-                    firstDayOfWeek={firstDayOfWeek}
-                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
-                    format={format || "dd/MM/yyyy HH:mm"}>
-                </DateTimePickerComponent>
-            </StyledDiv>
-            {isInvalid &&
-                <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>
+            {initialization === true &&
+                <React.Fragment>
+                    <StyledDiv isInvalid={invalid}>
+                        <DateTimePickerComponent
+                            {...props}
+                            firstDayOfWeek={firstDayOfWeek}
+                            locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                            format={format || "dd/MM/yyyy HH:mm"}>
+                        </DateTimePickerComponent>
+                    </StyledDiv>
+                    {isInvalid &&
+                        <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>
+                    }
+                </React.Fragment>
             }
         </React.Fragment>
     )

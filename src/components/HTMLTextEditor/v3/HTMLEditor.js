@@ -1,6 +1,6 @@
 // @import url("https://cdn.syncfusion.com/ej2/20.3.60/bootstrap4.css");
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { RichTextEditorComponent, Toolbar, Inject, Image, Link, HtmlEditor, Count, QuickToolbar, Table, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { FileManager } from '@syncfusion/ej2-react-richtexteditor';
 import _ from "lodash";
@@ -13,9 +13,16 @@ function HTMLEditor(props) {
     const isEnabled = enabled === false || disabled === true ? false : true;
     var rteObj;
 
+    const [initialization, setInitialization] = useState(false);
+
     /*************************************************************************/
     /************************ STANDARD ***************************************/
     /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
+
     useEffect(() => {
         try {
             var element = document.getElementById("js-licensing");
@@ -64,7 +71,7 @@ function HTMLEditor(props) {
         } catch (e) {
             console.error(e)
         }
-    })
+    }, [initialization])
 
     function created() {
         rteObj.refreshUI();
@@ -83,34 +90,38 @@ function HTMLEditor(props) {
     };
 
     return (
-        <RichTextEditorComponent
-            id="toolsRTE"
-            height={height}
-            locale={SyncfusionUtils.getLocaleByLanguage(language)}
-            ref={(richtexteditor) => { rteObj = richtexteditor; }}
-            enabled={isEnabled}
-            value={value}
-            toolbarSettings={toolbarSettings}
-            created={created}
-            pasteCleanupSettings={{
-                prompt: true,
-                plainText: false,
-                keepFormat: false
-            }}
-            insertImageSettings={{
-                allowedTypes: [".png", ".png"],
-                display: "inline",
-                width: "auto",
-                height: "auto",
-                saveFormat: "Base64"
-            }}
-            quickToolbarSettings={quickToolbarSettings}
-            showCharCount={true}
-            change={(e) => {
-                onChange(e.value)
-            }}>
-            <Inject services={[Toolbar, Image, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup]} />
-        </RichTextEditorComponent>
+        <React.Fragment>
+            {initialization === true &&
+                <RichTextEditorComponent
+                    id="toolsRTE"
+                    height={height}
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                    ref={(richtexteditor) => { rteObj = richtexteditor; }}
+                    enabled={isEnabled}
+                    value={value}
+                    toolbarSettings={toolbarSettings}
+                    created={created}
+                    pasteCleanupSettings={{
+                        prompt: true,
+                        plainText: false,
+                        keepFormat: false
+                    }}
+                    insertImageSettings={{
+                        allowedTypes: [".png", ".png"],
+                        display: "inline",
+                        width: "auto",
+                        height: "auto",
+                        saveFormat: "Base64"
+                    }}
+                    quickToolbarSettings={quickToolbarSettings}
+                    showCharCount={true}
+                    change={(e) => {
+                        onChange(e.value)
+                    }}>
+                    <Inject services={[Toolbar, Image, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup]} />
+                </RichTextEditorComponent>
+            }
+        </React.Fragment>
     );
 }
 export default HTMLEditor;

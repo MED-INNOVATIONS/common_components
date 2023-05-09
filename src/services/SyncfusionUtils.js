@@ -1,4 +1,5 @@
 import syncfusionLocalization from "./syncfusionLocalization.json";
+import { L10n, loadCldr } from '@syncfusion/ej2-base';
 
 export function getLocaleByLanguage(lang) {
     if (lang && lang === "It") {
@@ -13,14 +14,25 @@ export function getLocaleByLanguage(lang) {
 
 export function setSyncfusionLocalization(L10n, loadCldr) {
     return new Promise(function (resolve, reject) {
-        loadCldr(
-            require('cldr-data/supplemental/numberingSystems.json'),
-            require('cldr-data/main/it/ca-gregorian.json'),
-            require('cldr-data/main/it/numbers.json'),
-            require('cldr-data/main/it/timeZoneNames.json'),
-            require('cldr-data/main/it/dateFields.json')
-        );
-        L10n.load(syncfusionLocalization);
+        // loadCldr(
+        //     require('cldr-data/supplemental/numberingSystems.json'),
+        //     require('cldr-data/main/it/ca-gregorian.json'),
+        //     require('cldr-data/main/it/numbers.json'),
+        //     require('cldr-data/main/it/timeZoneNames.json'),
+        //     require('cldr-data/main/it/dateFields.json')
+        // );
+        // L10n.load(syncfusionLocalization);
         resolve();
     })
+}
+
+export function setSyncfusionLocalizationV2() {
+    loadCldr(
+        require('cldr-data/supplemental/numberingSystems.json'),
+        require('cldr-data/main/it/ca-gregorian.json'),
+        require('cldr-data/main/it/numbers.json'),
+        require('cldr-data/main/it/timeZoneNames.json'),
+        require('cldr-data/main/it/dateFields.json')
+    );
+    L10n.load(syncfusionLocalization);
 }

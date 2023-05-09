@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 // import { OrbitalErrorDiv } from "orbital_common_components";
 import styled from "styled-components";
@@ -40,19 +40,36 @@ function DatePickerV2(props) {
     const isEnabled = enabled === false || disabled === true ? false : true;
     const invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
+    const [initialization, setInitialization] = useState(false);
+
+    /*************************************************************************/
+    /*************************** STANDARD ************************************/
+    /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
+
+    /*************************************************************************/
+    /***************************** RENDER ************************************/
+    /*************************************************************************/
     return (
         <React.Fragment>
-            <StyledDiv isInvalid={invalid}>
-                <DatePickerComponent
-                    {...props}
-                    enabled={isEnabled}
-                    firstDayOfWeek={firstDayOfWeek}
-                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
-                    format={format || "dd/MM/yyyy"}>
-                </DatePickerComponent>
-            </StyledDiv>
-            {isInvalid &&
-                <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>
+            {initialization === true &&
+                <React.Fragment>
+                    <StyledDiv isInvalid={invalid}>
+                        <DatePickerComponent
+                            {...props}
+                            enabled={isEnabled}
+                            firstDayOfWeek={firstDayOfWeek}
+                            locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                            format={format || "dd/MM/yyyy"}>
+                        </DatePickerComponent>
+                    </StyledDiv>
+                    {isInvalid &&
+                        <OrbitalErrorDiv>{errorMessage}</OrbitalErrorDiv>
+                    }
+                </React.Fragment>
             }
         </React.Fragment>
     )
