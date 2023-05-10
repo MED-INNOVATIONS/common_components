@@ -27,7 +27,7 @@ import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
 
 import HTMLTextEditorV3 from "./components/HTMLTextEditor/v3/HTMLEditor";
-import UploadImage from './components/UploadImage/UploadImage';
+
 import UploadDocument from './components/UploadDocument/UploadDocument';
 import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponentsPicker";
 import OrbitalLocationPicker from './components/OrbitalLocationPicker';
@@ -40,11 +40,11 @@ import OrbitalCancelIcon from './components/Icons/OrbitalCancelIcon';
 import OrbitalCheckbox from './components/OrbitalCheckbox';
 import OrbitalSelect from './components/OrbitalSelect';
 import OrbitalErrorDiv from './components/OrbitalErrorDiv';
-import CompleteSchema from "./components/CustomFields/CompleteSchema";
+// import CompleteSchema from "./components/CustomFields/CompleteSchema";
 import OrbitalJsonSchema from "./components/CustomFields/OrbitalJsonSchema";
 import PluginContainer from "./components/PluginContainer";
 import OrbitalToastContainer from './components/OrbitalToastContainer';
-import OrbitalReactPhoneInput from "./components/OrbitalReactPhoneInput";
+
 import OrbitalAsyncTypeahead from "./components/OrbitalAsyncTypeahead";
 
 export {
@@ -70,7 +70,7 @@ export {
     HTMLTextEditorV3,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
-    UploadImage,
+
     UploadDocument,
     OrbitalSaveIcon,
     OrbitalAddIcon,
@@ -78,7 +78,7 @@ export {
     OrbitalCheckbox,
     OrbitalSelect,
     OrbitalErrorDiv,
-    CompleteSchema,
+
     OrbitalJsonSchema,
     PluginContainer,
     DatePickerV2,
@@ -89,6 +89,6 @@ export {
     SyncfusionUtils,
     OrbitalToastContainer,
     localization,
-    OrbitalReactPhoneInput,
+
     OrbitalAsyncTypeahead
 }

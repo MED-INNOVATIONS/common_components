@@ -7,27 +7,20 @@ import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } fro
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
 import styled from 'styled-components';
-import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
-import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, InputGroup, FormCheck, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
-import { toast, ToastContainer } from 'react-toastify';
+import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
+import { Button, Row, Col, FormGroup, FormControl, Form, OverlayTrigger, Tooltip, InputGroup, FormCheck, Card, ButtonGroup, Modal, ButtonToolbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
-import Resizer$1 from 'react-image-file-resizer';
-import uuidV4 from 'uuid/v4';
-import Cropper from 'cropperjs';
-import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import 'cropperjs/dist/cropper.css';
+import { faCircle, faPencilAlt, faTrashAlt, faUpload, faInfoCircle, faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { toast, ToastContainer } from 'react-toastify';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, useMountedLayoutEffect } from 'react-table';
 import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import ReactPlayer from 'react-player/lazy';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import ReactPhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 function _extends() {
@@ -2492,116 +2485,27 @@ function HTMLEditor(props) {
       onChange(e.value);
     }
   }, /*#__PURE__*/React.createElement(Inject$1, {
-    services: [Toolbar, Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup]
+    services: [Toolbar, Image, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup]
   })));
 }
 
-var CustomTooltip = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CustomTooltip, _Component);
-  function CustomTooltip(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    _this.state = {};
-    return _this;
-  }
-  var _proto = CustomTooltip.prototype;
-  _proto.render = function render() {
-    var placement = this.props.placement || "top";
-    var delay = this.props.delay || {
-      show: 250,
-      hide: 400
-    };
-    var tooltip = this.props.tooltip || "";
-    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
-    if (_$2.isEmpty(tooltip) === true) {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, children);
-    } else {
-      return /*#__PURE__*/React.createElement(OverlayTrigger, {
-        style: this.props.style,
-        className: this.props.className,
-        placement: placement,
-        delay: {
-          delay: delay
-        },
-        overlay: /*#__PURE__*/React.createElement(Tooltip, null, tooltip)
-      }, children);
-    }
-  };
-  return CustomTooltip;
-}(Component);
-
-var ImageService = /*#__PURE__*/function () {
-  function ImageService() {}
-  ImageService.compress = function compress(_ref) {
-    var file = _ref.file,
-      divider = _ref.divider;
-    return new Promise(function (resolve, reject) {
-      var fileName = file.name;
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function (event) {
-        var img = new Image();
-        img.src = event.target.result;
-        img.onload = function () {
-          var elem = document.createElement("canvas");
-          elem.width = img.width / divider;
-          elem.height = img.height / divider;
-          var ctx = elem.getContext("2d");
-          ctx.drawImage(img, 0, 0, img.width / divider, img.height / divider);
-          ctx.canvas.toBlob(function (blob) {
-            var newFile = new File([blob], [fileName.slice(0, fileName.indexOf(".")), "(" + divider + ")", fileName.slice(fileName.indexOf("."))].join(""), {
-              type: file.type,
-              lastModified: Date.now()
-            });
-            resolve(newFile);
-          }, file.type, 1);
-        };
-        reader.onerror = function (error) {
-          return reject(error);
-        };
-      };
-    });
-  };
-  ImageService.batchCompress = function batchCompress(file) {
-    var dividers = [{
-      file: file,
-      divider: 1
-    }, {
-      file: file,
-      divider: 2
-    }, {
-      file: file,
-      divider: 3
-    }, {
-      file: file,
-      divider: 4
-    }];
-    var actions = dividers.map(ImageService.compress);
-    var results = Promise.all(actions);
-    return results;
-  };
-  ImageService.getResizedCanvas = function getResizedCanvas(canvas, newWidth, newHeight) {
-    var tmpCanvas = document.createElement("canvas");
-    tmpCanvas.width = newWidth;
-    tmpCanvas.height = newHeight;
-    var ctx = tmpCanvas.getContext("2d");
-    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
-    return tmpCanvas;
-  };
-  return ImageService;
-}();
-
-var _templateObject$7, _templateObject2$1, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13;
-var ImageBoxDiv = styled.div(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
-function ImageBox(props) {
-  return /*#__PURE__*/React.createElement(ImageBoxDiv, null, props.children);
+var _templateObject$7, _templateObject2$1, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10;
+var StyledButtonUpload = styled(Button)(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
+  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
+});
+function UploadImageButton(props) {
+  return /*#__PURE__*/React.createElement(StyledButtonUpload, props, props.children);
 }
-var IconsBoxDiv = styled.div(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"])));
+var StyledDivDocumentBox = styled.div(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
+function DocumentBox(props) {
+  return /*#__PURE__*/React.createElement(StyledDivDocumentBox, null, props.children);
+}
+var StyledDivIconxBox = styled.div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"])));
 function IconsBox(props) {
-  return /*#__PURE__*/React.createElement(IconsBoxDiv, null, props.children);
+  return /*#__PURE__*/React.createElement(StyledDivIconxBox, null, props.children);
 }
-var StyledFaCircleUpdate = styled(FontAwesomeIcon)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"])));
-var StyledPencilAlt = styled(FontAwesomeIcon)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
+var StyledFaCircleUpdate = styled(FontAwesomeIcon)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"])));
+var StyledPencilAlt = styled(FontAwesomeIcon)(_templateObject5 || (_templateObject5 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function UpdateImageIcon() {
   return /*#__PURE__*/React.createElement("span", {
     className: "fa-stack small"
@@ -2613,11 +2517,11 @@ function UpdateImageIcon() {
     icon: faPencilAlt
   }));
 }
-var StyledDivDeleteImage = styled.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
-var StyledFaCircleDelete = styled(FontAwesomeIcon)(_templateObject6 || (_templateObject6 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
-var StyledTrashAlt = styled(FontAwesomeIcon)(_templateObject7 || (_templateObject7 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
+var StyledDiv$6 = styled.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
+var StyledFaCircleDelete = styled(FontAwesomeIcon)(_templateObject7 || (_templateObject7 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
+var StyledTrashAlt = styled(FontAwesomeIcon)(_templateObject8 || (_templateObject8 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
 function DeleteImageIcon(props) {
-  return /*#__PURE__*/React.createElement(StyledDivDeleteImage, _extends({
+  return /*#__PURE__*/React.createElement(StyledDiv$6, _extends({
     className: "fa-stack small"
   }, props), /*#__PURE__*/React.createElement(StyledFaCircleDelete, {
     className: "fa-stack-2x",
@@ -2627,651 +2531,15 @@ function DeleteImageIcon(props) {
     icon: faTrashAlt
   }));
 }
-var StyledImg = styled.img(_templateObject8 || (_templateObject8 = _taggedTemplateLiteralLoose(["\n    max-width: 100% !important;\n    max-height: 100%;\n    cursor: pointer;\n"])));
-function StyledImage(props) {
-  return /*#__PURE__*/React.createElement(StyledImg, props);
-}
-var StyledButton = styled(Button)(_templateObject9 || (_templateObject9 = _taggedTemplateLiteralLoose(["\n    width: 104px;\n    height: 104px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
-  return props.error === true || props.isinvalid === true ? "#dc3545" : "#d9d9d9";
-});
-function UploadImageButton(props) {
-  return /*#__PURE__*/React.createElement(StyledButton, props, props.children);
-}
-var StyledDivErrorMessage = styled.div(_templateObject10 || (_templateObject10 = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
-function ErrorMessage(props) {
-  return /*#__PURE__*/React.createElement(StyledDivErrorMessage, null, props.children);
-}
-var StyledFontAwesomeIconClose = styled(FontAwesomeIcon)(_templateObject11 || (_templateObject11 = _taggedTemplateLiteralLoose(["\n    cursor: pointer;\n    font-size: 1.5rem;\n    color: grey\n"])));
-function CloseIcon(props) {
-  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconClose, _extends({
-    icon: faTimesCircle
-  }, props)));
-}
-var StyledFontAwesomeIconCropper = styled(FontAwesomeIcon)(_templateObject12 || (_templateObject12 = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"])), function (props) {
-  return props.isError === true ? "not-allowed" : "pointer";
-}, function (props) {
-  return props.isError === true ? "#dee2e6" : "#007bff";
-});
-function CropperDownloadIcon(props) {
-  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconCropper, _extends({}, props, {
-    icon: faDownload
-  })));
-}
-var StyledFontAwesomeIconSave = styled(FontAwesomeIcon)(_templateObject13 || (_templateObject13 = _taggedTemplateLiteralLoose(["\n    font-size: 1.5rem;\n    margin-right: 15px;\n    cursor: ", ";\n    color: ", ";\n"])), function (props) {
-  return props.isError === true ? "not-allowed" : "pointer";
-}, function (props) {
-  return props.isError === true ? "#dee2e6" : "#007bff";
-});
-function CropperSaveIcon(props) {
-  return /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(StyledFontAwesomeIconSave, _extends({}, props, {
-    icon: faSave
-  })));
-}
-
-var CropImage = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CropImage, _Component);
-  function CropImage(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    _this.state = {
-      src: null,
-      croppedImageUrl: null,
-      isError: true
-    };
-    _this.downloadCroppedImg = _this.downloadCroppedImg.bind(_assertThisInitialized(_this));
-    _this.parseCroppedImage = _this.parseCroppedImage.bind(_assertThisInitialized(_this));
-    _this.start = _this.start.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  var _proto = CropImage.prototype;
-  _proto.componentDidMount = function componentDidMount() {
-    var _this2 = this;
-    this.setState({
-      src: this.props.src
-    }, function () {
-      _this2.start();
-    });
-  };
-  _proto.checkCroppedDimensionsErrors = function checkCroppedDimensionsErrors(props, croppedWidth, croppedHeight, showMessage) {
-    var minCroppedWidth = props.minCroppedWidth,
-      maxCroppedWidth = props.maxCroppedWidth,
-      minCroppedHeight = props.minCroppedHeight,
-      maxCroppedHeight = props.maxCroppedHeight,
-      localization = props.localization;
-    var isError = false;
-    if (minCroppedWidth != null && croppedWidth < minCroppedWidth) {
-      isError = true;
-      if (showMessage == true) {
-        toast.warn(localization.minCroppedWidth || "minCroppedWidth");
-      }
-    }
-    if (maxCroppedWidth != null && croppedWidth > maxCroppedWidth) {
-      isError = true;
-      if (showMessage == true) {
-        toast.warn(localization.maxCroppedWidth || "maxCroppedWidth");
-      }
-    }
-    if (minCroppedHeight != null && croppedHeight < minCroppedHeight) {
-      isError = true;
-      if (showMessage == true) {
-        toast.warn(localization.minCroppedHeight || "minCroppedHeight");
-      }
-    }
-    if (maxCroppedHeight != null && croppedHeight > maxCroppedHeight) {
-      isError = true;
-      if (showMessage == true) {
-        toast.warn(localization.maxCroppedHeight || "maxCroppedHeight");
-      }
-    }
-    return isError;
-  };
-  _proto.start = function start() {
-    var self = this;
-    var aspectRatio = null;
-    if (self.props.aspectRatio) {
-      aspectRatio = self.props.aspectRatio.split(":");
-      aspectRatio = parseInt(aspectRatio[0]) / parseInt(aspectRatio[1]);
-    }
-    var image = document.getElementById('image');
-    self.cropper = new Cropper(image, {
-      zoomable: false,
-      aspectRatio: aspectRatio,
-      minCropBoxWidth: self.props.minCroppedWidth,
-      minCropBoxHeight: self.props.minCroppedHeight,
-      data: {
-        x: 0,
-        y: 0,
-        width: self.props.startWidthCrop || 10,
-        height: self.props.startHeightCrop || 10
-      },
-      crop: function crop(event) {
-        var width = event.detail.width;
-        var height = event.detail.height;
-        var _self$props = self.props,
-          minCroppedWidth = _self$props.minCroppedWidth,
-          maxCroppedWidth = _self$props.maxCroppedWidth,
-          minCroppedHeight = _self$props.minCroppedHeight,
-          maxCroppedHeight = _self$props.maxCroppedHeight;
-        var isError = self.checkCroppedDimensionsErrors(self.props, width, height);
-        if (isError == false) {
-          self.cropper.setData({
-            width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
-            height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height))
-          });
-        }
-      },
-      cropend: function cropend(event) {
-        var croppedCanvas = self.cropper.getCroppedCanvas();
-        var croppedImageUrl = croppedCanvas.toDataURL();
-        var cropped_width = croppedCanvas.width;
-        var cropped_height = croppedCanvas.height;
-        var isError = self.checkCroppedDimensionsErrors(self.props, cropped_width, cropped_height, true);
-        self.setState({
-          croppedImageUrl: croppedImageUrl,
-          isError: isError
-        });
-      }
-    });
-  };
-  _proto.downloadCroppedImg = function downloadCroppedImg() {
-    var _this$state = this.state,
-      croppedImageUrl = _this$state.croppedImageUrl,
-      isError = _this$state.isError;
-    if (croppedImageUrl != null && isError == false) {
-      fetch(this.state.croppedImageUrl, {
-        method: "GET",
-        headers: {}
-      }).then(function (response) {
-        response.arrayBuffer().then(function (buffer) {
-          var url = window.URL.createObjectURL(new Blob([buffer]));
-          var link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", "image.png");
-          document.body.appendChild(link);
-          link.click();
-        });
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    }
-  };
-  _proto.parseCroppedImage = function parseCroppedImage() {
-    var self = this;
-    var _this$state2 = this.state,
-      croppedImageUrl = _this$state2.croppedImageUrl,
-      isError = _this$state2.isError;
-    if (isError == false && croppedImageUrl != null) {
-      fetch(croppedImageUrl).then(function (result) {
-        return result.blob();
-      }).then(function (blobFile) {
-        return new File([blobFile], "cropped.png", {
-          type: "image/png"
-        });
-      }).then(function (newFile) {
-        newFile.uid = uuidV4();
-        newFile.url = croppedImageUrl;
-        return ImageService.batchCompress(newFile);
-      }).then(function (response) {
-        var files = response.map(function (f) {
-          f.uid = uuidV4();
-          return f;
-        });
-        self.props.onSave(croppedImageUrl, files);
-      });
-    }
-  };
-  _proto.render = function render() {
-    var _this3 = this;
-    var localization = this.props.localization;
-    var _this$state3 = this.state,
-      src = _this$state3.src,
-      croppedImageUrl = _this$state3.croppedImageUrl,
-      isError = _this$state3.isError;
-    return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Card.Header, null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        "float": "right"
-      }
-    }, /*#__PURE__*/React.createElement(CustomTooltip, {
-      tooltip: localization.download || "Download"
-    }, /*#__PURE__*/React.createElement(CropperDownloadIcon, {
-      tooltip: localization.download || "Download",
-      isError: isError,
-      onClick: this.downloadCroppedImg
-    })), /*#__PURE__*/React.createElement(CustomTooltip, {
-      tooltip: localization.save || "Save"
-    }, /*#__PURE__*/React.createElement(CropperSaveIcon, {
-      isError: isError,
-      onClick: function onClick() {
-        _this3.parseCroppedImage();
-      }
-    })), /*#__PURE__*/React.createElement(CustomTooltip, {
-      tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React.createElement(CloseIcon, {
-      onClick: this.props.onClose
-    })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
-      sm: 5
-    }, localization.loaded_image_to_crop || "Loaded image to crop"), /*#__PURE__*/React.createElement(Col, {
-      sm: 2
-    }), /*#__PURE__*/React.createElement(Col, {
-      sm: 5
-    }, localization.cropped_image || "Cropped image")), /*#__PURE__*/React.createElement(Row, {
-      style: {
-        marginTop: "1rem"
-      }
-    }, /*#__PURE__*/React.createElement(Col, {
-      sm: 5
-    }, /*#__PURE__*/React.createElement(Image$2, {
-      src: src,
-      id: "image",
-      fluid: true
-    })), /*#__PURE__*/React.createElement(Col, {
-      sm: 2
-    }), /*#__PURE__*/React.createElement(Col, {
-      sm: 5
-    }, croppedImageUrl == null && /*#__PURE__*/React.createElement("div", null, localization.crop_message || "Crop the image by creating or moving the 'cropping window'!"), croppedImageUrl && /*#__PURE__*/React.createElement(Image$2, {
-      src: croppedImageUrl,
-      fluid: true
-    })))));
-  };
-  return CropImage;
-}(Component);
-
-var UploadImage = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(UploadImage, _Component);
-  function UploadImage(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    _this.state = {
-      showPreviewImage: false,
-      showCropModal: false,
-      image: _this.props.image,
-      imageToCropSrc: null,
-      imageToCrop: null,
-      fileName: null,
-      fileExtension: null,
-      fileType: null
-    };
-    _this.checkImageRatioAndDimensions = _this.checkImageRatioAndDimensions.bind(_assertThisInitialized(_this));
-    _this.handleFileUpload = _this.handleFileUpload.bind(_assertThisInitialized(_this));
-    _this.manageUploadedFile = _this.manageUploadedFile.bind(_assertThisInitialized(_this));
-    _this.onRemove = _this.onRemove.bind(_assertThisInitialized(_this));
-    _this.saveCrop = _this.saveCrop.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  var _proto = UploadImage.prototype;
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (nextProps.image != this.state.image) {
-      this.setState({
-        image: nextProps.image
-      });
-    }
-  };
-  _proto.handleFileUpload = function handleFileUpload(e) {
-    var self = this;
-    var files = e.target.files;
-    if (files.length > 0) {
-      var fileSrc = files[0];
-      var reader = new FileReader();
-      reader.onload = function () {
-        var data = reader.result;
-        self.manageUploadedFile(data, fileSrc);
-      };
-      reader.readAsDataURL(fileSrc);
-    }
-  };
-  _proto.checkImageRatioAndDimensions = function checkImageRatioAndDimensions(uploadedImage) {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      var _self$props = self.props,
-        localization = _self$props.localization,
-        sizeConstraints = _self$props.sizeConstraints,
-        ratio = _self$props.ratio,
-        imageSize = _self$props.imageSize,
-        cropProperties = _self$props.cropProperties;
-      var _ref = sizeConstraints || {},
-        constraints = _ref.constraints,
-        minHeight = _ref.minHeight,
-        maxHeight = _ref.maxHeight,
-        minWidth = _ref.minWidth,
-        maxWidth = _ref.maxWidth;
-      var _ref2 = cropProperties || {},
-        cropImage = _ref2.cropImage;
-      var isError = false;
-      try {
-        var currentImageSize = uploadedImage.length * (3 / 4) - 1;
-        currentImageSize = currentImageSize / 1048576;
-        if (cropImage != true && imageSize != null && currentImageSize > imageSize) {
-          var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
-          toast.warn(message);
-          resolve(true);
-          return;
-        }
-        var image = new Image();
-        image.onload = function () {
-          var imageWidth = this.width;
-          var imageHeight = this.height;
-          if (ratio && cropImage != true) {
-            var imageRatio = imageWidth / imageHeight;
-            var tmpRatio = ratio.split(":");
-            var tmpRatio = tmpRatio[0] / tmpRatio[1];
-            if (imageRatio != tmpRatio) {
-              isError = true;
-              var message = (localization.errorAspectRatio || "Aspect ratio must be") + " " + ratio;
-              toast.warn(message);
-              reject();
-              return;
-            }
-          }
-          if (constraints === true) {
-            if (imageWidth < minWidth) {
-              isError = true;
-              var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
-              message = message + " " + minWidth + "x" + minHeight + " pixel";
-              toast.warn(message);
-            } else if (imageWidth > maxWidth) {
-              isError = true;
-              var message = localization.imageDimensionsConstraintsAtMost || "Image dimensions must be at most";
-              message = message + " " + maxWidth + "x" + maxHeight + " pixel";
-              ;
-              toast.warn(message);
-            } else if (imageHeight < minHeight) {
-              isError = true;
-              var message = localization.imageDimensionsConstraintsAtLeast || "Image dimensions must be at least";
-              message = message + " " + minWidth + "x" + minHeight + " pixel";
-              ;
-              toast.warn(message);
-            } else if (imageHeight > maxHeight) {
-              isError = true;
-              var message = localization.imageDimensionsConstraintsAtMost || "Image dimensions must be at most";
-              message = message + " " + maxWidth + "x" + maxHeight + " pixel";
-              ;
-              toast.warn(message);
-            }
-            if (isError === true) {
-              reject();
-            } else {
-              resolve();
-              return;
-            }
-          }
-          resolve();
-          return;
-        };
-        image.src = uploadedImage;
-      } catch (e) {
-        reject(e);
-        console.error(e);
-        toast.error(localization.errorUploadingImage || "Error uploading image");
-      }
-    });
-  };
-  _proto.manageUploadedFile = function manageUploadedFile(uploadedImage, fileSrc) {
-    var self = this;
-    var _this$props = this.props,
-      localization = _this$props.localization,
-      resizeProperties = _this$props.resizeProperties,
-      cropProperties = _this$props.cropProperties;
-    var _ref3 = resizeProperties || {},
-      resizeImage = _ref3.resizeImage,
-      resizeHeight = _ref3.resizeHeight,
-      resizeWidth = _ref3.resizeWidth;
-    var _ref4 = cropProperties || {},
-      cropImage = _ref4.cropImage;
-    var fileName = fileSrc.name;
-    var fileType = fileSrc.type;
-    var fileExtension = uploadedImage.split(';')[0].split('/')[1];
-    self.checkImageRatioAndDimensions(uploadedImage).then(function () {
-      if (resizeImage === true) {
-        self.fileChangedHandler(fileSrc, resizeWidth, resizeHeight).then(function (data) {
-          if (cropImage === true) {
-            self.setState({
-              imageToCrop: data,
-              imageToCropSrc: fileSrc,
-              showCropModal: true,
-              fileName: fileName,
-              fileType: fileType,
-              fileExtension: fileExtension
-            });
-          } else {
-            self.props.onChange(data, fileName, fileExtension, fileType);
-          }
-        })["catch"](function (error) {
-          console.error(error);
-          toast.error(localization.errorResizingImage || "Error resizing image");
-        });
-      } else if (cropImage === true) {
-        self.setState({
-          imageToCrop: uploadedImage,
-          imageToCropSrc: fileSrc,
-          showCropModal: true,
-          fileName: fileName,
-          fileType: fileType,
-          fileExtension: fileExtension
-        });
-      } else {
-        self.props.onChange(uploadedImage, fileName, fileExtension, fileType);
-      }
-    })["catch"](function (e) {});
-  };
-  _proto.fileChangedHandler = function fileChangedHandler(input, newWidth, newHeight) {
-    return new Promise(function (resolve, reject) {
-      try {
-        if (input && (newWidth != null || newHeight != null)) {
-          Resizer$1.imageFileResizer(input, newWidth || 5000, newHeight || 5000, 'PNG', 100, 0, function (uri) {
-            resolve(uri);
-          }, 'base64', newWidth || 1, newHeight || 1);
-        }
-      } catch (e) {
-        console.error("Error resizing image; " + e);
-        reject(e);
-      }
-    });
-  };
-  _proto.saveCrop = function saveCrop(data) {
-    var self = this;
-    var _self$state = self.state,
-      fileName = _self$state.fileName,
-      fileType = _self$state.fileType,
-      fileExtension = _self$state.fileExtension;
-    if (this.props.onChange) {
-      this.setState({
-        showCropModal: false
-      }, function () {
-        var _self$props2 = self.props,
-          localization = _self$props2.localization,
-          imageSize = _self$props2.imageSize;
-        var currentImageSize = data.length * (3 / 4) - 1;
-        currentImageSize = currentImageSize / 1048576;
-        if (imageSize != null && currentImageSize > imageSize) {
-          var message = (localization.imageSizeMustBeAtMost || "Image size must be at most") + " " + imageSize.toString() + "MB";
-          toast.warn(message);
-        } else {
-          self.props.onChange(data, fileName, fileExtension, fileType);
-        }
-      });
-    }
-  };
-  _proto.onRemove = function onRemove() {
-    var _this2 = this;
-    if (this.props.onRemove) {
-      this.setState({
-        showCropModal: false
-      }, function () {
-        _this2.props.onRemove();
-      });
-    } else {
-      this.setState({
-        image: null
-      });
-    }
-  };
-  _proto.render = function render() {
-    var _this3 = this;
-    var _this$props2 = this.props,
-      disabled = _this$props2.disabled,
-      localization = _this$props2.localization,
-      cropProperties = _this$props2.cropProperties,
-      error = _this$props2.error,
-      isInvalid = _this$props2.isInvalid,
-      isinvalid = _this$props2.isinvalid,
-      errorMessage = _this$props2.errorMessage,
-      ratio = _this$props2.ratio,
-      viewImgHeight = _this$props2.viewImgHeight,
-      viewImgWidth = _this$props2.viewImgWidth,
-      viewImgMaxHeight = _this$props2.viewImgMaxHeight;
-    var _this$state = this.state,
-      image = _this$state.image,
-      showPreviewImage = _this$state.showPreviewImage,
-      showCropModal = _this$state.showCropModal;
-    var _this$state2 = this.state,
-      imageToCropSrc = _this$state2.imageToCropSrc,
-      imageToCrop = _this$state2.imageToCrop;
-    cropProperties = cropProperties || {};
-    viewImgHeight = viewImgHeight || "auto";
-    viewImgWidth = viewImgHeight ? "auto" : viewImgWidth || "auto";
-    var imageStyle = {
-      "height": viewImgHeight,
-      "width": viewImgWidth,
-      "maxHeight": viewImgMaxHeight
-    };
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, {
-      sm: 12
-    }, _$2.isEmpty(image) === false && /*#__PURE__*/React.createElement(ImageBox, null, /*#__PURE__*/React.createElement(IconsBox, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "file-input"
-    }, /*#__PURE__*/React.createElement(UpdateImageIcon, null)), /*#__PURE__*/React.createElement("input", {
-      id: "file-input",
-      type: "file",
-      accept: "image/*",
-      style: {
-        display: "none"
-      },
-      multiple: false,
-      onChange: this.handleFileUpload
-    })), /*#__PURE__*/React.createElement(DeleteImageIcon, {
-      onClick: function onClick() {
-        return _this3.onRemove();
-      }
-    })), /*#__PURE__*/React.createElement(StyledImage, {
-      style: imageStyle,
-      src: image,
-      alt: "img",
-      onClick: function onClick() {
-        _this3.setState({
-          showPreviewImage: true
-        });
-      }
-    })), _$2.isEmpty(image) === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("input", {
-      ref: "fileInput",
-      onChange: this.handleFileUpload,
-      type: "file",
-      accept: "image/*",
-      style: {
-        display: "none"
-      },
-      multiple: false
-    }), /*#__PURE__*/React.createElement(UploadImageButton, {
-      disabled: disabled,
-      variant: "outline-secondary",
-      isinvalid: error || isInvalid || isinvalid,
-      onClick: function onClick() {
-        return _this3.refs.fileInput.click();
-      }
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      icon: faUpload,
-      onClick: this.props.onCancel
-    }))))), (error === true || isInvalid === true || isinvalid) && /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Col, null, /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error"))), /*#__PURE__*/React.createElement(Modal, {
-      onHide: function onHide() {},
-      size: "xl",
-      show: showPreviewImage
-    }, /*#__PURE__*/React.createElement(Modal.Body, null, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Card.Header, null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        "float": "right"
-      }
-    }, /*#__PURE__*/React.createElement(CustomTooltip, {
-      tooltip: localization.cancel || "Cancel"
-    }, /*#__PURE__*/React.createElement(CloseIcon, {
-      onClick: function onClick() {
-        _this3.setState({
-          showPreviewImage: false
-        });
-      }
-    })))), /*#__PURE__*/React.createElement(Card.Body, null, /*#__PURE__*/React.createElement(Image$2, {
-      src: image,
-      fluid: true
-    }))))), /*#__PURE__*/React.createElement(Modal, {
-      onHide: function onHide() {},
-      size: "xl",
-      show: showCropModal
-    }, /*#__PURE__*/React.createElement(CropImage, {
-      aspectRatio: ratio,
-      localization: localization,
-      avoidResize: true,
-      startHeightCrop: cropProperties.startHeightCrop,
-      startWidthCrop: cropProperties.startWidthCrop,
-      minCroppedHeight: cropProperties.minCroppedHeight,
-      minCroppedWidth: cropProperties.minCroppedWidth,
-      maxCroppedHeight: cropProperties.maxCroppedHeight,
-      maxCroppedWidth: cropProperties.maxCroppedWidth,
-      fileSrc: imageToCropSrc,
-      src: imageToCrop,
-      onSave: this.saveCrop,
-      onClose: this.onRemove
-    })));
-  };
-  return UploadImage;
-}(Component);
-
-var _templateObject$8, _templateObject2$2, _templateObject3$1, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject10$1;
-var StyledButtonUpload = styled(Button)(_templateObject$8 || (_templateObject$8 = _taggedTemplateLiteralLoose(["\n    width: 50px;\n    height: 60px;\n    background-color: #fafafa;\n    text-align: center;\n    border-radius: 4px;\n    vertical-align: top;\n    border: 1px dashed;\n    border-color: ", ";\n"])), function (props) {
-  return props.error === true || props.isInvalid === true ? "#dc3545" : "#d9d9d9";
-});
-function UploadImageButton$1(props) {
-  return /*#__PURE__*/React.createElement(StyledButtonUpload, props, props.children);
-}
-var StyledDivDocumentBox = styled.div(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n    position: relative;\n"])));
-function DocumentBox(props) {
-  return /*#__PURE__*/React.createElement(StyledDivDocumentBox, null, props.children);
-}
-var StyledDivIconxBox = styled.div(_templateObject3$1 || (_templateObject3$1 = _taggedTemplateLiteralLoose(["\n    position: absolute;\n    z-index: 10;\n    top: -3px;\n    left: -17px;\n"])));
-function IconsBox$1(props) {
-  return /*#__PURE__*/React.createElement(StyledDivIconxBox, null, props.children);
-}
-var StyledFaCircleUpdate$1 = styled(FontAwesomeIcon)(_templateObject4$1 || (_templateObject4$1 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #007bff;\n    cursor: pointer;\n"])));
-var StyledPencilAlt$1 = styled(FontAwesomeIcon)(_templateObject5$1 || (_templateObject5$1 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
-function UpdateImageIcon$1() {
-  return /*#__PURE__*/React.createElement("span", {
-    className: "fa-stack small"
-  }, /*#__PURE__*/React.createElement(StyledFaCircleUpdate$1, {
-    className: "fa-stack-2x",
-    icon: faCircle
-  }), /*#__PURE__*/React.createElement(StyledPencilAlt$1, {
-    className: "fa-stack-1x",
-    icon: faPencilAlt
-  }));
-}
-var StyledDiv$6 = styled.div(_templateObject6$1 || (_templateObject6$1 = _taggedTemplateLiteralLoose(["\n    top: -10px\n"])));
-var StyledFaCircleDelete$1 = styled(FontAwesomeIcon)(_templateObject7$1 || (_templateObject7$1 = _taggedTemplateLiteralLoose(["\n    opacity: 0.7;\n    color: #dc3545;\n    cursor: pointer;\n"])));
-var StyledTrashAlt$1 = styled(FontAwesomeIcon)(_templateObject8$1 || (_templateObject8$1 = _taggedTemplateLiteralLoose(["\n    color: white;\n    cursor: pointer;\n"])));
-function DeleteImageIcon$1(props) {
-  return /*#__PURE__*/React.createElement(StyledDiv$6, _extends({
-    className: "fa-stack small"
-  }, props), /*#__PURE__*/React.createElement(StyledFaCircleDelete$1, {
-    className: "fa-stack-2x",
-    icon: faCircle
-  }), /*#__PURE__*/React.createElement(StyledTrashAlt$1, {
-    className: "fa-stack-1x",
-    icon: faTrashAlt
-  }));
-}
-var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject9$1 || (_templateObject9$1 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 4rem;\n"])));
+var StyledFontAwesomeIcon = styled(FontAwesomeIcon)(_templateObject9 || (_templateObject9 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 4rem;\n"])));
 function FileIcon(props) {
   return /*#__PURE__*/React.createElement(StyledFontAwesomeIcon, {
     icon: faFileAlt
   });
 }
-var StyledDivErrorMessage$1 = styled.div(_templateObject10$1 || (_templateObject10$1 = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
-function ErrorMessage$1(props) {
-  return /*#__PURE__*/React.createElement(StyledDivErrorMessage$1, null, props.children);
+var StyledDivErrorMessage = styled.div(_templateObject10 || (_templateObject10 = _taggedTemplateLiteralLoose(["\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n"])));
+function ErrorMessage(props) {
+  return /*#__PURE__*/React.createElement(StyledDivErrorMessage, null, props.children);
 }
 
 function UploadDocument(props) {
@@ -3306,7 +2574,7 @@ function UploadDocument(props) {
       display: "none"
     },
     multiple: false
-  }), /*#__PURE__*/React.createElement(UploadImageButton$1, {
+  }), /*#__PURE__*/React.createElement(UploadImageButton, {
     disabled: disabled,
     variant: "outline-secondary",
     isInvalid: isInvalid,
@@ -3315,9 +2583,9 @@ function UploadDocument(props) {
     }
   }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faUpload
-  })), isInvalid === true && /*#__PURE__*/React.createElement(ErrorMessage$1, null, errorMessage || "Error")), _$2.isEmpty(document) === false && /*#__PURE__*/React.createElement(DocumentBox, null, /*#__PURE__*/React.createElement(IconsBox$1, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+  })), isInvalid === true && /*#__PURE__*/React.createElement(ErrorMessage, null, errorMessage || "Error")), _$2.isEmpty(document) === false && /*#__PURE__*/React.createElement(DocumentBox, null, /*#__PURE__*/React.createElement(IconsBox, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     htmlFor: "file-input"
-  }, /*#__PURE__*/React.createElement(UpdateImageIcon$1, null)), /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement(UpdateImageIcon, null)), /*#__PURE__*/React.createElement("input", {
     id: "file-input",
     type: "file",
     accept: "application/*, text/*",
@@ -3326,7 +2594,7 @@ function UploadDocument(props) {
     },
     multiple: false,
     onChange: handleFileUpload
-  })), /*#__PURE__*/React.createElement(DeleteImageIcon$1, {
+  })), /*#__PURE__*/React.createElement(DeleteImageIcon, {
     onClick: onRemove
   })), /*#__PURE__*/React.createElement(FileIcon, null), /*#__PURE__*/React.createElement("div", null, document && document.fileName ? document.fileName : "N/A"))));
 }
@@ -3453,8 +2721,42 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
   return OrbitalAddressComponentsPicker;
 }(Component);
 
-var _templateObject$9;
-var OrbitalInfoIcon = styled(FontAwesomeIcon)(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"])));
+var CustomTooltip = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(CustomTooltip, _Component);
+  function CustomTooltip(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.state = {};
+    return _this;
+  }
+  var _proto = CustomTooltip.prototype;
+  _proto.render = function render() {
+    var placement = this.props.placement || "top";
+    var delay = this.props.delay || {
+      show: 250,
+      hide: 400
+    };
+    var tooltip = this.props.tooltip || "";
+    var children = this.props.children || /*#__PURE__*/React.createElement("div", null, "Error children");
+    if (_$2.isEmpty(tooltip) === true) {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, children);
+    } else {
+      return /*#__PURE__*/React.createElement(OverlayTrigger, {
+        style: this.props.style,
+        className: this.props.className,
+        placement: placement,
+        delay: {
+          delay: delay
+        },
+        overlay: /*#__PURE__*/React.createElement(Tooltip, null, tooltip)
+      }, children);
+    }
+  };
+  return CustomTooltip;
+}(Component);
+
+var _templateObject$8;
+var OrbitalInfoIcon = styled(FontAwesomeIcon)(_templateObject$8 || (_templateObject$8 = _taggedTemplateLiteralLoose(["\n    color: #007bff;\n    font-size: 0.7rem;\n    margin-bottom: 0.35rem;\n"])));
 var google = window.google;
 var addressComponentType = "administrative_area_level_3";
 var defaultCircleOptions = {
@@ -3728,15 +3030,15 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
   return OrbitalLocationPicker;
 }(Component);
 
-var _templateObject$a, _templateObject2$3, _templateObject3$2, _templateObject4$2, _templateObject5$2, _templateObject6$2, _templateObject7$2, _templateObject8$2;
-var NoData = styled.div(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"])));
-var SubContentContainer = styled.div(_templateObject2$3 || (_templateObject2$3 = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"])));
-var StyledTable = styled.div(_templateObject3$2 || (_templateObject3$2 = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"])));
-var StyledTd = styled.div(_templateObject4$2 || (_templateObject4$2 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
-var StyledTh = styled.div(_templateObject5$2 || (_templateObject5$2 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
-var PaginationRow = styled(Row)(_templateObject6$2 || (_templateObject6$2 = _taggedTemplateLiteralLoose(["\n    margin-top: 1rem;\n"])));
-var Resizer = styled.div(_templateObject7$2 || (_templateObject7$2 = _taggedTemplateLiteralLoose(["\n    right: 0;\n    background: #dee2e6;\n    width: 1px;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    z-index: 1;\n    touch-action: none;\n"])));
-var StyledTr = styled.div(_templateObject8$2 || (_templateObject8$2 = _taggedTemplateLiteralLoose(["\n&:last-child{\n    overflow-x: hidden;\n    ", "{\n        border-bottom: 0;\n    }\n}\n"])), StyledTd);
+var _templateObject$9, _templateObject2$2, _templateObject3$1, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1;
+var NoData = styled.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 40%;\n    z-index: 1;\n    padding: 20px;\n    background-color: white;\n    border: 1px solid #dee2e6;\n"])));
+var SubContentContainer = styled.div(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n    border-bottom: 1px solid #dee2e6;\n    padding: 15px;\n"])));
+var StyledTable = styled.div(_templateObject3$1 || (_templateObject3$1 = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    border-spacing: 0;\n    border: 1px solid #dee2e6;\n    width: 100%;\n"])));
+var StyledTd = styled.div(_templateObject4$1 || (_templateObject4$1 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
+var StyledTh = styled.div(_templateObject5$1 || (_templateObject5$1 = _taggedTemplateLiteralLoose(["\n    margin: 0;\n    padding: 0.5rem;\n    border-bottom: 1px solid #dee2e6;\n    border-right: 1px solid #dee2e6;\n    position: relative;\n"])));
+var PaginationRow = styled(Row)(_templateObject6$1 || (_templateObject6$1 = _taggedTemplateLiteralLoose(["\n    margin-top: 1rem;\n"])));
+var Resizer = styled.div(_templateObject7$1 || (_templateObject7$1 = _taggedTemplateLiteralLoose(["\n    right: 0;\n    background: #dee2e6;\n    width: 1px;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    z-index: 1;\n    touch-action: none;\n"])));
+var StyledTr = styled.div(_templateObject8$1 || (_templateObject8$1 = _taggedTemplateLiteralLoose(["\n&:last-child{\n    overflow-x: hidden;\n    ", "{\n        border-bottom: 0;\n    }\n}\n"])), StyledTd);
 
 var _excluded = ["indeterminate"];
 var IndeterminateCheckbox = forwardRef(function (_ref, ref) {
@@ -3995,8 +3297,8 @@ function ReactTable(props) {
   }), " ", _noDataMessage || "No data")), getPaginationSection(localization, gotoPage, canPreviousPage, previousPage, canNextPage, nextPage, pageCount, pageIndex, pageOptions, data, pageSize, _fixedPageSize, setPageSize, _defaultPageSize, hidePagination));
 }
 
-var _templateObject$b;
-var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"])), function (props) {
+var _templateObject$a;
+var StyledFontAwesomeIcon$1 = styled(FontAwesomeIcon)(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    margin-right: ", ";\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -4022,11 +3324,11 @@ var OrbitalSaveIcon = function OrbitalSaveIcon(props) {
   }));
 };
 
-var _templateObject$c, _templateObject2$4;
-var Container = styled.div(_templateObject$c || (_templateObject$c = _taggedTemplateLiteralLoose(["\n    float: ", "\n"])), function (props) {
+var _templateObject$b, _templateObject2$3;
+var Container = styled.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n    float: ", "\n"])), function (props) {
   return props["float"];
 });
-var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$4 || (_templateObject2$4 = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"])), function (props) {
+var StyledBsPlusCircle = styled(BsPlusCircle)(_templateObject2$3 || (_templateObject2$3 = _taggedTemplateLiteralLoose(["\n    color: ", ";\n    cursor: ", ";\n    font-size:  ", ";\n"])), function (props) {
   return props.disabled === true ? "grey" : "#007bff";
 }, function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
@@ -4055,8 +3357,8 @@ var OrbitalAddIcon = function OrbitalAddIcon(props) {
   })));
 };
 
-var _templateObject$d;
-var StyledFontAwesomeIcon$2 = styled(FontAwesomeIcon)(_templateObject$d || (_templateObject$d = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"])), function (props) {
+var _templateObject$c;
+var StyledFontAwesomeIcon$2 = styled(FontAwesomeIcon)(_templateObject$c || (_templateObject$c = _taggedTemplateLiteralLoose(["\n    cursor: ", ";\n    color: grey;\n    font-size: 1.5rem;\n"])), function (props) {
   return props.disabled === true ? "not-allowed" : "pointer";
 });
 var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
@@ -4076,8 +3378,8 @@ var OrbitalCancelIcon = function OrbitalCancelIcon(props) {
   }));
 };
 
-var _templateObject$e;
-var StyledFormCheck = styled(FormCheck)(_templateObject$e || (_templateObject$e = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"])), function (props) {
+var _templateObject$d;
+var StyledFormCheck = styled(FormCheck)(_templateObject$d || (_templateObject$d = _taggedTemplateLiteralLoose(["\n    padding-top:   ", ";\n    input{\n        transform: ", ";\n    }\n"])), function (props) {
   return props.paddingtop;
 }, function (props) {
   return props.scale ? "scale(" + props.scale + ")" : "scale(1.5)";
@@ -4124,193 +3426,6 @@ function OrbitalSelect(props) {
     styles: getTypeSelectStyles(isInvalid),
     menuPortalTarget: document.body
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMsg));
-}
-
-function CompleteSchema(props) {
-  var localization = props.localization,
-    jsonSchema = props.jsonSchema,
-    customFields = props.customFields,
-    lang = props.lang,
-    onLoadImage = props.onLoadImage,
-    onLoadDocument = props.onLoadDocument,
-    onChange = props.onChange;
-  var _useState = useState(false),
-    playing = _useState[0],
-    setPlaying = _useState[1];
-  var _useState2 = useState(false),
-    enablePlay = _useState2[0],
-    setEnablePlay = _useState2[1];
-  function onChangeBoolean(fieldName) {
-    var tmp = _$2.cloneDeep(customFields);
-    tmp[fieldName] = !tmp[fieldName];
-    onChange(tmp);
-  }
-  function onChangeNumber(fieldName, e) {
-    var value = e.target.value;
-    value = Number(value);
-    var tmp = _$2.cloneDeep(customFields);
-    tmp[fieldName] = value;
-    onChange(tmp);
-  }
-  function onChangeObject(fieldName, e) {
-    var value = e.target.value;
-    value = _$2.isEmpty(value) === true ? null : JSON.stringify(JSON.parse(value));
-    var tmp = _$2.cloneDeep(customFields);
-    tmp[fieldName] = value;
-    onChange(tmp);
-  }
-  function onChangeString(fieldName, e) {
-    var value = e.target.value;
-    value = _$2.isEmpty(value) === true ? null : value;
-    var tmp = _$2.cloneDeep(customFields);
-    tmp[fieldName] = value;
-    onChange(tmp);
-  }
-  function onChangeSelect(fieldName, value) {
-    var tmp = _$2.cloneDeep(customFields);
-    tmp[fieldName] = value;
-    onChange(tmp);
-  }
-  function parseObject(value) {
-    value = JSON.parse(value);
-    value = JSON.stringify(value, undefined, 4);
-    return value;
-  }
-  function getSelectOptions(options) {
-    var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
-    var selectOptions = _$2.map(options, function (option) {
-      var value = option.value,
-        label = option.label;
-      var localizedLabel = label[lang] || value;
-      return {
-        "value": value,
-        "label": localizedLabel
-      };
-    });
-    selectOptions = _$2.sortBy(selectOptions, "label");
-    return selectOptions;
-  }
-  function getSelectValue(options, value) {
-    var selectOptions = getSelectOptions(options);
-    var option = _$2.find(selectOptions, {
-      "value": value
-    });
-    return option;
-  }
-  return /*#__PURE__*/React.createElement(React.Fragment, null, _$2.map(jsonSchema, function (entry) {
-    var fieldName = entry.fieldName,
-      label = entry.label,
-      type = entry.type,
-      required = entry.required,
-      step = entry.step,
-      options = entry.options;
-    label = entry.label[lang];
-    var value = customFields[fieldName];
-    return /*#__PURE__*/React.createElement(Row, {
-      className: "margin_top_row",
-      key: fieldName
-    }, /*#__PURE__*/React.createElement(Col, null, required === true ? /*#__PURE__*/React.createElement(MandatoryFieldLabel, {
-      value: label
-    }) : /*#__PURE__*/React.createElement(NormalFieldLabel, {
-      value: label
-    }), type === "boolean" && /*#__PURE__*/React.createElement(OrbitalCheckbox, {
-      checked: value || false,
-      onChange: function onChange() {
-        onChangeBoolean(fieldName);
-      }
-    }), type === "document" && /*#__PURE__*/React.createElement(UploadDocument, {
-      localization: localization,
-      document: value || {},
-      isInvalid: false,
-      errorMessage: "",
-      onChange: function onChange(base64, fileName, fileExtension, fileType) {
-        onLoadDocument(fieldName, base64, fileName, fileExtension, fileType);
-      },
-      onRemove: function onRemove() {
-        onLoadImage(fieldName);
-      }
-    }), type === "image" && /*#__PURE__*/React.createElement(UploadImage, {
-      localization: localization,
-      image: value || null,
-      onChange: function onChange(base64, fileName, fileExtension, fileType) {
-        onLoadImage(fieldName, base64, fileName, fileExtension);
-      },
-      onRemove: function onRemove() {
-        onLoadImage(fieldName);
-      }
-    }), type === "number" && /*#__PURE__*/React.createElement(FormControl, {
-      type: "number",
-      placeholder: label,
-      step: step.toString(),
-      value: value != null ? value.toString() : "",
-      onChange: function onChange(e) {
-        onChangeNumber(fieldName, e);
-      }
-    }), type === "link" && /*#__PURE__*/React.createElement(FormControl, {
-      type: "url",
-      placeholder: label,
-      value: value || "",
-      onChange: function onChange(e) {
-        onChangeString(fieldName, e);
-      }
-    }), type === "object" && /*#__PURE__*/React.createElement(FormControl, {
-      as: "textarea",
-      rows: 6,
-      value: value != null ? parseObject(value) : "",
-      onChange: function onChange(e) {
-        onChangeObject(fieldName, e);
-      }
-    }), type === "string" && /*#__PURE__*/React.createElement(FormControl, {
-      placeholder: label,
-      value: value,
-      onChange: function onChange(e) {
-        onChangeString(fieldName, e);
-      }
-    }), type === "select" && /*#__PURE__*/React.createElement(Select, {
-      placeholder: label,
-      value: getSelectValue(options, value),
-      isClearable: true,
-      onChange: function onChange(data) {
-        var value = data && data.value ? data.value : null;
-        onChangeSelect(fieldName, value);
-      },
-      options: getSelectOptions(options)
-    }), type === "video" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InputGroup, null, /*#__PURE__*/React.createElement(InputGroup.Prepend, null, /*#__PURE__*/React.createElement(InputGroup.Text, null, "Url")), /*#__PURE__*/React.createElement(FormControl, {
-      placeholder: localization.videoUrl || "Video url",
-      value: value || "",
-      onChange: function onChange(e) {
-        setEnablePlay(false);
-        onChangeString(fieldName, e);
-      }
-    })), _$2.isEmpty(value) === false && /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: "0.5rem"
-      }
-    }, /*#__PURE__*/React.createElement(ReactPlayer, {
-      playing: playing,
-      onReady: function onReady() {
-        setEnablePlay(true);
-      },
-      onPlay: function onPlay() {
-        setPlaying(true);
-      },
-      onPause: function onPause() {
-        setPlaying(false);
-      },
-      url: value || null
-    }), /*#__PURE__*/React.createElement(Button, {
-      size: "sm",
-      disabled: enablePlay === false,
-      style: {
-        marginTop: "0.2rem"
-      },
-      onClick: function onClick() {
-        setPlaying(!playing);
-      }
-    }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-      icon: playing === true ? faPause : faPlay
-    }))))));
-  }));
 }
 
 var types = ["string", "number", "boolean", "object", "image", "video", "link", "select", "document"];
@@ -4935,8 +4050,8 @@ function OrbitalJsonSchema(props) {
   })));
 }
 
-var _templateObject$f;
-var PluginContainer = styled.div(_templateObject$f || (_templateObject$f = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"])), function (props) {
+var _templateObject$e;
+var PluginContainer = styled.div(_templateObject$e || (_templateObject$e = _taggedTemplateLiteralLoose(["\n    padding-left: ", ";\n    padding-top: ", ";\n    padding-right: ", ";\n    height: ", ";\n    min-height: ", ";\n"])), function (props) {
   return props.paddingLeft || "15px";
 }, function (props) {
   return props.paddingTop || "15px";
@@ -4965,55 +4080,6 @@ function OrbitalToastContainer(props) {
   });
 }
 
-function OrbitalReactPhoneInput(props) {
-  var isInvalid = props.isInvalid,
-    errorMsg = props.errorMsg,
-    errorMessage = props.errorMessage,
-    disabled = props.disabled;
-  function getPhoneStyleButton(isInvalid) {
-    var error = _$2.isEmpty(isInvalid) === false ? true : false;
-    var phoneStyleButton = error === true ? {
-      borderColor: "#dc3545"
-    } : null;
-    return phoneStyleButton;
-  }
-  function getPhoneStyleInput(disabled, isInvalid) {
-    var error = _$2.isEmpty(isInvalid) === false ? true : false;
-    var phoneStyleInput = null;
-    if (disabled === true && error === true) {
-      phoneStyleInput = {
-        width: "100%",
-        backgroundColor: "#e9ecef",
-        opacity: "1",
-        borderColor: "#dc3545"
-      };
-    } else if (disabled === true) {
-      phoneStyleInput = {
-        width: "100%",
-        backgroundColor: "#e9ecef",
-        opacity: "1"
-      };
-    } else if (error === true) {
-      phoneStyleInput = {
-        width: "100%",
-        borderColor: "#dc3545"
-      };
-    } else {
-      phoneStyleInput = {
-        width: "100%"
-      };
-    }
-    return phoneStyleInput;
-  }
-  var phoneStyleInput = getPhoneStyleInput(disabled, isInvalid);
-  var phoneStyleButton = getPhoneStyleButton(isInvalid);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ReactPhoneInput, _extends({
-    buttonStyle: phoneStyleButton,
-    inputStyle: phoneStyleInput,
-    disableDropdown: disabled
-  }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
-}
-
 var _excluded$1 = ["inputRef", "referenceElementRef"];
 function OrbitalAsyncTypeahead(props) {
   var isInvalid = props.isInvalid,
@@ -5038,5 +4104,5 @@ function OrbitalAsyncTypeahead(props) {
   }, props)), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage || errorMsg));
 }
 
-export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, CompleteSchema, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLEditor as HTMLTextEditorV3, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalAsyncTypeahead, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalReactPhoneInput, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, UploadImage, ex as localization };
+export { APISb, AuthStore, BrandStore, ClientSession, PluginUtils as CommonUtils, DatePicker, DatePickerV2, DatePicker$1 as DateTimePicker, DateTimePickerV2, HTMLEditor as HTMLTextEditorV3, MandatoryFieldLabel, NormalFieldLabel, OrbitalAddIcon, OrbitalAddressComponentsPicker, OrbitalAsyncTypeahead, OrbitalCancelIcon, OrbitalCheckbox, OrbitalErrorDiv, OrbitalJsonSchema, OrbitalLocationPicker, OrbitalSaveIcon, OrbitalSelect, OrbitalStore, OrbitalToastContainer, PluginContainer, PluginStore, ReactTable, RecurrenceEditor, RecurrenceEditorV2, ReservationScheduler as Scheduler, SchedulerV2, SessionStorageStore, SyncfusionUtils, TimePicker, TimePickerv2 as TimePickerV2, CustomTooltip as Tooltip, UploadDocument, ex as localization };
 //# sourceMappingURL=index.modern.js.map
