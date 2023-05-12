@@ -2549,7 +2549,7 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
   return HTMLTextEditor;
 }(Component);
 
-var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'NumberFormatList', 'BulletFormatList', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
+var items = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontName', 'FontSize', 'LowerCase', 'UpperCase', '|', 'Formats', 'Alignments', 'Outdent', 'Indent', 'SuperScript', 'SubScript', '|', 'CreateTable', 'CreateLink', 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', 'FullScreen', '|', 'Undo', 'Redo'];
 var tableItems = ['TableHeader', 'TableRows', 'TableColumns', 'TableCell', '-', 'BackgroundColor', 'TableRemove', 'TableCellVerticalAlign', 'Styles'];
 var imageItems = ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImageLink', 'RemoveImageLink', 'Display', 'AltText', 'Dimension'];
 
