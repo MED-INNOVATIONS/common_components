@@ -4,6 +4,14 @@ import SessionStorageStore from "../stores/SessionStorageStore";
 
 
 class ClientSession {
+
+  static isLoggedIn_V2(){
+    const auth = SessionStorageStore.getAuth();
+    const SBDashboardAuthkey = SessionStorageStore.getDashboardAuthKey();
+    const isLoggedIn = _.isEmpty(auth) === true || _.isEmpty(SBDashboardAuthkey) ? false : true;
+    return isLoggedIn;
+  }
+
   static isLoggedIn() {
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();

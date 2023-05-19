@@ -422,6 +422,12 @@ var SessionStorageStore = /*#__PURE__*/function () {
 
 var ClientSession = /*#__PURE__*/function () {
   function ClientSession() {}
+  ClientSession.isLoggedIn_V2 = function isLoggedIn_V2() {
+    var auth = SessionStorageStore.getAuth();
+    var SBDashboardAuthkey = SessionStorageStore.getDashboardAuthKey();
+    var isLoggedIn = _$2.isEmpty(auth) === true || _$2.isEmpty(SBDashboardAuthkey) ? false : true;
+    return isLoggedIn;
+  };
   ClientSession.isLoggedIn = function isLoggedIn() {
     return new Promise(function (resolve, reject) {
       var auth = SessionStorageStore.getAuth();
