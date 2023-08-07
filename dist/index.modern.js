@@ -1,12 +1,14 @@
 import axios from 'axios';
 import _$2 from 'lodash';
-import { loadCldr, L10n } from '@syncfusion/ej2-base';
+import { loadCldr, L10n, createElement } from '@syncfusion/ej2-base';
 import LocalizedStrings from 'react-localization';
 import React, { Component, useState, useEffect, useRef, forwardRef } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
 import styled from 'styled-components';
+import { renderToString } from 'react-dom/server';
+import { BsCalendar, BsPlusCircle } from 'react-icons/bs';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -26,7 +28,6 @@ import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, useMountedLayoutEffect } from 'react-table';
-import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import ReactPlayer from 'react-player/lazy';
@@ -2183,7 +2184,9 @@ function SchedulerV2(props) {
     onChangeDate = props.onChangeDate,
     onChangeDateRange = props.onChangeDateRange,
     onChangeView = props.onChangeView,
-    onChangeAgendaRange = props.onChangeAgendaRange;
+    onChangeAgendaRange = props.onChangeAgendaRange,
+    _props$slotsCount = props.slotsCount,
+    slotsCount = _props$slotsCount === void 0 ? [] : _props$slotsCount;
   var _useState = useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2201,7 +2204,7 @@ function SchedulerV2(props) {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
     }
-  }, [language, closedDates]);
+  }, [language, closedDates, slotsCount]);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
@@ -2316,6 +2319,13 @@ function SchedulerV2(props) {
     });
     return parsedClosedDates;
   }
+  function parsedSlotCount(slotsCount) {
+    var parsedSlotDates = Object.keys(slotsCount).reduce(function (prev, curr, index) {
+      var _extends2;
+      return _extends({}, prev, (_extends2 = {}, _extends2[moment(curr).format(dateFormat)] = slotsCount[curr], _extends2));
+    }, {});
+    return parsedSlotDates;
+  }
   function checkClosedDate(args) {
     var date = args.date,
       element = args.element,
@@ -2328,9 +2338,33 @@ function SchedulerV2(props) {
       innerElement.setAttribute("style", "background-color:#dc3545");
     }
   }
+  function checkSlotDates(args) {
+    var date = args.date,
+      elementType = args.elementType;
+    var newSlotCount = parsedSlotCount(slotsCount);
+    var slotDates = Object.keys(newSlotCount);
+    var parsedClosedDates = parseClosedDates(closedDates) || [];
+    var parseSlotDates = slotDates.filter(function (date) {
+      return parsedClosedDates.indexOf(date) === -1;
+    });
+    var parsedCellDate = moment(date).format(dateFormat);
+    if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
+      var ele = createElement('div', {
+        innerHTML: renderToString( /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(BsCalendar, {
+          style: {
+            color: "#28a745",
+            marginRight: "5px"
+          }
+        }), newSlotCount[parsedCellDate])),
+        className: 'templatewrap'
+      });
+      args.element.appendChild(ele);
+    }
+  }
   function renderCell(args) {
     checkSelectedDate(args);
     checkClosedDate(args);
+    checkSlotDates(args);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(ScheduleComponent, {
     locale: getLocaleByLanguage(language),
