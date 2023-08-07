@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import * as ReactDOMServer from 'react-dom/server';
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 
 import moment from "moment";
 import _ from "lodash";
+import { BsCalendar } from "react-icons/bs";
+import { createElement } from '@syncfusion/ej2-base';
 
 import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
@@ -10,12 +13,11 @@ const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount = [] } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
     const [initialization, setInitialization] = useState(false);
-
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
@@ -28,7 +30,7 @@ function SchedulerV2(props) {
         if (_.isEmpty(scheduleObj) === false) {
             scheduleObj.refresh();
         }
-    }, [language, closedDates])
+    }, [language, closedDates, slotsCount])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
@@ -168,6 +170,12 @@ function SchedulerV2(props) {
         return parsedClosedDates;
     }
 
+    function parsedSlotCount(slotsCount) {
+        var parsedSlotDates = Object.keys(slotsCount).reduce((prev, curr, index) => { return { ...prev, [moment(curr).format(dateFormat)]: slotsCount[curr] } }, {});
+
+        return parsedSlotDates;
+    }
+
     function checkClosedDate(args) {
         var { date, element, elementType, groupIndex, name } = args;
 
@@ -180,9 +188,28 @@ function SchedulerV2(props) {
         }
     }
 
+    function checkSlotDates(args) {
+        var { date, element, elementType, groupIndex, name } = args;
+
+        var newSlotCount = parsedSlotCount(slotsCount);
+        var slotDates = Object.keys(newSlotCount);
+        var parsedClosedDates = parseClosedDates(closedDates) || [];
+        var parseSlotDates = slotDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
+        var parsedCellDate = moment(date).format(dateFormat);
+
+        if (elementType === "monthCells" && _.indexOf(parseSlotDates, parsedCellDate) > -1) {
+            let ele = createElement('div', {
+                innerHTML: ReactDOMServer.renderToString(<><BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}</>),
+                className: 'templatewrap'
+            });
+            (args.element).appendChild(ele);
+        }
+    }
+
     function renderCell(args) {
         checkSelectedDate(args);
         checkClosedDate(args);
+        checkSlotDates(args);
     }
 
     /*************************************************************************/
