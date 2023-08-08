@@ -198,10 +198,8 @@ function SchedulerV2(props) {
         var parsedCellDate = moment(date).format(dateFormat);
 
         if (elementType === "monthCells" && _.indexOf(parseSlotDates, parsedCellDate) > -1) {
-            let ele = createElement('div', {
-                innerHTML: ReactDOMServer.renderToString(<><BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}</>),
-                className: 'templatewrap'
-            });
+            let ele = createElement('div');
+            ele.innerHTML = ReactDOMServer.renderToString(<div><BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}</div>);
             (args.element).appendChild(ele);
         }
     }
@@ -240,26 +238,6 @@ function SchedulerV2(props) {
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
                 </ScheduleComponent>
             }
-            {/* <ScheduleComponent
-                ref={(schedule) => { scheduleObj = schedule }}
-                height={height}
-                firstDayOfWeek={firstDayOfWeek}
-                eventSettings={events || []}
-                renderCell={renderCell}
-                cellClick={cellClick}
-                popupOpen={popupOpen}
-                actionComplete={actionComplete}
-                navigating={navigating}>
-                <ViewsDirective>
-                    {dayView === true && <ViewDirective option='Day' />}
-                    {weekView === true && <ViewDirective option='Week' />}
-                    {workWeekView === true && <ViewDirective option='WorkWeek' />}
-                    {monthView === true && <ViewDirective option="Month" />}
-                    {agendaView === true && <ViewDirective option="Agenda" />}
-                </ViewsDirective>
-                <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-            </ScheduleComponent> */}
-
         </React.Fragment>
     )
 }
