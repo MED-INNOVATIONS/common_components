@@ -2349,15 +2349,13 @@ function SchedulerV2(props) {
     });
     var parsedCellDate = moment(date).format(dateFormat);
     if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
-      var ele = createElement('div', {
-        innerHTML: renderToString( /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(BsCalendar, {
-          style: {
-            color: "#28a745",
-            marginRight: "5px"
-          }
-        }), newSlotCount[parsedCellDate])),
-        className: 'templatewrap'
-      });
+      var ele = createElement('div');
+      ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(BsCalendar, {
+        style: {
+          color: "#28a745",
+          marginRight: "5px"
+        }
+      }), newSlotCount[parsedCellDate]));
       args.element.appendChild(ele);
     }
   }
