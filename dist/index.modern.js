@@ -8,6 +8,8 @@ import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirec
 import moment from 'moment';
 import styled from 'styled-components';
 import { renderToString } from 'react-dom/server';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { BsCalendar, BsPlusCircle } from 'react-icons/bs';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
@@ -18,8 +20,6 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, InputGroup, FormCheck, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
@@ -2185,8 +2185,8 @@ function SchedulerV2(props) {
     onChangeDateRange = props.onChangeDateRange,
     onChangeView = props.onChangeView,
     onChangeAgendaRange = props.onChangeAgendaRange,
-    _props$slotsCount = props.slotsCount,
-    slotsCount = _props$slotsCount === void 0 ? [] : _props$slotsCount;
+    slotsCount = props.slotsCount,
+    bookingCount = props.bookingCount;
   var _useState = useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2204,7 +2204,7 @@ function SchedulerV2(props) {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
     }
-  }, [language, closedDates, slotsCount]);
+  }, [language, closedDates, slotsCount, bookingCount]);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
@@ -2319,12 +2319,12 @@ function SchedulerV2(props) {
     });
     return parsedClosedDates;
   }
-  function parsedSlotCount(slotsCount) {
-    var parsedSlotDates = Object.keys(slotsCount).reduce(function (prev, curr, index) {
+  function parsedCount(count) {
+    var parsedCountDates = Object.keys(count).reduce(function (prev, curr, index) {
       var _extends2;
-      return _extends({}, prev, (_extends2 = {}, _extends2[moment(curr).format(dateFormat)] = slotsCount[curr], _extends2));
+      return _extends({}, prev, (_extends2 = {}, _extends2[moment(curr).format(dateFormat)] = count[curr], _extends2));
     }, {});
-    return parsedSlotDates;
+    return parsedCountDates;
   }
   function checkClosedDate(args) {
     var date = args.date,
@@ -2338,31 +2338,46 @@ function SchedulerV2(props) {
       innerElement.setAttribute("style", "background-color:#dc3545");
     }
   }
-  function checkSlotDates(args) {
+  function checkDatesCount(args) {
     var date = args.date,
       elementType = args.elementType;
-    var newSlotCount = parsedSlotCount(slotsCount);
-    var slotDates = Object.keys(newSlotCount);
-    var parsedClosedDates = parseClosedDates(closedDates) || [];
-    var parseSlotDates = slotDates.filter(function (date) {
-      return parsedClosedDates.indexOf(date) === -1;
-    });
-    var parsedCellDate = moment(date).format(dateFormat);
-    if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
-      var ele = createElement('div');
-      ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(BsCalendar, {
-        style: {
-          color: "#28a745",
-          marginRight: "5px"
-        }
-      }), newSlotCount[parsedCellDate]));
-      args.element.appendChild(ele);
+    if (_$2.isEmpty(slotsCount) == false) {
+      var newSlotCount = parsedCount(slotsCount);
+      var slotDates = Object.keys(newSlotCount);
+      var parsedClosedDates = parseClosedDates(closedDates) || [];
+      var parseSlotDates = slotDates.filter(function (date) {
+        return parsedClosedDates.indexOf(date) === -1;
+      });
+      var parsedCellDate = moment(date).format(dateFormat);
+      if (_$2.isEmpty(bookingCount) == false) {
+        var newBookingCount = parsedCount(bookingCount);
+        var bookingDates = Object.keys(newBookingCount);
+        var parseBookingDates = bookingDates.filter(function (date) {
+          return parsedClosedDates.indexOf(date) === -1;
+        });
+      }
+      if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
+        var ele = createElement('div');
+        ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(BsCalendar, {
+          style: {
+            color: "#28a745",
+            marginRight: "5px"
+          }
+        }), newSlotCount[parsedCellDate], _$2.isEmpty(bookingCount) == false && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+          icon: faUsers,
+          style: {
+            color: "#28a745",
+            marginRight: "5px"
+          }
+        }), newBookingCount[parsedCellDate])));
+        args.element.appendChild(ele);
+      }
     }
   }
   function renderCell(args) {
     checkSelectedDate(args);
     checkClosedDate(args);
-    checkSlotDates(args);
+    checkDatesCount(args);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(ScheduleComponent, {
     locale: getLocaleByLanguage(language),
