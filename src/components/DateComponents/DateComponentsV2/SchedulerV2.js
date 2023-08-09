@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOMServer from 'react-dom/server';
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
 import moment from "moment";
 import _ from "lodash";
@@ -13,7 +15,7 @@ const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount = [] } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount, bookingCount } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
@@ -30,7 +32,7 @@ function SchedulerV2(props) {
         if (_.isEmpty(scheduleObj) === false) {
             scheduleObj.refresh();
         }
-    }, [language, closedDates, slotsCount])
+    }, [language, closedDates, slotsCount, bookingCount])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
@@ -170,10 +172,10 @@ function SchedulerV2(props) {
         return parsedClosedDates;
     }
 
-    function parsedSlotCount(slotsCount) {
-        var parsedSlotDates = Object.keys(slotsCount).reduce((prev, curr, index) => { return { ...prev, [moment(curr).format(dateFormat)]: slotsCount[curr] } }, {});
+    function parsedCount(count) {
+        var parsedCountDates = Object.keys(count).reduce((prev, curr, index) => { return { ...prev, [moment(curr).format(dateFormat)]: count[curr] } }, {});
 
-        return parsedSlotDates;
+        return parsedCountDates;
     }
 
     function checkClosedDate(args) {
@@ -188,26 +190,39 @@ function SchedulerV2(props) {
         }
     }
 
-    function checkSlotDates(args) {
+    function checkDatesCount(args) {
         var { date, element, elementType, groupIndex, name } = args;
 
-        var newSlotCount = parsedSlotCount(slotsCount);
-        var slotDates = Object.keys(newSlotCount);
-        var parsedClosedDates = parseClosedDates(closedDates) || [];
-        var parseSlotDates = slotDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
-        var parsedCellDate = moment(date).format(dateFormat);
+        if (_.isEmpty(slotsCount) == false) {
+            var newSlotCount = parsedCount(slotsCount);
+            var slotDates = Object.keys(newSlotCount);
+            var parsedClosedDates = parseClosedDates(closedDates) || [];
+            var parseSlotDates = slotDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
+            var parsedCellDate = moment(date).format(dateFormat);
 
-        if (elementType === "monthCells" && _.indexOf(parseSlotDates, parsedCellDate) > -1) {
-            let ele = createElement('div');
-            ele.innerHTML = ReactDOMServer.renderToString(<div><BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}</div>);
-            (args.element).appendChild(ele);
+            if (_.isEmpty(bookingCount) == false) {
+                var newBookingCount = parsedCount(bookingCount);
+                var bookingDates = Object.keys(newBookingCount);
+                var parseBookingDates = bookingDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
+            }
+            if (elementType === "monthCells" && _.indexOf(parseSlotDates, parsedCellDate) > -1) {
+                let ele = createElement('div');
+                ele.innerHTML = ReactDOMServer.renderToString(
+                    <div>
+                        <BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}
+                        {_.isEmpty(bookingCount) == false && _.indexOf(parseBookingDates, parsedCellDate) > -1 && (
+                            <div><FontAwesomeIcon icon={faUsers} style={{ color: "#28a745", marginRight: "5px" }} />{newBookingCount[parsedCellDate]}</div>
+                        )}
+                    </div>);
+                (args.element).appendChild(ele);
+            }
         }
     }
 
     function renderCell(args) {
         checkSelectedDate(args);
         checkClosedDate(args);
-        checkSlotDates(args);
+        checkDatesCount(args);
     }
 
     /*************************************************************************/
