@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOMServer from 'react-dom/server';
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar, far as regularIcons } from "@fortawesome/free-regular-svg-icons";
+import { faUsers, fas as solidIcons } from '@fortawesome/free-solid-svg-icons';
 import moment from "moment";
 import _ from "lodash";
-import { BsCalendar } from "react-icons/bs";
 import { createElement } from '@syncfusion/ej2-base';
 
 import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
@@ -15,7 +14,7 @@ const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount, bookingCount } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount, bookingCount, slotCountIcon, bookingCountIcon } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
@@ -209,9 +208,9 @@ function SchedulerV2(props) {
                 let ele = createElement('div');
                 ele.innerHTML = ReactDOMServer.renderToString(
                     <div>
-                        <BsCalendar style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}
+                        <FontAwesomeIcon icon={regularIcons[slotCountIcon] || solidIcons[slotCountIcon] || faCalendar} style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}
                         {_.isEmpty(bookingCount) == false && _.indexOf(parseBookingDates, parsedCellDate) > -1 && (
-                            <div><FontAwesomeIcon icon={faUsers} style={{ color: "#28a745", marginRight: "5px" }} />{newBookingCount[parsedCellDate]}</div>
+                            <div><FontAwesomeIcon icon={solidIcons[bookingCountIcon] || regularIcons[bookingCountIcon] || faUsers} style={{ color: "#28a745", marginRight: "5px" }} />{newBookingCount[parsedCellDate]}</div>
                         )}
                     </div>);
                 (args.element).appendChild(ele);
