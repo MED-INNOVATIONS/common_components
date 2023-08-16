@@ -12,8 +12,8 @@ var moment = _interopDefault(require('moment'));
 var styled = _interopDefault(require('styled-components'));
 var ReactDOMServer = require('react-dom/server');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
+var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
 var freeSolidSvgIcons = require('@fortawesome/free-solid-svg-icons');
-var bs = require('react-icons/bs');
 var reactDraftWysiwyg = require('react-draft-wysiwyg');
 var draftJs = require('draft-js');
 var draftToHtml = _interopDefault(require('draftjs-to-html'));
@@ -26,12 +26,12 @@ var reactToastify = require('react-toastify');
 var Resizer$1 = _interopDefault(require('react-image-file-resizer'));
 var uuidV4 = _interopDefault(require('uuid/v4'));
 var Cropper = _interopDefault(require('cropperjs'));
-var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
 require('cropperjs/dist/cropper.css');
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
 var LocationPicker = _interopDefault(require('react-location-picker'));
 var reactTable = require('react-table');
+var bs = require('react-icons/bs');
 var Select = _interopDefault(require('react-select'));
 var CreatableSelect = _interopDefault(require('react-select/creatable'));
 var ReactPlayer = _interopDefault(require('react-player/lazy'));
@@ -2190,7 +2190,9 @@ function SchedulerV2(props) {
     onChangeView = props.onChangeView,
     onChangeAgendaRange = props.onChangeAgendaRange,
     slotsCount = props.slotsCount,
-    bookingCount = props.bookingCount;
+    bookingCount = props.bookingCount,
+    slotCountIcon = props.slotCountIcon,
+    bookingCountIcon = props.bookingCountIcon;
   var _useState = React.useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2362,13 +2364,14 @@ function SchedulerV2(props) {
       }
       if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
         var ele = ej2Base.createElement('div');
-        ele.innerHTML = ReactDOMServer.renderToString( /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(bs.BsCalendar, {
+        ele.innerHTML = ReactDOMServer.renderToString( /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+          icon: freeRegularSvgIcons.far[slotCountIcon] || freeSolidSvgIcons.fas[slotCountIcon] || freeRegularSvgIcons.faCalendar,
           style: {
             color: "#28a745",
             marginRight: "5px"
           }
         }), newSlotCount[parsedCellDate], _$2.isEmpty(bookingCount) == false && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
-          icon: freeSolidSvgIcons.faUsers,
+          icon: freeSolidSvgIcons.fas[bookingCountIcon] || freeRegularSvgIcons.far[bookingCountIcon] || freeSolidSvgIcons.faUsers,
           style: {
             color: "#28a745",
             marginRight: "5px"

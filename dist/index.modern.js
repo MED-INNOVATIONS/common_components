@@ -9,8 +9,8 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { renderToString } from 'react-dom/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { BsCalendar, BsPlusCircle } from 'react-icons/bs';
+import { far, faCalendar, faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import { fas, faUsers, faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -23,11 +23,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
-import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
 import { useTable, useSortBy, useExpanded, usePagination, useResizeColumns, useFlexLayout, useRowSelect, useMountedLayoutEffect } from 'react-table';
+import { BsPlusCircle } from 'react-icons/bs';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import ReactPlayer from 'react-player/lazy';
@@ -2186,7 +2186,9 @@ function SchedulerV2(props) {
     onChangeView = props.onChangeView,
     onChangeAgendaRange = props.onChangeAgendaRange,
     slotsCount = props.slotsCount,
-    bookingCount = props.bookingCount;
+    bookingCount = props.bookingCount,
+    slotCountIcon = props.slotCountIcon,
+    bookingCountIcon = props.bookingCountIcon;
   var _useState = useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2358,13 +2360,14 @@ function SchedulerV2(props) {
       }
       if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
         var ele = createElement('div');
-        ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(BsCalendar, {
+        ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+          icon: far[slotCountIcon] || fas[slotCountIcon] || faCalendar,
           style: {
             color: "#28a745",
             marginRight: "5px"
           }
         }), newSlotCount[parsedCellDate], _$2.isEmpty(bookingCount) == false && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
-          icon: faUsers,
+          icon: fas[bookingCountIcon] || far[bookingCountIcon] || faUsers,
           style: {
             color: "#28a745",
             marginRight: "5px"
