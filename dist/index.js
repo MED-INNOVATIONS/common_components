@@ -2192,10 +2192,14 @@ function SchedulerV2(props) {
     onChangeDateRange = props.onChangeDateRange,
     onChangeView = props.onChangeView,
     onChangeAgendaRange = props.onChangeAgendaRange,
-    slotsCount = props.slotsCount,
-    bookingCount = props.bookingCount,
-    slotCountIcon = props.slotCountIcon,
-    bookingCountIcon = props.bookingCountIcon;
+    _props$slotsCount = props.slotsCount,
+    slotsCount = _props$slotsCount === void 0 ? {} : _props$slotsCount,
+    _props$bookingCount = props.bookingCount,
+    bookingCount = _props$bookingCount === void 0 ? {} : _props$bookingCount,
+    _props$slotCountIcon = props.slotCountIcon,
+    slotCountIcon = _props$slotCountIcon === void 0 ? freeRegularSvgIcons.faCalendar : _props$slotCountIcon,
+    _props$bookingCountIc = props.bookingCountIcon,
+    bookingCountIcon = _props$bookingCountIc === void 0 ? freeSolidSvgIcons.faUsers : _props$bookingCountIc;
   var _useState = React.useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2350,7 +2354,7 @@ function SchedulerV2(props) {
   function checkDatesCount(args) {
     var date = args.date,
       elementType = args.elementType;
-    if (_$2.isEmpty(slotsCount) == false) {
+    if (Object.keys(slotsCount).length > 0) {
       var newSlotCount = parsedCount(slotsCount);
       var slotDates = Object.keys(newSlotCount);
       var parsedClosedDates = parseClosedDates(closedDates) || [];
@@ -2358,7 +2362,7 @@ function SchedulerV2(props) {
         return parsedClosedDates.indexOf(date) === -1;
       });
       var parsedCellDate = moment(date).format(dateFormat);
-      if (_$2.isEmpty(bookingCount) == false) {
+      if (Object.keys(bookingCount).length > 0) {
         var newBookingCount = parsedCount(bookingCount);
         var bookingDates = Object.keys(newBookingCount);
         var parseBookingDates = bookingDates.filter(function (date) {
@@ -2373,7 +2377,7 @@ function SchedulerV2(props) {
             color: "#28a745",
             marginRight: "5px"
           }
-        }), newSlotCount[parsedCellDate], _$2.isEmpty(bookingCount) == false && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
+        }), newSlotCount[parsedCellDate], Object.keys(bookingCount).length > 0 && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
           icon: freeSolidSvgIcons.fas[bookingCountIcon] || freeRegularSvgIcons.far[bookingCountIcon] || freeSolidSvgIcons.faUsers,
           style: {
             color: "#28a745",
