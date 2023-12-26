@@ -14,7 +14,7 @@ const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount, bookingCount, slotCountIcon, bookingCountIcon } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount = {}, bookingCount = {}, slotCountIcon = faCalendar, bookingCountIcon = faUsers } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
@@ -192,14 +192,14 @@ function SchedulerV2(props) {
     function checkDatesCount(args) {
         var { date, element, elementType, groupIndex, name } = args;
 
-        if (_.isEmpty(slotsCount) == false) {
+        if (Object.keys(slotsCount).length > 0) {
             var newSlotCount = parsedCount(slotsCount);
             var slotDates = Object.keys(newSlotCount);
             var parsedClosedDates = parseClosedDates(closedDates) || [];
             var parseSlotDates = slotDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
             var parsedCellDate = moment(date).format(dateFormat);
 
-            if (_.isEmpty(bookingCount) == false) {
+            if (Object.keys(bookingCount).length > 0) {
                 var newBookingCount = parsedCount(bookingCount);
                 var bookingDates = Object.keys(newBookingCount);
                 var parseBookingDates = bookingDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
@@ -209,7 +209,7 @@ function SchedulerV2(props) {
                 ele.innerHTML = ReactDOMServer.renderToString(
                     <div>
                         <FontAwesomeIcon icon={regularIcons[slotCountIcon] || solidIcons[slotCountIcon] || faCalendar} style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate]}
-                        {_.isEmpty(bookingCount) == false && _.indexOf(parseBookingDates, parsedCellDate) > -1 && (
+                        {Object.keys(bookingCount).length > 0 && _.indexOf(parseBookingDates, parsedCellDate) > -1 && (
                             <div><FontAwesomeIcon icon={solidIcons[bookingCountIcon] || regularIcons[bookingCountIcon] || faUsers} style={{ color: "#28a745", marginRight: "5px" }} />{newBookingCount[parsedCellDate]}</div>
                         )}
                     </div>);
