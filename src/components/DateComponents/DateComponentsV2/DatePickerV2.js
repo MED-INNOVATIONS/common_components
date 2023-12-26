@@ -36,7 +36,7 @@ const StyledDiv = styled.div`
 
 
 function DatePickerV2(props) {
-    const { enabled, disabled, isInvalid, errorMessage, format, language, firstDayOfWeek = 1 } = props;
+    const { enabled, disabled, isInvalid, errorMessage, format, language = "En", firstDayOfWeek = 1 } = props;
     const isEnabled = enabled === false || disabled === true ? false : true;
     const invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 

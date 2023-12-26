@@ -33,7 +33,7 @@ const StyledDiv = styled.div`
 `;
 
 function RecurrenceEditorV2(props) {
-    const { language, dateFormat, isInvalid, firstDayOfWeek = 1 } = props;
+    const { language = "En", dateFormat, isInvalid, firstDayOfWeek = 1 } = props;
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     const [initialization, setInitialization] = useState(false);
