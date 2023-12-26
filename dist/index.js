@@ -2091,7 +2091,8 @@ function DatePickerV2(props) {
     isInvalid = props.isInvalid,
     errorMessage = props.errorMessage,
     format = props.format,
-    language = props.language,
+    _props$language = props.language,
+    language = _props$language === void 0 ? "En" : _props$language,
     _props$firstDayOfWeek = props.firstDayOfWeek,
     firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var isEnabled = enabled === false || disabled === true ? false : true;
@@ -2121,7 +2122,8 @@ function DateTimePickerV2(props) {
   var format = props.format,
     isInvalid = props.isInvalid,
     errorMessage = props.errorMessage,
-    language = props.language,
+    _props$language = props.language,
+    language = _props$language === void 0 ? "En" : _props$language,
     _props$firstDayOfWeek = props.firstDayOfWeek,
     firstDayOfWeek = _props$firstDayOfWeek === void 0 ? 1 : _props$firstDayOfWeek;
   var invalid = isInvalid === true || _$2.isEmpty(isInvalid) === false;
@@ -2146,7 +2148,8 @@ var StyledDiv$2 = styled.div(_templateObject$3 || (_templateObject$3 = _taggedTe
   return props.isInvalid === true ? "#dc3545 !important" : "#ced4da";
 });
 function RecurrenceEditorV2(props) {
-  var language = props.language,
+  var _props$language = props.language,
+    language = _props$language === void 0 ? "En" : _props$language,
     dateFormat = props.dateFormat,
     isInvalid = props.isInvalid,
     _props$firstDayOfWeek = props.firstDayOfWeek,
