@@ -10,10 +10,6 @@ var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
 var ej2ReactSchedule = require('@syncfusion/ej2-react-schedule');
 var moment = _interopDefault(require('moment'));
 var styled = _interopDefault(require('styled-components'));
-var ReactDOMServer = require('react-dom/server');
-var reactFontawesome = require('@fortawesome/react-fontawesome');
-var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
-var freeSolidSvgIcons = require('@fortawesome/free-solid-svg-icons');
 var reactDraftWysiwyg = require('react-draft-wysiwyg');
 var draftJs = require('draft-js');
 var draftToHtml = _interopDefault(require('draftjs-to-html'));
@@ -23,9 +19,12 @@ require('react-draft-wysiwyg/dist/react-draft-wysiwyg.css');
 var ej2ReactRichtexteditor = require('@syncfusion/ej2-react-richtexteditor');
 var reactBootstrap = require('react-bootstrap');
 var reactToastify = require('react-toastify');
+var reactFontawesome = require('@fortawesome/react-fontawesome');
+var freeSolidSvgIcons = require('@fortawesome/free-solid-svg-icons');
 var Resizer$1 = _interopDefault(require('react-image-file-resizer'));
 var uuidV4 = _interopDefault(require('uuid/v4'));
 var Cropper = _interopDefault(require('cropperjs'));
+var freeRegularSvgIcons = require('@fortawesome/free-regular-svg-icons');
 require('cropperjs/dist/cropper.css');
 var PlacesAutocomplete = require('react-places-autocomplete');
 var PlacesAutocomplete__default = _interopDefault(PlacesAutocomplete);
@@ -2191,15 +2190,7 @@ function SchedulerV2(props) {
     onChangeDate = props.onChangeDate,
     onChangeDateRange = props.onChangeDateRange,
     onChangeView = props.onChangeView,
-    onChangeAgendaRange = props.onChangeAgendaRange,
-    _props$slotsCount = props.slotsCount,
-    slotsCount = _props$slotsCount === void 0 ? {} : _props$slotsCount,
-    _props$bookingCount = props.bookingCount,
-    bookingCount = _props$bookingCount === void 0 ? {} : _props$bookingCount,
-    _props$slotCountIcon = props.slotCountIcon,
-    slotCountIcon = _props$slotCountIcon === void 0 ? freeRegularSvgIcons.faCalendar : _props$slotCountIcon,
-    _props$bookingCountIc = props.bookingCountIcon,
-    bookingCountIcon = _props$bookingCountIc === void 0 ? freeSolidSvgIcons.faUsers : _props$bookingCountIc;
+    onChangeAgendaRange = props.onChangeAgendaRange;
   var _useState = React.useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
@@ -2217,7 +2208,7 @@ function SchedulerV2(props) {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
     }
-  }, [language, closedDates, slotsCount, bookingCount]);
+  }, [language, closedDates]);
   React.useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
@@ -2332,13 +2323,6 @@ function SchedulerV2(props) {
     });
     return parsedClosedDates;
   }
-  function parsedCount(count) {
-    var parsedCountDates = Object.keys(count).reduce(function (prev, curr, index) {
-      var _extends2;
-      return _extends({}, prev, (_extends2 = {}, _extends2[moment(curr).format(dateFormat)] = count[curr], _extends2));
-    }, {});
-    return parsedCountDates;
-  }
   function checkClosedDate(args) {
     var date = args.date,
       element = args.element,
@@ -2351,47 +2335,9 @@ function SchedulerV2(props) {
       innerElement.setAttribute("style", "background-color:#dc3545");
     }
   }
-  function checkDatesCount(args) {
-    var date = args.date,
-      elementType = args.elementType;
-    if (Object.keys(slotsCount).length > 0) {
-      var newSlotCount = parsedCount(slotsCount);
-      var slotDates = Object.keys(newSlotCount);
-      var parsedClosedDates = parseClosedDates(closedDates) || [];
-      var parseSlotDates = slotDates.filter(function (date) {
-        return parsedClosedDates.indexOf(date) === -1;
-      });
-      var parsedCellDate = moment(date).format(dateFormat);
-      if (Object.keys(bookingCount).length > 0) {
-        var newBookingCount = parsedCount(bookingCount);
-        var bookingDates = Object.keys(newBookingCount);
-        var parseBookingDates = bookingDates.filter(function (date) {
-          return parsedClosedDates.indexOf(date) === -1;
-        });
-      }
-      if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
-        var ele = ej2Base.createElement('div');
-        ele.innerHTML = ReactDOMServer.renderToString( /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
-          icon: freeRegularSvgIcons.far[slotCountIcon] || freeSolidSvgIcons.fas[slotCountIcon] || freeRegularSvgIcons.faCalendar,
-          style: {
-            color: "#28a745",
-            marginRight: "5px"
-          }
-        }), newSlotCount[parsedCellDate], Object.keys(bookingCount).length > 0 && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
-          icon: freeSolidSvgIcons.fas[bookingCountIcon] || freeRegularSvgIcons.far[bookingCountIcon] || freeSolidSvgIcons.faUsers,
-          style: {
-            color: "#28a745",
-            marginRight: "5px"
-          }
-        }), newBookingCount[parsedCellDate])));
-        args.element.appendChild(ele);
-      }
-    }
-  }
   function renderCell(args) {
     checkSelectedDate(args);
     checkClosedDate(args);
-    checkDatesCount(args);
   }
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
     locale: getLocaleByLanguage(language),
