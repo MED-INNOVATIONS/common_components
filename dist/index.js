@@ -2197,13 +2197,6 @@ function SchedulerV2(props) {
   var _useState2 = React.useState(startingCurrentView || "Month"),
     currentView = _useState2[0],
     setCurrentView = _useState2[1];
-  var _useState3 = React.useState(false),
-    initialization = _useState3[0],
-    setInitialization = _useState3[1];
-  React.useEffect(function () {
-    setSyncfusionLocalizationV2();
-    setInitialization(true);
-  }, []);
   React.useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2339,8 +2332,7 @@ function SchedulerV2(props) {
     checkSelectedDate(args);
     checkClosedDate(args);
   }
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
-    locale: getLocaleByLanguage(language),
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.ScheduleComponent, {
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
