@@ -4,7 +4,6 @@ import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, Wo
 import moment from "moment";
 import _ from "lodash";
 
-import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
@@ -14,15 +13,9 @@ function SchedulerV2(props) {
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
-    const [initialization, setInitialization] = useState(false);
-
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
-    useEffect(() => {
-        SyncfusionUtils.setSyncfusionLocalizationV2();
-        setInitialization(true);
-    }, [])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
@@ -190,9 +183,7 @@ function SchedulerV2(props) {
     /*************************************************************************/
     return (
         <React.Fragment>
-            {initialization === true &&
                 <ScheduleComponent
-                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     ref={(schedule) => { scheduleObj = schedule }}
                     height={height}
                     firstDayOfWeek={firstDayOfWeek}
@@ -212,7 +203,6 @@ function SchedulerV2(props) {
                     </ViewsDirective>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
                 </ScheduleComponent>
-            }
             {/* <ScheduleComponent
                 ref={(schedule) => { scheduleObj = schedule }}
                 height={height}
