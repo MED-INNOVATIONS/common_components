@@ -27,7 +27,6 @@ import MandatoryFieldLabel from "./components/MandatoryFieldLabel";
 import NormalFieldLabel from "./components/NormalFieldLabel";
 import HTMLTextEditorV2 from "./components/HTMLTextEditor/v2/HTMLTextEditor";
 import HTMLTextEditorV3 from "./components/HTMLTextEditor/v3/HTMLEditor";
-import HTMLTextEditorV4 from "./components/HTMLTextEditor/v4/HTMLEditor";
 import UploadImage from './components/UploadImage/UploadImage';
 import UploadDocument from './components/UploadDocument/UploadDocument';
 import OrbitalAddressComponentsPicker from "./components/OrbitalAddressComponentsPicker";
@@ -69,7 +68,6 @@ export {
     NormalFieldLabel,
     HTMLTextEditorV2,
     HTMLTextEditorV3,
-    HTMLTextEditorV4,
     OrbitalAddressComponentsPicker,
     OrbitalLocationPicker,
     UploadImage,

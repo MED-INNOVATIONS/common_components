@@ -102,7 +102,7 @@ class HTMLTextEditor extends Component {
   /************************** RENDER ***************************************/
   /*************************************************************************/
   render() {
-    var { localization, disabled, error, isInvalid, editorHeight, maxHeight } = this.props;
+    var { localization, disabled, error, isInvalid, editorHeight, maxHeight, options = ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"], inLineDropDown = true } = this.props;
     var { editorState, loading } = this.state;
 
     return (
@@ -113,8 +113,8 @@ class HTMLTextEditor extends Component {
             toolbarHidden={disabled}
             editorClassName={"editor_style"}
             toolbar={{
-              options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
-              inline: { inDropdown: true },
+              options: options,
+              inline: { inDropdown: inLineDropDown },
               list: { inDropdown: true },
               textAlign: { inDropdown: true },
               link: { inDropdown: true },
