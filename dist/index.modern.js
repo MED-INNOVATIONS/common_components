@@ -2487,7 +2487,11 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       error = _this$props.error,
       isInvalid = _this$props.isInvalid,
       editorHeight = _this$props.editorHeight,
-      maxHeight = _this$props.maxHeight;
+      maxHeight = _this$props.maxHeight,
+      _this$props$options = _this$props.options,
+      options = _this$props$options === void 0 ? ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"] : _this$props$options,
+      _this$props$inLineDro = _this$props.inLineDropDown,
+      inLineDropDown = _this$props$inLineDro === void 0 ? true : _this$props$inLineDro;
     var _this$state = this.state,
       editorState = _this$state.editorState,
       loading = _this$state.loading;
@@ -2504,9 +2508,9 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       toolbarHidden: disabled,
       editorClassName: "editor_style",
       toolbar: {
-        options: ["inline", "blockType", "fontFamily", "fontSize", "list", "textAlign", "link", "image", "remove", "history"],
+        options: options,
         inline: {
-          inDropdown: true
+          inDropdown: inLineDropDown
         },
         list: {
           inDropdown: true
