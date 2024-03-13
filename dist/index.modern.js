@@ -1,12 +1,16 @@
 import axios from 'axios';
 import _$2 from 'lodash';
-import { loadCldr, L10n } from '@syncfusion/ej2-base';
+import { loadCldr, L10n, createElement } from '@syncfusion/ej2-base';
 import LocalizedStrings from 'react-localization';
 import React, { Component, useState, useEffect, useRef, forwardRef } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import moment from 'moment';
 import styled from 'styled-components';
+import { renderToString } from 'react-dom/server';
+import { far, faCalendar, faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import { fas, faUsers, faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -16,12 +20,9 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { RichTextEditorComponent, Inject as Inject$1, Toolbar, Image as Image$1, Link, HtmlEditor, Count, QuickToolbar, Table, FileManager, PasteCleanup } from '@syncfusion/ej2-react-richtexteditor';
 import { OverlayTrigger, Tooltip, Button, Card, Row, Col, Image as Image$2, Modal, FormGroup, FormControl, Form, InputGroup, FormCheck, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faPencilAlt, faTrashAlt, faDownload, faUpload, faInfoCircle, faSort, faSortDown, faSortUp, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import Resizer$1 from 'react-image-file-resizer';
 import uuidV4 from 'uuid/v4';
 import Cropper from 'cropperjs';
-import { faTimesCircle, faSave, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import 'cropperjs/dist/cropper.css';
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import LocationPicker from 'react-location-picker';
@@ -2186,18 +2187,33 @@ function SchedulerV2(props) {
     onChangeDate = props.onChangeDate,
     onChangeDateRange = props.onChangeDateRange,
     onChangeView = props.onChangeView,
-    onChangeAgendaRange = props.onChangeAgendaRange;
+    onChangeAgendaRange = props.onChangeAgendaRange,
+    _props$slotsCount = props.slotsCount,
+    slotsCount = _props$slotsCount === void 0 ? {} : _props$slotsCount,
+    _props$bookingCount = props.bookingCount,
+    bookingCount = _props$bookingCount === void 0 ? {} : _props$bookingCount,
+    _props$slotCountIcon = props.slotCountIcon,
+    slotCountIcon = _props$slotCountIcon === void 0 ? "faCalendar" : _props$slotCountIcon,
+    _props$bookingCountIc = props.bookingCountIcon,
+    bookingCountIcon = _props$bookingCountIc === void 0 ? "faUsers" : _props$bookingCountIc;
   var _useState = useState(moment().format(dateFormat)),
     selectedDate = _useState[0],
     setSelectedDate = _useState[1];
   var _useState2 = useState(startingCurrentView || "Month"),
     currentView = _useState2[0],
     setCurrentView = _useState2[1];
+  var _useState3 = useState(false),
+    initialization = _useState3[0],
+    setInitialization = _useState3[1];
+  useEffect(function () {
+    setSyncfusionLocalizationV2();
+    setInitialization(true);
+  }, []);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
     }
-  }, [language, closedDates]);
+  }, [language, closedDates, slotsCount, bookingCount]);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.changeCurrentView(currentView);
@@ -2324,11 +2340,57 @@ function SchedulerV2(props) {
       innerElement.setAttribute("style", "background-color:#dc3545");
     }
   }
+  function parsedCount(count) {
+    var parsedCountDates = Object.keys(count).reduce(function (prev, curr, index) {
+      var _extends2;
+      return _extends({}, prev, (_extends2 = {}, _extends2[moment(curr).format(dateFormat)] = count[curr], _extends2));
+    }, {});
+    return parsedCountDates;
+  }
+  function checkDatesCount(args) {
+    var date = args.date,
+      elementType = args.elementType;
+    if (Object.keys(slotsCount).length > 0) {
+      var newSlotCount = parsedCount(slotsCount);
+      var slotDates = Object.keys(newSlotCount);
+      var parsedClosedDates = parseClosedDates(closedDates) || [];
+      var parseSlotDates = slotDates.filter(function (date) {
+        return parsedClosedDates.indexOf(date) === -1;
+      });
+      var parsedCellDate = moment(date).format(dateFormat);
+      if (Object.keys(bookingCount).length > 0) {
+        var newBookingCount = parsedCount(bookingCount);
+        var bookingDates = Object.keys(newBookingCount);
+        var parseBookingDates = bookingDates.filter(function (date) {
+          return parsedClosedDates.indexOf(date) === -1;
+        });
+      }
+      if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
+        var ele = createElement('div');
+        ele.innerHTML = renderToString( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+          icon: far[slotCountIcon] || fas[slotCountIcon] || faCalendar,
+          style: {
+            color: "#28a745",
+            marginRight: "5px"
+          }
+        }), newSlotCount[parsedCellDate] ? newSlotCount[parsedCellDate] : 0, Object.keys(bookingCount).length > 0 && _$2.indexOf(parseBookingDates, parsedCellDate) > -1 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+          icon: fas[bookingCountIcon] || far[bookingCountIcon] || faUsers,
+          style: {
+            color: "#28a745",
+            marginRight: "5px"
+          }
+        }), newBookingCount[parsedCellDate])));
+        args.element.appendChild(ele);
+      }
+    }
+  }
   function renderCell(args) {
     checkSelectedDate(args);
     checkClosedDate(args);
+    checkDatesCount(args);
   }
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ScheduleComponent, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(ScheduleComponent, {
+    locale: getLocaleByLanguage(language),
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
