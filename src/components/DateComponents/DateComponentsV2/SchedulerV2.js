@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
+import * as ReactDOMServer from 'react-dom/server';
 import { ScheduleComponent, Inject, ViewDirective, ViewsDirective, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
-
 import moment from "moment";
 import _ from "lodash";
+import { createElement } from '@syncfusion/ej2-base';
+import { faCalendar, far as regularIcons } from "@fortawesome/free-regular-svg-icons";
+import { faUsers, fas as solidIcons } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import * as SyncfusionUtils from "./../../../services/SyncfusionUtils";
 
 const dateFormat = "DD/MM/YYYY";
 var scheduleObj = {};
 
 function SchedulerV2(props) {
-    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange } = props;
+    const { language = "En", height, dayView, weekView, workWeekView, monthView, agendaView, currentView: startingCurrentView, firstDayOfWeek = 1, closedDates = [], events, onChangeDate, onChangeDateRange, onChangeView, onChangeAgendaRange, slotsCount = {}, bookingCount = {}, slotCountIcon = "faCalendar", bookingCountIcon = "faUsers" } = props;
     const [selectedDate, setSelectedDate] = useState(moment().format(dateFormat));
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
+
+    const [initialization, setInitialization] = useState(false);
 
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
+    useEffect(() => {
+        SyncfusionUtils.setSyncfusionLocalizationV2();
+        setInitialization(true);
+    }, [])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
             scheduleObj.refresh();
         }
-    }, [language, closedDates])
+    }, [language, closedDates, slotsCount, bookingCount])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
@@ -173,9 +184,45 @@ function SchedulerV2(props) {
         }
     }
 
+    function parsedCount(count) {
+        var parsedCountDates = Object.keys(count).reduce((prev, curr, index) => { return { ...prev, [moment(curr).format(dateFormat)]: count[curr] } }, {});
+
+        return parsedCountDates;
+    }
+
+    function checkDatesCount(args) {
+        var { date, element, elementType, groupIndex, name } = args;
+        if (Object.keys(slotsCount).length > 0) {
+            var newSlotCount = parsedCount(slotsCount);
+            var slotDates = Object.keys(newSlotCount);
+            var parsedClosedDates = parseClosedDates(closedDates) || [];
+            var parseSlotDates = slotDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
+            var parsedCellDate = moment(date).format(dateFormat);
+            if (Object.keys(bookingCount).length > 0) {
+                var newBookingCount = parsedCount(bookingCount);
+                var bookingDates = Object.keys(newBookingCount);
+                var parseBookingDates = bookingDates.filter((date) => { return parsedClosedDates.indexOf(date) === -1 });
+            }
+
+            if (elementType === "monthCells" && _.indexOf(parseSlotDates, parsedCellDate) > -1) {
+                let ele = createElement('div');
+                ele.innerHTML = ReactDOMServer.renderToString(
+                    <div>
+                        <FontAwesomeIcon icon={regularIcons[slotCountIcon] || solidIcons[slotCountIcon] || faCalendar} style={{ color: "#28a745", marginRight: "5px" }} />{newSlotCount[parsedCellDate] ? newSlotCount[parsedCellDate] : 0}
+                        {Object.keys(bookingCount).length > 0 && _.indexOf(parseBookingDates, parsedCellDate) > -1 && (
+                            <div><FontAwesomeIcon icon={solidIcons[bookingCountIcon] || regularIcons[bookingCountIcon] || faUsers} style={{ color: "#28a745", marginRight: "5px" }} />{newBookingCount[parsedCellDate]}</div>
+                        )}
+                    </div>
+                );
+                (args.element).appendChild(ele);
+            }
+        }
+    }
+
     function renderCell(args) {
         checkSelectedDate(args);
         checkClosedDate(args);
+        checkDatesCount(args);
     }
 
     /*************************************************************************/
@@ -183,7 +230,9 @@ function SchedulerV2(props) {
     /*************************************************************************/
     return (
         <React.Fragment>
+            {initialization === true &&
                 <ScheduleComponent
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     ref={(schedule) => { scheduleObj = schedule }}
                     height={height}
                     firstDayOfWeek={firstDayOfWeek}
@@ -203,6 +252,7 @@ function SchedulerV2(props) {
                     </ViewsDirective>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
                 </ScheduleComponent>
+            }
             {/* <ScheduleComponent
                 ref={(schedule) => { scheduleObj = schedule }}
                 height={height}
