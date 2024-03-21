@@ -79,12 +79,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self;
-}
 function _taggedTemplateLiteralLoose(strings, raw) {
   if (!raw) {
     raw = strings.slice(0);
@@ -1705,7 +1699,6 @@ PluginStore.availablePlugin = null;
 PluginStore.pluginActivation = null;
 
 var DatePicker = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(DatePicker, _Component);
   function DatePicker(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -1714,6 +1707,7 @@ var DatePicker = /*#__PURE__*/function (_Component) {
     };
     return _this;
   }
+  _inheritsLoose(DatePicker, _Component);
   var _proto = DatePicker.prototype;
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
@@ -1734,13 +1728,13 @@ var DatePicker = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 var DatePicker$1 = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(DatePicker, _Component);
   function DatePicker(props) {
     var _this;
     _this = _Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
+  _inheritsLoose(DatePicker, _Component);
   var _proto = DatePicker.prototype;
   _proto.render = function render() {
     var format = this.props.format;
@@ -1827,7 +1821,6 @@ ej2Base.L10n.load({
   }
 });
 var RecurrenceEditor = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(RecurrenceEditor, _Component);
   function RecurrenceEditor(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -1836,6 +1829,7 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
     };
     return _this;
   }
+  _inheritsLoose(RecurrenceEditor, _Component);
   var _proto = RecurrenceEditor.prototype;
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
@@ -1859,7 +1853,6 @@ var RecurrenceEditor = /*#__PURE__*/function (_Component) {
 var _$1 = require("lodash");
 var date_format = "DD/MM/YYYY";
 var ReservationScheduler = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(ReservationScheduler, _Component);
   function ReservationScheduler() {
     var _this;
     _this = _Component.apply(this, arguments) || this;
@@ -1872,11 +1865,12 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
     _this.scheduleObj = null;
     _this.currentView = _this.props.currentView || "Month";
     _this.selectedDate = moment().format(date_format);
-    _this.checkSelectedDate = _this.checkSelectedDate.bind(_assertThisInitialized(_this));
-    _this.checkClosedDate = _this.checkClosedDate.bind(_assertThisInitialized(_this));
-    _this.changeAgendaRange = _this.changeAgendaRange.bind(_assertThisInitialized(_this));
+    _this.checkSelectedDate = _this.checkSelectedDate.bind(_this);
+    _this.checkClosedDate = _this.checkClosedDate.bind(_this);
+    _this.changeAgendaRange = _this.changeAgendaRange.bind(_this);
     return _this;
   }
+  _inheritsLoose(ReservationScheduler, _Component);
   var _proto = ReservationScheduler.prototype;
   _proto.componentDidMount = function componentDidMount() {
     this.currentView = this.props.currentView || "Month";
@@ -2050,7 +2044,6 @@ var ReservationScheduler = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 var TimePicker = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(TimePicker, _Component);
   function TimePicker(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -2059,6 +2052,7 @@ var TimePicker = /*#__PURE__*/function (_Component) {
     };
     return _this;
   }
+  _inheritsLoose(TimePicker, _Component);
   var _proto = TimePicker.prototype;
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
@@ -2479,7 +2473,6 @@ var StyledDiv$6 = styled.div(_templateObject$7 || (_templateObject$7 = _taggedTe
   return props.maxHeight;
 });
 var HTMLTextEditor = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(HTMLTextEditor, _Component);
   function HTMLTextEditor(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -2488,10 +2481,11 @@ var HTMLTextEditor = /*#__PURE__*/function (_Component) {
       init: 0,
       editorState: draftJs.EditorState.createEmpty()
     };
-    _this.onEditorStateChange = _this.onEditorStateChange.bind(_assertThisInitialized(_this));
-    _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_assertThisInitialized(_this));
+    _this.onEditorStateChange = _this.onEditorStateChange.bind(_this);
+    _this.uploadImageCallBack = _this.uploadImageCallBack.bind(_this);
     return _this;
   }
+  _inheritsLoose(HTMLTextEditor, _Component);
   var _proto = HTMLTextEditor.prototype;
   _proto.componentDidMount = function componentDidMount() {
     this.parseData(this.props.data);
@@ -2720,13 +2714,13 @@ function HTMLEditor(props) {
 }
 
 var CustomTooltip = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CustomTooltip, _Component);
   function CustomTooltip(props) {
     var _this;
     _this = _Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
+  _inheritsLoose(CustomTooltip, _Component);
   var _proto = CustomTooltip.prototype;
   _proto.render = function render() {
     var placement = this.props.placement || "top";
@@ -2892,7 +2886,6 @@ function CropperSaveIcon(props) {
 }
 
 var CropImage = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(CropImage, _Component);
   function CropImage(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -2901,11 +2894,12 @@ var CropImage = /*#__PURE__*/function (_Component) {
       croppedImageUrl: null,
       isError: true
     };
-    _this.downloadCroppedImg = _this.downloadCroppedImg.bind(_assertThisInitialized(_this));
-    _this.parseCroppedImage = _this.parseCroppedImage.bind(_assertThisInitialized(_this));
-    _this.start = _this.start.bind(_assertThisInitialized(_this));
+    _this.downloadCroppedImg = _this.downloadCroppedImg.bind(_this);
+    _this.parseCroppedImage = _this.parseCroppedImage.bind(_this);
+    _this.start = _this.start.bind(_this);
     return _this;
   }
+  _inheritsLoose(CropImage, _Component);
   var _proto = CropImage.prototype;
   _proto.componentDidMount = function componentDidMount() {
     var _this2 = this;
@@ -3100,7 +3094,6 @@ var CropImage = /*#__PURE__*/function (_Component) {
 }(React.Component);
 
 var UploadImage = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(UploadImage, _Component);
   function UploadImage(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -3114,13 +3107,14 @@ var UploadImage = /*#__PURE__*/function (_Component) {
       fileExtension: null,
       fileType: null
     };
-    _this.checkImageRatioAndDimensions = _this.checkImageRatioAndDimensions.bind(_assertThisInitialized(_this));
-    _this.handleFileUpload = _this.handleFileUpload.bind(_assertThisInitialized(_this));
-    _this.manageUploadedFile = _this.manageUploadedFile.bind(_assertThisInitialized(_this));
-    _this.onRemove = _this.onRemove.bind(_assertThisInitialized(_this));
-    _this.saveCrop = _this.saveCrop.bind(_assertThisInitialized(_this));
+    _this.checkImageRatioAndDimensions = _this.checkImageRatioAndDimensions.bind(_this);
+    _this.handleFileUpload = _this.handleFileUpload.bind(_this);
+    _this.manageUploadedFile = _this.manageUploadedFile.bind(_this);
+    _this.onRemove = _this.onRemove.bind(_this);
+    _this.saveCrop = _this.saveCrop.bind(_this);
     return _this;
   }
+  _inheritsLoose(UploadImage, _Component);
   var _proto = UploadImage.prototype;
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     if (nextProps.image != this.state.image) {
@@ -3555,7 +3549,6 @@ function UploadDocument(props) {
 }
 
 var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(OrbitalAddressComponentsPicker, _Component);
   function OrbitalAddressComponentsPicker(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -3565,10 +3558,11 @@ var OrbitalAddressComponentsPicker = /*#__PURE__*/function (_Component) {
       disabled: _this.props.disabled
     };
     _this.placeAutocomplete = React__default.createRef();
-    _this.onSelectCity = _this.onSelectCity.bind(_assertThisInitialized(_this));
-    _this.changeCity = _this.changeCity.bind(_assertThisInitialized(_this));
+    _this.onSelectCity = _this.onSelectCity.bind(_this);
+    _this.changeCity = _this.changeCity.bind(_this);
     return _this;
   }
+  _inheritsLoose(OrbitalAddressComponentsPicker, _Component);
   var _proto = OrbitalAddressComponentsPicker.prototype;
   _proto.componentDidUpdate = function componentDidUpdate(nextProps) {
     if (nextProps.location != this.state.location) {
@@ -3692,7 +3686,6 @@ var defaultLatLong = {
   lng: 12.4964
 };
 var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(OrbitalLocationPicker, _Component);
   function OrbitalLocationPicker(props) {
     var _this;
     _this = _Component.call(this, props) || this;
@@ -3704,10 +3697,11 @@ var OrbitalLocationPicker = /*#__PURE__*/function (_Component) {
     };
     _this.placeAutocomplete = React__default.createRef();
     _this.map = React__default.createRef();
-    _this.changeAddress = _this.changeAddress.bind(_assertThisInitialized(_this));
-    _this.onSelectAddress = _this.onSelectAddress.bind(_assertThisInitialized(_this));
+    _this.changeAddress = _this.changeAddress.bind(_this);
+    _this.onSelectAddress = _this.onSelectAddress.bind(_this);
     return _this;
   }
+  _inheritsLoose(OrbitalLocationPicker, _Component);
   var _proto = OrbitalLocationPicker.prototype;
   _proto.getCity = function getCity(coordinates) {
     return new Promise(function (resolve, reject) {
