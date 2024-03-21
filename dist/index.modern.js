@@ -1234,9 +1234,7 @@ var it = {
 		bulletFormatListNone: "Nessuno"
 	}
 };
-var syncfusionLocalization = {
-	it: it,
-	"en-US": {
+var en = {
 	calendar: {
 		today: "Today"
 	},
@@ -1506,16 +1504,19 @@ var syncfusionLocalization = {
 		numberFormatListNone: "None",
 		bulletFormatListNone: "None"
 	}
-}
+};
+var syncfusionLocalization = {
+	it: it,
+	en: en
 };
 
 function getLocaleByLanguage(lang) {
   if (lang && lang === "It") {
     return "it";
   } else if (lang && lang === "En") {
-    return "en-US";
+    return "en";
   } else {
-    return "en-US";
+    return "en";
   }
 }
 function setSyncfusionLocalization(L10n, loadCldr) {
@@ -1529,8 +1530,8 @@ function setSyncfusionLocalizationV2(locale) {
     L10n.load(syncfusionLocalization[locale]);
   } catch (error) {
     console.error("Localization for '" + locale + "' not found. Falling back to English.");
-    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/en-US/ca-gregorian.json'), require('cldr-data/main/en-US/numbers.json'), require('cldr-data/main/en-US/timeZoneNames.json'), require('cldr-data/main/en-US/dateFields.json'));
-    L10n.load(syncfusionLocalization["en-US"]);
+    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/en/ca-gregorian.json'), require('cldr-data/main/en/numbers.json'), require('cldr-data/main/en/timeZoneNames.json'), require('cldr-data/main/en/dateFields.json'));
+    L10n.load(syncfusionLocalization["en"]);
   }
 }
 
@@ -1542,7 +1543,7 @@ var SyncfusionUtils = {
 };
 
 var lang = SessionStorageStore.getCurrentLang() || AuthStore.getDefautlLang() || "En";
-var en = {
+var en$1 = {
   noData: "No data",
   loading: "Loading",
   imageDimensionsConstraintsAtLeast: "Le dimensioni dell'immagine devono essere almeno",
@@ -1586,7 +1587,7 @@ var it$1 = {
 };
 var SingletonStrings = function SingletonStrings() {
   this.instance = new LocalizedStrings({
-    En: en,
+    En: en$1,
     It: it$1
   });
   return this.instance;
