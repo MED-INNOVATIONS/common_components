@@ -2097,16 +2097,18 @@ function DatePickerV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(DatePickerComponent, _extends({}, props, {
     enabled: isEnabled,
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     format: format || "dd/MM/yyyy"
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2127,15 +2129,17 @@ function DateTimePickerV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$1, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(DateTimePickerComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     format: format || "dd/MM/yyyy HH:mm"
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2155,15 +2159,17 @@ function RecurrenceEditorV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$2, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(RecurrenceEditorComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     dateFormat: dateFormat || "dd/MM/yyyy"
   })))));
 }
@@ -2211,7 +2217,7 @@ function SchedulerV2(props) {
   useEffect(function () {
     setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2630,10 +2636,12 @@ function HTMLEditor(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2688,7 +2696,7 @@ function HTMLEditor(props) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     ref: function ref(richtexteditor) {
       rteObj = richtexteditor;
     },

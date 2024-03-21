@@ -2101,16 +2101,18 @@ function DatePickerV2(props) {
   var _useState = React.useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = React.useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   React.useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DatePickerComponent, _extends({}, props, {
     enabled: isEnabled,
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     format: format || "dd/MM/yyyy"
   }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2131,15 +2133,17 @@ function DateTimePickerV2(props) {
   var _useState = React.useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = React.useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   React.useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$1, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactCalendars.DateTimePickerComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     format: format || "dd/MM/yyyy HH:mm"
   }))), isInvalid && /*#__PURE__*/React__default.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2159,15 +2163,17 @@ function RecurrenceEditorV2(props) {
   var _useState = React.useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = React.useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   React.useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(StyledDiv$2, {
     isInvalid: invalid
   }, /*#__PURE__*/React__default.createElement(ej2ReactSchedule.RecurrenceEditorComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     dateFormat: dateFormat || "dd/MM/yyyy"
   })))));
 }
@@ -2215,7 +2221,7 @@ function SchedulerV2(props) {
   React.useEffect(function () {
     setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   React.useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2634,10 +2640,12 @@ function HTMLEditor(props) {
   var _useState = React.useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
+  var _useState2 = React.useState(getLocaleByLanguage(language)),
+    locale = _useState2[0];
   React.useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
-  }, []);
+  }, [locale]);
   React.useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2692,7 +2700,7 @@ function HTMLEditor(props) {
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, initialization === true && /*#__PURE__*/React__default.createElement(ej2ReactRichtexteditor.RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     ref: function ref(richtexteditor) {
       rteObj = richtexteditor;
     },
