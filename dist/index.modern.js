@@ -1,10 +1,11 @@
 import axios from 'axios';
 import _$2 from 'lodash';
-import { loadCldr, L10n, createElement } from '@syncfusion/ej2-base';
+import { loadCldr, L10n } from '@syncfusion/ej2-schedule/node_modules/@syncfusion/ej2-base';
 import LocalizedStrings from 'react-localization';
 import React, { Component, useState, useEffect, useRef, forwardRef } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
+import { loadCldr as loadCldr$1, L10n as L10n$1, createElement } from '@syncfusion/ej2-base';
 import moment from 'moment';
 import styled from 'styled-components';
 import { renderToString } from 'react-dom/server';
@@ -1741,8 +1742,8 @@ var DatePicker$1 = /*#__PURE__*/function (_Component) {
   return DatePicker;
 }(Component);
 
-loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
-L10n.load({
+loadCldr$1(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
+L10n$1.load({
   "en-US": {
     "recurrenceeditor": {
       "none": "None",

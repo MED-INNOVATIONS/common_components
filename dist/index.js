@@ -2,12 +2,13 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var axios = _interopDefault(require('axios'));
 var _$2 = _interopDefault(require('lodash'));
-var ej2Base = require('@syncfusion/ej2-base');
+var ej2Base = require('@syncfusion/ej2-schedule/node_modules/@syncfusion/ej2-base');
 var LocalizedStrings = _interopDefault(require('react-localization'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ej2ReactCalendars = require('@syncfusion/ej2-react-calendars');
 var ej2ReactSchedule = require('@syncfusion/ej2-react-schedule');
+var ej2Base$1 = require('@syncfusion/ej2-base');
 var moment = _interopDefault(require('moment'));
 var styled = _interopDefault(require('styled-components'));
 var ReactDOMServer = require('react-dom/server');
@@ -1745,8 +1746,8 @@ var DatePicker$1 = /*#__PURE__*/function (_Component) {
   return DatePicker;
 }(React.Component);
 
-ej2Base.loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
-ej2Base.L10n.load({
+ej2Base$1.loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
+ej2Base$1.L10n.load({
   "en-US": {
     "recurrenceeditor": {
       "none": "None",
@@ -2364,7 +2365,7 @@ function SchedulerV2(props) {
         });
       }
       if (elementType === "monthCells" && _$2.indexOf(parseSlotDates, parsedCellDate) > -1) {
-        var ele = ej2Base.createElement('div');
+        var ele = ej2Base$1.createElement('div');
         ele.innerHTML = ReactDOMServer.renderToString( /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(reactFontawesome.FontAwesomeIcon, {
           icon: freeRegularSvgIcons.far[slotCountIcon] || freeSolidSvgIcons.fas[slotCountIcon] || freeRegularSvgIcons.faCalendar,
           style: {
