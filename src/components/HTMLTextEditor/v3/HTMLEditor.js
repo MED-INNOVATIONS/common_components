@@ -14,14 +14,15 @@ function HTMLEditor(props) {
     var rteObj;
 
     const [initialization, setInitialization] = useState(false);
+    const [locale, setLocale] = useState(SyncfusionUtils.getLocaleByLanguage(language));
 
     /*************************************************************************/
     /************************ STANDARD ***************************************/
     /*************************************************************************/
     useEffect(() => {
-        SyncfusionUtils.setSyncfusionLocalizationV2();
+        SyncfusionUtils.setSyncfusionLocalizationV2(locale);
         setInitialization(true);
-    }, [])
+    }, [locale])
 
     useEffect(() => {
         try {
@@ -95,7 +96,7 @@ function HTMLEditor(props) {
                 <RichTextEditorComponent
                     id="toolsRTE"
                     height={height}
-                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                    locale={locale}
                     ref={(richtexteditor) => { rteObj = richtexteditor; }}
                     enabled={isEnabled}
                     value={value}

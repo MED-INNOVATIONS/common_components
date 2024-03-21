@@ -27,7 +27,7 @@ function SchedulerV2(props) {
     useEffect(() => {
         SyncfusionUtils.setSyncfusionLocalizationV2(locale);
         setInitialization(true);
-    }, [])
+    }, [locale])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {

@@ -39,14 +39,15 @@ function DateTimePickerV2(props) {
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     const [initialization, setInitialization] = useState(false);
+    const [locale, setLocale] = useState(SyncfusionUtils.getLocaleByLanguage(language));
 
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
     useEffect(() => {
-        SyncfusionUtils.setSyncfusionLocalizationV2();
+        SyncfusionUtils.setSyncfusionLocalizationV2(locale);
         setInitialization(true);
-    }, [])
+    }, [locale])
 
     /*************************************************************************/
     /*************************** STANDARD ************************************/
@@ -59,7 +60,7 @@ function DateTimePickerV2(props) {
                         <DateTimePickerComponent
                             {...props}
                             firstDayOfWeek={firstDayOfWeek}
-                            locale={SyncfusionUtils.getLocaleByLanguage(language)}
+                            locale={locale}
                             format={format || "dd/MM/yyyy HH:mm"}>
                         </DateTimePickerComponent>
                     </StyledDiv>
