@@ -1,6 +1,6 @@
 import syncfusionLocalization from "./syncfusionLocalization.json";
 // import { L10n, loadCldr } from '@syncfusion/ej2-base';
-import { L10n, loadCldr } from '@syncfusion/ej2-schedule/node_modules/@syncfusion/ej2-base';
+import { L10n, loadCldr } from '@syncfusion/ej2-schedule';
 
 export function getLocaleByLanguage(lang) {
     if (lang && lang === "It") {
