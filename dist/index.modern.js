@@ -1,11 +1,10 @@
 import axios from 'axios';
 import _$2 from 'lodash';
-import { loadCldr, L10n } from '@syncfusion/ej2-schedule/node_modules/@syncfusion/ej2-base';
+import { loadCldr, L10n, createElement } from '@syncfusion/ej2-base';
 import LocalizedStrings from 'react-localization';
 import React, { Component, useState, useEffect, useRef, forwardRef } from 'react';
 import { DatePickerComponent, DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { RecurrenceEditorComponent, ScheduleComponent, ViewsDirective, ViewDirective, Inject, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
-import { loadCldr as loadCldr$1, L10n as L10n$1, createElement } from '@syncfusion/ej2-base';
 import moment from 'moment';
 import styled from 'styled-components';
 import { renderToString } from 'react-dom/server';
@@ -1524,9 +1523,15 @@ function setSyncfusionLocalization(L10n, loadCldr) {
     resolve();
   });
 }
-function setSyncfusionLocalizationV2() {
-  loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
-  L10n.load(syncfusionLocalization);
+function setSyncfusionLocalizationV2(locale) {
+  try {
+    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/' + locale + '/ca-gregorian.json'), require('cldr-data/main/' + locale + '/numbers.json'), require('cldr-data/main/' + locale + '/timeZoneNames.json'), require('cldr-data/main/' + locale + '/dateFields.json'));
+    L10n.load(syncfusionLocalization[locale]);
+  } catch (error) {
+    console.error("Localization for '" + locale + "' not found. Falling back to English.");
+    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/en-US/ca-gregorian.json'), require('cldr-data/main/en-US/numbers.json'), require('cldr-data/main/en-US/timeZoneNames.json'), require('cldr-data/main/en-US/dateFields.json'));
+    L10n.load(syncfusionLocalization["en-US"]);
+  }
 }
 
 var SyncfusionUtils = {
@@ -1742,8 +1747,8 @@ var DatePicker$1 = /*#__PURE__*/function (_Component) {
   return DatePicker;
 }(Component);
 
-loadCldr$1(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
-L10n$1.load({
+loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it-CH/ca-gregorian.json'), require('cldr-data/main/it-CH/numbers.json'), require('cldr-data/main/it-CH/timeZoneNames.json'), require('cldr-data/main/it-CH/dateFields.json'));
+L10n.load({
   "en-US": {
     "recurrenceeditor": {
       "none": "None",
@@ -2200,8 +2205,10 @@ function SchedulerV2(props) {
   var _useState3 = useState(false),
     initialization = _useState3[0],
     setInitialization = _useState3[1];
+  var _useState4 = useState(getLocaleByLanguage(language)),
+    locale = _useState4[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2();
+    setSyncfusionLocalizationV2(locale);
     setInitialization(true);
   }, []);
   useEffect(function () {
@@ -2385,7 +2392,7 @@ function SchedulerV2(props) {
     checkDatesCount(args);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(ScheduleComponent, {
-    locale: getLocaleByLanguage(language),
+    locale: locale,
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
