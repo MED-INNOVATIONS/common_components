@@ -3,12 +3,11 @@ import { L10n, loadCldr } from '@syncfusion/ej2-base';
 
 export function getLocaleByLanguage(lang) {
     if (lang && lang === "It") {
-
         return "it";
     } else if (lang && lang === "En") {
-        return "en-US";
+        return "en"; // Change "en-US" to "en"
     } else {
-        return "en-US";
+        return "en"; // Fallback to "en" for any other language or if lang is not provided
     }
 }
 
@@ -41,11 +40,11 @@ export function setSyncfusionLocalizationV2(locale) {
         console.error(`Localization for '${locale}' not found. Falling back to English.`);
         loadCldr(
             require('cldr-data/supplemental/numberingSystems.json'),
-            require('cldr-data/main/en-US/ca-gregorian.json'),
-            require('cldr-data/main/en-US/numbers.json'),
-            require('cldr-data/main/en-US/timeZoneNames.json'),
-            require('cldr-data/main/en-US/dateFields.json')
+            require('cldr-data/main/en/ca-gregorian.json'),
+            require('cldr-data/main/en/numbers.json'),
+            require('cldr-data/main/en/timeZoneNames.json'),
+            require('cldr-data/main/en/dateFields.json')
         );
-        L10n.load(syncfusionLocalization["en-US"]);
+        L10n.load(syncfusionLocalization["en"]);
     }
 }
