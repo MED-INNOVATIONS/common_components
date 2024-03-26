@@ -1514,9 +1514,9 @@ function getLocaleByLanguage(lang) {
   if (lang && lang === "It") {
     return "it";
   } else if (lang && lang === "En") {
-    return "en";
+    return "en-US";
   } else {
-    return "en";
+    return "en-US";
   }
 }
 function setSyncfusionLocalization(L10n, loadCldr) {
@@ -1524,15 +1524,9 @@ function setSyncfusionLocalization(L10n, loadCldr) {
     resolve();
   });
 }
-function setSyncfusionLocalizationV2(locale) {
-  try {
-    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/' + locale + '/ca-gregorian.json'), require('cldr-data/main/' + locale + '/numbers.json'), require('cldr-data/main/' + locale + '/timeZoneNames.json'), require('cldr-data/main/' + locale + '/dateFields.json'));
-    L10n.load(syncfusionLocalization[locale]);
-  } catch (error) {
-    console.error("Localization for '" + locale + "' not found. Falling back to English.");
-    loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/en/ca-gregorian.json'), require('cldr-data/main/en/numbers.json'), require('cldr-data/main/en/timeZoneNames.json'), require('cldr-data/main/en/dateFields.json'));
-    L10n.load(syncfusionLocalization["en"]);
-  }
+function setSyncfusionLocalizationV2() {
+  loadCldr(require('cldr-data/supplemental/numberingSystems.json'), require('cldr-data/main/it/ca-gregorian.json'), require('cldr-data/main/it/numbers.json'), require('cldr-data/main/it/timeZoneNames.json'), require('cldr-data/main/it/dateFields.json'));
+  L10n.load(syncfusionLocalization);
 }
 
 var SyncfusionUtils = {
@@ -2097,18 +2091,16 @@ function DatePickerV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
-  var _useState2 = useState(getLocaleByLanguage(language)),
-    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2(locale);
+    setSyncfusionLocalizationV2();
     setInitialization(true);
-  }, [locale]);
+  }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(DatePickerComponent, _extends({}, props, {
     enabled: isEnabled,
     firstDayOfWeek: firstDayOfWeek,
-    locale: locale,
+    locale: getLocaleByLanguage(language),
     format: format || "dd/MM/yyyy"
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2129,17 +2121,15 @@ function DateTimePickerV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
-  var _useState2 = useState(getLocaleByLanguage(language)),
-    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2(locale);
+    setSyncfusionLocalizationV2();
     setInitialization(true);
-  }, [locale]);
+  }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$1, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(DateTimePickerComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: locale,
+    locale: getLocaleByLanguage(language),
     format: format || "dd/MM/yyyy HH:mm"
   }))), isInvalid && /*#__PURE__*/React.createElement(OrbitalErrorDiv, null, errorMessage)));
 }
@@ -2159,17 +2149,15 @@ function RecurrenceEditorV2(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
-  var _useState2 = useState(getLocaleByLanguage(language)),
-    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2(locale);
+    setSyncfusionLocalizationV2();
     setInitialization(true);
-  }, [locale]);
+  }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StyledDiv$2, {
     isInvalid: invalid
   }, /*#__PURE__*/React.createElement(RecurrenceEditorComponent, _extends({}, props, {
     firstDayOfWeek: firstDayOfWeek,
-    locale: locale,
+    locale: getLocaleByLanguage(language),
     dateFormat: dateFormat || "dd/MM/yyyy"
   })))));
 }
@@ -2212,12 +2200,10 @@ function SchedulerV2(props) {
   var _useState3 = useState(false),
     initialization = _useState3[0],
     setInitialization = _useState3[1];
-  var _useState4 = useState(getLocaleByLanguage(language)),
-    locale = _useState4[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2(locale);
+    setSyncfusionLocalizationV2();
     setInitialization(true);
-  }, [locale]);
+  }, []);
   useEffect(function () {
     if (_$2.isEmpty(scheduleObj) === false) {
       scheduleObj.refresh();
@@ -2399,7 +2385,7 @@ function SchedulerV2(props) {
     checkDatesCount(args);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(ScheduleComponent, {
-    locale: locale,
+    locale: getLocaleByLanguage(language),
     ref: function ref(schedule) {
       scheduleObj = schedule;
     },
@@ -2636,12 +2622,10 @@ function HTMLEditor(props) {
   var _useState = useState(false),
     initialization = _useState[0],
     setInitialization = _useState[1];
-  var _useState2 = useState(getLocaleByLanguage(language)),
-    locale = _useState2[0];
   useEffect(function () {
-    setSyncfusionLocalizationV2(locale);
+    setSyncfusionLocalizationV2();
     setInitialization(true);
-  }, [locale]);
+  }, []);
   useEffect(function () {
     try {
       var element = document.getElementById("js-licensing");
@@ -2696,7 +2680,7 @@ function HTMLEditor(props) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, initialization === true && /*#__PURE__*/React.createElement(RichTextEditorComponent, {
     id: "toolsRTE",
     height: height,
-    locale: locale,
+    locale: getLocaleByLanguage(language),
     ref: function ref(richtexteditor) {
       rteObj = richtexteditor;
     },
