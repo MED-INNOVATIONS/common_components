@@ -19,15 +19,14 @@ function SchedulerV2(props) {
     const [currentView, setCurrentView] = useState(startingCurrentView || "Month");
 
     const [initialization, setInitialization] = useState(false);
-    const [locale, setLocale] = useState(SyncfusionUtils.getLocaleByLanguage(language));
 
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
     useEffect(() => {
-        SyncfusionUtils.setSyncfusionLocalizationV2(locale);
+        SyncfusionUtils.setSyncfusionLocalizationV2();
         setInitialization(true);
-    }, [locale])
+    }, [])
 
     useEffect(() => {
         if (_.isEmpty(scheduleObj) === false) {
@@ -233,7 +232,7 @@ function SchedulerV2(props) {
         <React.Fragment>
             {initialization === true &&
                 <ScheduleComponent
-                    locale={locale}
+                    locale={SyncfusionUtils.getLocaleByLanguage(language)}
                     ref={(schedule) => { scheduleObj = schedule }}
                     height={height}
                     firstDayOfWeek={firstDayOfWeek}

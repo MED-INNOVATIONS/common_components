@@ -37,15 +37,14 @@ function RecurrenceEditorV2(props) {
     var invalid = isInvalid === true || _.isEmpty(isInvalid) === false;
 
     const [initialization, setInitialization] = useState(false);
-    const [locale, setLocale] = useState(SyncfusionUtils.getLocaleByLanguage(language));
 
     /*************************************************************************/
     /*************************** STANDARD ************************************/
     /*************************************************************************/
     useEffect(() => {
-        SyncfusionUtils.setSyncfusionLocalizationV2(locale);
+        SyncfusionUtils.setSyncfusionLocalizationV2();
         setInitialization(true);
-    }, [locale])
+    }, [])
 
     /*************************************************************************/
     /***************************** RENDER ************************************/
@@ -58,7 +57,7 @@ function RecurrenceEditorV2(props) {
                         <RecurrenceEditorComponent
                             {...props}
                             firstDayOfWeek={firstDayOfWeek}
-                            locale={locale}
+                            locale={SyncfusionUtils.getLocaleByLanguage(language)}
                             dateFormat={dateFormat || "dd/MM/yyyy"}>
                         </RecurrenceEditorComponent>
                     </StyledDiv>
